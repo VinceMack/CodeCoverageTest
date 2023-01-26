@@ -43,12 +43,16 @@ def countfiles(dictfiles, lsttokens, repo):
                 sha = shaObject['sha']
                 # For each commit, use the GitHub commit API to extract the files touched by the commit
                 shaUrl = 'https://api.github.com/repos/' + repo + '/commits/' + sha
+                #print(shaUrl)
                 shaDetails, ct = github_auth(shaUrl, lsttokens, ct)
+                #print(shaDetails)
                 filesjson = shaDetails['files']
+                #print(filesjson)
                 for filenameObj in filesjson:
                     filename = filenameObj['filename']
-                    dictfiles[filename] = dictfiles.get(filename, 0) + 1
-                    print(filename)
+                    if filename.endswith(('.h', '.cpp', '.kt', '.java')):
+                        dictfiles[filename] = dictfiles.get(filename, 0) + 1
+                        print(filename)
             ipage += 1
     except:
         print("Error receiving data")
@@ -64,7 +68,7 @@ repo = 'scottyab/rootbeer'
 # Remember to empty the list when going to commit to GitHub.
 # Otherwise they will all be reverted and you will have to re-create them
 # I would advise to create more than one token for repos with heavy commits
-lstTokens = [""]
+lstTokens = []
 
 dictfiles = dict()
 countfiles(dictfiles, lstTokens, repo)
@@ -74,7 +78,7 @@ file = repo.split('/')[1]
 # change this to the path of your file
 fileOutput = 'data/file_' + file + '.csv'
 rows = ["Filename", "Touches"]
-fileCSV = open(fileOutput, 'w')
+fileCSV = open(fileOutput, 'w', newline = '')
 writer = csv.writer(fileCSV)
 writer.writerow(rows)
 
