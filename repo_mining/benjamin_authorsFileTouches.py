@@ -85,21 +85,23 @@ def graphTouches(touches, files):
             color = len(colors) - 1
         if max(authors[author][1]) > maxWeeks:
             maxWeeks = max(authors[author][1])
-        plt.scatter(authors[author][0], authors[author][1], c=colors[color], s=100)
+        plt.scatter(authors[author][0], authors[author][1], c=colors[color], s=100, label=author)
         color += 1
 
     plt.xticks(np.arange(0, len(files), 1.0))
     plt.yticks(np.arange(0, maxWeeks + 1, 1.0))
 
+    plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     plt.title('File Edits')
     plt.xlabel('File')
     plt.ylabel('Weeks Ago')
+    plt.tight_layout()
 
     plt.show()
 
 # GitHub repo
-# repo = 'TheBenKnee/CS-472-Senior-Design-Project'
-repo = 'scottyab/rootbeer'
+repo = 'TheBenKnee/CS-472-Senior-Design-Project'
+# repo = 'scottyab/rootbeer'
 # repo = 'Skyscanner/backpack' # This repo is commit heavy. It takes long to finish executing
 # repo = 'k9mail/k-9' # This repo is commit heavy. It takes long to finish executing
 # repo = 'mendhak/gpslogger'
