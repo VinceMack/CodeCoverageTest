@@ -8,7 +8,8 @@ import matplotlib.pyplot as plt
 def GraphTouches(touches, files):
     authors = {}
     colors = ['red', 'blue', 'orange', 'yellow', 'green', 'purple', 'pink', 'black', 'grey', 'brown', 
-                'gold', 'navy', 'lightsteelblue', 'magenta', 'rosybrown', 'lime', 'cyan']
+                'gold', 'navy', 'lightsteelblue', 'magenta', 'rosybrown', 'lime', 'cyan', 'lightgreen',
+                    'palevioletred', 'cornflowerblue', 'olive']
     for touch in touches:
         if not touch.author in authors:
             authors[touch.author] = [[], []]
@@ -25,13 +26,13 @@ def GraphTouches(touches, files):
         plt.scatter(authors[author][0], authors[author][1], c=colors[color], s=50, label=author)
         color += 1
 
-    plt.xticks(np.arange(0, len(files), 1.0))
+    plt.xticks(np.arange(0, len(files), 2.0))
     plt.yticks(np.arange(0, maxWeeks + 50, 50.0))
 
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     plt.title('File Edits')
     plt.xlabel('File')
-    plt.ylabel('Weeks Ago')
+    plt.ylabel('Weeks Since Today')
     plt.tight_layout()
 
     plt.show()
@@ -46,7 +47,7 @@ if __name__ == "__main__":
 
     touches = []
     files = []
-    srcFileExtensions = ['py', 'cpp', 'cxx', 'cc', '.java', 'kt', 'c', 'cc']
+    srcFileExtensions = ['py', 'cpp', 'cxx', 'cc', 'java', 'kt']
 
     ba.GetTouches(touches, files, lstTokens, repo, srcFileExtensions)
     GraphTouches(touches, files)

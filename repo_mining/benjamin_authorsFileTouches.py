@@ -30,7 +30,7 @@ def github_auth(url, lsttoken, ct):
 def GetTouches(touches, files, lsttokens, repo, srcFileExtensions):
     ipage = 1  # url page counter
     ct = 0  # token counter
-    today = (datetime.date.today() - datetime.timedelta(days=datetime.date.today().weekday()))
+    today = datetime.date.today()
 
     try:
     # loop though all the commit pages until the last returned empty page
@@ -57,8 +57,7 @@ def GetTouches(touches, files, lsttokens, repo, srcFileExtensions):
                     # Orders files into numbers
                     if not filename in files:
                         files.append(filename)
-                    editDateRaw = datetime.datetime.strptime(shaObject['commit']['author']['date'], '%Y-%m-%dT%H:%M:%SZ').date()
-                    editDate = (editDateRaw - datetime.timedelta(days=editDateRaw.weekday()))        
+                    editDate = datetime.datetime.strptime(shaObject['commit']['author']['date'], '%Y-%m-%dT%H:%M:%SZ').date()   
                     touches.append(Touch(shaObject['commit']['author']['name'], files.index(filename), (today - editDate).days / 7))
             ipage += 1
     except:
@@ -71,10 +70,11 @@ if __name__ == "__main__":
     # repo = 'TheBenKnee/CS-472-Senior-Design-Project'
     repo = 'scottyab/rootbeer'
 
-    lstTokens = ['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']
+    lstTokens = []
 
     touches = []
     files = []
-    srcFileExtensions = ['py', 'cpp', 'cxx', 'cc', '.java', 'kt']
+    srcFileExtensions = ['py', 'cpp', 'cxx', 'cc', 'java', 'kt']
 
     GetTouches(touches, files, lstTokens, repo, srcFileExtensions)
+    print(len(touches))
