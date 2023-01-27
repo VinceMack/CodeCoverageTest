@@ -28,31 +28,31 @@ def countfiles(dictfiles, lsttokens, repo):
     ipage = 1  # url page counter
     ct = 0  # token counter
 
-    # try:
+    try:
     # loop though all the commit pages until the last returned empty page
-    while True:
-        spage = str(ipage)
-        commitsUrl = 'https://api.github.com/repos/' + repo + '/commits?page=' + spage + '&per_page=100'
-        jsonCommits, ct = github_auth(commitsUrl, lsttokens, ct)
+        while True:
+            spage = str(ipage)
+            commitsUrl = 'https://api.github.com/repos/' + repo + '/commits?page=' + spage + '&per_page=100'
+            jsonCommits, ct = github_auth(commitsUrl, lsttokens, ct)
 
-        # break out of the while loop if there are no more commits in the pages
-        if len(jsonCommits) == 0:
-            break
-        # iterate through the list of commits in  spage
-        for shaObject in jsonCommits:
-            sha = shaObject['sha']
-            # For each commit, use the GitHub commit API to extract the files touched by the commit
-            shaUrl = 'https://api.github.com/repos/' + repo + '/commits/' + sha
-            shaDetails, ct = github_auth(shaUrl, lsttokens, ct)
-            filesjson = shaDetails['files']
-            for filenameObj in filesjson:
-                filename = filenameObj['filename']
-                dictfiles[filename] = dictfiles.get(filename, 0) + 1
-                print(filename)
-        ipage += 1
-    # except:
-    #     print("Error receiving data")
-    #     exit(0)
+            # break out of the while loop if there are no more commits in the pages
+            if len(jsonCommits) == 0:
+                break
+            # iterate through the list of commits in  spage
+            for shaObject in jsonCommits:
+                sha = shaObject['sha']
+                # For each commit, use the GitHub commit API to extract the files touched by the commit
+                shaUrl = 'https://api.github.com/repos/' + repo + '/commits/' + sha
+                shaDetails, ct = github_auth(shaUrl, lsttokens, ct)
+                filesjson = shaDetails['files']
+                for filenameObj in filesjson:
+                    filename = filenameObj['filename']
+                    dictfiles[filename] = dictfiles.get(filename, 0) + 1
+                    print(filename)
+            ipage += 1
+    except:
+        print("Error receiving data")
+        exit(0)
 # GitHub repo
 repo = 'TheBenKnee/CS-472-Senior-Design-Project'
 # repo = 'scottyab/rootbeer'
