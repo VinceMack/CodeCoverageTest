@@ -72,13 +72,13 @@ repo = 'scottyab/rootbeer'
 # Remember to empty the list when going to commit to GitHub.
 # Otherwise they will all be reverted and you will have to re-create them
 # I would advise to create more than one token for repos with heavy commits
-lstTokens = []
+lstTokens = ['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']
 
 dictfiles = dict()
 filenums = dict()
 filenum = 0
 
-filename = 'data/file_rootbeer.csv'
+filename = 'data/jr_file_rootbeer.csv'
 files = []
 
 with open(filename, 'r') as csvfile:
@@ -96,7 +96,7 @@ countfiles(dictfiles, allTouches, lstTokens, repo)
 
 file = 'authors' + repo.split('/')[1]
 # change this to the path of your file
-fileOutput = 'data/file_' + file + '.csv'
+fileOutput = 'data/jr_file_' + file + '.csv'
 
 fileCSV = open(fileOutput, 'w', newline = '')
 writer = csv.writer(fileCSV)

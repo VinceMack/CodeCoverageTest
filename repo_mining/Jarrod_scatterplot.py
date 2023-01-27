@@ -6,7 +6,7 @@ from datetime import date
 authorid = dict()
 authorNum = 0
 
-filename = 'data/file_authorsrootbeer.csv'
+filename = 'data/jr_file_authorsrootbeer.csv'
 files = []
 
 authors = []
