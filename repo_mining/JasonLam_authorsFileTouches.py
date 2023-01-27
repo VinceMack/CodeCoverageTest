@@ -50,12 +50,11 @@ def countfiles(dictfiles, touchCount, lsttokens, repo):
                 lastaccessdate = authorjson['author']['date']
                 for filenameObj in filesjson:
                     filename = filenameObj['filename']
-                    for x in files:
-                        if x.endswith((".py", ".java", ".cpp", ".h")):
+                    for x in fileArray:
+                        if filename.endswith((".py", ".java", ".cpp", ".h")):
                             if filename == x:
-                                print(accessdate)
-                                date = accessdate.split('T')
-                                commitMeta = [authorname, str(filenums.get(x)), date[0]]
+                                date = lastaccessdate.split('T')
+                                commitMeta = [authornames, str(fileIDs.get(x)), date[0]]
                                 touchCount.append(commitMeta)
             ipage += 1
     except:
@@ -93,9 +92,9 @@ for file in fileArray:
 countfiles(dictfiles,touchCount, lstTokens, repo)
 
 file = repo.split('/')[1]
-fileOutput = 'data/file_' + file + '.csv'
+fileOutput = 'data/file_' + file + 'Touches.csv'
 
-fileCSV = open(fileOutput, 'w', newline = '')
+fileCSV = open(fileOutput, 'w', newline = '\n')
 writer = csv.writer(fileCSV)
 rows = ["Author", "File ID", "Date"]
 writer.writerow(rows)
