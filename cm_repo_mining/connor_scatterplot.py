@@ -52,12 +52,12 @@ for f in files:
         commitList[f][i].timestamp = commitList[f][i].timestamp-earliestCommit
 
 # assign a color to every author
-cmap = cm.get_cmap('gist_rainbow')
+cmap = cm.get_cmap('nipy_spectral')
 cindex = 0
 for a in authorColors:
     authorColors[a] = cmap(cindex)
     cindex = cindex+ int(256/len(authorColors))
-
+#print(authorColors)
 
 # create three arrays to form the axes and colors
 timestamps = []

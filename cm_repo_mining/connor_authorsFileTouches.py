@@ -33,7 +33,7 @@ class commit:
         
 commitList = []
 
-srcFileExtensions = ['.cpp', '.java', '.h'""", '.kt'"""]
+srcFileExtensions = ['.cpp', '.java', '.kt']
 
 # @lstTokens, GitHub authentication tokens
 # @repo, GitHub repo
