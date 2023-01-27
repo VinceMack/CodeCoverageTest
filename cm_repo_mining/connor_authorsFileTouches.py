@@ -33,7 +33,7 @@ class commit:
         
 commitList = []
 
-srcFileExtensions = ['.cpp', '.java', '.h', '.kt' '.gradle', '.xml']
+srcFileExtensions = ['.cpp', '.java', '.h'""", '.kt'"""]
 
 # @lstTokens, GitHub authentication tokens
 # @repo, GitHub repo
@@ -58,8 +58,8 @@ def countfiles(lsttokens, repo):
                 shaUrl = 'https://api.github.com/repos/' + repo + '/commits/' + sha
                 shaDetails, ct = github_auth(shaUrl, lsttokens, ct)
                 filesjson = shaDetails['files']
-                #for i in shaDetails:
-                #    print(i)
+                
+                
                 author = "unknown author"
                 timestamp = shaDetails['commit']['author']['date']
                 print(timestamp)
@@ -84,10 +84,6 @@ def countfiles(lsttokens, repo):
                     
                     
                     
-                    
-                    
-                    
-                    #dictfiles[filename] = dictfiles.get(filename, 0) + 1
                 print('\n')
             ipage += 1
     except:
@@ -108,31 +104,17 @@ lstTokens = ["0",
                 "0",
                 "0"]
 
-#dictfiles = dict()
 countfiles(lstTokens, repo)
-#print('Total number of files: ' + str(len(dictfiles)))
 
 file = repo.split('/')[1]
 # change this to the path of your file
 fileOutput = 'data/file_' + file + '.csv'
-rows = ["Filename", "Timestamp", "Author"]
+#rows = ["Filename", "Timestamp", "Author"]
 fileCSV = open(fileOutput, 'w')
 writer = csv.writer(fileCSV)
-writer.writerow(rows)
+#writer.writerow(rows)
 
 for com in commitList:
     writer.writerow([com.filename, com.timestamp, com.author])
 
 print("Done! Data is in " + fileOutput)
-"""
-bigcount = None
-bigfilename = None
-for filename, count in dictfiles.items():
-    rows = [filename, count]
-    writer.writerow(rows)
-    if bigcount is None or count > bigcount:
-        bigcount = count
-        bigfilename = filename
-fileCSV.close()
-print('The file ' + bigfilename + ' has been touched ' + str(bigcount) + ' times.')
-"""
