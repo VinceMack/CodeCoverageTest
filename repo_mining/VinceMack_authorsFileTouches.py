@@ -134,7 +134,7 @@ def graphCommitData(commitsData, files):
 repo = 'scottyab/rootbeer'
 
 # GitHub API Token
-lstTokens = ["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"]
+lstTokens = [""]
 
 # - - - - -
 
