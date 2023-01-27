@@ -82,7 +82,7 @@ def countfiles(lsttokens, repo, authorArr):
         exit(0)
     
 repo = 'scottyab/rootbeer'
-lstTokens = ["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"]
+lstTokens = [""]
 authorArr = []
 startDate, numAuthors = countfiles(lstTokens, repo, authorArr)
 
