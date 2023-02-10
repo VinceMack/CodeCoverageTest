@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 737925628}
   - component: {fileID: 737925627}
   m_Layer: 0
-  m_Name: YoMama
+  m_Name: TestCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
