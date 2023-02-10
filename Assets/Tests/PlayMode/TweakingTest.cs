@@ -19,7 +19,7 @@ namespace Tests
 		[UnityTest]
 		public IEnumerator RuntimeTest () 
 		{
-			GameObject ob = GameObject.Find("YoMama");
+			GameObject ob = GameObject.Find("TestCharacter");
 			yield return null;
 			Assert.AreEqual(2, ob.transform.position.x);
 		}
