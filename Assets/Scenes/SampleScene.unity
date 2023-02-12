@@ -159,7 +159,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.13194233, g: 0.4433962, b: 0.13134566, a: 0}
+  m_BackGroundColor: {r: 0.39993107, g: 0.5660378, b: 0.39782843, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -220,7 +220,7 @@ GameObject:
   - component: {fileID: 737925628}
   - component: {fileID: 737925627}
   m_Layer: 0
-  m_Name: YoMama
+  m_Name: TestCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
