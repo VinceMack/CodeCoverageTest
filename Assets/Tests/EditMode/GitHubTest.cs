@@ -7,7 +7,7 @@ namespace Tests {
 
 		[Test]
 		public void EditmodeTestScripExampleSimplePasses () {
-            Assert.AreNotEqual(2, 2);
+            Assert.AreNotEqual(1, 2);
             //Test
 		}
 
