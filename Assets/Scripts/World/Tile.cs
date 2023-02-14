@@ -15,18 +15,6 @@ public class Tile : MonoBehaviour
         this.y = y;
         this.z = z;
         this.isNavigable = navigable;
-        if(!navigable)
-        {
-            gameObject.GetComponent<SpriteRenderer>().color = Color.red;
-            var boxColliders = this.GetComponents<BoxCollider2D>();
-            foreach(BoxCollider2D boxCollider in boxColliders)
-            {
-                if(!boxCollider.isTrigger)
-                {
-                    boxCollider.enabled = true;
-                }
-            }
-        }
     }
 
     // Method returns a list of tiles neighboring the current tile
