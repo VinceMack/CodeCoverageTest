@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1349.3334
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Scene
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 70
+  controlID: 101
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 71
+  controlID: 102
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 72
+  controlID: 32
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 73
+  controlID: 33
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -301,7 +301,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 124
+  controlID: 103
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -321,8 +321,8 @@ MonoBehaviour:
     y: 0
     width: 581.3334
     height: 830
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 23}
   m_Panes:
   - {fileID: 23}
@@ -347,8 +347,8 @@ MonoBehaviour:
     y: 830
     width: 581.3334
     height: 469.33337
-  m_MinSize: {x: 101, y: 121}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 24}
   m_Panes:
   - {fileID: 24}
@@ -408,9 +408,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: fe830000
-    m_LastClickedID: 33790
-    m_ExpandedIDs: 00000000346100003661000056610000fe830000
+    m_SelectedIDs: 6a610000
+    m_LastClickedID: 24938
+    m_ExpandedIDs: 000000004a6100004c6100004e610000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -438,7 +438,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000003461000036610000
+    m_ExpandedIDs: 000000004a6100004c6100004e610000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -465,7 +465,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000c0780000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -527,21 +527,21 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 1afbffff
+      m_ExpandedIDs: e4edffff2eeefffffcf2ffff4cf4ffff96f4ffff80f9fffff2f9ffff1afbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: TestCharacter
+        m_OriginalName: TestCharacter
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: 33130
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 9}
       m_SearchString: 
@@ -1243,7 +1243,7 @@ MonoBehaviour:
     m_LastAppliedPresetName: Default
     m_SaveData: []
   m_Spl:
-    ID: 129
+    ID: 199
     splitterInitialOffset: 0
     currentActiveSplitter: -1
     realSizes:
@@ -1266,16 +1266,16 @@ MonoBehaviour:
     oldMinSizes: 
     oldMaxSizes: 
     oldSplitSize: 0
-  m_TestTypeToolbarIndex: 1
+  m_TestTypeToolbarIndex: 0
   m_PlayModeTestListGUI:
     m_Window: {fileID: 24}
     m_NewResultList:
-    - id: 1000
-      uniqueId: '[My project][suite]'
-      name: My project
-      fullName: My project
+    - id: 1010
+      uniqueId: '[ColonySurvivalSim][suite]'
+      name: ColonySurvivalSim
+      fullName: ColonySurvivalSim
       resultStatus: 1
-      duration: 0.4255125
+      duration: 0.4633746
       messages: 
       output: 
       stacktrace: 
@@ -1291,7 +1291,7 @@ MonoBehaviour:
       name: PlayMode.dll
       fullName: C:/Users/benny/Documents/GitHub/CS-472-Senior-Design-Project/Library/ScriptAssemblies/PlayMode.dll
       resultStatus: 1
-      duration: 0.0945492
+      duration: 0.1182972
       messages: 
       output: 
       stacktrace: 
@@ -1307,7 +1307,7 @@ MonoBehaviour:
       name: Tests
       fullName: Tests
       resultStatus: 1
-      duration: 0.0870114
+      duration: 0.0988964
       messages: 
       output: 
       stacktrace: 
@@ -1323,7 +1323,7 @@ MonoBehaviour:
       name: TweakingTest
       fullName: Tests.TweakingTest
       resultStatus: 1
-      duration: 0.0824602
+      duration: 0.093877
       messages: 
       output: 
       stacktrace: 
@@ -1339,7 +1339,7 @@ MonoBehaviour:
       name: RuntimeTest
       fullName: Tests.TweakingTest.RuntimeTest
       resultStatus: 1
-      duration: 0.0659017
+      duration: 0.0770985
       messages: 
       output: 
       stacktrace: 
@@ -1351,13 +1351,13 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1001
       parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.TweakingTest][suite]
-    m_ResultText: RuntimeTest (0.066s)
+    m_ResultText: RuntimeTest (0.077s)
     m_ResultStacktrace: 
     m_TestListState:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 8f7e5297
       m_LastClickedID: -1756201329
-      m_ExpandedIDs: 36201eb29f5c62b603fe4433bc805a6dffffff7f
+      m_ExpandedIDs: 36201eb29f5c62b699847cff03fe4433bc805a6dffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1391,8 +1391,8 @@ MonoBehaviour:
       uniqueId: '[ColonySurvivalSim][suite]'
       name: ColonySurvivalSim
       fullName: ColonySurvivalSim
-      resultStatus: 0
-      duration: 0
+      resultStatus: 1
+      duration: 0.0683133
       messages: 
       output: 
       stacktrace: 
@@ -1408,7 +1408,7 @@ MonoBehaviour:
       name: EditMode.dll
       fullName: C:/Users/benny/Documents/GitHub/CS-472-Senior-Design-Project/Library/ScriptAssemblies/EditMode.dll
       resultStatus: 1
-      duration: 0.0150172
+      duration: 0.0305227
       messages: 
       output: 
       stacktrace: 
@@ -1424,7 +1424,7 @@ MonoBehaviour:
       name: Tests
       fullName: Tests
       resultStatus: 1
-      duration: 0.01342
+      duration: 0.0297757
       messages: 
       output: 
       stacktrace: 
@@ -1440,7 +1440,7 @@ MonoBehaviour:
       name: GitHubTest
       fullName: Tests.GitHubTest
       resultStatus: 1
-      duration: 0.0103836
+      duration: 0.028614
       messages: 
       output: 
       stacktrace: 
@@ -1456,7 +1456,7 @@ MonoBehaviour:
       name: EditmodeTestScripExampleSimplePasses
       fullName: Tests.GitHubTest.EditmodeTestScripExampleSimplePasses
       resultStatus: 1
-      duration: 0.0089078
+      duration: 0.0141413
       messages: 
       output: 
       stacktrace: 
@@ -1485,12 +1485,12 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1007
       parentUniqueId: EditMode.dll/Tests/[EditMode][Tests.GitHubTest][suite]
-    m_ResultText: EditmodeTestScriptExampleWithEnumeratorPasses (0.015s)
+    m_ResultText: EditmodeTestScripExampleSimplePasses (0.014s)
     m_ResultStacktrace: 
     m_TestListState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 0825810b
-      m_LastClickedID: 193013000
+      m_SelectedIDs: c4040a09
+      m_LastClickedID: 151651524
       m_ExpandedIDs: 3cdc509efba634d099847cff03fe44334b5ea47cffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0

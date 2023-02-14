@@ -21,7 +21,7 @@ namespace Tests
 		{
 			GameObject ob = GameObject.Find("TestCharacter");
 			yield return null;
-			Assert.AreEqual(2, ob.transform.position.x);
+			Assert.AreEqual(0, ob.transform.position.z);
 		}
 
 	}
