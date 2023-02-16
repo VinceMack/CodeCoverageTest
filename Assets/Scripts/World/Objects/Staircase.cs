@@ -63,9 +63,10 @@ public class Staircase : PlacedObject
             this.destiniationLayer = destinationTile.GetLayer();
         }
 
-        myStats.x = (int)location.transform.position.x;
-        myStats.y = (int)location.transform.position.y;
-        myStats.z = (int)location.transform.position.z;
+        myStats.x = location.GetXYLocation().Item1;
+        myStats.y = location.GetXYLocation().Item2;
+        myStats.z = location.GetLayer().GetLayerNumber();
+        myStats.isDownward = downward;
         myStats.guid = Id;
 
         // Signal successful placement
@@ -88,5 +89,12 @@ public class Staircase : PlacedObject
     public override void SaveMyData()
     {
         SaveData<BaseStats>(myStats);
+    }
+
+    public override void LoadMyData()
+    {
+        myStats = LoadData<BaseStats>();
+        Map myMap = FindObjectOfType<Map>();
+        PlaceObject(myMap.GetTile(myStats.x, myStats.y, myStats.z), myStats.isDownward);
     }
 }

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
 [CreateAssetMenu(fileName = "EntityDictionary", menuName = "ScriptableObjects/EntityDictionary", order = 1)]
 public class EntityDictionary : ScriptableObject
 {
@@ -10,7 +9,7 @@ public class EntityDictionary : ScriptableObject
     public Dictionary<string, GameObject> entityDictionary = new Dictionary<string, GameObject>();
     public PrefabList prefabList;
 
-    public GameObject InstanitateEntity(string prefabName, string guid = string.Empty, Vector3 position = new Vector3(), Vector3 rotation = new Vector3())
+    public GameObject InstanitateEntity(string prefabName, string guid = "", Vector3 position = new Vector3(), Vector3 rotation = new Vector3())
     {
         GameObject toClone = prefabList.prefabDictionary[prefabName].prefab;
 
@@ -25,6 +24,7 @@ public class EntityDictionary : ScriptableObject
         {
             saveEntity.GenerateId(guid);
             entityDictionary.Add(saveEntity.Id, clone);
+            saveEntity.SetPrefabName(prefabName);
         }
         return clone;
     }

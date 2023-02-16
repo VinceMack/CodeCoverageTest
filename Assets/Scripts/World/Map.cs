@@ -52,21 +52,7 @@ public class Map : MonoBehaviour
     [ContextMenu("RaiseZAxis")]
     public void SwitchZAxis()
     {
-        Transform tmpBacker = new GameObject().transform;
-        for(int i = 0; i < transform.childCount; i++)
-        {
-            Transform child = transform.GetChild(i);
-            if(child.position.z == 0)
-            {
-                tmpBacker = child;
-                child.position = new Vector3(child.position.x, child.position.y, worldDepth);
-            }
-            else
-            {
-                child.position = new Vector3(child.position.x, child.position.y, child.position.z - 1);
-            }
-        }
-        tmpBacker.position = new Vector3(tmpBacker.position.x, tmpBacker.position.y, tmpBacker.position.z - 1);
+        //Move camera Constants.LAYER_X_SEPERATION and Constants.LAYER_Y_SEPERATION positive (down) or negative (up)
     }
 
     public void SpawnWorld(int length, int height, int depth, Vector3 origin)

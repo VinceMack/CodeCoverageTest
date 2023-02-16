@@ -6,19 +6,20 @@ public class BaseNPC : SaveableEntity
 {
     public NPCStats stats = new NPCStats();
 
-    public override void SaveData<T>(T stats)
+    public NPCStats GetNPCStats()
     {
-        base.SaveData<NPCStats>(this.stats);
-    }
-
-    public override T LoadData<T>()
-    {
-        this.stats = base.LoadData<NPCStats>();
-        return base.LoadData<T>();
+        return stats;
     }
 
     public override void SaveMyData()
     {
         SaveData<NPCStats>(stats);
+    }
+
+    public override void LoadMyData()
+    {
+        stats = LoadData<NPCStats>();
+        // Do whatever we want with stats
+        // I.e. change transform.position, update any components, etc.
     }
 }

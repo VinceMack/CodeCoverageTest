@@ -12,54 +12,54 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [Header("Location of Health Values")]
-    [SerializeField] protected NPCStats stats;
+    [SerializeField] protected BaseNPC npc;
 
     private void Awake() 
     {
-        stats = GetComponent<NPCStats>();
+        npc = GetComponent<BaseNPC>();
     }
 
     public int GetCurrentHealth()
     {
-        return stats.currentHealth;
+        return npc.GetNPCStats().currentHealth;
     }
 
     public void SetUpHealth(int amount)
     {
-        stats.currentHealth = amount;
-        stats.maxHealth = amount;
+        npc.GetNPCStats().currentHealth = amount;
+        npc.GetNPCStats().maxHealth = amount;
     }
 
     public void SetHealth(int amount)
     {
-        stats.currentHealth = amount;
+        npc.GetNPCStats().currentHealth = amount;
     }
 
     public virtual void Damage(int damage)
     {
-        stats.currentHealth -= damage;
-        if (stats.currentHealth <= 0)
+        npc.GetNPCStats().currentHealth -= damage;
+        if (npc.GetNPCStats().currentHealth <= 0)
         {
-            stats.currentHealth = 0;
+            npc.GetNPCStats().currentHealth = 0;
         }
     }
 
     public virtual void Heal(int amount)
     {
-        stats.currentHealth += amount;
-        if (stats.currentHealth > stats.maxHealth)
+        npc.GetNPCStats().currentHealth += amount;
+        if (npc.GetNPCStats().currentHealth > npc.GetNPCStats().maxHealth)
         {
-            stats.currentHealth = stats.maxHealth;
+            npc.GetNPCStats().currentHealth = npc.GetNPCStats().maxHealth;
         }
     }
 
     public void Kill()
     {
-        stats.currentHealth = 0;
+        npc.GetNPCStats().currentHealth = 0;
     }
 
     public virtual void FullHeal()
     {
-        stats.currentHealth = stats.maxHealth;
+        npc.GetNPCStats().currentHealth = npc.GetNPCStats().maxHealth;
     }
 }

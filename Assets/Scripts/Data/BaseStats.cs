@@ -11,4 +11,6 @@ public class BaseStats : IStats
     public int x;
     public int y;
     public int z;
+
+    public bool isDownward; //Move this to its own 'StaircaseStats.cs'
 }

@@ -16,7 +16,7 @@ public class PrefabList : ScriptableObject
         {
             if(prefabDictionary.ContainsKey(entity.entityName))
             {
-                Debug.LogError("ERROR: Do not create multiple SpawnableEntitys with the same entityName.");
+                Debug.LogError("ERROR: Do not create multiple 'SpawnableEntity's with the same entityName.");
                 break;
             }
             if(!entity.prefab.GetComponent<SaveableEntity>())

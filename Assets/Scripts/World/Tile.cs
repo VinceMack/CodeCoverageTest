@@ -20,6 +20,11 @@ public class Tile : MonoBehaviour
         this.isNavigable = navigable;
     }
 
+    public (int, int) GetXYLocation()
+    {
+        return (x, y);
+    } 
+
     public void AddObjectToTile(PlacedObject newObject)
     {
         objectsOnTile.Add(newObject);

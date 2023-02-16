@@ -8,7 +8,7 @@ using System.IO;
 public class SaveableEntity : MonoBehaviour
 {
     protected IStats myStats;
-
+    private string prefabName;
     [SerializeField] private string id = string.Empty;
     public string Id => id;
 
@@ -16,7 +16,17 @@ public class SaveableEntity : MonoBehaviour
 
     [SerializeField] private Tile currentLocation;
 
-    public void GenerateId(string premadeGUID = string.Empty)
+    public void SetPrefabName(string prefabName)
+    {
+        this.prefabName = prefabName;
+    }
+
+    public string GetPrefabName()
+    {
+        return prefabName;
+    }
+
+    public void GenerateId(string premadeGUID = "")
     {
         if(id == string.Empty)
         {
@@ -71,5 +81,10 @@ public class SaveableEntity : MonoBehaviour
     public virtual void SaveMyData()
     {
         SaveData<IStats>(myStats);
+    }
+
+    public virtual void LoadMyData()
+    {
+        myStats = LoadData<IStats>();
     }
 }

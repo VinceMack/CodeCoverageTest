@@ -7,13 +7,12 @@ using System.IO;
 public class SaveSystemManager : MonoBehaviour
 {
     private EntityDictionary entityDictionary;
-    private
+    private EntityDictionaryStats entityStats = new EntityDictionaryStats();
     private IDataService DataService = new JsonDataService();
 
     [ContextMenu("Save")]
     public void Save(int saveSlot)
     {
-
         entityDictionary = GlobalInstance.Instance.entityDictionary;
         foreach(KeyValuePair<string, GameObject> kvp in entityDictionary.entityDictionary)
         {
@@ -25,24 +24,28 @@ public class SaveSystemManager : MonoBehaviour
                 Debug.Log(currentEntity.GetType());
                 currentEntity.SaveMyData();
             }
+
+            entityStats.entitiesInScene.Add(currentEntity.Id, currentEntity.GetPrefabName());
         }
-        foreach(Key)
-        SaveData<EntityDictionaryStats>(entityDictionary, 1);
+        SaveData<EntityDictionaryStats>(entityStats, 1);
     }
 
     [ContextMenu("Load")]
     public void Load()
     {
+        entityDictionary = GlobalInstance.Instance.entityDictionary;
         EntityDictionaryStats entity = LoadData<EntityDictionaryStats>(1);
-        foreach(KeyValuePair<string, GameObject> kvp in entity.entitiesInScene)
+        foreach(KeyValuePair<string, string> kvp in entity.entitiesInScene)
         {
-            Debug.Log(kvp.Value.name);
+            GameObject loadedEntity = entityDictionary.InstanitateEntity(kvp.Value, kvp.Key);
+            SaveableEntity saveableComp = loadedEntity.GetComponent<SaveableEntity>();
+            saveableComp.LoadMyData();
         }
     }
 
     public virtual void SaveData<T>(T stats, int saveNumber)
     {
-        if(!DataService.SaveData($"/Save-{saveNumber}", stats, Constants.ENCRYPT_SAVE_DATA))
+        if(!DataService.SaveData($"/Save-{saveNumber}.json", stats, Constants.ENCRYPT_SAVE_DATA))
         {
             Debug.LogError($"Could not save Save-{saveNumber}!");
         }

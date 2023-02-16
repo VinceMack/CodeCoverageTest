@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AnimatorController))]
+[RequireComponent(typeof(StateMachine))]
 public class ControlledMovement : Movement
 {
     private Vector3 change;
