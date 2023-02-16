@@ -30,6 +30,11 @@ public class Tile : MonoBehaviour
         objectsOnTile.Add(newObject);
     }
 
+    public List<PlacedObject> GetObjectsOnTile()
+    {
+        return objectsOnTile;
+    }
+
     public Layer GetLayer()
     {
         return layer;

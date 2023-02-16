@@ -1173,7 +1173,7 @@ GameObject:
   - component: {fileID: 1376950206}
   - component: {fileID: 1376950208}
   m_Layer: 5
-  m_Name: Save System Background
+  m_Name: Save System Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
