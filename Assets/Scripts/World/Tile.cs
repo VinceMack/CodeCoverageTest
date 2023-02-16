@@ -5,16 +5,52 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     private Map map;
+    private Layer layer;
     private int x, y, z;
     private bool isNavigable = true;
+    private List<PlacedObject> objectsOnTile = new List<PlacedObject>();
     
-    public virtual void InitializeTile(Map map, int x, int y, int z, bool navigable)
+    public virtual void InitializeTile(Map map, Layer layer, int x, int y, int z, bool navigable)
     {
         this.map = map;
+        this.layer = layer;
         this.x = x;
         this.y = y;
         this.z = z;
         this.isNavigable = navigable;
+    }
+
+    public void AddObjectToTile(PlacedObject newObject)
+    {
+        objectsOnTile.Add(newObject);
+    }
+
+    public Layer GetLayer()
+    {
+        return layer;
+    }
+
+    public bool GetIsNavigable()
+    {
+        return isNavigable;
+    }
+
+    public Tile GetNavigableNeighbor()
+    {
+        List<Tile> neighbors = GetNeighbors(true, false);
+        foreach(Tile neighbor in neighbors)
+        {
+            if(neighbor == null)
+            {
+                continue;
+            }
+            
+            if(neighbor.GetIsNavigable())
+            {
+                return neighbor;
+            }
+        }
+        return null;
     }
 
     // Method returns a list of tiles neighboring the current tile
@@ -23,17 +59,17 @@ public class Tile : MonoBehaviour
     public List<Tile> GetNeighbors(bool diagonals = false, bool vertical = false)
     {
         List<Tile> neighbors = new List<Tile>();
-        neighbors.Add(map.GetTile(x, y+1, z));
-        neighbors.Add(map.GetTile(x+1, y, z));
         neighbors.Add(map.GetTile(x, y-1, z));
+        neighbors.Add(map.GetTile(x+1, y, z));
+        neighbors.Add(map.GetTile(x, y+1, z));
         neighbors.Add(map.GetTile(x-1, y, z));
 
         if(diagonals)
         {
-            neighbors.Add(map.GetTile(x+1, y+1, z));
-            neighbors.Add(map.GetTile(x-1, y+1, z));
-            neighbors.Add(map.GetTile(x-1, y-1, z));
             neighbors.Add(map.GetTile(x+1, y-1, z));
+            neighbors.Add(map.GetTile(x-1, y-1, z));
+            neighbors.Add(map.GetTile(x-1, y+1, z));
+            neighbors.Add(map.GetTile(x+1, y+1, z));
         }
 
         if(vertical)
@@ -41,31 +77,51 @@ public class Tile : MonoBehaviour
             neighbors.Add(map.GetTile(x, y, z+1));
             if(diagonals)
             {
-                neighbors.Add(map.GetTile(x, y+1, z+1));
-                neighbors.Add(map.GetTile(x+1, y, z+1));
                 neighbors.Add(map.GetTile(x, y-1, z+1));
+                neighbors.Add(map.GetTile(x+1, y, z+1));
+                neighbors.Add(map.GetTile(x, y+1, z+1));
                 neighbors.Add(map.GetTile(x-1, y, z+1));
-                neighbors.Add(map.GetTile(x+1, y+1, z+1));
-                neighbors.Add(map.GetTile(x-1, y+1, z+1));
-                neighbors.Add(map.GetTile(x-1, y-1, z+1));
                 neighbors.Add(map.GetTile(x+1, y-1, z+1));
+                neighbors.Add(map.GetTile(x-1, y-1, z+1));
+                neighbors.Add(map.GetTile(x-1, y+1, z+1));
+                neighbors.Add(map.GetTile(x+1, y+1, z+1));
             }
 
             neighbors.Add(map.GetTile(x, y, z-1));
             if(diagonals)
             {
-                neighbors.Add(map.GetTile(x, y+1, z-1));
-                neighbors.Add(map.GetTile(x+1, y, z-1));
                 neighbors.Add(map.GetTile(x, y-1, z-1));
+                neighbors.Add(map.GetTile(x+1, y, z-1));
+                neighbors.Add(map.GetTile(x, y+1, z-1));
                 neighbors.Add(map.GetTile(x-1, y, z-1));
-                neighbors.Add(map.GetTile(x+1, y+1, z-1));
-                neighbors.Add(map.GetTile(x-1, y+1, z-1));
-                neighbors.Add(map.GetTile(x-1, y-1, z-1));
                 neighbors.Add(map.GetTile(x+1, y-1, z-1));
+                neighbors.Add(map.GetTile(x-1, y-1, z-1));
+                neighbors.Add(map.GetTile(x-1, y+1, z-1));
+                neighbors.Add(map.GetTile(x+1, y+1, z-1));
             }
         }
 
         return neighbors;
+    }
+
+    public Tile GetAboveNeighbor()
+    {
+        int layerNumber = layer.GetLayerNumber();
+        if(layerNumber > 0)
+        {
+            return map.GetLayer(layerNumber - 1).GetTile(x, y);
+        }
+        return null;
+    }
+
+    public Tile GetBelowNeighbor()
+    {
+        int layerNumber = layer.GetLayerNumber();
+        if(layerNumber < map.GetMapDepth() - 1)
+        {
+            return map.GetLayer(layerNumber + 1).GetTile(x, y);
+        }
+        return null;
     }
 
     // Start is called before the first frame update

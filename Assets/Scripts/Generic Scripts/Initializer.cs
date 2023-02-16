@@ -11,6 +11,7 @@ public class Initializer : MonoBehaviour
     {
         if(prefabList != null)
         {
+            Debug.Log("Initializing PrefabList");
             prefabList.InitializePrefabDictionary();
         }
     }

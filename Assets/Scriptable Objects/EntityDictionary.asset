@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66f45b0326492824c9dba1a724bdf7b8, type: 3}
-  m_Name: ObjectDictionary
+  m_Name: EntityDictionary
   m_EditorClassIdentifier: 
   prefabList: {fileID: 11400000, guid: 1974452ef6652ea42ae8a59b6aa76423, type: 2}

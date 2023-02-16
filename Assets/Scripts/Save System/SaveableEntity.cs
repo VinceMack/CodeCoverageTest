@@ -4,19 +4,41 @@ using UnityEngine;
 using System;
 using System.IO;
 
+[RequireComponent(typeof(BaseStats))]
 public class SaveableEntity : MonoBehaviour
 {
+    protected IStats myStats;
+
     [SerializeField] private string id = string.Empty;
     public string Id => id;
 
     private IDataService DataService = new JsonDataService();
 
-    private void GenerateId()
+    [SerializeField] private Tile currentLocation;
+
+    public void GenerateId(string premadeGUID = string.Empty)
     {
-        id = Guid.NewGuid().ToString();
+        if(id == string.Empty)
+        {
+            id = Guid.NewGuid().ToString();
+        }
+        if(premadeGUID != string.Empty)
+        {
+            id = premadeGUID;
+        }
     }
 
-    public void SaveData(BaseStats stats)
+    public Tile GetCurrentLocation()
+    {
+        return currentLocation;
+    }
+
+    public void SetCurrentLocation(Tile newLocation)
+    {
+        currentLocation = newLocation;
+    }
+
+    public virtual void SaveData<T>(T stats)
     {
         if(!DataService.SaveData($"/Entity-{id}-Stats.json", stats, Constants.ENCRYPT_SAVE_DATA))
         {
@@ -24,25 +46,30 @@ public class SaveableEntity : MonoBehaviour
         }
     }
 
-    public BaseStats LoadData()
+    public virtual T LoadData<T>()
     {
         try
         {
-            return DataService.LoadData<NPCStats>($"/Entity-{id}-Stats.json", Constants.ENCRYPT_SAVE_DATA);
+            return DataService.LoadData<T>($"/Entity-{id}-Stats.json", Constants.ENCRYPT_SAVE_DATA);
         }
         catch(Exception e)
         {
             Debug.LogError($"Could not load Entity-{id}-Stats: {e.Message}");
-            return null;
+            return default;
         }
     }
 
     public void ClearData()
     {
-        string path = Application.persistentDataPath + "/example-stats.json";
+        string path = Application.persistentDataPath + $"/Entity-{id}-Stats.json";
         if(File.Exists(path))
         {
             File.Delete(path);
         }
+    }
+
+    public virtual void SaveMyData()
+    {
+        SaveData<IStats>(myStats);
     }
 }

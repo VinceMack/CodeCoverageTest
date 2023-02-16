@@ -9,7 +9,30 @@ public class Map : MonoBehaviour
     [SerializeField] private int worldLength, worldHeight, worldDepth;
     [SerializeField] private GameObject grassTilePrefab;
     [SerializeField] private GameObject oceanTilePrefab;
-    [SerializeField] private int distanceBetweenLayers;
+    [SerializeField] private GameObject walkwayTilePrefab;
+
+    public int GetLayerNumber(Layer layer)
+    {
+        if(layers.Contains(layer))
+        {
+            return layers.IndexOf(layer);
+        }
+        return -1;
+    }
+
+    public Layer GetLayer(int layerNumber)
+    {
+        if(layerNumber >= layers.Count)
+        {
+            return null;
+        }
+        return layers[layerNumber];
+    }
+
+    public int GetMapDepth()
+    {
+        return worldDepth;
+    }
 
     private void Start() 
     {
@@ -19,7 +42,11 @@ public class Map : MonoBehaviour
     // Returns a tile at the specified coordiantes
     public Tile GetTile(int x, int y, int z)
     {
-        return(layers[z].GetTile(x,y));
+        if(x < worldLength && x > -1 && y < worldHeight && y > -1 && z < worldDepth && z > -1)
+        {
+            return(layers[z].GetTile(x,y));
+        }
+        return null;
     }
 
     [ContextMenu("RaiseZAxis")]
@@ -52,30 +79,39 @@ public class Map : MonoBehaviour
             GameObject newLayer = new GameObject();
             newLayer.name = "Layer" + k;
             newLayer.transform.SetParent(transform);
-            newLayer.transform.position = new Vector3(k*distanceBetweenLayers, 0, 0);
-            newLayer.AddComponent<Layer>();
+            newLayer.transform.position = new Vector3(k*Constants.LAYER_X_SEPERATION, k*Constants.LAYER_Y_SEPERATION, 0);
+            Layer newLayerComp = newLayer.AddComponent<Layer>();
+            newLayerComp.InitializeLayer(length, height, k);
             for(int j = 0; j < height; j++)
             {
                 for(int i = 0; i < length; i++)
                 {
                     GameObject latestTile;
-
-                    if(i == length - 1 || i == 0 || j == height - 1 || j == 0)
+                    if(k != 1 || i != 2 || j != 2)
                     {
-                        latestTile = Instantiate(oceanTilePrefab, new Vector3(), new Quaternion());
-                        latestTile.GetComponent<Tile>().InitializeTile(this, i, j, 0, false);
+                        if(i == length - 1 || i == 0 || j == height - 1 || j == 0)
+                        {
+                            latestTile = Instantiate(oceanTilePrefab, new Vector3(), new Quaternion());
+                            latestTile.GetComponent<Tile>().InitializeTile(this, newLayerComp, i, j, k, false);
+                        }
+                        else
+                        {
+                            latestTile = Instantiate(grassTilePrefab, new Vector3(), new Quaternion());
+                            latestTile.GetComponent<Tile>().InitializeTile(this, newLayerComp, i, j, k, true);
+                        }
                     }
                     else
                     {
-                        latestTile = Instantiate(grassTilePrefab, new Vector3(), new Quaternion());
-                        latestTile.GetComponent<Tile>().InitializeTile(this, i, j, 0, true);
+                        // To illustrate staircases
+                        latestTile = Instantiate(walkwayTilePrefab, new Vector3(), new Quaternion());
+                        latestTile.GetComponent<Tile>().InitializeTile(this, newLayerComp, i, j, k, false);
                     }
-                    newLayer.GetComponent<Layer>().AddTile(latestTile.GetComponent<Tile>());
+                    newLayerComp.AddTile(latestTile.GetComponent<Tile>());
                     latestTile.transform.SetParent(newLayer.transform);               
                     latestTile.transform.position = new Vector3(origin.x + i + newLayer.transform.position.x, origin.y - j, 0);    
                 }
             }
-            layers.Add(newLayer.GetComponent<Layer>());
+            layers.Add(newLayerComp);
         }
     }
 
