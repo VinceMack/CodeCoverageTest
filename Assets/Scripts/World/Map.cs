@@ -36,7 +36,7 @@ public class Map : MonoBehaviour
 
     private void Start() 
     {
-        TestSpawnWorld();
+        //TestSpawnWorld();
     }
 
     // Returns a tile at the specified coordiantes

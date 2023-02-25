@@ -11,14 +11,14 @@ public class BaseNPC : SaveableEntity
         return stats;
     }
 
-    public override void SaveMyData()
+    public override void SaveMyData(int saveSlot)
     {
-        SaveData<NPCStats>(stats);
+        SaveData<NPCStats>(stats, saveSlot);
     }
 
-    public override void LoadMyData()
+    public override void LoadMyData(int saveSlot)
     {
-        stats = LoadData<NPCStats>();
+        stats = LoadData<NPCStats>(saveSlot);
         // Do whatever we want with stats
         // I.e. change transform.position, update any components, etc.
     }
