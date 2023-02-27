@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 156
+  controlID: 140
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 157
+  controlID: 141
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 25
+  controlID: 142
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 26
+  controlID: 143
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -213,8 +213,8 @@ MonoBehaviour:
     y: 0
     width: 369
     height: 605
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -302,7 +302,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 158
+  controlID: 84
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -322,8 +322,8 @@ MonoBehaviour:
     y: 0
     width: 435
     height: 764
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 24}
   m_Panes:
   - {fileID: 24}
@@ -348,8 +348,8 @@ MonoBehaviour:
     y: 764
     width: 435
     height: 183
-  m_MinSize: {x: 101, y: 121}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 25}
   m_Panes:
   - {fileID: 25}
@@ -431,22 +431,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/NPC
+    - Assets/Prefabs
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/NPC
+  - Assets/Prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: B:\SeniorProject\SeniorProjectCM\CS-472-Senior-Design-Project-CM
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 3aa30000
-    m_LastClickedID: 41786
-    m_ExpandedIDs: 0000000004a2000006a2000012a2000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 175}
+    m_SelectedIDs: 7c620000
+    m_LastClickedID: 25212
+    m_ExpandedIDs: 000000005e620000606200006262000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -474,7 +474,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 
+    m_ExpandedIDs: 000000005e6200006062000062620000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -502,7 +502,7 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c6230000c07800008e860000fe600000
+    m_ExpandedInstanceIDs: c6230000c07800008e860000fe600000e66e0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -563,7 +563,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: beb5ffff24b7ffff
+      m_ExpandedIDs: 1afbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -867,9 +867,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1091.3875, y: 615.6217, z: 7.0273595}
+    m_Target: {x: 1104.5417, y: 748.3359, z: 17.539232}
     speed: 2
-    m_Value: {x: 1160.9521, y: 595.23645, z: 7.382827}
+    m_Value: {x: 1104.5417, y: 748.3359, z: 17.539232}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -920,9 +920,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 825.47595
+    m_Target: 880.49
     speed: 2
-    m_Value: 789.92914
+    m_Value: 880.49
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1225,7 +1225,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 41588
+  m_LastSelectedObjectID: 24898
 --- !u!114 &24
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1261,7 +1261,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 1005
+  m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
@@ -1296,7 +1296,7 @@ MonoBehaviour:
     m_LastAppliedPresetName: Default
     m_SaveData: []
   m_Spl:
-    ID: 163
+    ID: 151
     splitterInitialOffset: 0
     currentActiveSplitter: -1
     realSizes:
@@ -1328,7 +1328,7 @@ MonoBehaviour:
       name: ColonySurvivalSim
       fullName: ColonySurvivalSim
       resultStatus: 1
-      duration: 0.4633746
+      duration: 0.9949437
       messages: 
       output: 
       stacktrace: 
@@ -1344,7 +1344,7 @@ MonoBehaviour:
       name: PlayMode.dll
       fullName: C:/Users/benny/Documents/GitHub/CS-472-Senior-Design-Project/Library/ScriptAssemblies/PlayMode.dll
       resultStatus: 1
-      duration: 0.1182972
+      duration: 0.459828
       messages: 
       output: 
       stacktrace: 
@@ -1360,7 +1360,7 @@ MonoBehaviour:
       name: Tests
       fullName: Tests
       resultStatus: 1
-      duration: 0.0988964
+      duration: 0.3867285
       messages: 
       output: 
       stacktrace: 
@@ -1376,7 +1376,7 @@ MonoBehaviour:
       name: TweakingTest
       fullName: Tests.TweakingTest
       resultStatus: 1
-      duration: 0.093877
+      duration: 0.3754854
       messages: 
       output: 
       stacktrace: 
@@ -1392,9 +1392,11 @@ MonoBehaviour:
       name: RuntimeTest
       fullName: Tests.TweakingTest.RuntimeTest
       resultStatus: 1
-      duration: 0.0770985
+      duration: 0.3047493
       messages: 
-      output: 
+      output: 'Initializing PrefabList
+
+'
       stacktrace: 
       notRunnable: 0
       ignoredOrSkipped: 0
@@ -1404,10 +1406,14 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1001
       parentUniqueId: PlayMode.dll/Tests/[PlayMode][Tests.TweakingTest][suite]
-    m_ResultText: RuntimeTest (0.077s)
+    m_ResultText: 'RuntimeTest (0.305s)
+
+      ---
+
+      Initializing PrefabList'
     m_ResultStacktrace: 
     m_TestListState:
-      scrollPos: {x: 0, y: 0}
+      scrollPos: {x: 0, y: 24}
       m_SelectedIDs: 8f7e5297
       m_LastClickedID: -1756201329
       m_ExpandedIDs: 36201eb29f5c62b699847cff03fe4433bc805a6dffffff7f
@@ -1445,7 +1451,7 @@ MonoBehaviour:
       name: ColonySurvivalSim
       fullName: ColonySurvivalSim
       resultStatus: 1
-      duration: 0.0683133
+      duration: 0.0643981
       messages: 
       output: 
       stacktrace: 
@@ -1461,7 +1467,7 @@ MonoBehaviour:
       name: EditMode.dll
       fullName: C:/Users/benny/Documents/GitHub/CS-472-Senior-Design-Project/Library/ScriptAssemblies/EditMode.dll
       resultStatus: 1
-      duration: 0.0305227
+      duration: 0.0337273
       messages: 
       output: 
       stacktrace: 
@@ -1477,7 +1483,7 @@ MonoBehaviour:
       name: Tests
       fullName: Tests
       resultStatus: 1
-      duration: 0.0297757
+      duration: 0.0296402
       messages: 
       output: 
       stacktrace: 
@@ -1493,7 +1499,7 @@ MonoBehaviour:
       name: GitHubTest
       fullName: Tests.GitHubTest
       resultStatus: 1
-      duration: 0.028614
+      duration: 0.0226418
       messages: 
       output: 
       stacktrace: 
@@ -1509,7 +1515,7 @@ MonoBehaviour:
       name: EditmodeTestScripExampleSimplePasses
       fullName: Tests.GitHubTest.EditmodeTestScripExampleSimplePasses
       resultStatus: 1
-      duration: 0.0141413
+      duration: 0.0035064
       messages: 
       output: 
       stacktrace: 
@@ -1526,7 +1532,7 @@ MonoBehaviour:
       name: EditmodeTestScriptExampleWithEnumeratorPasses
       fullName: Tests.GitHubTest.EditmodeTestScriptExampleWithEnumeratorPasses
       resultStatus: 1
-      duration: 0.0150595
+      duration: 0.0139046
       messages: 
       output: 
       stacktrace: 
@@ -1538,13 +1544,56 @@ MonoBehaviour:
       - Uncategorized
       parentId: 1007
       parentUniqueId: EditMode.dll/Tests/[EditMode][Tests.GitHubTest][suite]
-    m_ResultText: EditmodeTestScripExampleSimplePasses (0.014s)
+    - id: 1010
+      uniqueId: EditMode.dll/Tests/[EditMode][Tests.TileTest][suite]
+      name: TileTest
+      fullName: Tests.TileTest
+      resultStatus: 1
+      duration: 0.0060127
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1013
+      parentUniqueId: EditMode.dll/[EditMode][Tests][suite]
+    - id: 1011
+      uniqueId: EditMode.dll/Tests/TileTest/[EditMode][Tests.TileTest.AddObjectToTileSucceeds]
+      name: AddObjectToTileSucceeds
+      fullName: Tests.TileTest.AddObjectToTileSucceeds
+      resultStatus: 1
+      duration: 0.0014526
+      messages: 
+      output: 'You are trying to create a MonoBehaviour using the ''new'' keyword. 
+        This is not allowed.  MonoBehaviours can only be added using AddComponent().
+        Alternatively, your script can inherit from ScriptableObject or no base class
+        at all
+
+        You are trying to create a MonoBehaviour using the ''new''
+        keyword.  This is not allowed.  MonoBehaviours can only be added using AddComponent().
+        Alternatively, your script can inherit from ScriptableObject or no base class
+        at all
+
+'
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1010
+      parentUniqueId: EditMode.dll/Tests/[EditMode][Tests.TileTest][suite]
+    m_ResultText: TileTest (0.006s)
     m_ResultStacktrace: 
     m_TestListState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: c4040a09
-      m_LastClickedID: 151651524
-      m_ExpandedIDs: 3cdc509efba634d099847cff03fe44334b5ea47cffffff7f
+      scrollPos: {x: 0, y: 72}
+      m_SelectedIDs: 4e3476bf
+      m_LastClickedID: -1082772402
+      m_ExpandedIDs: 3cdc509e4e3476bffba634d099847cff03fe44334b5ea47cffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
