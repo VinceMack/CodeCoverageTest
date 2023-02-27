@@ -10,6 +10,8 @@ public class Map : MonoBehaviour
     [SerializeField] private GameObject grassTilePrefab;
     [SerializeField] private GameObject oceanTilePrefab;
     [SerializeField] private GameObject walkwayTilePrefab;
+    [SerializeField] private GameObject treePrefab;
+    [SerializeField] private GameObject pawnPrefab;
 
     public int GetLayerNumber(Layer layer)
     {
@@ -97,6 +99,35 @@ public class Map : MonoBehaviour
                     latestTile.transform.position = new Vector3(origin.x + i + newLayer.transform.position.x, origin.y - j, 0);    
                 }
             }
+
+            // adding objects to test labor order.
+            // only in this file to test for now.
+            // pawn immediately fulfills order by
+            //  teleporting to and destroying the tree
+                // tree
+            GameObject tree = Instantiate(treePrefab, new Vector3(), new Quaternion());
+            tree.transform.SetParent(newLayer.transform);
+            tree.transform.position = new Vector3(origin.x+1 + newLayer.transform.position.x, origin.y-2, 0);
+
+                // pawn
+            GameObject pawn = Instantiate(pawnPrefab, new Vector3(), new Quaternion());
+            pawn.transform.SetParent(newLayer.transform);
+            pawn.transform.position = new Vector3(origin.x + 2 + newLayer.transform.position.x, origin.y - 1, 0);
+            Pawn p = pawnPrefab.GetComponent<Pawn>();
+            p.pawnObject = pawn;
+            p.rename("test");
+
+
+            // create labor order for the pawn
+            LaborOrder cutTreeOrder = new LaborOrder();
+            cutTreeOrder.assignedPawn = p;
+            cutTreeOrder.targetObject = tree;
+            p.currentOrder = cutTreeOrder;
+            p.startLaborOrder();
+
+
+
+
             layers.Add(newLayerComp);
         }
     }
