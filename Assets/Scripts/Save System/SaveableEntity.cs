@@ -48,19 +48,19 @@ public class SaveableEntity : MonoBehaviour
         currentLocation = newLocation;
     }
 
-    public virtual void SaveData<T>(T stats)
+    public virtual void SaveData<T>(T stats, int saveSlot)
     {
-        if(!DataService.SaveData($"/Entity-{id}-Stats.json", stats, Constants.ENCRYPT_SAVE_DATA))
+        if(!DataService.SaveData($"/{saveSlot}/Entity-{id}-Stats.json", stats, Constants.ENCRYPT_SAVE_DATA))
         {
             Debug.LogError($"Could not save Entity-{id}-Stats!");
         }
     }
 
-    public virtual T LoadData<T>()
+    public virtual T LoadData<T>(int saveSlot)
     {
         try
         {
-            return DataService.LoadData<T>($"/Entity-{id}-Stats.json", Constants.ENCRYPT_SAVE_DATA);
+            return DataService.LoadData<T>($"/{saveSlot}/Entity-{id}-Stats.json", Constants.ENCRYPT_SAVE_DATA);
         }
         catch(Exception e)
         {
@@ -69,22 +69,22 @@ public class SaveableEntity : MonoBehaviour
         }
     }
 
-    public void ClearData()
+    public void ClearData(int saveSlot)
     {
-        string path = Application.persistentDataPath + $"/Entity-{id}-Stats.json";
+        string path = Application.persistentDataPath + $"/{saveSlot}/Entity-{id}-Stats.json";
         if(File.Exists(path))
         {
             File.Delete(path);
         }
     }
 
-    public virtual void SaveMyData()
+    public virtual void SaveMyData(int saveSlot)
     {
-        SaveData<IStats>(myStats);
+        SaveData<IStats>(myStats, saveSlot);
     }
 
-    public virtual void LoadMyData()
+    public virtual void LoadMyData(int saveSlot)
     {
-        myStats = LoadData<IStats>();
+        myStats = LoadData<IStats>(saveSlot);
     }
 }
