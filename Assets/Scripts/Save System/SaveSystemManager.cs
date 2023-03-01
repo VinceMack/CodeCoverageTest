@@ -35,6 +35,7 @@ public class SaveSystemManager : MonoBehaviour
             entityStats.entitiesInScene.Add(currentEntity.Id, currentEntity.GetPrefabName());
         }
         SaveData<EntityDictionaryStats>(entityStats, saveSlot);
+        SaveStats(saveSlot);
     }
 
     [ContextMenu("Load")]
@@ -77,6 +78,28 @@ public class SaveSystemManager : MonoBehaviour
         if(File.Exists(path))
         {
             File.Delete(path);
+        }
+    }
+
+    public void SaveInfo(int saveNumber)
+    {
+        SaveStats saveStats = new SaveStats(DateTime.Now);
+        if(!DataService.SaveData($"/{saveNumber}/Save-Stats.json", saveStats, Constants.ENCRYPT_SAVE_DATA))
+        {
+            Debug.LogError($"Could not save Save-Stats!");
+        }
+    }
+
+    public T LoadInfo<T>(int saveNumber)
+    {
+        try
+        {
+            return DataService.LoadData<T>($"/{saveNumber}/Save-Stats.json", Constants.ENCRYPT_SAVE_DATA);
+        }
+        catch(Exception e)
+        {
+            Debug.LogError($"Could not load Save-Stats: {e.Message}");
+            return default;
         }
     }
 }

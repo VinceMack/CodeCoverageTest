@@ -21,25 +21,44 @@ public class SceneController : MonoBehaviour {
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                MenuController.instance.closeScenes();
+                Return();
             }
 
             if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
             {
-                MenuController.instance.advanceScene();
+                NextSlot();
             }
 
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
             {
-                MenuController.instance.goBackScene();
+                PreviousSlot();
             }
 
             if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetKeyDown(KeyCode.Return))
             {
-                SceneManager.LoadScene(roomIndex);
+                SelectSlot();
             }
 
         }
-
 	}
+
+    public void NextSlot()
+    {
+        MenuController.instance.advanceScene();
+    }
+
+    public void PreviousSlot()
+    {
+        MenuController.instance.goBackScene();
+    }
+
+    public void Return()
+    {
+        MenuController.instance.closeScenes();
+    }
+
+    public void SelectSlot()
+    {
+
+    }
 }
