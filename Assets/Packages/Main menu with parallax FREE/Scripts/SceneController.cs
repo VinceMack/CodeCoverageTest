@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class SceneController : MonoBehaviour {
 
@@ -8,14 +10,24 @@ public class SceneController : MonoBehaviour {
 
     [SerializeField,Tooltip("Input the index of your room")]
     public int roomIndex;
+    [SerializeField] private TextMeshProUGUI lastPlayedText;
+    public SaveSystemManager saveManager;
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+    {
         mainMenu = FindObjectOfType<MenuController>();
+        if(lastPlayedText != null)
+        {
+            Debug.Log(roomIndex+1);
+            SaveStats saveStats = saveManager.LoadInfo<SaveStats>(roomIndex+1);
+            lastPlayedText.text = "Last Played:\n" + saveStats.dateLastPlayed + " " + saveStats.timeLastPlayed;
+        }
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+    {
         if (gameObject.transform.GetSiblingIndex() == 0 && !MenuController.instance.backgroundsController.GetComponent<Animation>().isPlaying)
         {
 

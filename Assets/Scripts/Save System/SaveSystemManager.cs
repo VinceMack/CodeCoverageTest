@@ -13,12 +13,14 @@ public class SaveSystemManager : MonoBehaviour
     [ContextMenu("Save")]
     public void Save(int saveSlot)
     {
-        //Need to create the save slot folder if it doesn't already exist.
-        // Maybe should clear it
-        if(!Directory.Exists(Application.persistentDataPath + $"/{saveSlot}"))
+        // We want to wipe out any data that already exists (if it does)
+        if(Directory.Exists(Application.persistentDataPath + $"/{saveSlot}"))
         {
-            Directory.CreateDirectory(Application.persistentDataPath + $"/{saveSlot}");
+            Directory.Delete(Application.persistentDataPath + $"/{saveSlot}", true);
+            
         }
+        // Need to create 
+        Directory.CreateDirectory(Application.persistentDataPath + $"/{saveSlot}");
 
         entityDictionary = GlobalInstance.Instance.entityDictionary;
         foreach(KeyValuePair<string, GameObject> kvp in entityDictionary.entityDictionary)
@@ -27,15 +29,13 @@ public class SaveSystemManager : MonoBehaviour
 
             if(currentEntity != null)
             {
-                Debug.Log("Saveable Entity found");
-                Debug.Log(currentEntity.GetType());
                 currentEntity.SaveMyData(saveSlot);
             }
 
             entityStats.entitiesInScene.Add(currentEntity.Id, currentEntity.GetPrefabName());
         }
         SaveData<EntityDictionaryStats>(entityStats, saveSlot);
-        SaveStats(saveSlot);
+        SaveInfo(saveSlot);
     }
 
     [ContextMenu("Load")]
@@ -80,7 +80,7 @@ public class SaveSystemManager : MonoBehaviour
             File.Delete(path);
         }
     }
-
+    
     public void SaveInfo(int saveNumber)
     {
         SaveStats saveStats = new SaveStats(DateTime.Now);

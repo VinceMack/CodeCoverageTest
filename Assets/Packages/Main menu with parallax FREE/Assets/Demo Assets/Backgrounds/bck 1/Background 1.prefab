@@ -93,6 +93,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomIndex: 1
+  lastPlayedText: {fileID: 7370692526167888629}
+  saveManager: {fileID: 0}
 --- !u!1 &139332
 GameObject:
   m_ObjectHideFlags: 0
