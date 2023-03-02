@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
 
 public class SceneController : MonoBehaviour {
 
@@ -11,20 +12,33 @@ public class SceneController : MonoBehaviour {
     [SerializeField,Tooltip("Input the index of your room")]
     public int roomIndex;
     [SerializeField] private TextMeshProUGUI lastPlayedText;
+    [SerializeField] private Button playButton;
     public SaveSystemManager saveManager;
 
 	// Use this for initialization
 	void Start () 
     {
-        mainMenu = FindObjectOfType<MenuController>();
+        mainMenu = FindObjectOfType<MenuController>();   
+	}
+
+    public void SetText()
+    {
         if(lastPlayedText != null)
         {
-            Debug.Log(roomIndex+1);
-            SaveStats saveStats = saveManager.LoadInfo<SaveStats>(roomIndex+1);
-            lastPlayedText.text = "Last Played:\n" + saveStats.dateLastPlayed + " " + saveStats.timeLastPlayed;
+            if(Directory.Exists(Application.persistentDataPath + $"/{roomIndex+1}"))
+            {
+                SaveStats saveStats = saveManager.LoadInfo<SaveStats>(roomIndex+1);
+                lastPlayedText.text = "Last Played:\n" + saveStats.dateLastPlayed + " " + saveStats.timeLastPlayed;
+                playButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                lastPlayedText.text = "No save detected.";
+                playButton.gameObject.SetActive(false);
+            }
         }
-	}
-	
+    }
+
 	// Update is called once per frame
 	void Update () 
     {
@@ -71,6 +85,9 @@ public class SceneController : MonoBehaviour {
 
     public void SelectSlot()
     {
-
+        if(Directory.Exists(Application.persistentDataPath + $"/{roomIndex+1}"))
+        {   
+            saveManager.Load(roomIndex, true, 0);
+        }
     }
 }

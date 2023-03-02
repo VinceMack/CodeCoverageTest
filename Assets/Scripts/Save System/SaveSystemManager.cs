@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using UnityEngine.SceneManagement;
+
 
 public class SaveSystemManager : MonoBehaviour
 {
@@ -39,8 +41,12 @@ public class SaveSystemManager : MonoBehaviour
     }
 
     [ContextMenu("Load")]
-    public void Load(int saveSlot)
+    public void Load(int saveSlot, bool mainMenu = false, int sceneLoad = 0)
     {
+        if(mainMenu)
+        {
+            SceneManager.LoadScene(sceneLoad);
+        }
         entityDictionary = GlobalInstance.Instance.entityDictionary;
         EntityDictionaryStats entity = LoadData<EntityDictionaryStats>(saveSlot);
         foreach(KeyValuePair<string, string> kvp in entity.entitiesInScene)

@@ -9,4 +9,5 @@ public static class Constants
     public const string ENCRYPTION_IV = "tH8es5hR5AV5Nv7rGoXTrg==";
     public const int LAYER_X_SEPERATION = 100;
     public const int LAYER_Y_SEPERATION = 0;
+    public const int SAVE_SLOT_NUMBER = 4;
 }
