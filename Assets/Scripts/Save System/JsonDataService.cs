@@ -31,8 +31,6 @@ public class JsonDataService : IDataService
                 // Write data to new save
                 File.WriteAllText(path, JsonConvert.SerializeObject(data));
             }
-            // Message to indicate success
-            Debug.Log("Successfully saved data.");
             // Indicate save was succesful
             return true;
         }
@@ -81,8 +79,7 @@ public class JsonDataService : IDataService
             else
             {
                 data = JsonConvert.DeserializeObject<T>(File.ReadAllText(path));
-            } 
-            Debug.Log("Successfully loaded data.");
+            }
             return data;
         }
         catch(Exception e)

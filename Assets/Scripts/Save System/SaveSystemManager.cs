@@ -3,59 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
-using UnityEngine.SceneManagement;
-
 
 public class SaveSystemManager : MonoBehaviour
 {
-    private EntityDictionary entityDictionary;
-    private EntityDictionaryStats entityStats = new EntityDictionaryStats();
     private IDataService DataService = new JsonDataService();
-
-    [ContextMenu("Save")]
-    public void Save(int saveSlot)
-    {
-        // We want to wipe out any data that already exists (if it does)
-        if(Directory.Exists(Application.persistentDataPath + $"/{saveSlot}"))
-        {
-            Directory.Delete(Application.persistentDataPath + $"/{saveSlot}", true);
-            
-        }
-        // Need to create 
-        Directory.CreateDirectory(Application.persistentDataPath + $"/{saveSlot}");
-
-        entityDictionary = GlobalInstance.Instance.entityDictionary;
-        foreach(KeyValuePair<string, GameObject> kvp in entityDictionary.entityDictionary)
-        {
-            SaveableEntity currentEntity = kvp.Value.GetComponent<SaveableEntity>();
-
-            if(currentEntity != null)
-            {
-                currentEntity.SaveMyData(saveSlot);
-            }
-
-            entityStats.entitiesInScene.Add(currentEntity.Id, currentEntity.GetPrefabName());
-        }
-        SaveData<EntityDictionaryStats>(entityStats, saveSlot);
-        SaveInfo(saveSlot);
-    }
-
-    [ContextMenu("Load")]
-    public void Load(int saveSlot, bool mainMenu = false, int sceneLoad = 0)
-    {
-        if(mainMenu)
-        {
-            SceneManager.LoadScene(sceneLoad);
-        }
-        entityDictionary = GlobalInstance.Instance.entityDictionary;
-        EntityDictionaryStats entity = LoadData<EntityDictionaryStats>(saveSlot);
-        foreach(KeyValuePair<string, string> kvp in entity.entitiesInScene)
-        {
-            GameObject loadedEntity = entityDictionary.InstanitateEntity(kvp.Value, kvp.Key);
-            SaveableEntity saveableComp = loadedEntity.GetComponent<SaveableEntity>();
-            saveableComp.LoadMyData(saveSlot);
-        }
-    }
 
     public virtual void SaveData<T>(T stats, int saveNumber)
     {
@@ -67,6 +18,11 @@ public class SaveSystemManager : MonoBehaviour
 
     public virtual T LoadData<T>(int saveNumber)
     {
+        if(!Directory.Exists(Application.persistentDataPath + $"/{saveNumber}"))
+        {
+            Debug.LogWarning($"Save-{saveNumber} not detected.");
+            return default;
+        }
         try
         {
             return DataService.LoadData<T>($"/{saveNumber}/Save-{saveNumber}.json", Constants.ENCRYPT_SAVE_DATA);

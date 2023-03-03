@@ -17,11 +17,19 @@ public class PanelManager : MonoBehaviour
     public void EnableSaveSystemUI()
     {
         saveSystemUI.SetActive(true);
+        saveSystemUI.GetComponent<SaveSystemUIManager>().OpenSaveMenu();
     }
 
     public void ToggleSaveSystemUI()
     {
-        saveSystemUI.SetActive(!saveSystemUI.activeSelf);
+        if(saveSystemUI.activeSelf)
+        {
+            CloseSaveSystemUI();
+        }
+        else
+        {
+            EnableSaveSystemUI();
+        }
     }
 
     private void Update() 

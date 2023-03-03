@@ -12,14 +12,22 @@ public class SaveSlot : MonoBehaviour
     [SerializeField] private TextMeshProUGUI slotInfo;
     [SerializeField] private int saveSlot;
 
-    public void Initialize(int slot, SaveSystemManager saveManager, SaveSystemUIManager uiManager)
+    public void Initialize(int slot, SaveSystemManager saveManager, SaveSystemUIManager uiManager, bool saveDetected)
     {
         saveSlot = slot;
         slotName.text = "Save #" + saveSlot;
         myUIManager = uiManager;
 
-        SaveStats myInfo = saveManager.LoadInfo<SaveStats>(slot);
-        slotInfo.text = "Last Played: " + myInfo.dateLastPlayed + " " + myInfo.timeLastPlayed;
+        if(!saveDetected)
+        {
+            slotInfo.text = "No save detected.";
+        }
+        else
+        {
+            SaveStats myInfo = saveManager.LoadInfo<SaveStats>(slot);
+            slotInfo.text = "Last Played: " + myInfo.dateLastPlayed + " " + myInfo.timeLastPlayed;
+        }
+        
     }
 
     public void SelectSlot()

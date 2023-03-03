@@ -14,6 +14,7 @@ public class SceneController : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI lastPlayedText;
     [SerializeField] private Button playButton;
     public SaveSystemManager saveManager;
+    public SaveSystemUIManager saveUIManager;
 
 	// Use this for initialization
 	void Start () 
@@ -87,7 +88,7 @@ public class SceneController : MonoBehaviour {
     {
         if(Directory.Exists(Application.persistentDataPath + $"/{roomIndex+1}"))
         {   
-            saveManager.Load(roomIndex, true, 0);
+            saveUIManager.Load(roomIndex, true, 0);
         }
     }
 }
