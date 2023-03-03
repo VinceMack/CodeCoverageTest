@@ -86,14 +86,14 @@ public class Staircase : PlacedObject
         }
     }
 
-    public override void SaveMyData()
+    public override void SaveMyData(int saveSlot)
     {
-        SaveData<BaseStats>(myStats);
+        SaveData<BaseStats>(myStats, saveSlot);
     }
 
-    public override void LoadMyData()
+    public override void LoadMyData(int saveSlot)
     {
-        myStats = LoadData<BaseStats>();
+        myStats = LoadData<BaseStats>(saveSlot);
         Map myMap = FindObjectOfType<Map>();
         PlaceObject(myMap.GetTile(myStats.x, myStats.y, myStats.z), myStats.isDownward);
     }
