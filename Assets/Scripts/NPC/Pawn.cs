@@ -6,7 +6,7 @@ public class Pawn : BaseNPC
 {
 	// list all possible pawn careers/labor order types here
 	public GameObject pawnObject;
-	enum PawnType { storage, forage, generic };
+	public enum PawnType { storage, forage, generic };
 	public string pawnName;
 	public string type = "generic";
 	public LaborOrder currentOrder = null;
