@@ -264,6 +264,10 @@ public class MenuController : MonoBehaviour {
             for (int i = backgrounds.Length - 1; i > -1; i--)
             {
                 var bck = Instantiate(backgrounds[i]) as GameObject;
+                var sceneController = bck.GetComponent<SceneController>();
+                sceneController.saveManager = this.GetComponent<SaveSystemManager>();
+                sceneController.roomIndex = i;
+                sceneController.SetText();
                 var rect = bck.GetComponent<RectTransform>();
                 bck.transform.SetParent(backgroundsController.transform);
                 bck.transform.localScale = Vector3.one;

@@ -36,4 +36,13 @@ public class EntityDictionary : ScriptableObject
             InstanitateEntity(kvp.Value, kvp.Key);   
         }
     }
+
+    public void DestroyAllSaveableObjects()
+    {
+        foreach(KeyValuePair<string, GameObject> kvp in entityDictionary)
+        {
+            Destroy(kvp.Value);
+        }
+        entityDictionary.Clear();
+    }
 }
