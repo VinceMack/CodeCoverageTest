@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Layer : MonoBehaviour
 {
-    private List<Tile> tiles = new List<Tile>();
+    private List<GameObjectTile> tiles = new List<GameObjectTile>();
     [SerializeField] private int layerLength, layerHeight, layerNumber;
 
-    public Tile GetTile(int x, int y)
+    public GameObjectTile GetTile(int x, int y)
     {
         return tiles[y*layerLength+x];
     }
 
-    public void AddTile(Tile newTile)
+    public void AddTile(GameObjectTile newTile)
     {
         tiles.Add(newTile);
     }

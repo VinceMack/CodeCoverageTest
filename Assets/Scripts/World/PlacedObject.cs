@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlacedObject : SaveableEntity
 {
-    [SerializeField] protected Tile homeTile;
+    [SerializeField] protected GameObjectTile homeTile;
 
-    public virtual void PlaceObject(Tile location)
+    public virtual void PlaceObject(GameObjectTile location)
     {
         homeTile = location;
         transform.SetParent(location.transform);

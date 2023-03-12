@@ -42,7 +42,7 @@ public class Map : MonoBehaviour
     }
 
     // Returns a tile at the specified coordiantes
-    public Tile GetTile(int x, int y, int z)
+    public GameObjectTile GetTile(int x, int y, int z)
     {
         if(x < worldLength && x > -1 && y < worldHeight && y > -1 && z < worldDepth && z > -1)
         {
@@ -80,21 +80,21 @@ public class Map : MonoBehaviour
                         if(i == length - 1 || i == 0 || j == height - 1 || j == 0)
                         {
                             latestTile = Instantiate(oceanTilePrefab, new Vector3(), new Quaternion());
-                            latestTile.GetComponent<Tile>().InitializeTile(this, newLayerComp, i, j, k, false);
+                            latestTile.GetComponent<GameObjectTile>().InitializeTile(this, newLayerComp, i, j, k, false);
                         }
                         else
                         {
                             latestTile = Instantiate(grassTilePrefab, new Vector3(), new Quaternion());
-                            latestTile.GetComponent<Tile>().InitializeTile(this, newLayerComp, i, j, k, true);
+                            latestTile.GetComponent<GameObjectTile>().InitializeTile(this, newLayerComp, i, j, k, true);
                         }
                     }
                     else
                     {
                         // To illustrate staircases
                         latestTile = Instantiate(walkwayTilePrefab, new Vector3(), new Quaternion());
-                        latestTile.GetComponent<Tile>().InitializeTile(this, newLayerComp, i, j, k, false);
+                        latestTile.GetComponent<GameObjectTile>().InitializeTile(this, newLayerComp, i, j, k, false);
                     }
-                    newLayerComp.AddTile(latestTile.GetComponent<Tile>());
+                    newLayerComp.AddTile(latestTile.GetComponent<GameObjectTile>());
                     latestTile.transform.SetParent(newLayer.transform);               
                     latestTile.transform.position = new Vector3(origin.x + i + newLayer.transform.position.x, origin.y - j, 0);    
                 }

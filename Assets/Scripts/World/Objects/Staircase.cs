@@ -5,13 +5,13 @@ using UnityEngine;
 public class Staircase : PlacedObject
 {
     private bool downward = true;
-    private Tile originTile, destinationTile;
+    private GameObjectTile originTile, destinationTile;
     private Layer originLayer, destiniationLayer;
 
     [SerializeField] private Sprite upwardSprite = null;
     [SerializeField] private Sprite downwardSprite = null;
 
-    [SerializeField] private Tile testTile = null;
+    [SerializeField] private GameObjectTile testTile = null;
 
     private new BaseStats myStats = new BaseStats();
 
@@ -21,12 +21,12 @@ public class Staircase : PlacedObject
         PlaceObject(testTile);
     }
 
-    public Tile GetDestinationTile()
+    public GameObjectTile GetDestinationTile()
     {
         return destinationTile;
     }
 
-    public bool PlaceObject(Tile location, bool downward = true)
+    public bool PlaceObject(GameObjectTile location, bool downward = true)
     {
         // If the staircase can't be reached
         if(!location.GetIsNavigable())
@@ -79,7 +79,7 @@ public class Staircase : PlacedObject
         {
             return;
         }
-        Tile teleportLocation = destinationTile.GetNavigableNeighbor();
+        GameObjectTile teleportLocation = destinationTile.GetNavigableNeighbor();
         if(teleportLocation != null)
         {
             other.transform.position = teleportLocation.transform.position;
