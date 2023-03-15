@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tile : MonoBehaviour
+public class GameObjectTile : MonoBehaviour
 {
     private Map map;
     private Layer layer;
@@ -45,10 +45,10 @@ public class Tile : MonoBehaviour
         return isNavigable;
     }
 
-    public Tile GetNavigableNeighbor()
+    public GameObjectTile GetNavigableNeighbor()
     {
-        List<Tile> neighbors = GetNeighbors(true, false);
-        foreach(Tile neighbor in neighbors)
+        List<GameObjectTile> neighbors = GetNeighbors(true, false);
+        foreach(GameObjectTile neighbor in neighbors)
         {
             if(neighbor == null)
             {
@@ -66,9 +66,9 @@ public class Tile : MonoBehaviour
     // Method returns a list of tiles neighboring the current tile
     // Will return in the order N,E,S,W or N,E,S,W,NE,NW,SW,SE if diagonals included or
     // N,E,S,W,U,D if only vertical and N,E,S,W,NE,NW,SW,SE, {U,N,E,S,W,NE,NW,SW,SE (Above)}, { D,N,E,S,W,NE,NW,SW,SE (Below)} if both
-    public List<Tile> GetNeighbors(bool diagonals = false, bool vertical = false)
+    public List<GameObjectTile> GetNeighbors(bool diagonals = false, bool vertical = false)
     {
-        List<Tile> neighbors = new List<Tile>();
+        List<GameObjectTile> neighbors = new List<GameObjectTile>();
         neighbors.Add(map.GetTile(x, y-1, z));
         neighbors.Add(map.GetTile(x+1, y, z));
         neighbors.Add(map.GetTile(x, y+1, z));
@@ -114,7 +114,7 @@ public class Tile : MonoBehaviour
         return neighbors;
     }
 
-    public Tile GetAboveNeighbor()
+    public GameObjectTile GetAboveNeighbor()
     {
         int layerNumber = layer.GetLayerNumber();
         if(layerNumber > 0)
@@ -124,7 +124,7 @@ public class Tile : MonoBehaviour
         return null;
     }
 
-    public Tile GetBelowNeighbor()
+    public GameObjectTile GetBelowNeighbor()
     {
         int layerNumber = layer.GetLayerNumber();
         if(layerNumber < map.GetMapDepth() - 1)

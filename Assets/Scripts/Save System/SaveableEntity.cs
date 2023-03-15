@@ -14,7 +14,7 @@ public class SaveableEntity : MonoBehaviour
 
     private IDataService DataService = new JsonDataService();
 
-    [SerializeField] private Tile currentLocation;
+    [SerializeField] private GameObjectTile currentLocation;
 
     public void SetPrefabName(string prefabName)
     {
@@ -38,12 +38,12 @@ public class SaveableEntity : MonoBehaviour
         }
     }
 
-    public Tile GetCurrentLocation()
+    public GameObjectTile GetCurrentLocation()
     {
         return currentLocation;
     }
 
-    public void SetCurrentLocation(Tile newLocation)
+    public void SetCurrentLocation(GameObjectTile newLocation)
     {
         currentLocation = newLocation;
     }

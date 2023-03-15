@@ -11,7 +11,7 @@ namespace Tests
         [Test]
         public void AddObjectToTileSucceeds()
         {
-            Tile testTile = new Tile();
+            GameObjectTile testTile = new GameObjectTile();
             testTile.AddObjectToTile(new PlacedObject());
             Assert.AreEqual(1, testTile.GetObjectsOnTile().Count);
         }
