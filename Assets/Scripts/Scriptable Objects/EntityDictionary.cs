@@ -9,7 +9,7 @@ public class EntityDictionary : ScriptableObject
     public Dictionary<string, GameObject> entityDictionary = new Dictionary<string, GameObject>();
     public PrefabList prefabList;
 
-    public GameObject InstanitateEntity(string prefabName, string guid = "", Vector3 position = new Vector3(), Vector3 rotation = new Vector3())
+    public GameObject InstantiateEntity(string prefabName, string guid = "", Vector3 position = new Vector3(), Vector3 rotation = new Vector3())
     {
         GameObject toClone = prefabList.prefabDictionary[prefabName].prefab;
 
@@ -33,7 +33,7 @@ public class EntityDictionary : ScriptableObject
     {
         foreach(KeyValuePair<string, string> kvp in stats.entitiesInScene)
         {
-            InstanitateEntity(kvp.Value, kvp.Key);   
+            InstantiateEntity(kvp.Value, kvp.Key);   
         }
     }
 

@@ -9,7 +9,7 @@ public class BaseTile : Tile
 {
     private int _x, _y;
     private int tileInformation;
-    private bool isCollision;
+    protected bool isCollision;
 
     public BaseTile() : base()
     {
@@ -95,4 +95,27 @@ public class RockTile : BaseTile
     {
         Debug.Log("Resources: " + rockResources);
     }
+}
+
+public class WaterTile : BaseTile
+{
+    public WaterTile() : base()
+    {
+        isCollision = true;
+    }
+
+    public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
+    {
+        base.GetTileData(position, tilemap, ref tileData);
+
+        // Reads from Assets/Resources folder
+        Sprite sprite = Resources.Load<Sprite>("water"); // Resources/water.png
+        tileData.sprite = sprite; // Set the tile's sprite
+    }
+
+    public override void RefreshTile(Vector3Int position, ITilemap tilemap)
+    {
+        base.RefreshTile(position, tilemap);
+    }
+
 }

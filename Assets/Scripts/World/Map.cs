@@ -104,7 +104,7 @@ public class Map : MonoBehaviour
             // only in this file to test for now.
             // pawn immediately fulfills order by
             // teleporting to and destroying the tree
-            GameObject tree = Instantiate(treePrefab, new Vector3(), new Quaternion());
+            /*GameObject tree = Instantiate(treePrefab, new Vector3(), new Quaternion());
             tree.transform.SetParent(newLayer.transform);
             tree.transform.position = new Vector3(origin.x+1 + newLayer.transform.position.x, origin.y-2, 0);
 
@@ -121,7 +121,7 @@ public class Map : MonoBehaviour
             
             // this will add the labor order to the labor order manager where it will automatically be assigned to a pawn
             // from there, the pawn script will handle the rest of the labor order
-            LaborOrderManager.addLaborOrder(cutTreeOrder);
+            LaborOrderManager.addLaborOrder(cutTreeOrder);*/
 
             layers.Add(newLayerComp);
         }

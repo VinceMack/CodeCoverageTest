@@ -52,7 +52,8 @@ public class LaborOrderManager : MonoBehaviour
     public static Pawn getAvailablePawn()
     {
         // return pawn from the queue
-        return availablePawns.Dequeue();
+        Pawn pawn = availablePawns.Dequeue();
+        return pawn;
     }
 
     // adds a labor order to the appropriate queue of labor orders
@@ -91,7 +92,6 @@ public class LaborOrderManager : MonoBehaviour
             // the pawn will add itself back to the queue once it is done with its current labor order
 
             if(availablePawns.Count > 0 && getNumOfLaborOrders() > 0){
-
                 Pawn pawn = getAvailablePawn(); // dequeue a pawn
                 List<LaborType>[] laborTypePriority = pawn.getLaborTypePriority();
 
@@ -99,7 +99,9 @@ public class LaborOrderManager : MonoBehaviour
                     if(laborTypePriority[i] != null) {
                         for(int j = 0; j < laborTypePriority[i].Count; j++){
                             if(laborQueues[(int)laborTypePriority[i][j]] != null && laborQueues[(int)laborTypePriority[i][j]].Count > 0){
-                                pawn.setCurrentLaborOrder(laborQueues[(int)laborTypePriority[i][j]].Dequeue());
+                                LaborOrder order = laborQueues[(int)laborTypePriority[i][j]].Dequeue();
+                                order.assignToPawn(pawn);
+                                pawn.setCurrentLaborOrder(order);
                                 return;
                             }
                         }
@@ -123,9 +125,9 @@ public class LaborOrderManager : MonoBehaviour
 
         // initialize and populate pawn queue (Instantiate them as the children of this object)
         availablePawns = new Queue<Pawn>();
-        for (int i = 0; i < NUM_OF_PAWNS_TO_SPAWN; i++) {
+        /*for (int i = 0; i < NUM_OF_PAWNS_TO_SPAWN; i++) {
             addPawn(Instantiate(pawn_prefab, transform).GetComponent<Pawn>());
-        }
+        }*/
 
         // initialize the array of labor order queues
         laborQueues = new Queue<LaborOrder>[numOfLaborTypes];
@@ -136,9 +138,9 @@ public class LaborOrderManager : MonoBehaviour
         }
 
         // generate 100 labor orders with random labor types and random ttc's (0.5 seconds to 1 second) and add them to the appropriate queue in the array of labor order queues
-        for(int i = 0; i < 100; i++){
+        /*for(int i = 0; i < 100; i++){
             addLaborOrder(new LaborOrder((LaborType)UnityEngine.Random.Range(0, numOfLaborTypes), UnityEngine.Random.Range(0.5f, 1.0f)));
-        }
+        }*/
     }
 
     void Start(){
@@ -149,6 +151,8 @@ public class LaborOrderManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        assignPawn();
+        // exhaust all possible assignments
+        while(availablePawns.Count > 0 && getNumOfLaborOrders() > 0)
+            assignPawn();
     }
 }

@@ -15,3 +15,6 @@ MonoBehaviour:
   prefabList:
   - {fileID: 11400000, guid: e6cffa64c96a00144b6da7307e5486f2, type: 2}
   - {fileID: 11400000, guid: 6e7d528efecd94f43b4958d39ffb717b, type: 2}
+  - {fileID: 11400000, guid: 4c6c6e00fdd1c784a87bb76dff142190, type: 2}
+  - {fileID: 11400000, guid: 162d2f62a72a55b4c892de114744279b, type: 2}
+  - {fileID: 11400000, guid: 9bd87b3077fd90b45a89078d3754e3fd, type: 2}
