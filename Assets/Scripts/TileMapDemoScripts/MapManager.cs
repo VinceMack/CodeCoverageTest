@@ -15,7 +15,7 @@ public class MapManager : MonoBehaviour
     {
         CreateGrid();
         CreateTileMap();
-        //InitializeTileMap();
+        InitializeTileMap();
         
 
         player = (Player)FindObjectOfType(typeof(Player));
@@ -23,7 +23,7 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
-        InitializeTrigMap();
+        //InitializeTrigMap(); // alternative to InitializeTileMap()
     }
 
     void Update()
@@ -140,6 +140,7 @@ public class MapManager : MonoBehaviour
             xterms[1, x] = Mathf.Sin(xp[x] - d);
         }
         int treecount = 0;
+
         // generate
         // land is defined as Mathf.Pow((xp+Mathf.Cos(xp+a)-Mathf.Sin(yp-c)),2) + Mathf.Pow((yp + Mathf.Cos(yp + b) - Mathf.Sin(xp - d)), 2) <= 4
         for (int y=-maxY; y<=maxY; y++)

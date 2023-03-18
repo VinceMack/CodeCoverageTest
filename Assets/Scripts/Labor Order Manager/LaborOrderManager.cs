@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using System.Threading;
 
 [System.Serializable]
 public enum LaborType { FireFight, Patient, Doctor, Sleep, Basic, Warden, Handle, Cook, Hunt, Construct, Grow, Mine, Farm, Woodcut, Smith, Tailor, Art, Craft, Haul, Clean, Research };
@@ -17,7 +16,6 @@ public class LaborOrderManager : MonoBehaviour
     private static Queue<LaborOrder>[] laborQueues;
     private static int laborOrderTotal;
     private static int numOfLaborTypes;
-    private static Mutex queueLock = new Mutex();
 
     private const int NUM_OF_PAWNS_TO_SPAWN = 10;
 
@@ -47,25 +45,20 @@ public class LaborOrderManager : MonoBehaviour
     public static void addPawn(Pawn pawn)
     {
         // add pawn to the queue
-        queueLock.WaitOne(0);
         availablePawns.Enqueue(pawn);
-        queueLock.ReleaseMutex();
     }
 
     // returns a pawn from the queue of available pawns
     public static Pawn getAvailablePawn()
     {
         // return pawn from the queue
-        queueLock.WaitOne(0);
         Pawn pawn = availablePawns.Dequeue();
-        queueLock.ReleaseMutex();
         return pawn;
     }
 
     // adds a labor order to the appropriate queue of labor orders
     public static void addLaborOrder(LaborOrder laborOrder)
     {
-        queueLock.WaitOne(0);
         // check if the labor order is already in the queue
         if (!laborQueues[(int)laborOrder.getLaborType()].Contains(laborOrder))
         {
@@ -73,7 +66,6 @@ public class LaborOrderManager : MonoBehaviour
             laborQueues[(int)laborOrder.getLaborType()].Enqueue(laborOrder);
             laborOrderTotal++;
         }
-        queueLock.ReleaseMutex();
     }
 
     // get the number of available pawns
@@ -107,9 +99,7 @@ public class LaborOrderManager : MonoBehaviour
                     if(laborTypePriority[i] != null) {
                         for(int j = 0; j < laborTypePriority[i].Count; j++){
                             if(laborQueues[(int)laborTypePriority[i][j]] != null && laborQueues[(int)laborTypePriority[i][j]].Count > 0){
-                                queueLock.WaitOne(0);
                                 LaborOrder order = laborQueues[(int)laborTypePriority[i][j]].Dequeue();
-                                queueLock.ReleaseMutex();
                                 order.assignToPawn(pawn);
                                 pawn.setCurrentLaborOrder(order);
                                 return;
