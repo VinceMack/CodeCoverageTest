@@ -102,7 +102,7 @@ public class SaveSystemUIManager : MonoBehaviour
         EntityDictionaryStats entity = mySaveManager.LoadData<EntityDictionaryStats>(saveSlot);
         foreach(KeyValuePair<string, string> kvp in entity.entitiesInScene)
         {
-            GameObject loadedEntity = entityDictionary.InstanitateEntity(kvp.Value, kvp.Key);
+            GameObject loadedEntity = entityDictionary.InstantiateEntity(kvp.Value, kvp.Key);
             SaveableEntity saveableComp = loadedEntity.GetComponent<SaveableEntity>();
             saveableComp.LoadMyData(saveSlot);
         }

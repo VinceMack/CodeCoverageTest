@@ -7,8 +7,10 @@ public class Pawn : BaseNPC
 	[SerializeField]
     private List<LaborType>[] LaborTypePriority;    // required for LaborOrderManager labor order assignment logic
     private LaborOrder currentLaborOrder;           // set by LaborOrderManager
-    private bool isAssigned;                        // set to true when the pawn is assigned to a labor order, set to false when the pawn completes the labor order, controls Update() logic
-    
+    private bool isAssigned;         // set to true when the pawn is assigned to a labor order, set to false when the pawn completes the labor order, controls Update() logic
+    private bool isWorking;
+    //private Mutex assignmentLock = new Mutex();
+
     private string pawnName;
 
     private const int NUM_OF_PRIORITY_LEVELS = 4;
@@ -35,8 +37,11 @@ public class Pawn : BaseNPC
 
     // set the current labor order of the pawn and indicate that the pawn is assigned to a labor order
     public void setCurrentLaborOrder(LaborOrder laborOrder) {
-        currentLaborOrder = laborOrder;
-        isAssigned = true;
+        if(!isWorking)
+        {
+            currentLaborOrder = laborOrder;
+            isAssigned = true;
+        }
     }
 
     // get the current labor type priorities of the pawn
@@ -46,20 +51,19 @@ public class Pawn : BaseNPC
 
     // coroutine to complete labor order by waiting for the time to complete
     private IEnumerator completeCurrentLaborOrder() {
-
-		// set the current labor order to null
         isAssigned = false;
+        isWorking = true;
 
-		// wait the time to complete the labor order
-        yield return new WaitForSeconds(currentLaborOrder.getTimeToComplete());
+        // wait the time to complete the labor order
+        yield return StartCoroutine(currentLaborOrder.execute());
 
-        // add the pawn back to the queue of available pawns
-        LaborOrderManager.addPawn(this);
 
-		// debug print the pawn name and the labor type and the labor number and time to complete
-        Debug.Log($"{pawnName,-10} completed {currentLaborOrder.getLaborType(),-10} {currentLaborOrder.getOrderNumber(),-10} in {currentLaborOrder.getTimeToComplete(),-5:F2} seconds");
+        // debug print the pawn name and the labor type and the labor number and time to complete
+        //Debug.Log($"{pawnName,-10} completed {currentLaborOrder.getLaborType(),-10} {currentLaborOrder.getOrderNumber(),-10} in {currentLaborOrder.getTimeToComplete(),-5:F2} seconds");
+
 
         // stop the coroutine
+        isWorking = false;
         StopCoroutine(completeCurrentLaborOrder());
     }
 
@@ -79,7 +83,7 @@ public class Pawn : BaseNPC
         }
 
         // initialize the default current labor order
-        currentLaborOrder = new LaborOrder();
+        currentLaborOrder = /*new LaborOrder();*/ null;
 
         // initialize the default pawn name to null
         pawnName = "Pawn" + GetInstanceID();
@@ -92,9 +96,12 @@ public class Pawn : BaseNPC
     // Update is called once per frame
     void Update()
     {
-        if(isAssigned){
+        if (isAssigned && !isWorking)
+        {
             StartCoroutine(completeCurrentLaborOrder());
-        }else{
+        }
+        else
+        {
             // no order to complete, do nothing
         }
     }

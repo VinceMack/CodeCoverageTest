@@ -13,11 +13,11 @@ public class StaircaseItem : Item
         prefabList = GlobalInstance.Instance.prefabList;
         entityDictionary = GlobalInstance.Instance.entityDictionary;
 
-        GameObject staircaseOriginBlock = entityDictionary.InstanitateEntity(BlockName);
+        GameObject staircaseOriginBlock = entityDictionary.InstantiateEntity(BlockName);
         Staircase staircaseOriginComp = staircaseOriginBlock.GetComponent<Staircase>();
         bool success = staircaseOriginComp.PlaceObject(placer.GetCurrentLocation());
 
-        GameObject staircaseDestinationBlock = entityDictionary.InstanitateEntity(BlockName);
+        GameObject staircaseDestinationBlock = entityDictionary.InstantiateEntity(BlockName);
         Staircase staircaseDestinationComp = staircaseDestinationBlock.GetComponent<Staircase>();
         success = success && staircaseDestinationComp.PlaceObject(staircaseOriginComp.GetDestinationTile(), false);
         //Do something if fail...or succeed, I suppose
