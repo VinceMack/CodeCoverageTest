@@ -37,9 +37,10 @@ namespace Tests
 
 			yield return new WaitForSeconds(1);
 			EntityDictionary ed = GlobalInstance.Instance.entityDictionary;
+			ed.entityDictionary.Clear();
 			PrefabList pl = GlobalInstance.Instance.prefabList;
 
-			ed.InstanitateEntity(pl.prefabList[0].entityName);
+			ed.InstantiateEntity(pl.prefabList[0].entityName);
 
 			GameObject mine = GameObject.Find("Save System Panel");
 			yield return null;
@@ -50,7 +51,9 @@ namespace Tests
 
 			//Assert
 			Assert.AreEqual(ed.entityDictionary.Count, 1);
-			
+
+			//Clean-up
+			ed.entityDictionary.Clear();
 		}
 
 		[UnityTest]
@@ -60,9 +63,10 @@ namespace Tests
 
 			yield return new WaitForSeconds(1);
 			EntityDictionary ed = GlobalInstance.Instance.entityDictionary;
+			ed.entityDictionary.Clear();
 			PrefabList pl = GlobalInstance.Instance.prefabList;
 
-			ed.InstanitateEntity(pl.prefabList[0].entityName);
+			ed.InstantiateEntity(pl.prefabList[0].entityName);
 
 			GameObject mine = GameObject.Find("Save System Panel");
 			yield return null;
@@ -75,7 +79,9 @@ namespace Tests
 
 			//Assert
 			Assert.AreEqual(ed.entityDictionary.Count, 1);
-			
+
+			//Clean-up
+			ed.entityDictionary.Clear();			
 		}
 	}
 }

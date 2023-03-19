@@ -18,14 +18,6 @@ public class SaveStats : IStats
         
     }
 
-    public DateTime GetDateTime()
-    {
-        Debug.Log(dateLastPlayed + " " + timeLastPlayed);
-        DateTime returnTime = DateTime.Parse(dateLastPlayed + " " + timeLastPlayed);
-        Debug.Log(returnTime);
-        return returnTime;
-    }
-
     public string dateLastPlayed;
     public string timeLastPlayed;
 }

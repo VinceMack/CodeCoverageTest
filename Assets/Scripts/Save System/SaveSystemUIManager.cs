@@ -22,12 +22,6 @@ public class SaveSystemUIManager : MonoBehaviour
 
     }
 
-    public SaveSystemUIManager(GameObject hardcodedContent, GameObject hardcodedSaveSlot)
-    {
-        content = hardcodedContent;
-        saveSlot = hardcodedSaveSlot;
-    }
-
     public GameObject GetContent()
     {
         return content;

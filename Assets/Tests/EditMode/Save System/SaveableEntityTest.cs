@@ -57,7 +57,7 @@ namespace Tests
         public void CurrentLocationTest() 
         {
             //Arrange
-            Tile tile = new Tile();
+            GameObjectTile tile = new GameObjectTile();
 
             //Act
             saveableEntity.SetCurrentLocation(tile);
