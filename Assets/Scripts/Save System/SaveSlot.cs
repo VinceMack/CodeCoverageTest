@@ -12,7 +12,7 @@ public class SaveSlot : MonoBehaviour
     [SerializeField] private TextMeshProUGUI slotInfo;
     [SerializeField] private int saveSlot;
 
-    public void Initialize(int slot, SaveSystemManager saveManager, SaveSystemUIManager uiManager, bool saveDetected)
+    public void Initialize(int slot, ISaveSystemManager saveManager, SaveSystemUIManager uiManager, bool saveDetected)
     {
         saveSlot = slot;
         slotName.text = "Save #" + saveSlot;
@@ -33,5 +33,16 @@ public class SaveSlot : MonoBehaviour
     public void SelectSlot()
     {
         myUIManager.activeSlot = saveSlot;
+    }
+
+    public string GetSaveInfoText()
+    {
+        return slotInfo.text;
+    }
+
+    public void SetTexts(TextMeshProUGUI newSlotName, TextMeshProUGUI newSlotInfo)
+    {
+        slotName = newSlotName;
+        slotInfo = newSlotInfo;
     }
 }

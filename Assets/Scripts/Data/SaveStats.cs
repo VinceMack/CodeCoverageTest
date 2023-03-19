@@ -13,6 +13,11 @@ public class SaveStats : IStats
         dateLastPlayed = time.ToShortDateString();
     }
 
+    public SaveStats()
+    {
+        
+    }
+
     public DateTime GetDateTime()
     {
         Debug.Log(dateLastPlayed + " " + timeLastPlayed);

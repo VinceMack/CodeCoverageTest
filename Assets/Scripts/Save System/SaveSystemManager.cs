@@ -4,16 +4,28 @@ using UnityEngine;
 using System;
 using System.IO;
 
-public class SaveSystemManager : MonoBehaviour
+public class SaveSystemManager : MonoBehaviour, ISaveSystemManager
 {
-    private IDataService DataService = new JsonDataService();
+    private IDataService DataService;
 
-    public virtual void SaveData<T>(T stats, int saveNumber)
+    public SaveSystemManager()
+    {
+        DataService = new JsonDataService();
+    }
+
+    public SaveSystemManager(IDataService service)
+    {
+        DataService = service;
+    }
+
+    public virtual bool SaveData<T>(T stats, int saveNumber)
     {
         if(!DataService.SaveData($"/{saveNumber}/Save-{saveNumber}.json", stats, Constants.ENCRYPT_SAVE_DATA))
         {
-            Debug.LogError($"Could not save Save-{saveNumber}!");
+            Debug.LogWarning($"Could not save Save-{saveNumber}!");
+            return false;
         }
+        return true;
     }
 
     public virtual T LoadData<T>(int saveNumber)
@@ -29,27 +41,20 @@ public class SaveSystemManager : MonoBehaviour
         }
         catch(Exception e)
         {
-            Debug.LogError($"Could not load Save-{saveNumber}: {e.Message}");
+            Debug.LogWarning($"Could not load Save-{saveNumber}: {e.Message}");
             return default;
         }
     }
-
-    public void ClearData(int saveNumber)
-    {
-        string path = Application.persistentDataPath + $"/{saveNumber}/Save-{saveNumber}.json";
-        if(File.Exists(path))
-        {
-            File.Delete(path);
-        }
-    }
     
-    public void SaveInfo(int saveNumber)
+    public bool SaveInfo(int saveNumber)
     {
         SaveStats saveStats = new SaveStats(DateTime.Now);
         if(!DataService.SaveData($"/{saveNumber}/Save-Stats.json", saveStats, Constants.ENCRYPT_SAVE_DATA))
         {
-            Debug.LogError($"Could not save Save-Stats!");
+            Debug.LogWarning($"Could not save Save-Stats!");
+            return false;
         }
+        return true;
     }
 
     public T LoadInfo<T>(int saveNumber)
@@ -60,7 +65,7 @@ public class SaveSystemManager : MonoBehaviour
         }
         catch(Exception e)
         {
-            Debug.LogError($"Could not load Save-Stats: {e.Message}");
+            Debug.LogWarning($"Could not load Save-Stats: {e.Message}");
             return default;
         }
     }

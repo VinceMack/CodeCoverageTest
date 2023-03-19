@@ -9,7 +9,7 @@ public class Initializer : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if(prefabList != null)
+        if(prefabList != null && prefabList.prefabDictionary.Count == 0)
         {
             Debug.Log("Initializing PrefabList");
             prefabList.InitializePrefabDictionary();
