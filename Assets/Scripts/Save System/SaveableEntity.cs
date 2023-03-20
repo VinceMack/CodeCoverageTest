@@ -7,14 +7,24 @@ using System.IO;
 [RequireComponent(typeof(BaseStats))]
 public class SaveableEntity : MonoBehaviour
 {
-    protected IStats myStats;
+    public IStats myStats;
     private string prefabName;
     [SerializeField] private string id = string.Empty;
     public string Id => id;
 
-    private IDataService DataService = new JsonDataService();
+    private IDataService DataService;
 
     [SerializeField] private GameObjectTile currentLocation;
+
+    public SaveableEntity()
+    {
+        DataService = new JsonDataService();
+    }
+
+    public SaveableEntity(IDataService dataService)
+    {
+        DataService = dataService;
+    }
 
     public void SetPrefabName(string prefabName)
     {
@@ -48,12 +58,14 @@ public class SaveableEntity : MonoBehaviour
         currentLocation = newLocation;
     }
 
-    public virtual void SaveData<T>(T stats, int saveSlot)
+    public virtual bool SaveData<T>(T stats, int saveSlot)
     {
         if(!DataService.SaveData($"/{saveSlot}/Entity-{id}-Stats.json", stats, Constants.ENCRYPT_SAVE_DATA))
         {
-            Debug.LogError($"Could not save Entity-{id}-Stats!");
+            Debug.LogWarning($"Could not save Entity-{id}-Stats!");
+            return false;
         }
+        return true;
     }
 
     public virtual T LoadData<T>(int saveSlot)
@@ -64,17 +76,8 @@ public class SaveableEntity : MonoBehaviour
         }
         catch(Exception e)
         {
-            Debug.LogError($"Could not load Entity-{id}-Stats: {e.Message}");
+            Debug.LogWarning($"Could not load Entity-{id}-Stats: {e.Message}");
             return default;
-        }
-    }
-
-    public void ClearData(int saveSlot)
-    {
-        string path = Application.persistentDataPath + $"/{saveSlot}/Entity-{id}-Stats.json";
-        if(File.Exists(path))
-        {
-            File.Delete(path);
         }
     }
 

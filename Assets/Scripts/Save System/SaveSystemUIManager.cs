@@ -17,6 +17,16 @@ public class SaveSystemUIManager : MonoBehaviour
 
     public int activeSlot = -1;
 
+    public SaveSystemUIManager()
+    {
+
+    }
+
+    public GameObject GetContent()
+    {
+        return content;
+    }
+
     public void LoadActiveSlot()
     {
         if(activeSlot != -1 && Directory.Exists(Application.persistentDataPath + $"/{activeSlot}"))
@@ -100,6 +110,8 @@ public class SaveSystemUIManager : MonoBehaviour
         }
         entityDictionary = GlobalInstance.Instance.entityDictionary;
         EntityDictionaryStats entity = mySaveManager.LoadData<EntityDictionaryStats>(saveSlot);
+
+        GlobalInstance.Instance.entityDictionary.entityDictionary.Clear();
         foreach(KeyValuePair<string, string> kvp in entity.entitiesInScene)
         {
             GameObject loadedEntity = entityDictionary.InstantiateEntity(kvp.Value, kvp.Key);
