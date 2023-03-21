@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class Storage : SaveableEntity
 {
+    public enum FilterPriority {
+        Low, Medium, High
+    }
+
+    public struct tileAvailability {
+        bool isAvailable;
+        Vector3 tileCoordinate;
+
+        Item item;
+    }
+    
     public List<Item> storageList;
     public List<Pawn> workersList;
 
@@ -11,47 +22,41 @@ public class Storage : SaveableEntity
 
     public LaborOrder zoneAssignedOrder;
 
-    public uint maxPopulationSize;
-    public uint maxStorageSize;
+    public Vector3 position;
+    public Vector3 size;
 
-    public void Storage()
+    public Storage()
     {
         storageList = new List<Item>();
         workersList = new List<Pawn>();
         filter = new List<Item>();
         zoneAssignedOrder = null;
-        maxPopulationSize = 1;
-        maxStorageSize = 1;
     }
 
     /*
         Constructor for storage if you know what type of zone storage area should be
     */
-    public void Storage(Pawn.PawnType type, int maxPopSize, int maxStrgSize)
+    public Storage(Pawn.PawnType type, int maxPopSize, int maxStrgSize)
     {
         storageList = new List<Item>();
         workersList = new List<Pawn>();
         filter = new List<Item>();
         zoneAssignedOrder = null;
-        maxPopulationSize = maxPopSize;
-        maxStorageSize = maxStrgSize;
     }
 
-    public void Storage(Storage storage)
+    public Storage(Storage storage)
     {
         storageList = storage.storageList;
         workersList = storage.workersList;
         filter = storage.filter;
         zoneAssignedOrder = storage.zoneAssignedOrder;
-        maxPopulationSize = storage.maxPopulationSize;
-        maxStorageSize = storage.maxStorageSize;
     }
 
     //TODO: Once we get a better understanding of tasks, then we should be able to flesh this part of the system out
     public void Update()
     {
 
-        /*
+        /* 
             switch(zoneAssignedOrder)
             {
                 case lumber:
@@ -66,14 +71,9 @@ public class Storage : SaveableEntity
         */
     }
 
-    public void doTask(Pawn.PawnType taskType)
+    public int addWorker(Pawn pawn)
     {
-
-    }
-
-    public void addWorker(Pawn pawn)
-    {
-        if (workersList.Count + 1 >= maxPopulationSize || workersList.Contains(pawn))
+        if (workersList.Contains(pawn))
         {
             return -1;
         }
@@ -100,16 +100,19 @@ public class Storage : SaveableEntity
     }
 
     //TODO: If change in zone requires change in item filter / pawn jobs, add logic here
-    public int changeZoneTask(LaborOrder order, Filter filter)
+    public int changeZoneTask(LaborOrder order, List<Item> filter)
     {
         zoneAssignedOrder = order;
         this.filter = filter;
 
+        return -1;
     }
 
-    public int changeFilter(Filter filter)
+    public int changeFilter(List<Item> filter)
     {
         this.filter = filter;
+
+        return -1;
     }
 
     //TODO: Implement logic for filters
@@ -190,6 +193,12 @@ public class Storage : SaveableEntity
 
         storageList[index].Quantity -= quantity;
         return 1;
+    }
+
+    //TODO: Flesh this part out 
+    public Vector3 getItemCoordinate(string itemName) {
+
+        return null;
     }
 
     //TODO: Use saveable entity functions
