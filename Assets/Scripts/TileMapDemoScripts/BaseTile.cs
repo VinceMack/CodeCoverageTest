@@ -7,25 +7,34 @@ using UnityEngine.Tilemaps;
 // derive from BaseTile.
 public class BaseTile : Tile
 {
-    private int _x, _y;
+    public int x, y;
     private int tileInformation;
+
+    // Pathfinding
+    public int distance;
+    public bool visited;
     protected bool isCollision;
+    public BaseTile parent;
 
     public BaseTile() : base()
     {
-        _x = 0; _y = 0;
+        x = 0; y = 0;
         tileInformation = -1;
+
+        distance = -1;
+        visited = false;
         isCollision = false;
+        parent = null;
     }
 
     public void printInformation()
     {
-        Debug.Log("X: " + _x + " Y: " + _y + " Collision: " + isCollision);
+        Debug.Log("X: " + x + " Y: " + y + " Collision: " + isCollision);
     }
 
     public void setTileInformation(int x, int y, int information, bool collision)
     {
-        _x = x; _y = y;
+        this.x = x; this.y = y;
         tileInformation = information;
         isCollision = collision;
     }

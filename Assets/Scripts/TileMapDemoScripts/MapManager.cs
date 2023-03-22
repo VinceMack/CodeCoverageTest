@@ -9,7 +9,11 @@ public class MapManager : MonoBehaviour
     private GameObject grid;
     private GameObject tileMapGameObject;
     private Tilemap tileMap;
+
     private Player player;
+    private HighlightTile highlightTile;
+
+    private PathFinding pathFinding;
 
     private void Awake()
     {
@@ -17,8 +21,9 @@ public class MapManager : MonoBehaviour
         CreateTileMap();
         InitializeTileMap();
         
-
         player = (Player)FindObjectOfType(typeof(Player));
+        highlightTile = (HighlightTile)FindObjectOfType(typeof(HighlightTile));
+        pathFinding = new PathFinding(tileMap);
     }
 
     void Start()
@@ -28,39 +33,26 @@ public class MapManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // If mouse left click
-        {
-            Vector2 mouseLocationAtClick = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int tileMapLocation = tileMap.WorldToCell(mouseLocationAtClick);
-            TileBase clickedTile = tileMap.GetTile(tileMapLocation); // Get clicked tile
+        updateGameObjects();
+    }
 
-            // Set player position to clicked position
-            player.transform.position = new Vector3(tileMapLocation.x, tileMapLocation.y, 0);
-            
-            // Cast from TileBase to BaseTile and check the tile type
-            BaseTile baseTile = (BaseTile)clickedTile;
-            switch (baseTile.getTileInformation())
-            {
-                case 1:
-                    try
-                    {
-                        RockTile rockTile = (RockTile)baseTile;
-                        rockTile.printInformation();
-                        rockTile.printResources();
-                    }
-                    catch (InvalidCastException) { }
-                    break;
-                case 2:
-                    try
-                    {
-                        GrassTile grassTile = (GrassTile)baseTile;
-                        grassTile.printInformation();
-                    }
-                    catch (InvalidCastException) { }
-                    break;
-            }
+    private void updateGameObjects()
+    {
+        Vector3Int tileLocation = getTileLocation();
+        highlightTile.transform.position = tileLocation;
+
+        if (Input.GetMouseButtonDown(0)){
+            TileBase clickedTile = tileMap.GetTile(tileLocation); // Get clicked tile
+            player.updatePath(pathFinding.getPath(Vector3Int.FloorToInt(player.transform.position), tileLocation));
         }
 
+        player.updateLocation(10.0f * Time.deltaTime);
+    }
+
+    private Vector3Int getTileLocation()
+    {
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        return tileMap.WorldToCell(mousePosition);
     }
 
     private void CreateGrid()
