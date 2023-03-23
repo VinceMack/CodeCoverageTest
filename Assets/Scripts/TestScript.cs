@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TestScript : MonoBehaviour
 {
-    [SerializeField] private Tile testLocation;
+    [SerializeField] private GameObjectTile testLocation;
 
     [ContextMenu("TestStaircasePlacing")]
     public void TestStaircasePlacement()

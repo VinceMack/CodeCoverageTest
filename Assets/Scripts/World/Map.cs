@@ -42,7 +42,7 @@ public class Map : MonoBehaviour
     }
 
     // Returns a tile at the specified coordiantes
-    public Tile GetTile(int x, int y, int z)
+    public GameObjectTile GetTile(int x, int y, int z)
     {
         if(x < worldLength && x > -1 && y < worldHeight && y > -1 && z < worldDepth && z > -1)
         {
@@ -80,21 +80,21 @@ public class Map : MonoBehaviour
                         if(i == length - 1 || i == 0 || j == height - 1 || j == 0)
                         {
                             latestTile = Instantiate(oceanTilePrefab, new Vector3(), new Quaternion());
-                            latestTile.GetComponent<Tile>().InitializeTile(this, newLayerComp, i, j, k, false);
+                            latestTile.GetComponent<GameObjectTile>().InitializeTile(this, newLayerComp, i, j, k, false);
                         }
                         else
                         {
                             latestTile = Instantiate(grassTilePrefab, new Vector3(), new Quaternion());
-                            latestTile.GetComponent<Tile>().InitializeTile(this, newLayerComp, i, j, k, true);
+                            latestTile.GetComponent<GameObjectTile>().InitializeTile(this, newLayerComp, i, j, k, true);
                         }
                     }
                     else
                     {
                         // To illustrate staircases
                         latestTile = Instantiate(walkwayTilePrefab, new Vector3(), new Quaternion());
-                        latestTile.GetComponent<Tile>().InitializeTile(this, newLayerComp, i, j, k, false);
+                        latestTile.GetComponent<GameObjectTile>().InitializeTile(this, newLayerComp, i, j, k, false);
                     }
-                    newLayerComp.AddTile(latestTile.GetComponent<Tile>());
+                    newLayerComp.AddTile(latestTile.GetComponent<GameObjectTile>());
                     latestTile.transform.SetParent(newLayer.transform);               
                     latestTile.transform.position = new Vector3(origin.x + i + newLayer.transform.position.x, origin.y - j, 0);    
                 }
@@ -103,9 +103,8 @@ public class Map : MonoBehaviour
             // adding objects to test labor order.
             // only in this file to test for now.
             // pawn immediately fulfills order by
-            //  teleporting to and destroying the tree
-                // tree
-            GameObject tree = Instantiate(treePrefab, new Vector3(), new Quaternion());
+            // teleporting to and destroying the tree
+            /*GameObject tree = Instantiate(treePrefab, new Vector3(), new Quaternion());
             tree.transform.SetParent(newLayer.transform);
             tree.transform.position = new Vector3(origin.x+1 + newLayer.transform.position.x, origin.y-2, 0);
 
@@ -114,19 +113,15 @@ public class Map : MonoBehaviour
             pawn.transform.SetParent(newLayer.transform);
             pawn.transform.position = new Vector3(origin.x + 2 + newLayer.transform.position.x, origin.y - 1, 0);
             Pawn p = pawnPrefab.GetComponent<Pawn>();
-            p.pawnObject = pawn;
-            p.rename("test");
+            p.setPawnName("test");
 
 
             // create labor order for the pawn
             LaborOrder cutTreeOrder = new LaborOrder();
-            cutTreeOrder.assignedPawn = p;
-            cutTreeOrder.targetObject = tree;
-            p.currentOrder = cutTreeOrder;
-            p.startLaborOrder();
-
-
-
+            
+            // this will add the labor order to the labor order manager where it will automatically be assigned to a pawn
+            // from there, the pawn script will handle the rest of the labor order
+            LaborOrderManager.addLaborOrder(cutTreeOrder);*/
 
             layers.Add(newLayerComp);
         }
