@@ -1,20 +1,9 @@
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class Storage : SaveableEntity
+public class Storage : MonoBehaviour
 {
-    public enum FilterPriority {
-        Low, Medium, High
-    }
-
-    public struct tileAvailability {
-        bool isAvailable;
-        Vector3 tileCoordinate;
-
-        Item item;
-    }
-    
     public List<Item> storageList;
     public List<Pawn> workersList;
 
@@ -22,145 +11,119 @@ public class Storage : SaveableEntity
 
     public LaborOrder zoneAssignedOrder;
 
-    public Vector3 position;
-    public Vector3 size;
-
-    public Storage()
-    {
-        storageList = new List<Item>();
-        workersList = new List<Pawn>();
-        filter = new List<Item>();
-        zoneAssignedOrder = null;
-    }
-
     /*
-        Constructor for storage if you know what type of zone storage area should be
+        Adds worker to the worker list.
+        Returns -1 if unsuccessful.
+        Returns new size of worker list if successful.
     */
-    public Storage(Pawn.PawnType type, int maxPopSize, int maxStrgSize)
-    {
-        storageList = new List<Item>();
-        workersList = new List<Pawn>();
-        filter = new List<Item>();
-        zoneAssignedOrder = null;
-    }
-
-    public Storage(Storage storage)
-    {
-        storageList = storage.storageList;
-        workersList = storage.workersList;
-        filter = storage.filter;
-        zoneAssignedOrder = storage.zoneAssignedOrder;
-    }
-
-    //TODO: Once we get a better understanding of tasks, then we should be able to flesh this part of the system out
-    public void Update()
-    {
-
-        /* 
-            switch(zoneAssignedOrder)
-            {
-                case lumber:
-                    doLumber();
-                case mines:
-                    doMining();
-                case etc:
-                    doEtc();
-                default:
-                    doDefault();
-            }
-        */
-    }
-
-    public int addWorker(Pawn pawn)
+    public virtual int addWorker(Pawn pawn)
     {
         if (workersList.Contains(pawn))
         {
             return -1;
         }
-
-        pawn.type = Pawn.PawnType.storage;
+        
         pawn.currentOrder = zoneAssignedOrder;
         workersList.Add(pawn);
 
-        return 1;
+        return workersList.Count;
     }
 
-    public int removeWorker(Pawn pawn)
+    /*
+        Removes worker from the worker list.
+        Returns -1 if unsuccessful.
+        Returns new size of worker list if successful.
+    */
+    public virtual int removeWorker(Pawn pawn)
     {
-        int pawnIndex = workersList.FindIndex(pawn);
+        int pawnIndex = -1;
+
+        for (int i = 0; i < workersList.Count; ++i)
+        {
+            var p = workersList[i];
+            if (p.pawnName.ToLower().Equals(pawn.pawnName.ToLower()))
+            {
+                pawnIndex = i;
+                break;
+            }
+        }
 
         if (pawnIndex == -1)
         {
             return -1;
         }
 
-        workersList.RemoveAt(workersList.FindIndex(pawn));
-
-        return pawnIndex;
+        workersList.RemoveAt(pawnIndex);
+        return workersList.Count;
     }
 
-    //TODO: If change in zone requires change in item filter / pawn jobs, add logic here
-    public int changeZoneTask(LaborOrder order, List<Item> filter)
+    /*
+        Changes the current zone assigned order to the order passed in
+    */
+    public virtual void changeZoneTask(LaborOrder order)
     {
         zoneAssignedOrder = order;
-        this.filter = filter;
-
-        return -1;
     }
 
-    public int changeFilter(List<Item> filter)
+    /*
+        Changes the current filter list to the list passed in
+    */
+    public virtual void changeFilter(List<Item> filter)
     {
         this.filter = filter;
-
-        return -1;
     }
 
-    //TODO: Implement logic for filters
-    public int addItem(Item item)
+    /*
+        Adds item to storage list if it is not already in the list. If it is in the list, then it increments the quantity of the item
+        Item must be in filter list if you want to add it to the storage list
+        Returns -1 if item is not on the filter list and cannot be added to the storage list. 
+        Returns updated quantity of specified item if it does exist
+    */
+    public virtual int addItem(Item item)
     {
-        if (storageList.Count + 1 >= maxStorageSize)
-        {
-            return -1;
-        } else if (!filter.Contains(item))
-        {
-            return 0;
-        }
-
-        int index = storageList.FindIndex(item);
+        int index = findFilterItem(item);
         
         if (index == -1)
         {
-            storageList.Add(item);
-            return 1;
+            //Checking filter to make sure item can be added
+            foreach (var filterItem in filter)
+            {
+                if (item.Name.ToLower().Equals(filterItem.Name.ToLower()))
+                {
+                    storageList.Add(item);
+                    return item.Quantity;
+                }
+            }
+            return -1;
         }
 
         storageList[index].Quantity += item.Quantity;
-        return 1;
+        return storageList[index].Quantity;
     }
 
-    //TODO: Add logic for creating item object to add to list rather than just incrementing item quantity
-    public int addItem(string itemName, int quanity)
+    /*
+        If it is in the list, then it increments the quantity of the item by the quantity passed in
+        Returns -1 if item does not exist in storage list. Returns updated quantity of specified item if it does exist
+    */
+    public virtual int incrementItem(string itemName, int quanity)
     {
-        int index = -1;
         for (int i = 0; i < storageList.Count; ++i)
         {
             if (storageList[i].Name.ToLower().Equals(itemName.ToLower()))
             {
-                index = i;
-                break;
+                storageList[i].Quantity += quanity;
+                return storageList[i].Quantity;
             }
         }
 
-        if (index == -1)
-        {
-            return -1;
-        }
-
-        storageList[index].Quantity += quanity;
-        return 1;
+        return -1;
     }
 
-    public int removeItem(Item item)
+    /*
+        If it is in the list, then it decrements the quantity of the item by the quantity passed in
+        If item does not exist, returns -1. Otherwise, returns current size of storage list
+    */
+    public virtual int removeItem(Item item)
     {
         if (!storageList.Contains(item))
         {
@@ -168,10 +131,15 @@ public class Storage : SaveableEntity
         }
 
         storageList.Remove(item);
-        return 1;
+        return storageList.Count;
     }
 
-    public int removeItem(string itemName, int quantity)
+    /*
+        Removes item from storage list if it is in the list. If it is in the list, then it decrements the quantity of the item
+        Item must be in filter list if you want to remove it from the storage list
+        Returns -1 if item does not exist in storage list. Then returns remaining quantity of specified item if it does exist
+    */
+    public virtual int decrementItem(string itemName, int quantity)
     {
         bool existsInList = false;
         int index = -1;
@@ -186,20 +154,52 @@ public class Storage : SaveableEntity
             }
         }
 
-        if (!existsInList || storageList[index].Quantity < quantity || index = -1)
+        if (index == -1)
+        {
+            return -1;
+        }
+
+        if (!existsInList)
+        {
+            return -1;
+        }
+
+        if (storageList[index].Quantity < quantity)
         {
             return -1;
         }
 
         storageList[index].Quantity -= quantity;
-        return 1;
+        return storageList[index].Quantity;
     }
 
-    //TODO: Flesh this part out 
-    public Vector3 getItemCoordinate(string itemName) {
-
-        return null;
+    /*
+        Returns true if the item is in the filter list. Returns false if it is not in the filter list
+    */
+    public virtual bool isValidItem(Item item)
+    {
+        foreach (var filterItem in filter)
+        {
+            if (item.Name.ToLower().Equals(filterItem.Name.ToLower()))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
-    //TODO: Use saveable entity functions
+    /*
+        Returns the index of the item in the storage list if it exists. Returns -1 if it does not exist
+    */
+    public virtual int findFilterItem(Item item)
+    {
+        for (int i = 0; i < filter.Count; ++i)
+        {
+            if (item.Name.ToLower().Equals(filter[i].Name.ToLower()))
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
 }
