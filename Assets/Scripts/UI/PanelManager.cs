@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PanelManager : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class PanelManager : MonoBehaviour
 
     public void CloseSaveSystemUI()
     {
-        saveSystemUI.SetActive(false);
+       SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
     }
 
     public void EnableSaveSystemUI()
