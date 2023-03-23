@@ -23,7 +23,7 @@ public class Storage : MonoBehaviour
             return -1;
         }
         
-        pawn.currentOrder = zoneAssignedOrder;
+        pawn.setCurrentLaborOrder(zoneAssignedOrder);
         workersList.Add(pawn);
 
         return workersList.Count;
@@ -41,7 +41,7 @@ public class Storage : MonoBehaviour
         for (int i = 0; i < workersList.Count; ++i)
         {
             var p = workersList[i];
-            if (p.pawnName.ToLower().Equals(pawn.pawnName.ToLower()))
+            if (p.getPawnName().ToLower().Equals(pawn.getPawnName().ToLower()))
             {
                 pawnIndex = i;
                 break;
