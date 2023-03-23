@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -77,19 +78,21 @@ public class MainMenuManager : MonoBehaviour
             switch(option)
             {
                 case "new":
-                    newMenu.SetActive(true);
+                    //newMenu.SetActive(true);
                     // PLAY ANIMATION HERE
+                    PlayGame();
                     break;
                 case "load":
-                    loadMenu.SetActive(true);
+                    //loadMenu.SetActive(true);
+                    LoadSaveGame();
                     // PLAY ANIMATION HERE
                     break;
                 case "settings":
-                    settingsMenu.SetActive(true);
+                    //settingsMenu.SetActive(true);
                     // PLAY ANIMATION HERE
                     break;
                 case "exit":
-                    exitMenu.SetActive(true);
+                    //exitMenu.SetActive(true);
                     // PLAY ANIMATION HERE
                     break;
                 default:
@@ -98,4 +101,13 @@ public class MainMenuManager : MonoBehaviour
             }
         }
     }
+
+    public void PlayGame(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    
+    public void LoadSaveGame(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+    }
+
 }
