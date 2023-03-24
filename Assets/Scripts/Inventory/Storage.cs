@@ -12,6 +12,17 @@ public class Storage : MonoBehaviour
     public LaborOrder zoneAssignedOrder;
 
     /*
+        Basic Constructor
+    */
+    public Storage()
+    {
+        storageList = new List<Item>();
+        workersList = new List<Pawn>();
+        filter = new List<Item>();
+        zoneAssignedOrder = null;
+    }
+
+    /*
         Adds worker to the worker list.
         Returns -1 if unsuccessful.
         Returns new size of worker list if successful.
@@ -83,22 +94,22 @@ public class Storage : MonoBehaviour
     {
         int index = findFilterItem(item);
         
-        if (index == -1)
+        if (findFilterItem(item) == -1)
         {
-            //Checking filter to make sure item can be added
-            foreach (var filterItem in filter)
-            {
-                if (item.Name.ToLower().Equals(filterItem.Name.ToLower()))
-                {
-                    storageList.Add(item);
-                    return item.Quantity;
-                }
-            }
             return -1;
         }
 
-        storageList[index].Quantity += item.Quantity;
-        return storageList[index].Quantity;
+        foreach(var i in storageList)
+        {
+            if (i.Name.ToLower().Equals(item.Name.ToLower()))
+            {
+                i.Quantity += item.Quantity;
+                return i.Quantity;
+            }
+        }
+
+        storageList.Add(item);
+        return storageList[storageList.Count - 1].Quantity;
     }
 
     /*
