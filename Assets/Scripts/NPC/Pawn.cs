@@ -35,6 +35,10 @@ public class Pawn : BaseNPC
         name = pawnName;
     }
 
+	public string getPawnName() {
+		return pawnName;
+	}
+
     // set the current labor order of the pawn and indicate that the pawn is assigned to a labor order
     public void setCurrentLaborOrder(LaborOrder laborOrder) {
         if(!isWorking)
