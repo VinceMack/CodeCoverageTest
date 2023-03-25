@@ -46,5 +46,21 @@ namespace Tests {
                 Assert.AreEqual(health.GetHP(), DEFAULT_HP - i - 1);
             }
         }
+
+        [Test]
+        public void HealthSetupTest()
+        {
+            for (int i = 0; i < DEFAULT_HP - 1; i++)
+            {
+                //Arrange
+                var health = new NonGenericHealthImplementationForTest();
+
+                //Act
+                health.SetUp(DEFAULT_HP);
+
+                //Assert
+                Assert.AreEqual(health.GetHP(), DEFAULT_HP);
+            }
+        }
     }
 }
