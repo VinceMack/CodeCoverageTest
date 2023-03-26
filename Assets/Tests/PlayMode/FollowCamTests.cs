@@ -17,71 +17,13 @@ namespace Tests
 		}
 
 		[UnityTest]
-		public IEnumerator OpenSaveMenuTest()
+		public IEnumerator FollowCamTest()
 		{
-			SceneManager.LoadScene("BasicSaveLoadTest");
 			yield return new WaitForSeconds(1);
 
-			GameObject mine = GameObject.Find("Save System Panel");
-			yield return null;
-			mine.SetActive(true);
-			mine.GetComponent<SaveSystemUIManager>().OpenSaveMenu();
+			GameObject cam = GameObject.Find("Main Camera");
 
-			Assert.AreEqual(mine.GetComponent<SaveSystemUIManager>().GetContent().transform.childCount, Constants.SAVE_SLOT_NUMBER+1);
-		}
-
-		[UnityTest]
-		public IEnumerator SaveLoadTest()
-		{
-			SceneManager.LoadScene("BasicSaveLoadTest");
-
-			yield return new WaitForSeconds(1);
-			EntityDictionary ed = GlobalInstance.Instance.entityDictionary;
-			ed.entityDictionary.Clear();
-			PrefabList pl = GlobalInstance.Instance.prefabList;
-
-			ed.InstantiateEntity(pl.prefabList[0].entityName);
-
-			GameObject mine = GameObject.Find("Save System Panel");
-			yield return null;
-			
-			//Act
-			mine.GetComponent<SaveSystemUIManager>().Save(0);
-			mine.GetComponent<SaveSystemUIManager>().Load(0);
-
-			//Assert
-			Assert.AreEqual(ed.entityDictionary.Count, 1);
-
-			//Clean-up
-			ed.entityDictionary.Clear();
-		}
-
-		[UnityTest]
-		public IEnumerator ActiveSlotTest()
-		{
-			SceneManager.LoadScene("BasicSaveLoadTest");
-
-			yield return new WaitForSeconds(1);
-			EntityDictionary ed = GlobalInstance.Instance.entityDictionary;
-			ed.entityDictionary.Clear();
-			PrefabList pl = GlobalInstance.Instance.prefabList;
-
-			ed.InstantiateEntity(pl.prefabList[0].entityName);
-
-			GameObject mine = GameObject.Find("Save System Panel");
-			yield return null;
-			
-			//Act
-			mine.GetComponent<SaveSystemUIManager>().activeSlot = 0;
-			mine.GetComponent<SaveSystemUIManager>().SaveActiveSlot();
-			mine.GetComponent<SaveSystemUIManager>().LoadActiveSlot();
-			mine.GetComponent<SaveSystemUIManager>().DeleteActiveSlot();
-
-			//Assert
-			Assert.AreEqual(ed.entityDictionary.Count, 1);
-
-			//Clean-up
-			ed.entityDictionary.Clear();			
+			Assert.AreEqual(cam.transform.position, new Vector3(0, 0, cam.transform.position.z));
 		}
 	}
 }
