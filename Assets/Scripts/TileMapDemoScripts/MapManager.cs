@@ -19,7 +19,7 @@ public class MapManager : MonoBehaviour
     {
         CreateGrid();
         CreateTileMap();
-        //InitializeTileMap();
+        InitializeTileMap();
         
         player = (Player)FindObjectOfType(typeof(Player));
         highlightTile = (HighlightTile)FindObjectOfType(typeof(HighlightTile));
@@ -28,7 +28,7 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
-        InitializeTrigMap(); // alternative to InitializeTileMap()
+        //InitializeTrigMap(); // alternative to InitializeTileMap()
     }
 
     void Update()
