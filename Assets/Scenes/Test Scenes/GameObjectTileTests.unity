@@ -123,6 +123,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &594209618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 594209620}
+  - component: {fileID: 594209619}
+  m_Layer: 0
+  m_Name: GlobalInstance
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &594209619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594209618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a91d8d59cadf6844f947942521b2224b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabList: {fileID: 11400000, guid: 1974452ef6652ea42ae8a59b6aa76423, type: 2}
+  entityDictionary: {fileID: 11400000, guid: ee0af8e1914615c48969381aa513aa83, type: 2}
+--- !u!4 &594209620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594209618}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.0051546, y: -1.2774137, z: -0.015845776}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1385719037
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,6 +267,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followObject: {fileID: 0}
+--- !u!1 &1612220054
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1612220056}
+  - component: {fileID: 1612220055}
+  m_Layer: 0
+  m_Name: 'Instantiator '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1612220055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612220054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6d4dbfda5575c47af08b5c51d546ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabList: {fileID: 11400000, guid: 1974452ef6652ea42ae8a59b6aa76423, type: 2}
+--- !u!4 &1612220056
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612220054}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.0051546, y: -1.2774137, z: -0.015845776}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1760764602
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,12 +410,64 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1760764602}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -3.5, y: -2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1826237312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1826237314}
+  - component: {fileID: 1826237313}
+  m_Layer: 0
+  m_Name: World
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1826237313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826237312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af9eed72efdc1cf418abcc249ab85982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldLength: 5
+  worldHeight: 5
+  worldDepth: 3
+  grassTilePrefab: {fileID: 2705961409208491037, guid: b208fce6496021740a182878aa517dd6, type: 3}
+  oceanTilePrefab: {fileID: 2705961409208491037, guid: 30e37b31eabccaf43bd71a87a52c132f, type: 3}
+  walkwayTilePrefab: {fileID: 2705961409208491037, guid: d436d6b7fcac60a44822157dee30e7ee, type: 3}
+  treePrefab: {fileID: 3567930871531141257, guid: 0b76cd26d6965064a84e08b12e4a874c, type: 3}
+  pawnPrefab: {fileID: 1110198859314352592, guid: 92a0f81592b4a3f4fade2bfd01abaa40, type: 3}
+--- !u!4 &1826237314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1826237312}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.0051546, y: -1.2774137, z: -0.015845776}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &8839448473228995753
 Transform:
@@ -358,7 +501,6 @@ GameObject:
   - component: {fileID: 8839448473228996432}
   - component: {fileID: 8839448473228996433}
   - component: {fileID: 8839448473228996438}
-  - component: {fileID: 8839448473228996439}
   m_Layer: 0
   m_Name: TestCharacter
   m_TagString: Untagged
@@ -553,15 +695,3 @@ MonoBehaviour:
       Value: 420
       Quantity: 1
       BlockName: 
---- !u!114 &8839448473228996439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8839448473228995754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe9ee3635710d9f4694e0346c56f9627, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

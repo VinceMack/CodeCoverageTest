@@ -13,7 +13,7 @@ namespace Tests
 		[OneTimeSetUp]
 		public void LoadScene()
 		{
-			SceneManager.LoadScene("New Scene");
+			SceneManager.LoadScene("GameObjectTileTests");
 		}
 
 		[UnityTest]
