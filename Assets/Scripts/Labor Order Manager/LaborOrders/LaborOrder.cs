@@ -20,7 +20,7 @@ public class LaborOrder
         this.laborType = laborType;
         this.timeToComplete = timeToComplete;
         orderNumber = LaborOrderManager.getNumOfLaborOrders();
-        LaborOrderManager.addLaborOrder(this);
+        //LaborOrderManager.addLaborOrder(this);
     }
 
     // random constructor
@@ -30,7 +30,7 @@ public class LaborOrder
         //while(laborType == LaborType.Woodcut) laborType = (LaborType)UnityEngine.Random.Range(0, LaborOrderManager.getNumberOfLaborTypes());
         timeToComplete = UnityEngine.Random.Range(MIN_TTC, MAX_TTC);
         orderNumber = LaborOrderManager.getNumOfLaborOrders();
-        LaborOrderManager.addLaborOrder(this);
+        //LaborOrderManager.addLaborOrder(this);
     }
 
     public LaborOrder()
