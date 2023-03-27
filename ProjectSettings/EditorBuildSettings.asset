@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Test Scenes/PanelManagerTest.unity
     guid: ca56463463e728b46bd08a43e097d78e
+  - enabled: 1
+    path: Assets/Scenes/Test Scenes/LaborOrderTestScene.unity
+    guid: 37a63dba0b2883f4fb6add38a933c7aa
   m_configObjects: {}

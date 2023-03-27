@@ -15,7 +15,6 @@ public class LaborOrder_Woodcut : LaborOrder
         laborType = LaborType.Woodcut;
         timeToComplete = 3f;
         orderNumber = LaborOrderManager.getNumOfLaborOrders();
-        //LaborOrderManager.addLaborOrder(this);
 
         woodPrefab = GlobalInstance.Instance.prefabList.prefabDictionary["wood"].prefab;
         this.targetTree = targetTree;
