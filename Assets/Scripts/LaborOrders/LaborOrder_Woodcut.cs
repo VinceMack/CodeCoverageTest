@@ -46,7 +46,7 @@ public class LaborOrder_Woodcut : LaborOrder
             }
         }
         // add the pawn back to the queue of available pawns
-        LaborOrderManager.addPawn(assignedPawn);
+        //LaborOrderManager.addPawn(assignedPawn); // needs updated
 
         yield break;
     }
