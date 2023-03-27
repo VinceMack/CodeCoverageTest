@@ -118,3 +118,13 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 Logs/shadercompiler-UnityShaderCompiler.exe0.log
+
+# UpgradeLog.htm
+UpgradeLog.htm
+
+# vs code files
+/.vscode/
+.vsconfig
+
+# misc 
+UpgradeLog.htm

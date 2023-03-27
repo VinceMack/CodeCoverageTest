@@ -8,7 +8,7 @@ using UnityEngine.Tilemaps;
 public class BaseTile : Tile
 {
     public int x, y;
-    private int tileInformation;
+    protected TileType tileType;
 
     // Pathfinding
     public int distance;
@@ -16,32 +16,50 @@ public class BaseTile : Tile
     protected bool isCollision;
     public BaseTile parent;
 
-    public BaseTile() : base()
+    public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {
-        x = 0; y = 0;
-        tileInformation = -1;
+        base.GetTileData(position, tilemap, ref tileData);
+    }
 
+    public override void RefreshTile(Vector3Int position, ITilemap tilemap)
+    {
+        base.RefreshTile(position, tilemap);
+    }
+
+    private void InitializePathfindingVariables()
+    {
         distance = -1;
         visited = false;
-        isCollision = false;
         parent = null;
     }
 
-    public void printInformation()
-    {
-        Debug.Log("X: " + x + " Y: " + y + " Collision: " + isCollision);
-    }
-
-    public void setTileInformation(int x, int y, int information, bool collision)
+    public void InitializeTileData(int x, int y, TileType tileType, bool collision)
     {
         this.x = x; this.y = y;
-        tileInformation = information;
+        this.tileType = tileType;
         isCollision = collision;
+
+        InitializePathfindingVariables();
+    }    
+
+    public void debugPrintInformation()
+    {
+        Debug.Log("X: " + x + " Y: " + y + " Collision: " + isCollision + " TileType: " + tileType);
     }
 
-    public int getTileInformation()
+    public void setTileType(TileType newTileType)
     {
-        return tileInformation;
+        tileType = newTileType;
+    }
+
+    public TileType getTileType()
+    {
+        return tileType;
+    }
+
+    public void setCollision(bool collision)
+    {
+        isCollision = collision;
     }
 
     public bool Collision()
@@ -53,10 +71,6 @@ public class BaseTile : Tile
 // Example of a tile derived from BaseTile
 public class GrassTile : BaseTile
 {
-    public GrassTile() : base()
-    {
-    }
-
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {
         base.GetTileData(position, tilemap, ref tileData);
@@ -70,17 +84,11 @@ public class GrassTile : BaseTile
     {
         base.RefreshTile(position, tilemap);
     }
-
 }
 
 public class RockTile : BaseTile
 {
-    private int rockResources;
-
-    public RockTile() : base()
-    {
-        rockResources = 0;
-    }
+    int resources;
 
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {
@@ -95,24 +103,20 @@ public class RockTile : BaseTile
         base.RefreshTile(position, tilemap);
     }
 
-    public void setResources(int resources)
+    public void setResources(int newResources)
     {
-        rockResources = resources;
+        resources = newResources;
     }
 
-    public void printResources()
+    public int getResources()
     {
-        Debug.Log("Resources: " + rockResources);
+        return resources;
     }
+
 }
 
 public class WaterTile : BaseTile
 {
-    public WaterTile() : base()
-    {
-        isCollision = true;
-    }
-
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {
         base.GetTileData(position, tilemap, ref tileData);
