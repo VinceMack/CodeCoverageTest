@@ -22,7 +22,6 @@ public class LaborOrder_Woodcut : LaborOrder
 
     public override IEnumerator execute()
     {
-        if(assignedPawn==null) Debug.Log("yolo");
         if(assignedPawn != null && targetTree != null)
         {
             //assignedPawn.transform.parent.gameObject;
