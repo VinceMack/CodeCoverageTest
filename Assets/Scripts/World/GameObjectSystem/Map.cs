@@ -13,15 +13,16 @@ public class Map : MonoBehaviour
     [SerializeField] private GameObject treePrefab;
     [SerializeField] private GameObject pawnPrefab;
 
-    public int GetLayerNumber(Layer layer)
-    {
-        if(layers.Contains(layer))
-        {
-            return layers.IndexOf(layer);
-        }
-        return -1;
-    }
+    // public int GetLayerNumber(Layer layer)
+    // {
+    //     if(layers.Contains(layer))
+    //     {
+    //         return layers.IndexOf(layer);
+    //     }
+    //     return -1;
+    // }
 
+    // Getter function
     public Layer GetLayer(int layerNumber)
     {
         if(layerNumber >= layers.Count)
@@ -31,14 +32,10 @@ public class Map : MonoBehaviour
         return layers[layerNumber];
     }
 
+    // Getter function
     public int GetMapDepth()
     {
         return worldDepth;
-    }
-
-    private void Start() 
-    {
-        //TestSpawnWorld();
     }
 
     // Returns a tile at the specified coordiantes
@@ -51,12 +48,7 @@ public class Map : MonoBehaviour
         return null;
     }
 
-    [ContextMenu("RaiseZAxis")]
-    public void SwitchZAxis()
-    {
-        //Move camera Constants.LAYER_X_SEPERATION and Constants.LAYER_Y_SEPERATION positive (down) or negative (up)
-    }
-
+    // Spawns a world with some hardcoded features based on the input length, height, and depth
     public void SpawnWorld(int length, int height, int depth, Vector3 origin)
     {
         this.worldLength = length;
@@ -127,9 +119,18 @@ public class Map : MonoBehaviour
         }
     }
 
+    // Tests out world spawning
     [ContextMenu("TestSpawnWorld")]
-    private void TestSpawnWorld()
+    public void TestSpawnWorld()
     {
         SpawnWorld(worldLength, worldHeight, worldDepth, new Vector3(0.5f, 0.5f, 0));
+    }
+
+    public void DestroyWorld()
+    {
+        foreach(Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }

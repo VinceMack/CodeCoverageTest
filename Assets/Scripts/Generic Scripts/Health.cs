@@ -14,6 +14,11 @@ public class Health : MonoBehaviour
     [Header("Location of Health Values")]
     [SerializeField] protected BaseNPC npc;
 
+    public Health(BaseNPC baseNPC = null)
+    {
+        npc = baseNPC;
+    }
+
     private void Awake() 
     {
         npc = GetComponent<BaseNPC>();
