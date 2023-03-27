@@ -78,21 +78,21 @@ public class MainMenuManager : MonoBehaviour
             switch(option)
             {
                 case "new":
-                    //newMenu.SetActive(true);
+                    newMenu.SetActive(true);
+                    // PlayGame();
                     // PLAY ANIMATION HERE
-                    PlayGame();
                     break;
                 case "load":
-                    //loadMenu.SetActive(true);
-                    LoadSaveGame();
+                    loadMenu.SetActive(true);
+                    // LoadSaveGame();
                     // PLAY ANIMATION HERE
                     break;
                 case "settings":
-                    //settingsMenu.SetActive(true);
+                    settingsMenu.SetActive(true);
                     // PLAY ANIMATION HERE
                     break;
                 case "exit":
-                    //exitMenu.SetActive(true);
+                    exitMenu.SetActive(true);
                     // PLAY ANIMATION HERE
                     break;
                 default:
