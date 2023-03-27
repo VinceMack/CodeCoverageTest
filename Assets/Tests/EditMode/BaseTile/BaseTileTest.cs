@@ -15,7 +15,7 @@ public class BaseTileTest
     public void Setup()
     {
         x = 2; y = 3;
-        tileType = TileType.DEFAULT;
+        tileType = TileType.GENERIC;
         collision = false;
 
         baseTile = ScriptableObject.CreateInstance<BaseTile>();
