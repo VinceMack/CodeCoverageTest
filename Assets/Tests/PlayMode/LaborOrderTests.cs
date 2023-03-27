@@ -13,9 +13,8 @@ namespace Tests
 		public IEnumerator LaborOrderWoodcutExecuteTest()
         {
             SceneManager.LoadScene("LaborOrderTestScene");
+            yield return new WaitForSeconds(1);
 
-			yield return new WaitForSeconds(1);
-            GlobalInstance.Instance.prefabList.InitializePrefabDictionary();
             GameObject tree = GlobalInstance.Instance.entityDictionary.InstantiateEntity("tree");
             LaborOrder_Woodcut order = new LaborOrder_Woodcut(tree);
             LaborOrderManager.addLaborOrder(order);
@@ -26,8 +25,6 @@ namespace Tests
 
             Assert.IsNull(GameObject.Find("Tree(Clone)"));
             Assert.IsNotNull(GameObject.Find("Wood(Clone)"));
-
-            GlobalInstance.Instance.entityDictionary.entityDictionary.Clear();
         }
 	}
 }

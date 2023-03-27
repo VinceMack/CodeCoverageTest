@@ -22,7 +22,7 @@ public class LaborOrder_Base_VM
     {
         this.laborType = laborType;
         this.timeToComplete = timeToComplete;
-        orderNumber = LaborOrderManager.getNumOfLaborOrders();
+        orderNumber = LaborOrderManager_VM.getNumOfLaborOrders();
     }
 
     // random constructor
