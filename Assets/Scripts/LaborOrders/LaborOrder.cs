@@ -20,7 +20,7 @@ public class LaborOrder
         this.laborType = laborType;
         this.timeToComplete = timeToComplete;
         orderNumber = LaborOrderManager.getNumOfLaborOrders();
-        LaborOrderManager.addLaborOrder(this);
+        //LaborOrderManager.addLaborOrder(this); // needs to be updated
     }
 
     // random constructor
@@ -30,7 +30,7 @@ public class LaborOrder
         //while(laborType == LaborType.Woodcut) laborType = (LaborType)UnityEngine.Random.Range(0, LaborOrderManager.getNumberOfLaborTypes());
         timeToComplete = UnityEngine.Random.Range(MIN_TTC, MAX_TTC);
         orderNumber = LaborOrderManager.getNumOfLaborOrders();
-        LaborOrderManager.addLaborOrder(this);
+        //LaborOrderManager.addLaborOrder(this); // needs to be updated
     }
 
     public LaborOrder()
@@ -67,7 +67,7 @@ public class LaborOrder
             yield return new WaitForSeconds(getTimeToComplete());
         }
         // add the pawn back to the queue of available pawns
-        LaborOrderManager.addPawn(assignedPawn);
+        //LaborOrderManager.addPawn(assignedPawn); // needs to be updated
 
         yield break;
     }
