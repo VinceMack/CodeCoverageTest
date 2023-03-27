@@ -3,14 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public enum TileType
-{
-    DEFAULT,
-    GRASS,
-    ROCK,
-    WATER
-}
-
 // BaseTile stores required information for all tiles. All tile types should
 // derive from BaseTile.
 public class BaseTile : Tile
