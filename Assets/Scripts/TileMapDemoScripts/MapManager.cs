@@ -14,6 +14,7 @@ public class MapManager : MonoBehaviour
 
     private PathFinding pathFinding;
 
+
     private void Awake()
     {
         CreateGrid();
@@ -38,16 +39,16 @@ public class MapManager : MonoBehaviour
     {
         Vector3Int tileLocation = getTileLocation();
 
-        if (Input.GetMouseButtonDown(0)){
+        if (Input.GetMouseButtonDown(0)) {
             TileBase clickedTile = tileMap.GetTile(tileLocation); // Get clicked tile
             player.updatePath(pathFinding.getPath(Vector3Int.FloorToInt(player.transform.position), tileLocation));
 
             BaseTile baseTile = (BaseTile)clickedTile;
             baseTile.debugPrintInformation();
         }
-
         player.updateLocation(10.0f * Time.deltaTime);
     }
+
 
     private Vector3Int getTileLocation()
     {

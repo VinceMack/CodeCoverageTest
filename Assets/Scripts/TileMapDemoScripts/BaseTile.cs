@@ -37,6 +37,7 @@ public class BaseTile : Tile
     {
         this.x = x; this.y = y;
         this.tileType = tileType;
+
         isCollision = collision;
 
         InitializePathfindingVariables();
