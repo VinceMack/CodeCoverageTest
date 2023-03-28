@@ -12,14 +12,14 @@ public class LaborOrderManager : MonoBehaviour
 {
     [SerializeField]
     // Variables for managing pawns, labor tasks, and labor types
-    private GameObject pawn_prefab;
-    private static Queue<Pawn> availablePawns;
-    private static Queue<LaborOrder>[] laborQueues;
-    private static int laborOrderTotal;
-    private static int numOfLaborTypes;
+    protected GameObject pawn_prefab;
+    protected static Queue<Pawn> availablePawns;
+    protected static Queue<LaborOrder>[] laborQueues;
+    protected static int laborOrderTotal;
+    protected static int numOfLaborTypes;
 
-    private static bool initializeWithPawnsAndOrders = false;
-    private const int NUM_OF_PAWNS_TO_SPAWN = 10;
+    protected static bool initializeWithPawnsAndOrders = false;
+    protected const int NUM_OF_PAWNS_TO_SPAWN = 10;
 
     // Method to get the total number of labor tasks in the queue
     public static int getNumOfLaborOrders()
@@ -78,7 +78,7 @@ public class LaborOrderManager : MonoBehaviour
     }
 
     // Method to assign a labor task to a pawn if possible (based on priority)
-    private void assignPawns()
+    protected void assignPawns()
     {
         while(availablePawns.Count > 0 && getNumOfLaborOrders() > 0){
             
