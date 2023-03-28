@@ -380,10 +380,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1687096687}
-  - component: {fileID: 1687096691}
   - component: {fileID: 1687096689}
   - component: {fileID: 1687096688}
   - component: {fileID: 1687096690}
+  - component: {fileID: 1687096691}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -453,7 +453,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1687096685}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7fdda20793d70f4885a961fc5d924ec, type: 3}
+  m_Script: {fileID: 11500000, guid: c140247f55a5b0a49afc283263c26095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pawn_prefab: {fileID: 1110198859314352592, guid: 0410e8b0c6a483b41821fc1898c066e8, type: 3}

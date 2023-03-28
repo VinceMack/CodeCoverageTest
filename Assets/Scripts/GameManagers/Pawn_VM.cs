@@ -112,14 +112,14 @@ public class Pawn_VM : MonoBehaviour
         if (foundTile == null)
         {
             Debug.LogError("foundTile is null; adding pawn back to labor order manager; breaking out of coroutine");
-            LaborOrderManager.addPawn(this);
+            LaborOrderManager_VM.addPawn(this);
             yield break;
         }
 
         if (currentTile == null)
         {
             Debug.LogError("currentTile is null; adding pawn back to labor order manager; breaking out of coroutine");
-            LaborOrderManager.addPawn(this);
+            LaborOrderManager_VM.addPawn(this);
             yield break;
         }
 
@@ -137,7 +137,7 @@ public class Pawn_VM : MonoBehaviour
 
         Debug.Log($"{pawnName,-10} COMPLETED Labor Order #{currentLaborOrder.getOrderNumber(),-5} TTC: {currentLaborOrder.getTimeToComplete(),-10:F2} {"Order Type: " + currentLaborOrder.getLaborType(),-50} {target.returnTileInformation(),-80}");
 
-        LaborOrderManager.addPawn(this);
+        LaborOrderManager_VM.addPawn(this);
     }
 
     // Updates the pawn's position based on the path

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class StaircaseItem : Item
 {
-    PrefabList prefabList;
-    EntityDictionary entityDictionary;
+    public PrefabList prefabList;
+    public EntityDictionary entityDictionary;
     public new string BlockName = "staircase";
 
     public override void InvokePlacing(BaseNPC placer)
@@ -20,8 +20,5 @@ public class StaircaseItem : Item
         GameObject staircaseDestinationBlock = entityDictionary.InstantiateEntity(BlockName);
         Staircase staircaseDestinationComp = staircaseDestinationBlock.GetComponent<Staircase>();
         success = success && staircaseDestinationComp.PlaceObject(staircaseOriginComp.GetDestinationTile(), false);
-        //Do something if fail...or succeed, I suppose
-
-        Debug.Log("Whole process was success: " + success);
     }
 }
