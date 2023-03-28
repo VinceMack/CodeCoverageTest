@@ -30,17 +30,17 @@ public class PerlinNoiseMap : MonoBehaviour
         GenerateMap();
     }
 
-    void CreateTileset()
+    public void CreateTileset()
     {
         /** Assigns the ID codes to each of the tile prefabs to make them easier to access **/
         tileset = new Dictionary<int, GameObject>();
-        tileset.Add(0, rock); //sand
-        tileset.Add(1, grass); //grass
-        tileset.Add(2, sand); //rock
+        tileset.Add(0, rock); 
+        tileset.Add(1, grass); 
+        tileset.Add(2, sand); 
         tileset.Add(3, water);
     }
 
-    void CreateTileGroups()
+    public void CreateTileGroups()
     {
         tile_groups = new Dictionary<int, GameObject>();
         foreach(KeyValuePair<int, GameObject> prefab_pair in tileset)
@@ -52,7 +52,7 @@ public class PerlinNoiseMap : MonoBehaviour
         }
     }
 
-    void GenerateMap()
+    public void GenerateMap()
     {
         for(int x = 0; x < map_width; x++)
         {
@@ -68,7 +68,7 @@ public class PerlinNoiseMap : MonoBehaviour
         }
     }
 
-    int GetIdUsingPerlin(int x, int y)
+    public int GetIdUsingPerlin(int x, int y)
     {
         float raw_perlin = Mathf.PerlinNoise(
             (x - x_offset) / magnification,
@@ -82,7 +82,7 @@ public class PerlinNoiseMap : MonoBehaviour
         return Mathf.FloorToInt(scaled_perlin);
     }
 
-    void CreateTile(int tile_id, int x, int y)
+    public void CreateTile(int tile_id, int x, int y)
     {
         GameObject tile_prefab = tileset[tile_id];
         GameObject tile_group = tile_groups[tile_id];
