@@ -16,6 +16,9 @@ public class BaseTile : Tile
     protected bool isCollision;
     public BaseTile parent;
 
+    //A* Pathfinding Info
+    public int fCost, gCost, hCost = 0;
+
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {
         base.GetTileData(position, tilemap, ref tileData);
