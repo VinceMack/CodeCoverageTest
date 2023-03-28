@@ -7,6 +7,10 @@ public class Ammo : MonoBehaviour
     [SerializeField] private int currentAmmo;
     [SerializeField] private int maxAmmo;
 
+    public void SetMaxAmmo(int newAmount)
+    {
+        maxAmmo = newAmount;
+    }
 
     public bool CanUseAmmo(int amountToUse)
     {

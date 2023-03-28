@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.IO;
 
-[RequireComponent(typeof(BaseStats))]
+//[RequireComponent(typeof(BaseStats))]
 public class SaveableEntity : MonoBehaviour
 {
     public IStats myStats;

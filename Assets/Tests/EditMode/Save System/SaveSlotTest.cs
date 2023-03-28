@@ -45,7 +45,7 @@ namespace Tests
             stats.timeLastPlayed = "1";
             
             var saveManager = new Mock<ISaveSystemManager>(); 
-            saveManager.Setup(x => x.LoadInfo<SaveStats>(saveSlot)).Returns(stats);
+            saveManager.Setup(x => x.LoadInfo<SaveStats>(It.IsAny<int>())).Returns(stats);
 
             //Act
             testSlot.Initialize(saveSlot, saveManager.Object, new SaveSystemUIManager(), true);

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class Pawn : BaseNPC
 {
 	[SerializeField]
@@ -9,7 +10,6 @@ public class Pawn : BaseNPC
     private LaborOrder currentLaborOrder;           // set by LaborOrderManager
     private bool isAssigned;         // set to true when the pawn is assigned to a labor order, set to false when the pawn completes the labor order, controls Update() logic
     private bool isWorking;
-    //private Mutex assignmentLock = new Mutex();
 
     private string pawnName;
 
@@ -34,6 +34,10 @@ public class Pawn : BaseNPC
         this.pawnName = pawnName;
         name = pawnName;
     }
+
+	public string getPawnName() {
+		return pawnName;
+	}
 
     // set the current labor order of the pawn and indicate that the pawn is assigned to a labor order
     public void setCurrentLaborOrder(LaborOrder laborOrder) {
@@ -85,7 +89,7 @@ public class Pawn : BaseNPC
         // initialize the default current labor order
         currentLaborOrder = /*new LaborOrder();*/ null;
 
-        // initialize the default pawn name to null
+        // initialize pawn name
         pawnName = "Pawn" + GetInstanceID();
         name = pawnName;
 
