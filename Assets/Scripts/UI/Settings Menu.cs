@@ -9,7 +9,6 @@ public class SettingsMenu : MonoBehaviour
     public AudioMixer audioMixer;
     public Dropdown resolutionDropdown;
     public Dropdown qualityDropdown;
-    public Dropdown textureDropdown;
     public Dropdown aaDropdown;
     public Slider volumeSlider;
     float currentVolume;
@@ -53,8 +52,6 @@ public class SettingsMenu : MonoBehaviour
                 qualityDropdown.value);
         PlayerPrefs.SetInt("ResolutionPreference", 
                 resolutionDropdown.value);
-        PlayerPrefs.SetInt("TextureQualityPreference", 
-                textureDropdown.value);
         PlayerPrefs.SetInt("AntiAliasingPreference", 
                 aaDropdown.value);
         PlayerPrefs.SetInt("FullscreenPreference", 
