@@ -79,12 +79,12 @@ public class MainMenuManager : MonoBehaviour
             {
                 case "new":
                     newMenu.SetActive(true);
-                    // PlayGame();
+                    //PlayGame();
                     // PLAY ANIMATION HERE
                     break;
                 case "load":
                     loadMenu.SetActive(true);
-                    // LoadSaveGame();
+                    //LoadSaveGame();
                     // PLAY ANIMATION HERE
                     break;
                 case "settings":
