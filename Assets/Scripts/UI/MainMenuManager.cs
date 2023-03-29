@@ -109,5 +109,10 @@ public class MainMenuManager : MonoBehaviour
     public void LoadSaveGame(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
     }
+    
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 
 }
