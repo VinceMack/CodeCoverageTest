@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1110198859314352597}
   - component: {fileID: 7419830210777840979}
   m_Layer: 0
-  m_Name: Pawn
+  m_Name: Pawn_VM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
