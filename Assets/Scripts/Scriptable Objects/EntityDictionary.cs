@@ -45,4 +45,19 @@ public class EntityDictionary : ScriptableObject
         }
         entityDictionary.Clear();
     }
+
+    public void DestroySaveableObject(SaveableEntity entity)
+    {
+        string entityGUID = entity.Id;
+        Destroy(entityDictionary[entity.Id]);
+        entityDictionary.Remove(entityGUID);
+    }
+
+    public void CheatAddObject(SaveableEntity entity)
+    {
+        if(!entityDictionary.ContainsKey(entity.Id))
+        {
+            entityDictionary.Add(entity.Id, entity.gameObject);
+        }
+    }
 }

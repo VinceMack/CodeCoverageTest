@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 397a1686ce02bea41844990ad32b6a89
+guid: 38e66a95d3ae63e42b2096177d0538ca
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,200 +117,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MiniVillagerWoman_0
-      rect:
-        serializedVersion: 2
-        x: 8
-        y: 128
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8df380d87c3032e438afd0e31a25c9f6
-      internalID: -2075523631
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MiniVillagerWoman_2
-      rect:
-        serializedVersion: 2
-        x: 40
-        y: 128
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0d5b643e2a42ec047b727aa5116d4a2f
-      internalID: 1267935112
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MiniVillagerWoman_4
-      rect:
-        serializedVersion: 2
-        x: 72
-        y: 128
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 49b07ea2714ed5a4aa8462dfba083cf0
-      internalID: 2102808466
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MiniVillagerWoman_6
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 128
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c5ce0499e67a70f4191b965dc55f9951
-      internalID: -1352000237
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MiniVillagerWoman_8
-      rect:
-        serializedVersion: 2
-        x: 8
-        y: 96
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 15dda723f20c0354bb56c904e6ff8408
-      internalID: 29090323
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MiniVillagerWoman_10
-      rect:
-        serializedVersion: 2
-        x: 40
-        y: 96
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a5c62f828ffb9864c877727ba4868d78
-      internalID: -88053668
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MiniVillagerWoman_12
-      rect:
-        serializedVersion: 2
-        x: 72
-        y: 96
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: df13a6a064b85a1428efb43a8d9b8773
-      internalID: 489332997
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MiniVillagerWoman_14
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 96
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 75f92f45c953a454e83aebe80e410fc1
-      internalID: -721426911
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MiniVillagerWoman_16
-      rect:
-        serializedVersion: 2
-        x: 136
-        y: 96
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 189a61bb7b0d3eb4294eaec04bbe944d
-      internalID: -1714008108
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MiniVillagerWoman_18
+      name: FlippedMiniPeasant_0
       rect:
         serializedVersion: 2
         x: 168
-        y: 96
+        y: 160
         width: 16
         height: 16
       alignment: 0
@@ -320,18 +131,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c28c71d2b081b744f84a1ab2c565e4bd
-      internalID: -81658200
+      spriteID: ce6200534db78ca4fbd6b2d2846bdcbd
+      internalID: -261028733
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MiniVillagerWoman_20
+      name: FlippedMiniPeasant_2
       rect:
         serializedVersion: 2
-        x: 8
-        y: 64
+        x: 135
+        y: 161
         width: 16
         height: 16
       alignment: 0
@@ -341,18 +152,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0336d969718141b4fb497c06600a8e52
-      internalID: 756966962
+      spriteID: 8fccc29558b802842ba1ac5ffee4feec
+      internalID: -951200864
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MiniVillagerWoman_22
+      name: FlippedMiniPeasant_4
       rect:
         serializedVersion: 2
-        x: 40
-        y: 64
+        x: 104
+        y: 159
         width: 16
         height: 16
       alignment: 0
@@ -362,81 +173,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8eceb8d22db2c04c8de53deb51a09b5
-      internalID: 1144001715
+      spriteID: 4b470ab023f613b40aad756d0877e30e
+      internalID: -60816090
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MiniVillagerWoman_24
-      rect:
-        serializedVersion: 2
-        x: 72
-        y: 64
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ce9ade62c1226cb4fbc509bb113ce894
-      internalID: -1185540158
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MiniVillagerWoman_26
-      rect:
-        serializedVersion: 2
-        x: 8
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9d617da08ce56e14e8c4699016cd41e2
-      internalID: 1663715674
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MiniVillagerWoman_28
-      rect:
-        serializedVersion: 2
-        x: 39
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3a3c2405d01c03747a7d7d2f21422c96
-      internalID: 1149211443
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MiniVillagerWoman_30
+      name: FlippedMiniPeasant_6
       rect:
         serializedVersion: 2
         x: 72
-        y: 32
+        y: 159
         width: 16
         height: 16
       alignment: 0
@@ -446,18 +194,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c85943150003d64a957d68f5b6a067c
-      internalID: 438746788
+      spriteID: b05ba647fe3465647b19c0a8d9b54854
+      internalID: -1392760330
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MiniVillagerWoman_32
+      name: FlippedMiniPeasant_8
       rect:
         serializedVersion: 2
-        x: 9
-        y: 0
+        x: 169
+        y: 128
         width: 16
         height: 16
       alignment: 0
@@ -467,18 +215,81 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81e95d900b1f62f4bbdd10c26303746c
-      internalID: -2044144255
+      spriteID: 2a9a453b083037a42b8f3d2ffa3dd776
+      internalID: -646733969
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MiniVillagerWoman_34
+      name: FlippedMiniPeasant_10
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e2242bda2ee4ef4d9693465632f434f
+      internalID: 1635477880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlippedMiniPeasant_12
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 131fc7f0658e56448b3ab89f0960cfc4
+      internalID: 597306043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlippedMiniPeasant_14
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9289c0e180c95b43b986c3b15a701c9
+      internalID: -802617184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlippedMiniPeasant_16
       rect:
         serializedVersion: 2
         x: 41
-        y: 0
+        y: 128
         width: 16
         height: 16
       alignment: 0
@@ -488,17 +299,290 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c6dd91202351d1e489459d4a8401f773
-      internalID: -721693730
+      spriteID: af994984825c3ce4aaeab90f1c74e920
+      internalID: -880092967
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MiniVillagerWoman_36
+      name: FlippedMiniPeasant_18
       rect:
         serializedVersion: 2
-        x: 71
+        x: 7
+        y: 128
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bf91d8436adebb4fa506e990e05164d
+      internalID: 1214237296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlippedMiniPeasant_22
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 97
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5673077bf4e54d847a60f46ae63840cc
+      internalID: -1992056557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlippedMiniPeasant_24
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 97
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bb0a27464fa3314c9e024936e25f7cf
+      internalID: -375938591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlippedMiniPeasant_26
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 95
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f698106c11a7295419614917ea085762
+      internalID: -1037575311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlippedMiniPeasant_28
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14c6eb46b2aa8444299d9b97ba4ced0d
+      internalID: -1535568729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlippedMiniPeasant_30
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 63
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f0d2d62b14379842be5aae68da9f119
+      internalID: -797920735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlippedMiniPeasant_32
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 62
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e3ec378c0731c44ebf6a05951c95390
+      internalID: 547129758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlippedMiniPeasant_34
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 63
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba69d64dbacb7a448a8166589e9c9ba5
+      internalID: 926354309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlippedMiniPeasant_36
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 63
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee7a02ab7df89174fbb4f727bdd1d5f1
+      internalID: 1143144849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlippedMiniPeasant_38
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 63
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fe7f2bdc099bc94e9cd37b05c4bfb94
+      internalID: 149346756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlippedMiniPeasant_40
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f46a5ceff349a24bbf881390ec1f8ce
+      internalID: -717902664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlippedMiniPeasant_42
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dc8ac48ece46584f9a68b6433b4337f
+      internalID: -257174986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlippedMiniPeasant_44
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 31
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0eda572935e3fb34488fb8e6b2b63b90
+      internalID: -542178340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlippedMiniPeasant_46
+      rect:
+        serializedVersion: 2
+        x: 168
         y: 0
         width: 16
         height: 16
@@ -509,14 +593,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 173e2b1afafd0224486384b6d6abec14
-      internalID: -1084439429
+      spriteID: 343272b78bd88c24890202832fad0d1d
+      internalID: -283953603
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MiniVillagerWoman_38
+      name: FlippedMiniPeasant_48
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bbe1bca81f359a43a92ac6d56a34b1e
+      internalID: -1421231913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlippedMiniPeasant_50
       rect:
         serializedVersion: 2
         x: 103
@@ -530,8 +635,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bbfd9c20dc8473244a4f41862b8e9e16
-      internalID: -16713500
+      spriteID: 265ea1b14da3d5c48ad20921fc86218e
+      internalID: -1864856279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlippedMiniPeasant_52
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1728b8dd55a5f346bf32314735eb78a
+      internalID: -1302415240
       vertices: []
       indices: 
       edges: []
@@ -547,46 +673,60 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      MiniVillagerWoman_9: -951806212
-      MiniVillagerWoman_14: -721426911
-      MiniVillagerWoman_4: 2102808466
-      MiniVillagerWoman_15: 610510467
-      MiniVillagerWoman_13: -1579932904
-      MiniVillagerWoman_17: -1308328291
-      MiniVillagerWoman_25: -2093086642
-      MiniVillagerWoman_2: 1267935112
-      MiniVillagerWoman_29: 435402024
-      MiniVillagerWoman_34: -721693730
-      MiniVillagerWoman_28: 1149211443
-      MiniVillagerWoman_38: -16713500
-      MiniVillagerWoman_20: 756966962
-      MiniVillagerWoman_3: 1144976461
-      MiniVillagerWoman_30: 438746788
-      MiniVillagerWoman_22: 1144001715
-      MiniVillagerWoman_8: 29090323
-      MiniVillagerWoman_23: -1643996985
-      MiniVillagerWoman_32: -2044144255
-      MiniVillagerWoman_0: -2075523631
-      MiniVillagerWoman_31: 740626063
-      MiniVillagerWoman_12: 489332997
-      MiniVillagerWoman_27: 1521852033
-      MiniVillagerWoman_39: -619005033
-      MiniVillagerWoman_24: -1185540158
-      MiniVillagerWoman_35: 1701285390
-      MiniVillagerWoman_6: -1352000237
-      MiniVillagerWoman_21: 749440482
-      MiniVillagerWoman_18: -81658200
-      MiniVillagerWoman_1: 242535738
-      MiniVillagerWoman_33: 14174852
-      MiniVillagerWoman_36: -1084439429
-      MiniVillagerWoman_19: -1198389840
-      MiniVillagerWoman_5: 1626014718
-      MiniVillagerWoman_37: 1209862498
-      MiniVillagerWoman_10: -88053668
-      MiniVillagerWoman_16: -1714008108
-      MiniVillagerWoman_7: 401071888
-      MiniVillagerWoman_11: -1888337797
-      MiniVillagerWoman_26: 1663715674
+      FlippedMiniPeasant_0: -261028733
+      FlippedMiniPeasant_14: -802617184
+      FlippedMiniPeasant_10: 1635477880
+      FlippedMiniPeasant_44: -542178340
+      FlippedMiniPeasant_33: -1241823395
+      FlippedMiniPeasant_35: -954142313
+      FlippedMiniPeasant_48: -1421231913
+      FlippedMiniPeasant_5: -589442240
+      FlippedMiniPeasant_16: -880092967
+      FlippedMiniPeasant_43: 1875305119
+      FlippedMiniPeasant_21: -59608229
+      FlippedMiniPeasant_39: 1498705496
+      FlippedMiniPeasant_32: 547129758
+      FlippedMiniPeasant_52: -1302415240
+      FlippedMiniPeasant_41: 200929131
+      FlippedMiniPeasant_42: -257174986
+      FlippedMiniPeasant_47: -1438400188
+      FlippedMiniPeasant_6: -1392760330
+      FlippedMiniPeasant_12: 597306043
+      FlippedMiniPeasant_1: -448461177
+      FlippedMiniPeasant_20: 1084625362
+      FlippedMiniPeasant_28: -1535568729
+      FlippedMiniPeasant_38: 149346756
+      FlippedMiniPeasant_7: -118748438
+      FlippedMiniPeasant_36: 1143144849
+      FlippedMiniPeasant_2: -951200864
+      FlippedMiniPeasant_17: -1945493376
+      FlippedMiniPeasant_4: -60816090
+      FlippedMiniPeasant_9: -380087953
+      FlippedMiniPeasant_40: -717902664
+      FlippedMiniPeasant_49: 713720505
+      FlippedMiniPeasant_25: -1431104253
+      FlippedMiniPeasant_3: -571883404
+      FlippedMiniPeasant_26: -1037575311
+      FlippedMiniPeasant_34: 926354309
+      FlippedMiniPeasant_46: -283953603
+      FlippedMiniPeasant_13: -932716702
+      FlippedMiniPeasant_11: -1799700255
+      FlippedMiniPeasant_24: -375938591
+      FlippedMiniPeasant_31: 786724098
+      FlippedMiniPeasant_18: 1214237296
+      FlippedMiniPeasant_15: -1170707315
+      FlippedMiniPeasant_23: -1398886803
+      FlippedMiniPeasant_29: -122434099
+      FlippedMiniPeasant_37: 2038342470
+      FlippedMiniPeasant_22: -1992056557
+      FlippedMiniPeasant_50: -1864856279
+      FlippedMiniPeasant_8: -646733969
+      FlippedMiniPeasant_30: -797920735
+      FlippedMiniPeasant_51: -1974558942
+      FlippedMiniPeasant_45: 1576871175
+      FlippedMiniPeasant_53: 1670705072
+      FlippedMiniPeasant_19: 1200629188
+      FlippedMiniPeasant_27: 2016998067
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
