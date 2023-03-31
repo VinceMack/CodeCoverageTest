@@ -16,14 +16,20 @@ public class GridManager : MonoBehaviour
     public static readonly int MAX_VERTICAL = 25;
     public static readonly int MIN_VERTICAL = 0;
 
-    // Method to get the tile at a specific position in the grid
+    // Method to Get the tile at a specific position in the grid
     public static BaseTile_VM GetTile(Vector3Int position)
     {
         return (BaseTile_VM)tileMap.GetTile(position);
     }
 
-    // Method to create and set a random tile for each position in the grid
-    public void setTileMap()
+    // Method to set the tileMap
+    public void SetTileMap(Tilemap tMap)
+    {
+        tileMap = tMap;
+    }
+
+    // Method to create and Set a random tile for each position in the grid
+    public void GenerateTileMap()
     {
         for (int x = MIN_HORIZONTAL; x < MAX_HORIZONTAL; x++)
         {
@@ -31,29 +37,29 @@ public class GridManager : MonoBehaviour
             {
                 Vector3Int position = new Vector3Int(x, y, 0);
 
-                // Generate a random tile based on the random value and set its properties
+                // Generate a random tile based on the random value and Set its properties
                 int random = Random.Range(1, 4);
                 switch (random)
                 {
                     case 0:
                         BaseTile_VM newBaseTile = ScriptableObject.CreateInstance<BaseTile_VM>();
                         tileMap.SetTile(position, newBaseTile);
-                        newBaseTile.setTileData(TileType.GENERIC, false, null, 0, tileMap.WorldToCell(position), -1, false, null);
+                        newBaseTile.SetTileData(TileType.GENERIC, false, null, 0, tileMap.WorldToCell(position), -1, false, null);
                         break;
                     case 1:
                         GrassTile_VM newGrassTile = ScriptableObject.CreateInstance<GrassTile_VM>();
                         tileMap.SetTile(position, newGrassTile);
-                        newGrassTile.setTileData(TileType.GRASS, false, null, 0, tileMap.WorldToCell(position), -1, false, null);
+                        newGrassTile.SetTileData(TileType.GRASS, false, null, 0, tileMap.WorldToCell(position), -1, false, null);
                         break;
                     case 2:
                         WaterTile_VM newWaterTile = ScriptableObject.CreateInstance<WaterTile_VM>();
                         tileMap.SetTile(position, newWaterTile);
-                        newWaterTile.setTileData(TileType.WATER, false, null, 0, tileMap.WorldToCell(position), -1, false, null);
+                        newWaterTile.SetTileData(TileType.WATER, false, null, 0, tileMap.WorldToCell(position), -1, false, null);
                         break;
                     case 3:
                         RockTile_VM newRockTile = ScriptableObject.CreateInstance<RockTile_VM>();
                         tileMap.SetTile(position, newRockTile);
-                        newRockTile.setTileData(TileType.ROCK, true, null, 0, tileMap.WorldToCell(position), -1, false, null);
+                        newRockTile.SetTileData(TileType.ROCK, true, null, 0, tileMap.WorldToCell(position), -1, false, null);
                         break;
                 }
 
@@ -61,8 +67,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    // Awake method to initialize the grid and tilemap components, and set up the grid with random tiles
-    void Awake()
+    public void InitializeGrid()
     {
         // Get the Grid component from the "Grid" child object
         grid = transform.Find("Grid").GetComponent<Grid>();
@@ -71,6 +76,12 @@ public class GridManager : MonoBehaviour
         tileMap = transform.Find("Grid").GetComponent<Tilemap>();
 
         // Generate the grid with random tiles
-        setTileMap();
+        GenerateTileMap();
+    }
+
+    // Awake method to initialize the grid and tilemap components, and Set up the grid with random tiles
+    void Awake()
+    {
+        InitializeGrid();
     }
 }

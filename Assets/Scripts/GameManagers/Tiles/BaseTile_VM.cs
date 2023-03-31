@@ -22,26 +22,38 @@ public class BaseTile_VM : Tile
 
     // This is a ScriptableObject, so no constructor is called when it is created
 
+    // method to return the resource of the tile
+    public GameObject? GetResource()
+    {
+        return resource;
+    }
+
+    // method to return the resourceCount of the tile
+    public int GetResourceCount()
+    {
+        return resourceCount;
+    }
+
     // method to return the position of the tile
-    public Vector3 getPosition()
+    public Vector3 GetPosition()
     {
         return position;
     }
 
     // method to return the x position of the tile
-    public int getXPosition()
+    public int GetXPosition()
     {
         return (int)position.x;
     }
 
     // method to return the y position of the tile
-    public int getYPosition()
+    public int GetYPosition()
     {
         return (int)position.y;
     }
 
-    // method to set the properties of the tile
-    public void setTileData(TileType tileType, bool collision, GameObject resource, int resourceCount, Vector3 position, int distance, bool visited, BaseTile_VM parent)
+    // method to Set the properties of the tile
+    public void SetTileData(TileType tileType, bool collision, GameObject resource, int resourceCount, Vector3 position, int distance, bool visited, BaseTile_VM parent)
     {
         type = tileType;
         isCollision = collision;
@@ -64,13 +76,13 @@ public class BaseTile_VM : Tile
             return;
         }
 
-        // set the tile sprite to the generic sprite and the tile type to GENERIC
+        // Set the tile sprite to the generic sprite and the tile type to GENERIC
         tileData.sprite = genericSprite;
         type = TileType.GENERIC;
     }
 
-    // method to get the collision flag of the tile
-    public bool getCollision()
+    // method to Get the collision flag of the tile
+    public bool GetCollision()
     {
         return isCollision;
     }
@@ -82,14 +94,14 @@ public class BaseTile_VM : Tile
         base.RefreshTile(position, tilemap);
     }
 
-    // method to get the tile type
-    public TileType getType()
+    // method to Get the tile type
+    public TileType GetTileType()
     {
         return type;
     }
 
-    // method to set the tile information
-    public void setTileInformation(TileType tileType, bool collision, GameObject resource, int resourceCount, Vector3 position)
+    // method to Set the tile information
+    public void SetTileInformation(TileType tileType, bool collision, GameObject resource, int resourceCount, Vector3 position)
     {
         type = tileType;
         isCollision = collision;
@@ -111,41 +123,41 @@ public class BaseTile_VM : Tile
         if (resource == null)
         {
             // print the information of the tile include the type, collision, resource, resource count, and position. left align the text using interpolation and evenly space the columns.
-            return $"Tile Type: {type,-10} Collison: {isCollision,-10} Position: {position,-50}";
+            return $"Tile Type: {type,-10} Collision: {isCollision,-10} Position: {position,-50}";
         }
         else
         {
             // print the information of the tile include the type, collision, resource, resource count, and position. left align the text using interpolation and evenly space the columns.
-            return $"Tile Type: {type,-10} Collison: {isCollision,-10} Resource: {resource.name,-10} ResourceCount: {resourceCount,-10} Position: {position,-50}";
+            return $"Tile Type: {type,-10} Collision: {isCollision,-10} Resource: {resource.name,-10} ResourceCount: {resourceCount,-10} Position: {position,-50}";
         }
     }
 
-    // method to set the tile type
-    public void setType(TileType tileType)
+    // method to Set the tile type
+    public void SetType(TileType tileType)
     {
         type = tileType;
     }
 
-    // method to set the collision flag of the tile
-    public void setCollision(bool collision)
+    // method to Set the collision flag of the tile
+    public void SetCollision(bool collision)
     {
         isCollision = collision;
     }
 
-    // method to set the resource on the tile
-    public void setResource(GameObject resource)
+    // method to Set the resource on the tile
+    public void SetResource(GameObject resource)
     {
         this.resource = resource;
     }
 
-    // method to set the number of resources on the tile
-    public void setResourceCount(int resourceCount)
+    // method to Set the number of resources on the tile
+    public void SetResourceCount(int resourceCount)
     {
         this.resourceCount = resourceCount;
     }
 
-    // method to set the position of the tile
-    public void setPosition(Vector3 position)
+    // method to Set the position of the tile
+    public void SetPosition(Vector3 position)
     {
         this.position = position;
     }

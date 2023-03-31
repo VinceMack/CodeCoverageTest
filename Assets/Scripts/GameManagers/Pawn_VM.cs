@@ -7,25 +7,49 @@ using System.Linq;
 public class Pawn_VM : MonoBehaviour
 {
     [SerializeField]
-    private List<LaborType>[] LaborTypePriority;        // Priority list for different types of labor
-    private LaborOrder_Base_VM currentLaborOrder;       // Reference to the current labor order
-    private bool isAssigned;                            // Indicates if the pawn is currently assigned to a labor order
-    private static int pawnCount = 0;                   // Counter for the total number of pawns
-    private const int NUM_OF_PRIORITY_LEVELS = 4;       // Number of priority levels for labor types
-    private List<Vector3> path;                         // List of positions for the pawn to follow
-    private float pawnSpeed = 1f;                       // Speed of the pawn movement
-    private Vector3Int position;                        // Current position of the pawn in the grid
+    protected List<LaborType>[] LaborTypePriority;        // Priority list for different types of labor
+    protected LaborOrder_Base_VM currentLaborOrder;       // Reference to the current labor order
+    protected bool isAssigned;                            // Indicates if the pawn is currently assigned to a labor order
+    protected static int pawnCount = 0;                   // Counter for the total number of pawns
+    protected const int NUM_OF_PRIORITY_LEVELS = 4;       // Number of priority levels for labor types
+    protected List<Vector3> path;                         // List of positions for the pawn to follow
+    protected float pawnSpeed = 1f;                       // Speed of the pawn movement
+    protected Vector3Int position;                        // Current position of the pawn in the grid
 
-    private string pawnName;                            // Name of the pawn
+    protected string pawnName;                            // Name of the pawn
+
+    // pawn constructor - NOT CALLED WHEN SPAWNED AS SCRIPTABLE OBJECT, WHICH WE DO - SO WE NEED TO INITIALIZE IN THE START METHOD
+    public Pawn_VM()
+    {
+        // Initialize the priority list for different types of labor
+        LaborTypePriority = new List<LaborType>[NUM_OF_PRIORITY_LEVELS];
+        for (int i = 0; i < NUM_OF_PRIORITY_LEVELS; i++)
+        {
+            LaborTypePriority[i] = new List<LaborType>();
+        }
+
+        // Initialize the path list
+        path = new List<Vector3>();
+
+        // Initialize the pawn name
+        pawnName = "Pawn " + pawnCount;
+        pawnCount++;
+    }
 
     // Sets the path for the pawn
-    public void setPath(List<Vector3> path)
+    public void SetPath(List<Vector3> path)
     {
         this.path = path;
     }
 
+    // Get the path for the pawn
+    public List<Vector3> GetPath()
+    {
+        return path;
+    }
+
     // Prints the path for debugging purposes
-    public void printPath()
+    public void PrintPath()
     {
         for (int i = 0; i < path.Count; i++)
         {
@@ -34,7 +58,7 @@ public class Pawn_VM : MonoBehaviour
     }
 
     // Moves the given labor type to the specified priority level
-    public void moveLaborTypeToPriorityLevel(LaborType laborType, int priorityLevel)
+    public void MoveLaborTypeToPriorityLevel(LaborType laborType, int priorityLevel)
     {
         for (int i = 0; i < NUM_OF_PRIORITY_LEVELS; i++)
         {
@@ -49,43 +73,43 @@ public class Pawn_VM : MonoBehaviour
     }
 
     // Sets the name of the pawn
-    public void setPawnName(string pawnName)
+    public void SetPawnName(string pawnName)
     {
         this.pawnName = pawnName;
     }
 
     // Gets the name of the pawn
-    public string getPawnName()
+    public string GetPawnName()
     {
         return pawnName;
     }
 
     // Gets the tile the pawn is currently on from the tilemap
-    public TileBase getPawnTileFromTilemap()
+    public TileBase GetPawnTileFromTilemap()
     {
         TileBase tile = GridManager.tileMap.GetTile(GridManager.tileMap.WorldToCell(transform.position));
         if (tile == null)
         {
-            Debug.LogError(pawnName + " found a null tile at current location - getPawnTileFromTilemap");
+            Debug.LogError(pawnName + " found a null tile at current location - GetPawnTileFromTilemap");
             return null;
         }
         return tile;
     }
 
     // Gets the tile of the current labor order from the tilemap
-    public TileBase getLaborOrderTileFromTilemap()
+    public TileBase GetLaborOrderTileFromTilemap()
     {
-        TileBase tile = GridManager.tileMap.GetTile(currentLaborOrder.getLaborOrderLocation());
+        TileBase tile = GridManager.tileMap.GetTile(currentLaborOrder.GetLaborOrderLocation());
         if (tile == null)
         {
-            Debug.LogError(pawnName + " found a null tile at current location - getLaborOrderTileFromTilemap");
+            Debug.LogError(pawnName + " found a null tile at current location - GetLaborOrderTileFromTilemap");
             return null;
         }
         return tile;
     }
 
     // Sets the current labor order for the pawn
-    public void setCurrentLaborOrder(LaborOrder_Base_VM LaborOrder_Base_VM)
+    public void SetCurrentLaborOrder(LaborOrder_Base_VM LaborOrder_Base_VM)
     {
         if(isAssigned)
         {
@@ -98,46 +122,46 @@ public class Pawn_VM : MonoBehaviour
     }
 
     // Gets the current labor type priority list
-    public List<LaborType>[] getLaborTypePriority()
+    public List<LaborType>[] GetLaborTypePriority()
     {
         return LaborTypePriority;
     }
 
     // Coroutine to complete the current labor order
-    private IEnumerator completeCurrentLaborOrder()
+    protected IEnumerator CompleteCurrentLaborOrder()
     {
-        TileBase foundTile = getLaborOrderTileFromTilemap();
-        TileBase currentTile = getPawnTileFromTilemap();
+        TileBase foundTile = GetLaborOrderTileFromTilemap();
+        TileBase currentTile = GetPawnTileFromTilemap();
 
         if (foundTile == null)
         {
             Debug.LogError("foundTile is null; adding pawn back to labor order manager; breaking out of coroutine");
-            LaborOrderManager_VM.addPawn(this);
+            LaborOrderManager_VM.AddPawn(this);
             yield break;
         }
 
         if (currentTile == null)
         {
             Debug.LogError("currentTile is null; adding pawn back to labor order manager; breaking out of coroutine");
-            LaborOrderManager_VM.addPawn(this);
+            LaborOrderManager_VM.AddPawn(this);
             yield break;
         }
 
-        BaseTile_VM target = (BaseTile_VM)foundTile;
+        BaseTile_VM tarGet = (BaseTile_VM)foundTile;
         BaseTile_VM current = (BaseTile_VM)currentTile;
 
-        Vector3Int x = Vector3Int.FloorToInt(target.getPosition());
-        Vector3Int y = Vector3Int.FloorToInt(current.getPosition());
+        Vector3Int x = Vector3Int.FloorToInt(tarGet.GetPosition());
+        Vector3Int y = Vector3Int.FloorToInt(current.GetPosition());
 
-        setPath(PathfindingManager.getPath(x, y));
+        SetPath(PathfindingManager.GetPath(x, y));
 
-        yield return StartCoroutine(takePath());
+        yield return StartCoroutine(TakePath());
 
-        yield return StartCoroutine(currentLaborOrder.execute(this));
+        yield return StartCoroutine(currentLaborOrder.Execute(this));
 
-        Debug.Log($"{pawnName,-10} COMPLETED Labor Order #{currentLaborOrder.getOrderNumber(),-5} TTC: {currentLaborOrder.getTimeToComplete(),-10:F2} {"Order Type: " + currentLaborOrder.getLaborType(),-50} {target.returnTileInformation(),-80}");
+        Debug.Log($"{pawnName,-10} COMPLETED Labor Order #{currentLaborOrder.GetOrderNumber(),-5} TTC: {currentLaborOrder.GetTimeToComplete(),-10:F2} {"Order Type: " + currentLaborOrder.GetLaborType(),-25} {tarGet.returnTileInformation(),-80}");
 
-        LaborOrderManager_VM.addPawn(this);
+        LaborOrderManager_VM.AddPawn(this);
     }
 
     // Updates the pawn's position based on the path
@@ -158,7 +182,7 @@ public class Pawn_VM : MonoBehaviour
     }
 
     // Coroutine to move the pawn along the path
-    private IEnumerator takePath()
+    protected IEnumerator TakePath()
     {
         int pathIndex = 0;
 
@@ -181,8 +205,8 @@ public class Pawn_VM : MonoBehaviour
         }
     }
 
-    // Initialization function
-    void Start()
+    // Initialization function for the labor type priority list
+    public void InitializeLaborTypePriority()
     {
         LaborTypePriority = new List<LaborType>[NUM_OF_PRIORITY_LEVELS];
 
@@ -196,6 +220,14 @@ public class Pawn_VM : MonoBehaviour
             }
             LaborTypePriority[randomPriorityLevel].Add(laborType);
         }
+    }
+
+
+    // Initialization function
+    void Start()
+    {
+        // Initialize the labor type priority list
+        InitializeLaborTypePriority();
 
         // Set initial position to the center of the cell at the origin
         transform.position = GridManager.grid.GetCellCenterWorld(Vector3Int.zero);
@@ -214,7 +246,7 @@ public class Pawn_VM : MonoBehaviour
     {
         if (isAssigned)
         {
-            StartCoroutine(completeCurrentLaborOrder());
+            StartCoroutine(CompleteCurrentLaborOrder());
             isAssigned = false;
         }
         else
