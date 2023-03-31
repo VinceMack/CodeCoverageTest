@@ -34,4 +34,13 @@ public class GlobalInstance : MonoBehaviour
         }
 
     }
+
+    [ContextMenu("PrintEntityDictionary")]
+    public void PrintEntityDictionary()
+    {
+        foreach(KeyValuePair<string, GameObject> kvp in entityDictionary.entityDictionary)
+        {
+            Debug.Log("GUID: '" + kvp.Key + "' of object: " + kvp.Value);
+        }
+    }
 }

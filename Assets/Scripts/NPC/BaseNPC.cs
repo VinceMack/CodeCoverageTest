@@ -27,7 +27,6 @@ public class BaseNPC : SaveableEntity
         stats = new NPCStats();
         myHealth.SetNPC(this);
         originalColor = GetComponent<SpriteRenderer>().color;
-        GlobalInstance.Instance.entityDictionary.CheatAddObject(GetComponent<SaveableEntity>());
     }
 
     public StateMachine GetNPCState()

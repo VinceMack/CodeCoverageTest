@@ -86,6 +86,8 @@ public class SaveSystemUIManager : MonoBehaviour
         Directory.CreateDirectory(Application.persistentDataPath + $"/{saveSlot}");
 
         entityDictionary = GlobalInstance.Instance.entityDictionary;
+        entityStats = new EntityDictionaryStats();
+
         foreach(KeyValuePair<string, GameObject> kvp in entityDictionary.entityDictionary)
         {
             SaveableEntity currentEntity = kvp.Value.GetComponent<SaveableEntity>();
@@ -93,9 +95,9 @@ public class SaveSystemUIManager : MonoBehaviour
             if(currentEntity != null)
             {
                 currentEntity.SaveMyData(saveSlot);
+            
+                entityStats.entitiesInScene.Add(currentEntity.Id, currentEntity.GetPrefabName());
             }
-
-            entityStats.entitiesInScene.Add(currentEntity.Id, currentEntity.GetPrefabName());
         }
         mySaveManager.SaveData<EntityDictionaryStats>(entityStats, saveSlot);
         mySaveManager.SaveInfo(saveSlot);

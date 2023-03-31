@@ -120,12 +120,12 @@ TextureImporter:
       name: FlippedMiniVillagerWoman_0
       rect:
         serializedVersion: 2
-        x: 167
+        x: 168
         y: 128
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -146,7 +146,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -167,7 +167,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -183,12 +183,12 @@ TextureImporter:
       name: FlippedMiniVillagerWoman_6
       rect:
         serializedVersion: 2
-        x: 71
+        x: 72
         y: 128
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -209,7 +209,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -230,7 +230,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -246,12 +246,12 @@ TextureImporter:
       name: FlippedMiniVillagerWoman_12
       rect:
         serializedVersion: 2
-        x: 103
+        x: 104
         y: 96
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -267,12 +267,12 @@ TextureImporter:
       name: FlippedMiniVillagerWoman_14
       rect:
         serializedVersion: 2
-        x: 71
+        x: 72
         y: 96
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -293,7 +293,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -314,7 +314,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -335,7 +335,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -351,12 +351,12 @@ TextureImporter:
       name: FlippedMiniVillagerWoman_22
       rect:
         serializedVersion: 2
-        x: 134
+        x: 136
         y: 64
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -372,12 +372,12 @@ TextureImporter:
       name: FlippedMiniVillagerWoman_24
       rect:
         serializedVersion: 2
-        x: 103
+        x: 104
         y: 64
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -398,7 +398,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -419,7 +419,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -435,12 +435,12 @@ TextureImporter:
       name: FlippedMiniVillagerWoman_30
       rect:
         serializedVersion: 2
-        x: 105
+        x: 104
         y: 32
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -461,7 +461,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -477,12 +477,12 @@ TextureImporter:
       name: FlippedMiniVillagerWoman_34
       rect:
         serializedVersion: 2
-        x: 135
+        x: 137
         y: 0
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -503,7 +503,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -519,12 +519,12 @@ TextureImporter:
       name: FlippedMiniVillagerWoman_38
       rect:
         serializedVersion: 2
-        x: 74
+        x: 75
         y: 0
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -547,17 +547,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      FlippedMiniVillagerWoman_28: 147165239
+      FlippedMiniVillagerWoman_29: -2131869043
       FlippedMiniVillagerWoman_0: 1527073960
       FlippedMiniVillagerWoman_18: 1749854429
-      FlippedMiniVillagerWoman_29: -2131869043
-      FlippedMiniVillagerWoman_4: 560859127
       FlippedMiniVillagerWoman_35: 1011456226
+      FlippedMiniVillagerWoman_4: 560859127
       FlippedMiniVillagerWoman_32: -1495514675
       FlippedMiniVillagerWoman_26: -208001658
       FlippedMiniVillagerWoman_2: 21970380
       FlippedMiniVillagerWoman_22: 834179745
       FlippedMiniVillagerWoman_9: -47638765
+      FlippedMiniVillagerWoman_23: 88899775
       FlippedMiniVillagerWoman_5: 86684905
       FlippedMiniVillagerWoman_12: -177454555
       FlippedMiniVillagerWoman_6: -760540695
@@ -583,9 +583,9 @@ TextureImporter:
       FlippedMiniVillagerWoman_37: -1962404300
       FlippedMiniVillagerWoman_25: 1567760734
       FlippedMiniVillagerWoman_39: 339466690
-      FlippedMiniVillagerWoman_7: -610430970
       FlippedMiniVillagerWoman_13: -2035620406
-      FlippedMiniVillagerWoman_23: 88899775
+      FlippedMiniVillagerWoman_7: -610430970
+      FlippedMiniVillagerWoman_28: 147165239
       FlippedMiniVillagerWoman_10: 1961264867
   spritePackingTag: 
   pSDRemoveMatte: 0
