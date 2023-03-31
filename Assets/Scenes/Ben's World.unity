@@ -3288,7 +3288,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2844976194133710023}
   - component: {fileID: 2844976194133710016}
-  - component: {fileID: 2844976194133710022}
   m_Layer: 0
   m_Name: Initializer
   m_TagString: Untagged
@@ -3296,18 +3295,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2844976194133710022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2844976194133710017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cc5cdf41eb66c642be055f7f367be28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &2844976194133710023
 Transform:
   m_ObjectHideFlags: 0
@@ -3358,18 +3345,6 @@ MonoBehaviour:
   walkwayTilePrefab: {fileID: 2705961409208491037, guid: d436d6b7fcac60a44822157dee30e7ee, type: 3}
   treePrefab: {fileID: 3567930871531141257, guid: 0b76cd26d6965064a84e08b12e4a874c, type: 3}
   pawnPrefab: {fileID: 1110198859314352592, guid: 92a0f81592b4a3f4fade2bfd01abaa40, type: 3}
---- !u!114 &3531747601313890055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3531747601313890058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75b80980becaead4ba7310e88986ee58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3531747601313890058
 GameObject:
   m_ObjectHideFlags: 0
@@ -3380,7 +3355,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3531747601313890052}
   - component: {fileID: 3531747601313890053}
-  - component: {fileID: 3531747601313890055}
   m_Layer: 0
   m_Name: World Creator
   m_TagString: Untagged
