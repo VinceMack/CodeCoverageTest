@@ -12,7 +12,8 @@ public class PanelManager : MonoBehaviour
 
     public void CloseSaveSystemUI()
     {
-       SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+       //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
+       saveSystemUI.SetActive(false);
     }
 
     public void EnableSaveSystemUI()

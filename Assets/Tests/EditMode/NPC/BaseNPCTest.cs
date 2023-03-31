@@ -12,7 +12,8 @@ namespace Tests {
         public void GetNPCStatsTest()
         {
             // Arrange
-            BaseNPC npc = new BaseNPC();
+            GameObject obj = MonoBehaviour.Instantiate(new GameObject());
+            BaseNPC npc = obj.AddComponent<BaseNPC>();
 
             // Act
             NPCStats stats = npc.GetNPCStats();

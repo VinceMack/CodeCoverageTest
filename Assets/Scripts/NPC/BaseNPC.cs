@@ -14,7 +14,7 @@ public class BaseNPC : SaveableEntity
     [SerializeField] private float timeBetweenFlashes = 0.5f;
     [SerializeField] private Color flashColor;
     private Color originalColor;
-    public NPCStats stats;
+    public NPCStats stats = new NPCStats();
     StateMachine myState;
     Health myHealth;
     AnimatorController myAnim;
