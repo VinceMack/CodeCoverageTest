@@ -73,15 +73,17 @@ public class BaseNPC : SaveableEntity
             }
             if(myHealth.GetCurrentHealth() <= 0)
             {
-                StartCoroutine("DeathCoroutine");
-                myState.ChangeState(GenericState.dead);
+                Die();
             }
-            if(myState.myState != GenericState.dead)
-            {
-                StartCoroutine("TakeDamageCoroutine");
-                StartCoroutine("ImmunityFramesCoroutine");
-            }
+            StartCoroutine("TakeDamageCoroutine");
+            StartCoroutine("ImmunityFramesCoroutine");
         }
+    }
+
+    public virtual void Die()
+    {
+        StartCoroutine("DeathCoroutine");
+        myState.ChangeState(GenericState.dead);
     }
 
     public IEnumerator DeathCoroutine()
