@@ -24,6 +24,11 @@ public class Health : MonoBehaviour
         npc = GetComponent<BaseNPC>();
     }
 
+    public void SetNPC(BaseNPC newNpc)
+    {
+        npc = newNpc;
+    }
+
     public int GetCurrentHealth()
     {
         return npc.GetNPCStats().currentHealth;

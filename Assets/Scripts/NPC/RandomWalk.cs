@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(BaseNPC))]
 public class RandomWalk : MonoBehaviour
 {
+    private BaseNPC npc;
     private Vector3 directionVector;
     private Transform myTransform;
     public float speed;
@@ -18,39 +20,43 @@ public class RandomWalk : MonoBehaviour
     public float maxWaitTime;
     private float waitTimeSeconds;
 
-    // Start is called before the first frame update
-    void Start()
+    // Awake is called before the first frame update
+    void Awake()
     {
         moveTimeSeconds = Random.Range(minMoveTime, maxMoveTime);
         waitTimeSeconds = Random.Range(minMoveTime, maxMoveTime);
         anim = GetComponent<AnimatorController>();
         myTransform = GetComponent<Transform>();
         myRigidbody = GetComponent<Rigidbody2D>();
+        npc = GetComponent<BaseNPC>();
         ChangeDirection();
     }
 
     // Update is called once per frame
-    public void Update()
+    public void FixedUpdate()
     {
-        if(isMoving)
+        if(npc.GetNPCState().myState != GenericState.dead)
         {
-            moveTimeSeconds -= Time.deltaTime;
-            if(moveTimeSeconds <= 0)
+            if(isMoving)
             {
-                moveTimeSeconds = Random.Range(minMoveTime, maxMoveTime);
-                isMoving = false;
+                moveTimeSeconds -= Time.deltaTime;
+                if(moveTimeSeconds <= 0)
+                {
+                    moveTimeSeconds = Random.Range(minMoveTime, maxMoveTime);
+                    isMoving = false;
+                }
+                anim.SetAnimParameter("walking", isMoving);
+                Move();
             }
-            anim.SetAnimParameter("walking", isMoving);
-            Move();
-        }
-        else
-        {
-            waitTimeSeconds -= Time.deltaTime;
-            if(waitTimeSeconds <= 0)
+            else
             {
-                ChooseDifferentDirection();
-                isMoving = true;
-                waitTimeSeconds = Random.Range(minMoveTime, maxMoveTime);
+                waitTimeSeconds -= Time.deltaTime;
+                if(waitTimeSeconds <= 0)
+                {
+                    ChooseDifferentDirection();
+                    isMoving = true;
+                    waitTimeSeconds = Random.Range(minMoveTime, maxMoveTime);
+                }
             }
         }
     }
