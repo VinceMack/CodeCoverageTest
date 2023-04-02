@@ -19,7 +19,7 @@ public class MapManager : MonoBehaviour
     {
         CreateGrid();
         CreateTileMap();
-        //InitializeTileMap();
+        InitializeTileMap();
         
         player = (Player)FindObjectOfType(typeof(Player));
         pathFinding = new PathFinding(tileMap);
@@ -27,7 +27,7 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
-        InitializeTrigMap(); // alternative to InitializeTileMap()
+        //InitializeTrigMap(); // alternative to InitializeTileMap()
     }
 
     void Update()
@@ -97,6 +97,7 @@ public class MapManager : MonoBehaviour
     }
 
     // Create random test map -- for connors testing
+    /*
     private void InitializeTrigMap()
     {
         GlobalInstance.Instance.prefabList.InitializePrefabDictionary();
@@ -175,7 +176,7 @@ public class MapManager : MonoBehaviour
             }
         }
 
-        /*Debug.Log("trees: " + treecount);
-        Debug.Log("orders: " + LaborOrderManager.getNumOfLaborOrders());*/
-    }
+        //Debug.Log("trees: " + treecount);
+        //Debug.Log("orders: " + LaborOrderManager.getNumOfLaborOrders());
+    }*/
 }
