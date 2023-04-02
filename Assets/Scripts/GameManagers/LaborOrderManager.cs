@@ -60,11 +60,19 @@ public class LaborOrderManager : MonoBehaviour
         }
     }
 
-        // Method to remove a specific pawn from the availablePawns queue
-        public static void removeSpecificPawn(Pawn pawn)
+    // Method to find and remove a specific pawn from the availablePawns queue
+    public static void removeSpecificPawn(Pawn pawn)
     {
         // removes the pawn from the queue
-        Queue<Pawn> newQueue = new Queue<Pawn>(availablePawns.Where(p => p != pawn));
+        Queue<Pawn> newQueue = new Queue<Pawn>();
+        while(availablePawns.Count != 0)
+        {
+            Pawn queuedPawn = availablePawns.Dequeue();
+            if(queuedPawn != pawn)
+            {
+                newQueue.Enqueue(queuedPawn);
+            }
+        }
         availablePawns = newQueue;
     }
 

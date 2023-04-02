@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9288d5e23700e73448be1961652241bf, type: 3}
   m_Name: Pawn
   m_EditorClassIdentifier: 
-  entityName: pawn2
-  displayName: Pawn2
-  prefab: {fileID: 7127700996087011795, guid: c4d8e5e2f5fb89244bda99fe34798f12, type: 3}
+  entityName: pawn
+  displayName: Pawn
+  prefab: {fileID: 1110198859314352592, guid: 92a0f81592b4a3f4fade2bfd01abaa40, type: 3}
