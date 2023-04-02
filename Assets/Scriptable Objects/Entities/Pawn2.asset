@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9288d5e23700e73448be1961652241bf, type: 3}
-  m_Name: Pawn
+  m_Name: Pawn2
   m_EditorClassIdentifier: 
   entityName: pawn2
   displayName: Pawn2

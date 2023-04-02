@@ -19,7 +19,7 @@ public class MapManager : MonoBehaviour
     {
         CreateGrid();
         CreateTileMap();
-        InitializeTileMap();
+        //InitializeTileMap();
         
         player = (Player)FindObjectOfType(typeof(Player));
         pathFinding = new PathFinding(tileMap);
@@ -27,7 +27,7 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
-        //InitializeTrigMap(); // alternative to InitializeTileMap()
+        InitializeTrigMap(); // alternative to InitializeTileMap()
     }
 
     void Update()
@@ -96,7 +96,7 @@ public class MapManager : MonoBehaviour
 
     }
 
-    // Create random test map
+    // Create random test map -- for connors testing
     private void InitializeTrigMap()
     {
         GlobalInstance.Instance.prefabList.InitializePrefabDictionary();
@@ -153,12 +153,12 @@ public class MapManager : MonoBehaviour
                     {
                         GameObject tree = GlobalInstance.Instance.entityDictionary.InstantiateEntity("tree", "", new Vector3(x + 0.5f, y + 0.5f, 0f));
                         tree.transform.parent = grid.transform;
-                        //LaborOrderManager.addLaborOrder(new LaborOrder_Woodcut(tree)); // needs to be updated
+                        LaborOrderManager.addLaborOrder(new LaborOrder_Woodcut(tree)); // needs to be updated
                         treecount++;
                     }
                     else if (UnityEngine.Random.Range(0, 100) == 0)  // create pawn
                     {
-                        GameObject pawn = GlobalInstance.Instance.entityDictionary.InstantiateEntity("pawn", "", new Vector3(x + 0.5f, y + 0.5f, 0f));
+                        GameObject pawn = GlobalInstance.Instance.entityDictionary.InstantiateEntity("pawn2", "", new Vector3(x + 0.5f, y + 0.5f, 0f));
                         pawn.transform.parent = grid.transform;
                         //LaborOrderManager.addPawn(pawn.GetComponent<Pawn>()); // needs to be updated
                     }
