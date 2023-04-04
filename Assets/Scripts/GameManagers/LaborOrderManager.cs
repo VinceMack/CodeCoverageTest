@@ -45,18 +45,42 @@ public class LaborOrderManager : MonoBehaviour
     }
 
     // Method to add a pawn to the queue of available pawns
-    public static void addPawn(Pawn pawn)
+    // Return true if successful
+    public static bool addPawn(Pawn pawn)
     {
         // add pawn to the queue
-        availablePawns.Enqueue(pawn);
+        if (!pawn.refuseLaborOrders)
+        {
+            availablePawns.Enqueue(pawn);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    // Method to find and remove a specific pawn from the availablePawns queue
+    public static void removeSpecificPawn(Pawn pawn)
+    {
+        // removes the pawn from the queue
+        Queue<Pawn> newQueue = new Queue<Pawn>();
+        while(availablePawns.Count != 0)
+        {
+            Pawn queuedPawn = availablePawns.Dequeue();
+            if(queuedPawn != pawn)
+            {
+                newQueue.Enqueue(queuedPawn);
+            }
+        }
+        availablePawns = newQueue;
     }
 
     // Method to get an available pawn from the queue
     public static Pawn getAvailablePawn()
     {
         // return pawn from the queue
-        Pawn pawn = availablePawns.Dequeue();
-        return pawn;
+        return availablePawns.Dequeue();
     }
 
     // Method to add a labor task to the appropriate queue
@@ -83,6 +107,7 @@ public class LaborOrderManager : MonoBehaviour
         while(availablePawns.Count > 0 && getNumOfLaborOrders() > 0){
             
             Pawn pawn = getAvailablePawn();
+
             List<LaborType>[] laborTypePriority = pawn.getLaborTypePriority();
             bool found = false;
 

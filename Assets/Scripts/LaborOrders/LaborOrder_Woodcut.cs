@@ -32,7 +32,7 @@ public class LaborOrder_Woodcut : LaborOrder
             // cut down tree
             yield return new WaitForSeconds(getTimeToComplete());
 
-            if(targetTree != null)
+            if (targetTree != null)
             {
                 // delete tree
                 Vector3 treePosition = targetTree.transform.position;
@@ -43,10 +43,10 @@ public class LaborOrder_Woodcut : LaborOrder
                 GameObject woodObject = GlobalInstance.Instance.entityDictionary.InstantiateEntity("wood", "", treePosition);
                 woodObject.transform.SetParent(treeParent);
             }
+        } 
+        else
+        {
+            yield break;
         }
-        // add the pawn back to the queue of available pawns
-        //LaborOrderManager.addPawn(assignedPawn); // needs updated
-
-        yield break;
     }
 }
