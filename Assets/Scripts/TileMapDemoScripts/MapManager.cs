@@ -10,19 +10,23 @@ public class MapManager : MonoBehaviour
     private GameObject tileMapGameObject;
     private Tilemap tileMap;
 
-    private Player player;
+    private List<Level> mapLevels;
+    private const int LEVEL_DISTANCE = 5;
 
-    private PathFinding pathFinding;
+    private CameraManager cameraManager;
+    private CharacterManager characterManager;
 
 
     private void Awake()
     {
+        mapLevels = new List<Level>();
         CreateGrid();
         CreateTileMap();
-        InitializeTileMap();
+        CreateLevel();
         
-        player = (Player)FindObjectOfType(typeof(Player));
-        pathFinding = new PathFinding(tileMap);
+        cameraManager = new CameraManager(Camera.main);
+        characterManager = new CharacterManager(tileMap);
+        characterManager.AddCharacter((Player)FindObjectOfType(typeof(Player)));
     }
 
     void Start()
@@ -33,23 +37,32 @@ public class MapManager : MonoBehaviour
     void Update()
     {
         updateGameObjects();
+        cameraManager.UpdateCamera();
     }
 
     private void updateGameObjects()
     {
         Vector3Int tileLocation = getTileLocation();
 
-        if (Input.GetMouseButtonDown(0)) {
-            TileBase clickedTile = tileMap.GetTile(tileLocation); // Get clicked tile
-            player.updatePath(pathFinding.getPath(Vector3Int.FloorToInt(player.transform.position), tileLocation));
-
-            BaseTile baseTile = (BaseTile)clickedTile;
-            baseTile.debugPrintInformation();
+        if (Input.GetMouseButtonDown(0)) { // Mouse left click
+            // Set target location for characters
+            characterManager.setCharactersPath(tileLocation, getTilesLevel(tileLocation));
         }
-        player.updateLocation(10.0f * Time.deltaTime);
+        if (Input.GetKeyDown(KeyCode.L)) {
+            // Add an additional level to map
+            CreateLevel();
+	    }
+        characterManager.UpdateCharacters(mapLevels);
     }
 
+    // Get the level the tile is located on
+    private int getTilesLevel(Vector3Int tileLocation)
+    {
+        int level = tileLocation.x / LEVEL_DISTANCE;
+        return level;
+    }
 
+    // Get the tile's location in the Tilemap
     private Vector3Int getTileLocation()
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -70,30 +83,37 @@ public class MapManager : MonoBehaviour
         tileMapGameObject.transform.SetParent(grid.transform);
     }
 
-    // Create and set tiles in TileMap
-    private void InitializeTileMap()
+    // Create a level within the map
+    private void CreateLevel()
     {
-        for (int x = -16; x < 16; x++)
-        {
-            for (int y = -9; y < 9; y++)
-            {
-                if (x > 6 && x < 13 && y < 6 && y > -6)
-                {
-                    int resources = UnityEngine.Random.Range(1, 50);
-                    RockTile rockTile = ScriptableObject.CreateInstance<RockTile>();
-                    rockTile.InitializeTileData(x, y, TileType.ROCK, true);
-                    rockTile.setResources(resources);
-                    tileMap.SetTile(new Vector3Int(x, y, 0), rockTile);
-                }
-                else
-                {
-                    GrassTile grassTile = ScriptableObject.CreateInstance<GrassTile>();
-                    grassTile.InitializeTileData(x, y, TileType.GRASS, false);
-                    tileMap.SetTile(new Vector3Int(x, y, 0), grassTile);
-                }
-            }
-        }
+        int xMin, xMax, yMin, yMax;
+        if(mapLevels.Count == 0) { // First level
+            xMin = 0; xMax = LEVEL_DISTANCE-1; yMin = 0; yMax = LEVEL_DISTANCE-1;
+        } else { // Additional levels, seperated by 1 tile
+            xMin = mapLevels[mapLevels.Count - 1].getXMax() + 1;
+            xMax = xMin + LEVEL_DISTANCE-1;
+            yMin = mapLevels[mapLevels.Count - 1].getYMin();
+            yMax = yMin + LEVEL_DISTANCE-1;
+	    }
+        // Add new level to map levels list
+        mapLevels.Add(new Level(mapLevels.Count, xMin, xMax, yMin, yMax));
 
+        // Set levels tiles
+        for(int x = xMin; x<xMax; x++) { 
+            for(int y = yMin; y<yMax; y++) {
+                GrassTile grassTile = ScriptableObject.CreateInstance<GrassTile>();
+                grassTile.InitializeTileData(x, y, TileType.GRASS, false);
+                tileMap.SetTile(new Vector3Int(x, y, 0), grassTile);
+	        }
+	    }
+
+        // Set stairs in random location in level
+        int randomX = UnityEngine.Random.Range(xMin, xMax);
+        int randomY = UnityEngine.Random.Range(yMin, yMax);
+        Stairs stairs = ScriptableObject.CreateInstance<Stairs>();
+        stairs.InitializeTileData(randomX, randomY, TileType.STAIRS, false);
+        tileMap.SetTile(new Vector3Int(randomX, randomY, 0), stairs);
+        mapLevels[mapLevels.Count - 1].setStairsPosition(new Vector3Int(randomX, randomY, 0));
     }
 
     // Create random test map

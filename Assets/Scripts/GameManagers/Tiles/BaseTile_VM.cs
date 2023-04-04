@@ -4,7 +4,7 @@ using UnityEngine.Tilemaps;
 #nullable enable
 
 // enum of the different types of tiles
-public enum TileType { GENERIC, GRASS, ROCK, WATER }
+public enum TileType { GENERIC, GRASS, ROCK, WATER, STAIRS }
 
 public class BaseTile_VM : Tile
 {
