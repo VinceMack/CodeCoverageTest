@@ -5,6 +5,8 @@ using UnityEngine;
 // InputManager class to handle user input and interaction with the grid
 public class InputManager : MonoBehaviour
 {
+    public UIManager uiManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,8 +36,13 @@ public class InputManager : MonoBehaviour
             // If no tile is found, print a message indicating the position
             else
             {
-                Debug.LogError("No tile found at position: " + mousePosition);
+                Debug.Log("No tile found at position: " + mousePosition);
             }
+        }
+
+        if(Input.GetKey("delete"))
+        {
+            uiManager.SelectUIMode(1);
         }
     }
 }

@@ -5,17 +5,10 @@ using System;
 
 public class GlobalSelection : MonoBehaviour
 {
-    
-    SelectionDictionary selected_table;
-    RaycastHit hit;
+    [SerializeField] private Colony myColony;
+    [SerializeField] private UIManager uiManager;
 
-    bool dragSelect;
-
-    //Collider variables
-    //=======================================================//
-
-    MeshCollider selectionBox;
-    Mesh selectionMesh;
+    bool dragSelect = false;
 
     Vector3 p1;
     Vector3 p2;
@@ -23,120 +16,50 @@ public class GlobalSelection : MonoBehaviour
     //the corners of our 2d selection box
     Vector2[] corners;
 
-    //the vertices of our meshcollider
-    Vector3[] verts;
-    Vector3[] vecs;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-        selected_table = GetComponent<SelectionDictionary>();
-        dragSelect = false;
-    }
+    float height;
+    float width;
+    Vector2 middle;
 
     // Update is called once per frame
     void Update()
     {
-        //1. when left mouse button clicked (but not released)
-        if (Input.GetMouseButtonDown(0))
+        if((int)uiManager.myMode > 1)
         {
-            p1 = Input.mousePosition;
-        }
-
-        //2. while left mouse button held
-        if (Input.GetMouseButton(0))
-        {
-            if((p1 - Input.mousePosition).magnitude > 40)
+            //1. when left mouse button clicked (but not released)
+            if (Input.GetMouseButtonDown(0))
             {
-                dragSelect = true;
+                p1 = Input.mousePosition;
             }
-        }
 
-        //3. when mouse button comes up
-        if (Input.GetMouseButtonUp(0))
-        {
-            if(dragSelect == false) //single select
+            //2. while left mouse button held
+            if (Input.GetMouseButton(0))
             {
-                Ray ray = Camera.main.ScreenPointToRay(p1);
-
-                if(Physics.Raycast(ray,out hit, 50000.0f))
+                if((p1 - Input.mousePosition).magnitude > 40)
                 {
-                    if (Input.GetKey(KeyCode.LeftShift)) //inclusive select
-                    {
-                        selected_table.addSelected(hit.transform.gameObject);
-                    }
-                    else //exclusive selected
-                    {
-                        selected_table.deselectAll();
-                        selected_table.addSelected(hit.transform.gameObject);
-                    }
-                }
-                else //if we didnt hit something
-                {
-                    if (Input.GetKey(KeyCode.LeftShift))
-                    {
-                        //do nothing
-                    }
-                    else
-                    {
-                        selected_table.deselectAll();
-                    }
+                    dragSelect = true;
                 }
             }
-            else //marquee select
+
+            //3. when mouse button comes up
+            if (Input.GetMouseButtonUp(0))
             {
-                try
+                if(dragSelect != false) 
                 {
-                    verts = new Vector3[4];
-                    vecs = new Vector3[4];
-                    int i = 0;
                     p2 = Input.mousePosition;
                     corners = getBoundingBox(p1, p2);
 
-                    foreach (Vector2 corner in corners)
-                    {
-                        Ray ray = Camera.main.ScreenPointToRay(corner);
+                    Vector3 topRight = Camera.main.ScreenPointToRay(corners[1]).origin;
+                    Vector3 bottomLeft = Camera.main.ScreenPointToRay(corners[2]).origin;
 
-                        if (Physics.Raycast(ray, out hit, 50000.0f, (1 << 8)))
-                        {
-                            verts[i] = new Vector3(hit.point.x, hit.point.y, hit.point.z);
-                            vecs[i] = ray.origin - hit.point;
-                            Debug.DrawLine(Camera.main.ScreenToWorldPoint(corner), hit.point, Color.red, 1.0f);
-                        }
-                        i++;
-                    }
+                    topRight = new Vector3((float)Math.Ceiling(topRight.x), (float)Math.Ceiling(topRight.y), topRight.z);
+                    bottomLeft = new Vector3((float)Math.Floor(bottomLeft.x), (float)Math.Floor(bottomLeft.y), bottomLeft.z);
 
-                    //generate the mesh
-                    Debug.Log(vecs);
-                    Debug.Log(verts);
-                    Debug.Log(vecs.Length);
-                    Debug.Log(verts.Length);
-                    selectionMesh = generateSelectionMesh(verts,vecs);
-
-                    selectionBox = gameObject.AddComponent<MeshCollider>();
-                    selectionBox.sharedMesh = selectionMesh;
-                    selectionBox.convex = true;
-                    selectionBox.isTrigger = true;
-
-                    if (!Input.GetKey(KeyCode.LeftShift))
-                    {
-                        selected_table.deselectAll();
-                    }
-
-                    Destroy(selectionBox, 0.02f);
-                }
-                catch(Exception e)
-                {
-                    Debug.LogWarning(e);
+                    Zone newZone = new Zone(topRight, bottomLeft, myColony);
                 }
 
-            }//end marquee select
-
-            dragSelect = false;
-
+                dragSelect = false;
+            }
         }
-       
     }
 
     private void OnGUI()
@@ -164,36 +87,7 @@ public class GlobalSelection : MonoBehaviour
             new Vector2(bottomLeft.x, bottomLeft.y),
             new Vector2(topRight.x, bottomLeft.y)
         };
+
         return corners;
-
     }
-
-    //generate a mesh from the 4 bottom points
-    Mesh generateSelectionMesh(Vector3[] corners, Vector3[] vecs)
-    {
-        Vector3[] verts = new Vector3[8];
-        int[] tris = { 0, 1, 2, 2, 1, 3, 4, 6, 0, 0, 6, 2, 6, 7, 2, 2, 7, 3, 7, 5, 3, 3, 5, 1, 5, 0, 1, 1, 4, 0, 4, 5, 6, 6, 5, 7 }; //map the tris of our cube
-
-        for(int i = 0; i < 4; i++)
-        {
-            verts[i] = corners[i];
-        }
-
-        for(int j = 4; j < 8; j++)
-        {
-            verts[j] = corners[j - 4] + vecs[j - 4];
-        }
-
-        Mesh selectionMesh = new Mesh();
-        selectionMesh.vertices = verts;
-        selectionMesh.triangles = tris;
-
-        return selectionMesh;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        selected_table.addSelected(other.gameObject);
-    }
-
 }
