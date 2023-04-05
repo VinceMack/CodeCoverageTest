@@ -6,23 +6,20 @@ using UnityEngine.Tilemaps;
 public class PathFinding
 {
     private Tilemap tileMap;
-    private int _width, _height;
 
     public PathFinding(Tilemap tileMap)
     {
         this.tileMap = tileMap;
-        _width = tileMap.size.x / 2;
-        _height = tileMap.size.y / 2;
     }
 
-    public List<Vector3> getPath(Vector3Int current, Vector3Int target)
+    public List<Vector3> getPath(Vector3Int current, Vector3Int target, Level level)
     {
         BaseTile currentNode = (BaseTile)tileMap.GetTile(current);
         currentNode.distance = 0;
 
         while (true) {
-            checkAdjacentNodes(currentNode);
-            BaseTile nextNode = getNextNode();
+            checkAdjacentNodes(currentNode, level);
+            BaseTile nextNode = getNextNode(level);
 
             if(nextNode == null) {
                 List<Vector3> path = new List<Vector3>();
@@ -36,17 +33,18 @@ public class PathFinding
                     nextNode = nextNode.parent;
 		        }
 
-                resetGrid();
+                resetGrid(level);
                 return path;
 	        }
             currentNode = nextNode;
 	    }
     }
 
-    private void resetGrid()
+    // Reset Tilemap tile's pathfinding variables
+    private void resetGrid(Level level)
     {
-        for(int x=-1*_width; x<_width; x++) {
-            for(int y=-1*_height; y<_height; y++) {
+        for(int x=level.getXMin(); x<level.getXMax(); x++) {
+            for(int y=level.getYMin(); y<level.getYMax(); y++) {
                 BaseTile tile = (BaseTile)tileMap.GetTile(new Vector3Int(x, y, 0));
                 tile.visited = false;
                 tile.distance = -1;
@@ -56,11 +54,12 @@ public class PathFinding
 	    }
     }
 
-    private BaseTile getNextNode()
+    // Get next node to check
+    private BaseTile getNextNode(Level level)
     {
         BaseTile nextNode = null;
-        for(int x=-1*_width; x<_width; x++) {
-            for(int y=-1*_height; y<_height; y++) {
+        for(int x=level.getXMin(); x<level.getXMax(); x++) {
+            for(int y=level.getYMin(); y<level.getYMax(); y++) {
                 BaseTile tile = (BaseTile)tileMap.GetTile(new Vector3Int(x, y, 0));
 
                 if(!tile.Collision() && !tile.visited && tile.distance > 0) {
@@ -73,13 +72,14 @@ public class PathFinding
         return nextNode;
     }
 
-    public void checkAdjacentNodes(BaseTile currentNode)
+    // Check all tiles adjacent to the current tile
+    public void checkAdjacentNodes(BaseTile currentNode, Level level)
     {
         for(int y=-1; y<=1; y++) { 
             for(int x=-1; x<=1; x++) {
                 if (y == 0 && x == 0) continue; // Skip center node
-                if(currentNode.x + x >= -1*_width && currentNode.x + x < _width &&
-		           currentNode.y + y >= -1*_height && currentNode.y + y < _height) {
+                if(currentNode.x + x >= level.getXMin() && currentNode.x + x < level.getXMax() &&
+		           currentNode.y + y >= level.getYMin() && currentNode.y + y < level.getYMax()) {
 
                     BaseTile adjacentTile = (BaseTile)tileMap.GetTile(new Vector3Int(currentNode.x + x, currentNode.y + y, 0));
 

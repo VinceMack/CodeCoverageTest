@@ -92,8 +92,6 @@ public class GrassTile : BaseTile
 
 public class RockTile : BaseTile
 {
-    int resources;
-
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {
         base.GetTileData(position, tilemap, ref tileData);
@@ -106,17 +104,6 @@ public class RockTile : BaseTile
     {
         base.RefreshTile(position, tilemap);
     }
-
-    public void setResources(int newResources)
-    {
-        resources = newResources;
-    }
-
-    public int getResources()
-    {
-        return resources;
-    }
-
 }
 
 public class WaterTile : BaseTile
@@ -135,4 +122,20 @@ public class WaterTile : BaseTile
         base.RefreshTile(position, tilemap);
     }
 
+}
+
+public class Stairs : BaseTile
+{
+    public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
+    {
+        base.GetTileData(position, tilemap, ref tileData);
+
+        Sprite sprite = Resources.Load<Sprite>("stairs");
+        tileData.sprite = sprite;
+    }
+
+    public override void RefreshTile(Vector3Int position, ITilemap tilemap)
+    {
+        base.RefreshTile(position, tilemap);
+    }
 }
