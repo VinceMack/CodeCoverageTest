@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Zone
 {
+    public enum ZoneType { NormalFoodFarm = 1, PremiumFoodFarm = 2, ClothFarm = 3, NormalMedicineFarm = 4, PremiumMedicineFarm = 5 };
+
+    private ZoneType myType;
+
     private Vector2 topRight;
     private Vector2 bottomLeft;
     private List<Vector2> corners;
@@ -16,7 +20,9 @@ public class Zone
 
     public GameObject visualBox;
 
-    public Zone(Vector2 tR, Vector2 bL, Colony colony)
+    private string zoneName;
+
+    public Zone(Vector2 tR, Vector2 bL, Colony colony, int type)
     {
         myColony = colony;
 
@@ -34,14 +40,26 @@ public class Zone
         middle = new Vector2(bottomLeft.x + (width/2), bottomLeft.y + (height/2));
 
         visualBox = new GameObject("Zone" + myColony.GetNextZoneNumber());
+        zoneName = "Zone " + myColony.GetNextZoneNumber();
         visualBox.transform.position = new Vector3(middle.x, middle.y, 0);
         visualBox.transform.localScale = new Vector3(width, height, 1f);
         SpriteRenderer myRend = visualBox.AddComponent<SpriteRenderer>();
         myRend.sprite = myColony.GetZoneSprite();
 
+        if(type < 7 && type > 1)
+        {
+            myType = (ZoneType)(type - 1);
+        }
+        else
+        {
+            myType = ZoneType.NormalFoodFarm;
+        }
+
         Color tmp = Color.yellow;
         tmp.a = 0.35f;
         myRend.color = tmp;
+
+        myColony.AddZone(this);
     }
 
     public Zone()
@@ -62,5 +80,30 @@ public class Zone
     public List<Vector2> GetCorners()
     {
         return corners;
+    }
+
+    public Vector2 GetCenter()
+    {
+        return middle;
+    }
+
+    public string GetZoneName()
+    {
+        return zoneName;
+    }
+
+    public ZoneType GetZoneType()
+    {
+        return myType;
+    }
+
+    public void DeleteZone()
+    {
+        myColony.RemoveZone(this);
+    }
+
+    public GameObject GetVisualBox()
+    {
+        return visualBox;
     }
 }

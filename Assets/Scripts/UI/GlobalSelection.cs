@@ -54,7 +54,7 @@ public class GlobalSelection : MonoBehaviour
                     topRight = new Vector3((float)Math.Ceiling(topRight.x), (float)Math.Ceiling(topRight.y), topRight.z);
                     bottomLeft = new Vector3((float)Math.Floor(bottomLeft.x), (float)Math.Floor(bottomLeft.y), bottomLeft.z);
 
-                    Zone newZone = new Zone(topRight, bottomLeft, myColony);
+                    Zone newZone = new Zone(topRight, bottomLeft, myColony, (int)uiManager.myMode);
                 }
 
                 dragSelect = false;

@@ -10,14 +10,16 @@ public class PanelManager : MonoBehaviour
 
     [SerializeField] private GameObject saveSystemUI;
 
+    [SerializeField] private GameObject colonyInfo;
+
     public void CloseSaveSystemUI()
     {
-       //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
        saveSystemUI.SetActive(false);
     }
 
     public void EnableSaveSystemUI()
     {
+        CloseMenus();
         saveSystemUI.SetActive(true);
         saveSystemUI.GetComponent<SaveSystemUIManager>().OpenSaveMenu();
     }
@@ -34,11 +36,46 @@ public class PanelManager : MonoBehaviour
         }
     }
 
+    public void CloseColonyUI()
+    {
+       colonyInfo.SetActive(false);
+    }
+
+    public void EnableColonyUI()
+    {
+        CloseMenus();
+        colonyInfo.SetActive(true);
+        colonyInfo.GetComponent<ColonyInfoManager>().OpenColonyInfo();
+    }
+
+    public void ToggleColonyUI()
+    {
+        if(colonyInfo.activeSelf)
+        {
+            CloseColonyUI();
+        }
+        else
+        {
+            EnableColonyUI();
+        }
+    }
+
     private void Update() 
     {
         if (Input.GetKeyDown("e"))
         {
             ToggleSaveSystemUI();
         }
+
+        if(Input.GetKeyDown("i"))
+        {
+            ToggleColonyUI();
+        }
+    }
+
+    private void CloseMenus()
+    {
+        CloseSaveSystemUI();
+        CloseColonyUI();
     }
 }
