@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Colony : MonoBehaviour
 {
-    private List<Zone> zones = new List<Zone>();
+    public List<FarmZone> farmZones = new List<FarmZone>();
     [SerializeField] private SpriteRenderer zoneSprite;
     [SerializeField] private string colonyName = "Test Colony";
 
@@ -21,14 +21,14 @@ public class Colony : MonoBehaviour
     // Zone Methods 
     /////////////////////////////////////
 
-    public void AddZone(Zone newZone)
+    public void AddFarmZone(FarmZone newZone)
     {
-        zones.Add(newZone);
+        farmZones.Add(newZone);
     }
 
-    public int GetNextZoneNumber()
+    public int GetNextFarmZoneNumber()
     {
-        return zones.Count+1;
+        return farmZones.Count+1;
     }
 
     public Sprite GetZoneSprite()
@@ -36,17 +36,17 @@ public class Colony : MonoBehaviour
         return zoneSprite.sprite;
     }
 
-    public void RemoveZone(Zone zoneToRemove)
+    public void RemoveFarmZone(FarmZone zoneToRemove)
     {
-        Destroy(zoneToRemove.visualBox);
-        if(zones.Contains(zoneToRemove))
+        Destroy(zoneToRemove.GetVisualBox());
+        if(farmZones.Contains(zoneToRemove))
         {
-            zones.Remove(zoneToRemove);
+            farmZones.Remove(zoneToRemove);
         }
     }
 
-    public List<Zone> GetZones()
+    public List<FarmZone> GetFarmZones()
     {
-        return zones;
+        return farmZones;
     }
 }

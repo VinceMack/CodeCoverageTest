@@ -12,7 +12,7 @@ public class ZoneUIElement : MonoBehaviour
     private VisualZone myZone;
     private ColonyInfoManager myInfoManager;
 
-    public void Initialize(Zone zone, ColonyInfoManager colonyInfoManager)
+    public void Initialize(VisualZone zone, ColonyInfoManager colonyInfoManager)
     {
         myZone = zone;
         zoneName.text = myZone.GetZoneName();

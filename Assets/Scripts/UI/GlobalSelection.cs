@@ -66,7 +66,7 @@ public class GlobalSelection : MonoBehaviour
                     {
                         if((int)uiManager.myMode < 7)
                         {
-                            VisualZone newZone = new VisualZone(topRight, bottomLeft, myColony, (int)uiManager.myMode);
+                            FarmZone newZone = new FarmZone(topRight, bottomLeft, myColony, (int)uiManager.myMode, new Resource(false, "specialResource"));
                         }
                         else
                         {

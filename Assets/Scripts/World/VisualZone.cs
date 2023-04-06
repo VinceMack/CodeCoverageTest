@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class VisualZone : Zone
 {
+    protected bool farmVisualType;
+
     protected GameObject visualBox;
 
     protected string zoneName;
-
     public VisualZone(Vector2 tR, Vector2 bL, Colony colony, int type) : base(tR, bL, colony, type)
     {
-        visualBox = new GameObject("Zone" + myColony.GetNextZoneNumber());
-        zoneName = "Zone " + myColony.GetNextZoneNumber();
+        visualBox = new GameObject("Zone" + myColony.GetNextFarmZoneNumber());
+        zoneName = "Zone " + myColony.GetNextFarmZoneNumber();
         visualBox.transform.position = new Vector3(middle.x, middle.y, 0);
         visualBox.transform.localScale = new Vector3(width, height, 1f);
         SpriteRenderer myRend = visualBox.AddComponent<SpriteRenderer>();
@@ -20,8 +21,6 @@ public class VisualZone : Zone
         Color tmp = Color.yellow;
         tmp.a = 0.35f;
         myRend.color = tmp;
-
-        myColony.AddZone(this);
     }
 
     public string GetZoneName()
@@ -29,9 +28,9 @@ public class VisualZone : Zone
         return zoneName;
     }
 
-    public void DeleteZone()
+    public virtual void DeleteZone()
     {
-        myColony.RemoveZone(this);
+        
     }
 
     public GameObject GetVisualBox()
