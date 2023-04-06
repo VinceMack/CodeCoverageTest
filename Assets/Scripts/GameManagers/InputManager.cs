@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public UIManager uiManager;
 
     // Check for user input
     public static void CheckForInput()
@@ -24,11 +23,6 @@ public class InputManager : MonoBehaviour
             {
                 Debug.Log("No tile found at position: " + mousePosition);
             }
-        }
-
-        if(Input.GetKey("delete"))
-        {
-            uiManager.SelectUIMode(1);
         }
     }
 }

@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     private const int NUM_OF_PAWNS_TO_SPAWN = 100;
     private const int NUM_OF_LABOR_ORDERS_TO_SPAWN = 1000;
 
+    public UIManager uiManager;
+
     void Awake()
     {
         // set target frame rate to 60
@@ -58,6 +60,11 @@ public class GameManager : MonoBehaviour
         if (LaborOrderManager_VM.GetWorkingPawnCount() > 0)
         {
             LaborOrderManager_VM.StartAssignedPawns();
+        }
+
+        if(Input.GetKey("delete"))
+        {
+            uiManager.SelectUIMode(1);
         }
     }
 
