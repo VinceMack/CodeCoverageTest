@@ -54,7 +54,25 @@ public class GlobalSelection : MonoBehaviour
                     topRight = new Vector3((float)Math.Ceiling(topRight.x), (float)Math.Ceiling(topRight.y), topRight.z);
                     bottomLeft = new Vector3((float)Math.Floor(bottomLeft.x), (float)Math.Floor(bottomLeft.y), bottomLeft.z);
 
-                    Zone newZone = new Zone(topRight, bottomLeft, myColony, (int)uiManager.myMode);
+                    // Convert the world space mouse position to a grid position
+                    Vector3Int topRightGridPosition = GridManager.tileMap.WorldToCell(topRight);
+                    Vector3Int bottomLeftGridPosition = GridManager.tileMap.WorldToCell(bottomLeft);
+
+                    // Get the tile at the grid position
+                    BaseTile_VM topRightTile = (BaseTile_VM)GridManager.tileMap.GetTile(topRightGridPosition);
+                    BaseTile_VM bottomLeftTile = (BaseTile_VM)GridManager.tileMap.GetTile(bottomLeftGridPosition);
+
+                    if(topRightTile != null && bottomLeftTile != null)
+                    {
+                        if((int)uiManager.myMode < 7)
+                        {
+                            VisualZone newZone = new VisualZone(topRight, bottomLeft, myColony, (int)uiManager.myMode);
+                        }
+                        else
+                        {
+                            Zone newZone = new Zone(topRight, bottomLeft, myColony, (int)uiManager.myMode);
+                        }
+                    }
                 }
 
                 dragSelect = false;
@@ -90,4 +108,16 @@ public class GlobalSelection : MonoBehaviour
 
         return corners;
     }
+
+    //Check non-collider neighbors
+    //Check pathfind
+    //
+
+
+    //Treat orders in 'batches'
+    // foreach order:
+    //      Check non-collider neighbor
+    //      If non-collider, Check pathfinding
+    // If non reachable, cancel order
+    // If some reachable, set conditionals, when conditional finsihed, enqueue next non reachable
 }

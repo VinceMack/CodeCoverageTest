@@ -9,7 +9,7 @@ public class ZoneUIElement : MonoBehaviour
     [SerializeField] private TextMeshProUGUI zoneName;
     [SerializeField] private TextMeshProUGUI zoneType;
 
-    private Zone myZone;
+    private VisualZone myZone;
     private ColonyInfoManager myInfoManager;
 
     public void Initialize(Zone zone, ColonyInfoManager colonyInfoManager)

@@ -4,23 +4,19 @@ using UnityEngine;
 
 public class Zone
 {
-    public enum ZoneType { NormalFoodFarm = 1, PremiumFoodFarm = 2, ClothFarm = 3, NormalMedicineFarm = 4, PremiumMedicineFarm = 5 };
+    public enum ZoneType { NormalFoodFarm = 1, PremiumFoodFarm = 2, ClothFarm = 3, NormalMedicineFarm = 4, PremiumMedicineFarm = 5, Destroy = 6, Create = 7 };
 
-    private ZoneType myType;
+    protected ZoneType myType;
 
-    private Vector2 topRight;
-    private Vector2 bottomLeft;
-    private List<Vector2> corners;
+    protected Vector2 topRight;
+    protected Vector2 bottomLeft;
+    protected List<Vector2> corners;
 
-    private float height;
-    private float width;
-    private Vector2 middle;
+    protected float height;
+    protected float width;
+    protected Vector2 middle;
 
-    private Colony myColony;
-
-    public GameObject visualBox;
-
-    private string zoneName;
+    protected Colony myColony;
 
     public Zone(Vector2 tR, Vector2 bL, Colony colony, int type)
     {
@@ -39,13 +35,6 @@ public class Zone
 
         middle = new Vector2(bottomLeft.x + (width/2), bottomLeft.y + (height/2));
 
-        visualBox = new GameObject("Zone" + myColony.GetNextZoneNumber());
-        zoneName = "Zone " + myColony.GetNextZoneNumber();
-        visualBox.transform.position = new Vector3(middle.x, middle.y, 0);
-        visualBox.transform.localScale = new Vector3(width, height, 1f);
-        SpriteRenderer myRend = visualBox.AddComponent<SpriteRenderer>();
-        myRend.sprite = myColony.GetZoneSprite();
-
         if(type < 7 && type > 1)
         {
             myType = (ZoneType)(type - 1);
@@ -54,12 +43,6 @@ public class Zone
         {
             myType = ZoneType.NormalFoodFarm;
         }
-
-        Color tmp = Color.yellow;
-        tmp.a = 0.35f;
-        myRend.color = tmp;
-
-        myColony.AddZone(this);
     }
 
     public Zone()
@@ -87,23 +70,8 @@ public class Zone
         return middle;
     }
 
-    public string GetZoneName()
-    {
-        return zoneName;
-    }
-
     public ZoneType GetZoneType()
     {
         return myType;
-    }
-
-    public void DeleteZone()
-    {
-        myColony.RemoveZone(this);
-    }
-
-    public GameObject GetVisualBox()
-    {
-        return visualBox;
     }
 }
