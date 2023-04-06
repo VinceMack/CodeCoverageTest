@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class StaircaseItem : Item
 {
+    public StaircaseItem(string name, bool consumable, Rarity rarity, int value, int quantity, string blockName) : base(name, consumable, rarity, value, quantity, blockName)
+    {
+        
+    }
+
+    public StaircaseItem(StaircaseItem duplicate) : base(duplicate)
+    {
+
+    }
+
+    public StaircaseItem() : base()
+    {
+
+    }
+
     public PrefabList prefabList;
     public EntityDictionary entityDictionary;
     public new string BlockName = "staircase";
