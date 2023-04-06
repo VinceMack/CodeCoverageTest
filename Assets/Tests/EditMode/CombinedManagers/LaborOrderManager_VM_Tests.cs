@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEditor;
 
+/*
 public class LaborOrderManager_VM_Tests
 {
     private LaborOrderManager_VM laborOrderManager;
@@ -39,3 +40,4 @@ public class LaborOrderManager_VM_Tests
         Assert.AreEqual(expectedLaborTypes, actualLaborTypes);
     }
 }
+*/

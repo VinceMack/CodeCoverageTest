@@ -11,19 +11,19 @@ public enum LaborType { FireFight, Patient, Doctor, Sleep, Basic, Warden, Handle
 public class LaborOrderManager_VM : MonoBehaviour
 {
     [SerializeField]
-    // Variables for managing pawns, labor tasks, and labor types
-    protected GameObject pawn_prefab;
-    protected static Queue<Pawn_VM> availablePawns;
-    protected static Queue<LaborOrder_Base_VM>[] laborQueues;
-    protected static int laborOrderTotal;
+    private static Queue<Pawn_VM> availablePawns;
+    private static Queue<Pawn_VM> assignedPawns;
+    private static Queue<LaborOrder_Base_VM>[] laborQueues;
+    private static int laborOrderTotal = 0;
 
-    protected const int NUM_OF_PAWNS_TO_SPAWN = 10;
+    private const int NUM_OF_PAWNS_TO_SPAWN = 1000;
+    private const int NUM_OF_LABOR_ORDERS_TO_SPAWN = 10000;
 
     // Method to Get the total number of labor tasks in the queue
-    public static int GetNumOfLaborOrders()
+    public static int GetLaborOrderCount()
     {
         int total = 0;
-        for (int i = 0; i < GetNumberOfLaborTypes(); i++)
+        for (int i = 0; i < GetLaborTypesCount(); i++)
         {
             total += laborQueues[i].Count;
         }
@@ -31,42 +31,9 @@ public class LaborOrderManager_VM : MonoBehaviour
     }
 
     // Method to Get the total number of labor types
-    public static int GetNumberOfLaborTypes()
+    public static int GetLaborTypesCount()
     {
         return Enum.GetNames(typeof(LaborType)).Length;
-    }
-
-    // Method to Get the total number of labor tasks ever queued
-    public static int GetLaborOrderTotal()
-    {
-        return laborOrderTotal;
-    }
-
-    // Method to add a pawn to the queue of available pawns
-    public static void AddPawn(Pawn_VM pawn)
-    {
-        // add pawn to the queue
-        availablePawns.Enqueue(pawn);
-    }
-
-    // Method to Get an available pawn from the queue
-    public static Pawn_VM GetAvailablePawn()
-    {
-        // return pawn from the queue
-        Pawn_VM pawn = availablePawns.Dequeue();
-        return pawn;
-    }
-
-    // Method to add a labor task to the appropriate queue
-    public static void AddLaborOrder(LaborOrder_Base_VM LaborOrder_Base_VM)
-    {
-        // check if the labor order is already in the queue
-        if (!laborQueues[(int)LaborOrder_Base_VM.GetLaborType()].Contains(LaborOrder_Base_VM))
-        {
-            // add labor order to the queue
-            laborQueues[(int)LaborOrder_Base_VM.GetLaborType()].Enqueue(LaborOrder_Base_VM);
-            laborOrderTotal++;
-        }
     }
 
     // Method to Get the number of available pawns
@@ -75,13 +42,71 @@ public class LaborOrderManager_VM : MonoBehaviour
         return availablePawns.Count;
     }
 
-    // Method to assign a labor task to a pawn if possible (based on priority)
-    protected void AssignPawns()
+    // Method to return the number of available pawns
+    public static int GetWorkingPawnCount()
     {
-        while(availablePawns.Count > 0 && GetNumOfLaborOrders() > 0){
-            
+        return assignedPawns.Count;
+    }
+
+    // Method to return the number of available pawns
+    public static int GetAvailablePawnCount()
+    {
+        return availablePawns.Count;
+    }
+
+    // Method to add a pawn to the queue of available pawns
+    public static void AddAvailablePawn(Pawn_VM pawn)
+    {
+        // add pawn to the queue
+        availablePawns.Enqueue(pawn);
+    }
+
+    // Method to add a pawn to the queue of assigned pawns
+    public static void AddAssignedPawn(Pawn_VM pawn)
+    {
+        // add pawn to the queue
+        assignedPawns.Enqueue(pawn);
+    }
+
+    // Method to add a labor task to the appropriate queue
+    public static void AddLaborOrder(LaborOrder_Base_VM LaborOrder_Base_VM)
+    {
+        // check if the labor order is already in the queue
+        if (!laborQueues[(int)LaborOrder_Base_VM.laborType].Contains(LaborOrder_Base_VM))
+        {
+            // add labor order to the queue
+            laborQueues[(int)LaborOrder_Base_VM.laborType].Enqueue(LaborOrder_Base_VM);
+            laborOrderTotal++;
+        }
+    }
+
+    // Method to initialize the labor order manager
+    public static void InitializeLaborOrderManager()
+    {
+        // Initialize the pawn queue
+        availablePawns = new Queue<Pawn_VM>();
+
+        // Initialize the laborQueues array
+        laborQueues = new Queue<LaborOrder_Base_VM>[GetLaborTypesCount()];
+
+        // Initialize the working pawn queue
+        assignedPawns = new Queue<Pawn_VM>();
+
+        // Initialize the array of labor order queues
+        for (int i = 0; i < GetLaborTypesCount(); i++)
+        {
+            laborQueues[i] = new Queue<LaborOrder_Base_VM>();
+        }
+    }
+
+    // Method to assign a labor task to a pawn if possible (based on priority)
+    public static void AssignPawnsToLaborOrders()
+    {
+        while (availablePawns.Count > 0 && GetLaborOrderCount() > 0)
+        {
+
             Pawn_VM pawn = GetAvailablePawn();
-            List<LaborType>[] laborTypePriority = pawn.GetLaborTypePriority();
+            List<LaborType>[] laborTypePriority = pawn.laborTypePriority;
             bool found = false;
 
             for (int i = 0; i < laborTypePriority.Length; i++)
@@ -110,64 +135,47 @@ public class LaborOrderManager_VM : MonoBehaviour
             if (!found)
             {
                 Debug.Log("NO MATCHING ORDERS.");
-                AddPawn(pawn);
+                AddAvailablePawn(pawn);
             }
         }
     }
 
     // Method to initialize and populate pawn queue (Instantiate them as the children of this object)
-    public void InitializePawns()
+    public static void FillWithRandomPawns(int count)
     {
-        availablePawns = new Queue<Pawn_VM>();
-        for (int i = 0; i < NUM_OF_PAWNS_TO_SPAWN; i++)
+        availablePawns.Clear();
+        for (int i = 0; i < count; i++)
         {
-            AddPawn(Instantiate(pawn_prefab, transform.Find("Pawns")).GetComponent<Pawn_VM>());
+            GameObject pawn_prefab = Resources.Load("prefabs/Pawn_VM") as GameObject;
+            AddAvailablePawn(Instantiate(pawn_prefab, GameObject.Find("Pawns").transform).GetComponent<Pawn_VM>());
         }
     }
 
-    // Method to initialize the array of labor order queues
-    public void InitializeLaborQueues()
+    // Method to fill the labor order queues with random labor tasks
+    public static void FillWithRandomLaborOrders(int count)
     {
-        laborQueues = new Queue<LaborOrder_Base_VM>[GetNumberOfLaborTypes()];
-
-        // iterate through the array of labor order queues and initialize each queue
-        for (int i = 0; i < GetNumberOfLaborTypes(); i++)
-        {
-            laborQueues[i] = new Queue<LaborOrder_Base_VM>();
-        }
-    }
-
-    // Awake method to initialize variables and Set up the labor task queues
-    void Awake()
-    {
-        laborOrderTotal = 0;
-
-        // initialize and populate pawn queue (Instantiate them as the children of this object)
-        InitializePawns();
-
-        // initialize the array of labor order queues & iterate through the array of labor order queues and initialize each queue
-        InitializeLaborQueues();
-    }
-
-    // Start method to generate and queue random labor tasks
-    void Start()
-    {
-        // generate 100 labor orders with random labor types and random ttc's and add them to the appropriate queue in the array of labor order queues
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < count; i++)
         {
             AddLaborOrder(new LaborOrder_Base_VM(true));
         }
     }
 
-    // Update method to assign labor tasks to available pawns
-    void Update()
+    // method to go through the queue of working pawns and start the coroutine to complete their labor order
+    public static void StartAssignedPawns()
     {
-        if (availablePawns.Count > 0 && GetNumOfLaborOrders() > 0)
+        while (GetWorkingPawnCount() > 0 && GetLaborOrderCount() > 0)
         {
-            AssignPawns();
-        }else{
-            // print the number of pawns in the queue and the number of labor tasks in the queue
-            //Debug.Log("Pawns: " + GetPawnCount() + " Labor Orders: " + GetNumOfLaborOrders());
+            Pawn_VM pawn = assignedPawns.Dequeue();
+            pawn.StartCoroutine(pawn.CompleteLaborOrder());
         }
     }
+
+    // Method to Get an available pawn from the queue
+    private static Pawn_VM GetAvailablePawn()
+    {
+        // return pawn from the queue
+        Pawn_VM pawn = availablePawns.Dequeue();
+        return pawn;
+    }
+
 }
