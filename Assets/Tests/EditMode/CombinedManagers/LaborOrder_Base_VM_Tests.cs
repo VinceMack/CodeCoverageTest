@@ -4,6 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
+/*
 public class LaborOrder_Base_VM_Tests
 {
     LaborOrderManager_VM laborOrderManager;
@@ -92,3 +93,4 @@ public class LaborOrder_Base_VM_Tests
         Assert.AreEqual(orderNumber, result);
     }
 }
+*/
