@@ -66,11 +66,11 @@ public class GlobalSelection : MonoBehaviour
                     {
                         if((int)uiManager.myMode < 7)
                         {
-                            FarmZone newZone = new FarmZone(topRight, bottomLeft, myColony, (int)uiManager.myMode, new Resource(false, "specialResource"));
+                            Zone newZone = new Zone(topRight, bottomLeft, myColony, (int)uiManager.myMode);
                         }
                         else
                         {
-                            Zone newZone = new Zone(topRight, bottomLeft, myColony, (int)uiManager.myMode);
+                            Area newZone = new Area(topRight, bottomLeft);
                         }
                     }
                 }

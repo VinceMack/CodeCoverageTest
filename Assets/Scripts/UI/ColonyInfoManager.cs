@@ -19,7 +19,7 @@ public class ColonyInfoManager : MonoBehaviour
 
     public void OpenColonyInfo()
     {
-        zoneNumber.text = (myColony.GetNextFarmZoneNumber() - 1).ToString();
+        zoneNumber.text = (myColony.GetNextZoneNumber() - 1).ToString();
         colonyName.text = myColony.GetColonyName();
     }
 
@@ -30,7 +30,7 @@ public class ColonyInfoManager : MonoBehaviour
             Destroy(zoneChild.gameObject);
         }
 
-        foreach(FarmZone zone in myColony.GetFarmZones())
+        foreach(Zone zone in myColony.GetZones())
         {
             GameObject zoneTile = Instantiate(zoneInfoTile, new Vector3(), new Quaternion());
             zoneTile.transform.SetParent(zoneContent.transform);
@@ -40,7 +40,6 @@ public class ColonyInfoManager : MonoBehaviour
 
     public void ShowZones()
     {
-        Debug.Log("ShowingZones");
         homeInfo.SetActive(false);
         zoneInfo.SetActive(true);
         BuildZoneList();

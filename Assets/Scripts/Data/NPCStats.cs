@@ -11,27 +11,9 @@ public class NPCStats : BaseStats
 
     public Dictionary<Slot, Equipment> Equipment = new Dictionary<Slot, Equipment>()
     {
-        { Slot.Head, new Armor() {
-            Name = "Snoopy Cap",
-            EquippedSlot = Slot.Head,
-            Rarity = Rarity.Unique,
-            Value = 500,
-            Defense = 4
-        }},
-        { Slot.Chest, new Armor() {
-            Name = "Oxygen Pack",
-            EquippedSlot = Slot.Chest,
-            Rarity = Rarity.Legendary,
-            Value = 800,
-            Defense = 3
-        } },
-        { Slot.Legs, new Armor() {
-            Name = "Moon Boots",
-            EquippedSlot = Slot.Legs,
-            Rarity = Rarity.Uncommon,
-            Value = 350,
-            Defense = 8
-        } },
+        { Slot.Head, new Armor() },
+        { Slot.Chest, new Armor() },
+        { Slot.Legs, new Armor() },
         { Slot.Feet, null },
         { Slot.Hands, null },
         { Slot.Neck, null },
@@ -44,11 +26,6 @@ public class NPCStats : BaseStats
 
     public List<Item> Inventory = new List<Item>()
     {
-        new Item
-        {
-            Name = "Special Item",
-            Rarity = Rarity.Legendary,
-            Value = 420
-        }
+        new Item()
     };
 }
