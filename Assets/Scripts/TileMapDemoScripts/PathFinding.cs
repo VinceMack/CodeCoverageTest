@@ -12,7 +12,7 @@ public class PathFinding
         this.tileMap = tileMap;
     }
 
-    public List<Vector3> getPath(Vector3Int current, Vector3Int target, Level level)
+    public List<Vector3> getPath(Vector3Int current, Vector3Int target, TileMapLevel level)
     {
         BaseTile currentNode = (BaseTile)tileMap.GetTile(current);
         currentNode.distance = 0;
@@ -41,7 +41,7 @@ public class PathFinding
     }
 
     // Reset Tilemap tile's pathfinding variables
-    private void resetGrid(Level level)
+    private void resetGrid(TileMapLevel level)
     {
         for(int x=level.getXMin(); x<level.getXMax(); x++) {
             for(int y=level.getYMin(); y<level.getYMax(); y++) {
@@ -55,7 +55,7 @@ public class PathFinding
     }
 
     // Get next node to check
-    private BaseTile getNextNode(Level level)
+    private BaseTile getNextNode(TileMapLevel level)
     {
         BaseTile nextNode = null;
         for(int x=level.getXMin(); x<level.getXMax(); x++) {
@@ -73,7 +73,7 @@ public class PathFinding
     }
 
     // Check all tiles adjacent to the current tile
-    public void checkAdjacentNodes(BaseTile currentNode, Level level)
+    public void checkAdjacentNodes(BaseTile currentNode, TileMapLevel level)
     {
         for(int y=-1; y<=1; y++) { 
             for(int x=-1; x<=1; x++) {

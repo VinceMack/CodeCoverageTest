@@ -166,6 +166,7 @@ public class Pawn_VM : MonoBehaviour
     {
         TileBase foundTile = GetLaborOrderTileFromTilemap();
         TileBase currentTile = GetPawnTileFromTilemap();
+        
 
         if (foundTile == null)
         {
@@ -184,14 +185,66 @@ public class Pawn_VM : MonoBehaviour
         BaseTile_VM target = (BaseTile_VM)foundTile;
         BaseTile_VM current = (BaseTile_VM)currentTile;
 
-        Vector3Int x = Vector3Int.FloorToInt(target.position);
-        Vector3Int y = Vector3Int.FloorToInt(current.position);
+        Vector3Int targetPosition = Vector3Int.FloorToInt(target.position);
+        Vector3Int currentPosition = Vector3Int.FloorToInt(current.position);
 
-        path = PathfindingManager.GetPath(y, x);
-        yield return StartCoroutine(TakePath());
+        // Get the level the target tile is on
+        int targetLevel = targetPosition.x / GridManager.LEVEL_WIDTH;
+        // Get the level the pawn is on
+        int currentLevel = currentPosition.x / GridManager.LEVEL_WIDTH;
+
+        while (currentPosition != targetPosition)
+        {
+            // If target location is on a different level, set path to stairs
+            if (currentLevel != targetLevel)
+            {
+                StairsTile_VM stairs;
+
+                // Get stairs to lower level
+                if (currentLevel < targetLevel)
+                {
+                    stairs = GridManager.mapLevels[currentLevel].getDescendingStairs_VM(currentPosition);
+                }
+                // Get stairs to upper level
+                else
+                {
+                    stairs = GridManager.mapLevels[currentLevel].getAscendingStairs_VM(currentPosition);
+                }
+
+                Vector3Int stairsPosition = Vector3Int.FloorToInt(stairs.position);
+
+                // Move to stairs at current level
+                if(currentPosition != stairsPosition)
+                {
+                    path = PathfindingManager.GetPath(currentPosition, Vector3Int.FloorToInt(stairs.position), currentLevel);
+                }
+                // Move to lower level
+                else if (currentPosition == stairsPosition && currentLevel < targetLevel)
+                {
+                    transform.position = stairs.getLowerLevelStairs().position;
+                    currentLevel = (int)stairs.getLowerLevelStairs().position.x / GridManager.LEVEL_WIDTH;
+                    continue;
+                }
+                // Move to upper level
+                else if(currentPosition == stairsPosition && currentLevel > targetLevel)
+                {
+                    transform.position = stairs.getUpperLevelStairs().position;
+                    currentLevel = (int)stairs.getUpperLevelStairs().position.x / GridManager.LEVEL_WIDTH;
+                    continue;
+		        }
+            }
+            // Target level is the same as current level
+            else
+            {
+                path = PathfindingManager.GetPath(currentPosition, targetPosition, currentLevel);
+	        }
+
+            yield return StartCoroutine(TakePath());
+            currentPosition = Vector3Int.FloorToInt(transform.position);
+        }
 
         // check if returned path is empty 
-        if (path.Count == 0)
+        if (path.Count == 0 && currentPosition != targetPosition)
         {
             Debug.Log($"{pawnName,-10} FAILED Labor Order #{currentLaborOrder.orderNumber,-5} UNREACHABLE: {target.ToString(),-80}");
         }else{
