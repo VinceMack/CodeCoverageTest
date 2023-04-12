@@ -79,4 +79,22 @@ public class GlobalStorage : MonoBehaviour
 
         return -1;
     }
+
+    /// <summary>
+    /// Loops through each storage to find a given ItemName
+    /// Returns the count of the item across all storages
+    /// </summary>
+    // public int GetItemCount(string itemName) 
+    // {
+    //     if(itemReferences.ContainsKey(item))
+    //     {
+    //         int count = itemReferences[item].Count - 1;
+    //         List<Chest> newChestList = itemReferences[item];
+    //         newChestList.Remove(chest);
+    //         itemReferences[item] = newChestList;
+    //         return count;
+    //     }
+
+    //     return -1;
+    // }
 }

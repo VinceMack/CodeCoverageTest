@@ -2,36 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Value
+public class Condition
 {
-    public enum Condition { equal, notEqual, greaterThan, lessThan }
+    public enum Operation { equal, notEqual, greaterThan, lessThan }
 
-    private Condition myCondition;
+    private Operation myOperation;
     private int threshold;
 
-    public Value(int threshold, Condition condition)
+    public Condition(int threshold, Operation operation)
     {
         this.threshold = threshold;
-        this.myCondition = condition;
+        this.myOperation = operation;
     }
     
     public bool ConditionMet(int value)
     {
-        switch (myCondition)
+        switch (myOperation)
         {
-            case Condition.equal:
+            case Operation.equal:
             {
                 return value == threshold;
             }
-            case Condition.notEqual:
+            case Operation.notEqual:
             {
                 return value != threshold;
             }
-            case Condition.greaterThan:
+            case Operation.greaterThan:
             {
                 return value > threshold;
             }
-            case Condition.lessThan:
+            case Operation.lessThan:
             {
                 return value < threshold;
             }
