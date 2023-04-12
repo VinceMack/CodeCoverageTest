@@ -205,12 +205,22 @@ public class Pawn_VM : MonoBehaviour
                 if (currentLevel < targetLevel)
                 {
                     stairs = GridManager.mapLevels[currentLevel].getDescendingStairs_VM(currentPosition);
+                    if(stairs == null)
+                    {
+                        Debug.LogError("descending stairs tile is null at CompleteLaborOrder()");
+                        break;
+		            }
                     levelChangeStairsPosition = stairs.getLowerLevelStairs().position;
                 }
                 // Get stairs to upper level
                 else
                 {
                     stairs = GridManager.mapLevels[currentLevel].getAscendingStairs_VM(currentPosition);
+                    if(stairs == null)
+                    {
+                        Debug.LogError("ascending stairs tile is null at CompleteLaborOrder()");
+                        break;
+		            }
                     levelChangeStairsPosition = stairs.getUpperLevelStairs().position;
                 }
 
