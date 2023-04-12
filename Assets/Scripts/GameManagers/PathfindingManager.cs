@@ -1,159 +1,152 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
-// PathfindingManager class to handle pathfinding on a grid of tiles
+// PathfindingManager class to compute paths
 public class PathfindingManager : MonoBehaviour
 {
-    protected static int _width, _height;
-
-    // Method to Get a path between two points on the grid
-    public static List<Vector3> GetPath(Vector3Int current, Vector3Int tarGet)
+    public static List<Vector3> GetPath(Vector3Int start, Vector3Int target)
     {
-        BaseTile_VM currentNode = (BaseTile_VM)GridManager.tileMap.GetTile(current);
-        currentNode.distance = 0;
+        GridManager.ResetGrid();
+        PriorityQueue<BaseTile_VM> unvisited = new PriorityQueue<BaseTile_VM>();
+        BaseTile_VM startTile = GridManager.GetTile(start);
+        BaseTile_VM targetTile = GridManager.GetTile(target);
+        startTile.distance = 0;
+        unvisited.Enqueue(startTile, 0);
 
-        while (true)
+        while (unvisited.Count > 0)
         {
-            checkAdjacentNodes(currentNode);
-            BaseTile_VM nextNode = GetNextNode();
+            BaseTile_VM currentTile = unvisited.Dequeue();
 
-            if (nextNode == null)
+            if (currentTile == targetTile)
             {
-                List<Vector3> path = new List<Vector3>();
-
-                // Get tarGet node
-                nextNode = (BaseTile_VM)GridManager.tileMap.GetTile(new Vector3Int(tarGet.x, tarGet.y, 0));
-
-                // Get path
-                while (nextNode.parent != null)
-                {
-                    path.Add(new Vector3(nextNode.GetXPosition(), nextNode.GetYPosition(), 0));
-                    nextNode = nextNode.parent;
-                }
-
-                reSetGrid();
-                return path;
+                return ReconstructPath(targetTile);
             }
-            currentNode = nextNode;
-        }
-    }
 
-    // Method to reSet grid values for pathfinding
-    protected static void reSetGrid()
-    {
-        // Iterate through each tile in the grid and reSet its properties
-        for (int x = GridManager.MIN_HORIZONTAL; x < GridManager.MAX_HORIZONTAL; x++)
-        {
-            for (int y = GridManager.MIN_VERTICAL; y < GridManager.MAX_VERTICAL; y++)
+            currentTile.visited = true;
+
+            foreach (BaseTile_VM neighbor in GetNeighbors(currentTile))
             {
-                BaseTile_VM tile = (BaseTile_VM)GridManager.tileMap.GetTile(new Vector3Int(x, y, 0));
-
-                // Check if tile is not null and debug if it is
-                if (tile == null)
+                if (!neighbor.visited && !neighbor.isCollision)
                 {
-                    Debug.LogError("tile is null @ reSetGrid");
-                    break;
+                    int cost = 0;
+                    switch (neighbor.type)
+                    {
+                        case TileType.GENERIC:
+                            cost = 1; // should not reach
+                            break;
+                        case TileType.GRASS:
+                            cost = 1;
+                            break;
+                        case TileType.WATER:
+                            cost = 4;
+                            break;
+                        case TileType.SAND:
+                            cost = 2;
+                            break;
+                        case TileType.ROCK:
+                            cost = 0; // Rock is impassable; should not reach
+                            break;
+                        default:
+                            cost = 0; // should not reach
+                            break;
+                    }
+
+                    int tentativeDistance = currentTile.distance + 10 + cost;
+
+                    if (tentativeDistance < neighbor.distance || neighbor.distance == -1)
+                    {
+                        neighbor.distance = tentativeDistance;
+                        neighbor.parent = currentTile;
+                        unvisited.Enqueue(neighbor, tentativeDistance);
+                    }
                 }
-
-                tile.visited = false;
-                tile.distance = -1;
-                tile.parent = null;
-                tile = null;
-            }
-        }
-    }
-
-    // Method to Get the next node in the pathfinding process
-    protected static BaseTile_VM GetNextNode()
-    {
-        BaseTile_VM nextNode = null;
-        // Iterate through each tile in the grid and find the next tile to process
-        for (int x = GridManager.MIN_HORIZONTAL; x < GridManager.MAX_HORIZONTAL; x++)
-        {
-            for (int y = GridManager.MIN_VERTICAL; y < GridManager.MAX_VERTICAL; y++)
-            {
-                BaseTile_VM tile = (BaseTile_VM)GridManager.tileMap.GetTile(new Vector3Int(x, y, 0));
-
-                // Check if tile is not null and debug if it is
-                if (tile == null)
-                {
-                    Debug.LogError("tile is null @ GetNextNode");
-                    return null;
-                }
-
-                // Check if the tile is traversable and has not been visited yet
-                if (!tile.GetCollision() && !tile.visited && tile.distance > 0)
-                {
-                    // Set the next node if it has not been Set yet or if it has a shorter distance to the starting node
-                    if (nextNode == null)
-                        nextNode = tile;
-                    else if (tile.distance < nextNode.distance)
-                        nextNode = tile;
-                }
-                tile = null;
             }
         }
-        return nextNode;
+
+        return new List<Vector3>(); // Return empty path if no path is found
     }
 
-    // Method to check and update adjacent nodes in the pathfinding process
-    public static void checkAdjacentNodes(BaseTile_VM currentNode)
+    private static List<BaseTile_VM> GetNeighbors(BaseTile_VM tile)
     {
-        // Iterate through each adjacent tile and update its properties if necessary
+        List<BaseTile_VM> neighbors = new List<BaseTile_VM>();
+
         for (int y = -1; y <= 1; y++)
         {
             for (int x = -1; x <= 1; x++)
             {
-                // Skip the center node
-                if (y == 0 && x == 0)
+                if ((y == 0 && x == 0) || (y != 0 && x != 0))
                 {
                     continue;
                 }
 
-                // Calculate the position of the adjacent tile
-                int newX = currentNode.GetXPosition() + x;
-                int newY = currentNode.GetYPosition() + y;
+                int newX = tile.GetXPosition() + x;
+                int newY = tile.GetYPosition() + y;
 
-                // Check if the adjacent tile is within the bounds of the grid
                 if (newX >= GridManager.MIN_HORIZONTAL && newX < GridManager.MAX_HORIZONTAL && newY >= GridManager.MIN_VERTICAL && newY < GridManager.MAX_VERTICAL)
                 {
-
-                    BaseTile_VM adjacentTile = (BaseTile_VM)GridManager.tileMap.GetTile(new Vector3Int(newX, newY, 0));
-
-                    // Check if tile is not null and debug if it is
-                    if (adjacentTile == null)
-                    {
-                        Debug.LogError("adjacentTile is null @ checkAdjacentNodes");
-                        break;
-                    }
-
-                    // Calculate the distance between the current node and the adjacent node
-                    float xdistance = currentNode.GetXPosition() - newX;
-                    float ydistance = currentNode.GetYPosition() - newY;
-                    int distance = (int)(Mathf.Sqrt(Mathf.Pow(xdistance, 2) + Mathf.Pow(ydistance, 2)) * 10);
-
-                    // Update the adjacent node's properties if necessary
-                    if (currentNode.distance + distance < adjacentTile.distance || adjacentTile.distance == -1)
-                    {
-                        adjacentTile.distance = currentNode.distance + distance;
-                        adjacentTile.parent = currentNode;
-                    }
-
-                    adjacentTile = null;
+                    neighbors.Add(GridManager.GetTile(new Vector3Int(newX, newY, 0)));
                 }
             }
         }
-        currentNode.visited = true;
+
+        return neighbors;
     }
 
-    // Start method to initialize grid dimensions
-    void Start()
+    private static List<Vector3> ReconstructPath(BaseTile_VM targetTile)
     {
-        // Calculate the width and height of the grid
-        _width = (GridManager.MAX_HORIZONTAL - GridManager.MIN_HORIZONTAL) / 2;
-        _height = (GridManager.MAX_VERTICAL - GridManager.MIN_VERTICAL) / 2;
+        List<Vector3> path = new List<Vector3>();
+        BaseTile_VM currentNode = targetTile;
+
+        while (currentNode.parent != null)
+        {
+            path.Add(new Vector3(currentNode.GetXPosition(), currentNode.GetYPosition(), 0));
+            currentNode = currentNode.parent;
+        }
+
+        path.Reverse();
+        return path;
+    }
+}
+
+public class PriorityQueue<T>
+{
+    private List<KeyValuePair<T, int>> elements = new List<KeyValuePair<T, int>>();
+
+    public int Count
+    {
+        get { return elements.Count; }
     }
 
+    public void Enqueue(T item, int priority)
+    {
+        elements.Add(new KeyValuePair<T, int>(item, priority));
+    }
+
+    public T Dequeue()
+    {
+        int bestIndex = 0;
+
+        for (int i = 1; i < elements.Count; i++)
+        {
+            if (elements[i].Value < elements[bestIndex].Value)
+            {
+                bestIndex = i;
+            }
+        }
+
+        T bestItem = elements[bestIndex].Key;
+        elements.RemoveAt(bestIndex);
+        return bestItem;
+    }
+
+    public bool Contains(T item)
+    {
+        return elements.Exists(element => element.Key.Equals(item));
+    }
+
+    public void Clear()
+    {
+        elements.Clear();
+    }
 }

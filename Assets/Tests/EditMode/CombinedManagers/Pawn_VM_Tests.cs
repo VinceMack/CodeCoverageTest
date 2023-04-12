@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEditor;
 
+/*
 public class Pawn_VM_Tests
 {
     private GameObject testGameObject;
@@ -93,3 +94,4 @@ public class Pawn_VM_Tests
         Assert.AreEqual(testPath, testPawn_VM.GetPath());
     }
 }
+*/

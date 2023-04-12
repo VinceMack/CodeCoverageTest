@@ -12,7 +12,5 @@ public class LaborOrder_Woodcut_VM : LaborOrder_Base_VM
     public override IEnumerator Execute(Pawn_VM pawn)
     {
         yield return new WaitForSeconds(timeToComplete);
-        // remove tree game object at the location of the labor order
-        // spawn woodLog game object at the location of the labor order
     }
 }
