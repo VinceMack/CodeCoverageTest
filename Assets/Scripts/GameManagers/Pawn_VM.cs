@@ -199,38 +199,34 @@ public class Pawn_VM : MonoBehaviour
             if (currentLevel != targetLevel)
             {
                 StairsTile_VM stairs;
+                Vector3 levelChangeStairsPosition;
 
                 // Get stairs to lower level
                 if (currentLevel < targetLevel)
                 {
                     stairs = GridManager.mapLevels[currentLevel].getDescendingStairs_VM(currentPosition);
+                    levelChangeStairsPosition = stairs.getLowerLevelStairs().position;
                 }
                 // Get stairs to upper level
                 else
                 {
                     stairs = GridManager.mapLevels[currentLevel].getAscendingStairs_VM(currentPosition);
+                    levelChangeStairsPosition = stairs.getUpperLevelStairs().position;
                 }
 
                 Vector3Int stairsPosition = Vector3Int.FloorToInt(stairs.position);
 
-                // Move to stairs at current level
-                if(currentPosition != stairsPosition)
+                // Move to next level
+                if (currentPosition == stairsPosition)
+                {
+                    transform.position = levelChangeStairsPosition;
+                    currentLevel = (int)levelChangeStairsPosition.x / GridManager.LEVEL_WIDTH;
+                    continue;
+                }
+                // Set path to stairs at current level
+                else
                 {
                     path = PathfindingManager.GetPath(currentPosition, Vector3Int.FloorToInt(stairs.position), currentLevel);
-                }
-                // Move to lower level
-                else if (currentPosition == stairsPosition && currentLevel < targetLevel)
-                {
-                    transform.position = stairs.getLowerLevelStairs().position;
-                    currentLevel = (int)stairs.getLowerLevelStairs().position.x / GridManager.LEVEL_WIDTH;
-                    continue;
-                }
-                // Move to upper level
-                else if(currentPosition == stairsPosition && currentLevel > targetLevel)
-                {
-                    transform.position = stairs.getUpperLevelStairs().position;
-                    currentLevel = (int)stairs.getUpperLevelStairs().position.x / GridManager.LEVEL_WIDTH;
-                    continue;
 		        }
             }
             // Target level is the same as current level
