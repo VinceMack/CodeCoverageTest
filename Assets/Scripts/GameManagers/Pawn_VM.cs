@@ -53,6 +53,24 @@ public class Pawn_VM : MonoBehaviour
         return Enum.GetNames(typeof(LaborType)).Length;
     }
 
+    // Method to return the name of the pawn
+    public string GetPawnName()
+    {
+        return pawnName;
+    }
+
+    // Method to return the priority level according to labor type
+    public int GetPriorityLevelOfLabor(LaborType type)
+    {
+        for (int i = 1; i < NUM_OF_PRIORITY_LEVELS; i++)
+        {
+            if (laborTypePriority[i-1] != null)
+                if (laborTypePriority[i-1].Contains(type))
+                    return i;
+        }
+        return NUM_OF_PRIORITY_LEVELS;
+    }
+
     // Gets the tile the pawn is currently on from the tilemap
     public TileBase GetPawnTileFromTilemap()
     {

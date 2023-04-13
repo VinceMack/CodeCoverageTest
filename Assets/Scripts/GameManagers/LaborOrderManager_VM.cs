@@ -54,6 +54,21 @@ public class LaborOrderManager_VM : MonoBehaviour
         return availablePawns.Count;
     }
 
+    // Method to return the name of labor type by index
+    public static string GetLaborTypeName(int i)
+    {
+        return Enum.GetNames(typeof(LaborType))[i];
+    }
+
+    // Method to return the labor type enum by string name
+    public static LaborType GetLaborType(string typeString)
+    {
+        LaborType type;
+        if (!Enum.TryParse<LaborType>(typeString, out type))
+            Debug.Log("Error: type "+ typeString + " not found.");
+        return type;
+    }
+
     // Method to add a pawn to the queue of available pawns
     public static void AddAvailablePawn(Pawn_VM pawn)
     {
