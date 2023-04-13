@@ -174,12 +174,12 @@ public class LaborOrderManager_VM : MonoBehaviour
         availablePawns.Clear();
         for (int i = 0; i < count; i++)
         {
-            GameObject pawn_prefab = Resources.Load("prefabs/Pawn_VM") as GameObject;
-            AddAvailablePawn(Instantiate(pawn_prefab, GameObject.Find("Pawns").transform).GetComponent<Pawn_VM>());
+            /*GameObject pawn_prefab = Resources.Load("prefabs/Pawn_VM") as GameObject;
+            AddAvailablePawn(Instantiate(pawn_prefab, GameObject.Find("Pawns").transform).GetComponent<Pawn_VM>());*/
 
-            /*GameObject pawn_prefab = GlobalInstance.Instance.entityDictionary.InstantiateEntity("pawn_vm");
+            GameObject pawn_prefab = GlobalInstance.Instance.entityDictionary.InstantiateEntity("pawn_vm");
             pawn_prefab.transform.SetParent(GameObject.Find("Pawns").transform);
-            AddAvailablePawn(pawn_prefab.GetComponent<Pawn_VM>());*/
+            AddAvailablePawn(pawn_prefab.GetComponent<Pawn_VM>());
         }
     }
 

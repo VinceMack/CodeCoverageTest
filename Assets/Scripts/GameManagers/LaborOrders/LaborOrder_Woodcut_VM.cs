@@ -36,8 +36,10 @@ public class LaborOrder_Woodcut_VM : LaborOrder_Base_VM
                 UnityEngine.Object.Destroy(targetTree);
 
                 // create wood in tree's place
+                BaseTile_VM tile = (BaseTile_VM)GridManager.tileMap.GetTile(Vector3Int.FloorToInt(treePosition));
                 GameObject woodObject = GlobalInstance.Instance.entityDictionary.InstantiateEntity("wood", "", treePosition);
                 woodObject.transform.SetParent(treeParent);
+                tile.SetTileInformation(tile.type, false, woodObject, tile.resourceCount, tile.position);
             }
         }
         yield break;

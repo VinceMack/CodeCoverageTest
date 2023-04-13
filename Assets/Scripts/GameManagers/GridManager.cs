@@ -105,16 +105,28 @@ public class GridManager : MonoBehaviour
     // requires GlobalInstance in scene
     public static void PopulateWithTrees()
     {
-        for (int x = MIN_HORIZONTAL; x < MAX_HORIZONTAL; x++)
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        foreach(BaseTile_VM tile in allTiles)
         {
-            for (int y = MIN_VERTICAL; y < MAX_VERTICAL; y++)
+            if (tile != null && tile.type == TileType.GRASS && tile.resource == null && Random.Range(0, 10) == 0)
             {
-                BaseTile_VM tile = (BaseTile_VM)GridManager.tileMap.GetTile(new Vector3Int(x, y, 0));
-                if (tile.type == TileType.GRASS && tile.resource == null && Random.Range(0, 10) == 0)
-                {
-                    GameObject tree = GlobalInstance.Instance.entityDictionary.InstantiateEntity("tree", "", new Vector3(x + 0.5f, y + 0.5f, 0f));
-                    tile.SetTileInformation(tile.type, false, tree, tile.resourceCount, tile.position);
-                }
+                GameObject tree = GlobalInstance.Instance.entityDictionary.InstantiateEntity("tree", "", tile.position);
+                tile.SetTileInformation(tile.type, false, tree, tile.resourceCount, tile.position);
+            }
+        }
+    }
+
+    // Spawns bushes on random vacant grass tiles
+    // requires GlobalInstance in scene
+    public static void PopulateWithBushes()
+    {
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        foreach (BaseTile_VM tile in allTiles)
+        {
+            if (tile != null && tile.type == TileType.GRASS && tile.resource == null && Random.Range(0, 10) == 0)
+            {
+                GameObject bush = GlobalInstance.Instance.entityDictionary.InstantiateEntity("bush", "", tile.position);
+                tile.SetTileInformation(tile.type, false, bush, tile.resourceCount, tile.position);
             }
         }
     }

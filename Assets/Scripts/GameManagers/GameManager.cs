@@ -22,11 +22,13 @@ public class GameManager : MonoBehaviour
 
         // Add objects to the map
         GridManager.PopulateWithTrees();
+        GridManager.PopulateWithBushes();
 
         // initialize the labor order manager
         LaborOrderManager_VM.InitializeLaborOrderManager();
 
         // fill the labor order manager with random pawns and labor orders
+        Pawn_VM.PawnList.Clear();
         LaborOrderManager_VM.FillWithRandomPawns(NUM_OF_PAWNS_TO_SPAWN);
 
         // fill the labor order manager with random labor orders
