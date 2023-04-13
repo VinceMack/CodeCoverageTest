@@ -46,7 +46,7 @@ public class Timer : MonoBehaviour
     public void OnTick()
     {
         lastTick = Time.time;
-        Pawn.decrementHunger(HUNGER_DECREMENT);
+        Pawn_VM.DecrementHunger(HUNGER_DECREMENT);
         Bush.incrementBerries(BERRY_INCREMENT);
     }
 }

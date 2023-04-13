@@ -31,7 +31,7 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
-        InitializeTrigMap(); // alternative to InitializeTileMap()
+        //InitializeTrigMap(); // alternative to InitializeTileMap()
     }
 
     void Update()
@@ -117,7 +117,7 @@ public class MapManager : MonoBehaviour
     }
 
     // Create random test map -- for connors testing
-    
+    /*
     private void InitializeTrigMap()
     {
         GlobalInstance.Instance.prefabList.InitializePrefabDictionary();
@@ -181,11 +181,7 @@ public class MapManager : MonoBehaviour
                     {
                         GameObject pawn = GlobalInstance.Instance.entityDictionary.InstantiateEntity("pawn2", "", new Vector3(x + 0.5f, y + 0.5f, 0f));
                         pawn.transform.parent = grid.transform;
-                    }
-                    else if (UnityEngine.Random.Range(0, 100) == 0)
-                    {
-                        GameObject bush = GlobalInstance.Instance.entityDictionary.InstantiateEntity("bush", "", new Vector3(x + 0.5f, y + 0.5f, 0f));
-                        bush.transform.parent = grid.transform;
+                        //LaborOrderManager.addPawn(pawn.GetComponent<Pawn>()); // needs to be updated
                     }
 
                         
@@ -202,5 +198,5 @@ public class MapManager : MonoBehaviour
 
         //Debug.Log("trees: " + treecount);
         //Debug.Log("orders: " + LaborOrderManager.getNumOfLaborOrders());
-    }
+    }*/
 }

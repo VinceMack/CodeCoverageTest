@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private const int NUM_OF_PAWNS_TO_SPAWN = 100;
-    private const int NUM_OF_LABOR_ORDERS_TO_SPAWN = 1000;
+    private const int NUM_OF_PAWNS_TO_SPAWN = 7;
+    private const int NUM_OF_LABOR_ORDERS_TO_SPAWN = 0;
 
     void Awake()
     {
@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
 
         // generate a random tile map
         GridManager.GenerateRandomTileMap();
+
+        // Add objects to the map
+        GridManager.PopulateWithTrees();
 
         // initialize the labor order manager
         LaborOrderManager_VM.InitializeLaborOrderManager();
@@ -36,7 +39,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
+        LaborOrderManager_VM.PopulateObjectLaborOrders();
     }
 
     void FixedUpdate()

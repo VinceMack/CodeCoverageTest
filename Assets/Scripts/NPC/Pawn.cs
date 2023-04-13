@@ -17,21 +17,6 @@ public class Pawn : BaseNPC
     public bool refuseLaborOrders = false;                  // prevents this pawn from being assigned labor orders, redundant for now but may be useful later
     public int hunger = 100;
 
-    // Decrement the hunger for all living pawns
-    public static void decrementHunger(int decAmount)
-    {
-        for (int i = Pawn.PawnList.Count - 1; i >= 0; i--)
-        {
-            Pawn.PawnList[i].hunger -= decAmount;
-            if (Pawn.PawnList[i].hunger <= 0)
-            {
-                Pawn.PawnList[i].hunger = 0;
-                Pawn.PawnList[i].Die("has starved to death.");
-            }
-        }
-    }
-
-
     public void moveLaborTypeToPriorityLevel(LaborType laborType, int priorityLevel) { // take a labor type and move it to the X priority level
         
         // iterate through the labor type priorities and remove the labor type from the list
