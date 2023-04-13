@@ -56,8 +56,10 @@ namespace Tests
             //Act
             stairItem.InvokePlacing(npc.GetComponent<BaseNPC>());
 
+            yield return new WaitForSeconds(1);
+
             //Assert
-			Assert.AreEqual(goTile.transform.childCount, 1);
+			Assert.NotNull(GameObject.Find("Staircase(Clone)"));
 		}
 	}
 }

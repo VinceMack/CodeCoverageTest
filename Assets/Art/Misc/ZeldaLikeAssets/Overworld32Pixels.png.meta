@@ -6079,7 +6079,6 @@ TextureImporter:
       Overworld32Pixels_8: -2136846976
       Overworld32Pixels_275: -204215385
       Overworld32Pixels_36: 965420493
-      Overworld32Pixels_173: 841126790
       Overworld32Pixels_16: -1641958040
       Overworld32Pixels_235: -318559096
       Overworld32Pixels_80: -1210616461
@@ -6298,11 +6297,12 @@ TextureImporter:
       Overworld32Pixels_7: 392495634
       Overworld32Pixels_81: -1784204257
       Overworld32Pixels_56: -2048510314
+      Overworld32Pixels_173: 841126790
       Overworld32Pixels_200: 123012263
-      Overworld32Pixels_21: 1585015055
       Overworld32Pixels_13: 1170459211
-      Overworld32Pixels_159: 1942484604
+      Overworld32Pixels_21: 1585015055
       Overworld32Pixels_0: -1550485667
+      Overworld32Pixels_159: 1942484604
       Overworld32Pixels_77: 75622887
       Overworld32Pixels_253: 1998021664
       Overworld32Pixels_225: 530889281

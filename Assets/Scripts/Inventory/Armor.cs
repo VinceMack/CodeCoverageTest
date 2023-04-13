@@ -16,6 +16,11 @@ public class Armor : Equipment
         Coverage = duplicate.Coverage;
     }
 
+    public Armor() : base()
+    {
+        
+    }
+
     public int Defense = 0;
     public int Warmth = 0;
     public int Coverage = 0;

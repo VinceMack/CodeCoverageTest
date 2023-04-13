@@ -11,5 +11,10 @@ public class Equipment : Item
         EquippedSlot = duplicate.EquippedSlot;
     }
 
+    public Equipment() : base()
+    {
+        
+    }
+
     public Slot EquippedSlot;
 }
