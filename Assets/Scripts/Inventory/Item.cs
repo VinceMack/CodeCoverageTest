@@ -2,6 +2,7 @@
 public class Item
 {
     public string Name = "";
+    public string DisplayName = "";
     public bool IsConsumable = false;
     public Rarity Rarity = Rarity.Common;
     public int Value = 1;
@@ -18,9 +19,10 @@ public class Item
         
     }
 
-    public Item(string name, bool consumable, Rarity rarity, int value, int quantity, string blockName)
+    public Item(string name, string displayName, bool consumable, Rarity rarity, int value, int quantity, string blockName)
     {
         Name = name;
+        DisplayName = displayName;
         IsConsumable = consumable;
         Rarity = rarity;
         Value = value;
@@ -31,6 +33,7 @@ public class Item
     public Item(Item duplicate)
     {
         Name = duplicate.Name;
+        DisplayName = duplicate.DisplayName;
         IsConsumable = duplicate.IsConsumable;
         Rarity = duplicate.Rarity;
         Value = duplicate.Value;

@@ -1,8 +1,8 @@
 [System.Serializable]
 public class Weapon : Equipment
 {
-    public Weapon(string name, bool consumable, Rarity rarity, int value, int quantity, string blockName, Slot slot, float attackSpeed, int damage, float range)
-         : base(name, consumable, rarity, value, quantity, blockName, slot)
+    public Weapon(string name, string displayName, bool consumable, Rarity rarity, int value, int quantity, string blockName, Slot slot, float attackSpeed, int damage, float range)
+         : base(name, displayName, consumable, rarity, value, quantity, blockName, slot)
     {
         AttackSpeed = attackSpeed;
         Damage = damage;

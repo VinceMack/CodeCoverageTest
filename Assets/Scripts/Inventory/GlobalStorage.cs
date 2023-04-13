@@ -4,8 +4,38 @@ using UnityEngine;
 
 public class GlobalStorage : MonoBehaviour
 {
+    public GameObject chestPrefab;
+    public Colony myColony;
     public List<Chest> inventories = new List<Chest>();
     public Dictionary<Item, List<Chest>> itemReferences = new Dictionary<Item, List<Chest>>();
+
+
+    [ContextMenu("TestStorage")]
+    public void TestStorage()
+    {
+        GameObject chest = Instantiate(chestPrefab);
+        Chest newChest = chest.GetComponent<Chest>();
+        newChest.PlaceObject(new BaseTile(), this);
+
+        Item chestWoodItem = new Item(ItemList.itemList["wood"]);
+        chestWoodItem.Quantity = 5;
+        
+        newChest.ItemAddedToChest(chestWoodItem);
+    }
+
+    [ContextMenu("TEST")]
+    public void TESTING()
+    {
+        Debug.Log(GetItemCount("wood"));
+    }
+
+    /// <summary>
+    /// Will inform the colony script that resources quantities may have changed
+    /// </summary>
+    public void ItemChanged()
+    {
+        myColony.UpdateResourceList();
+    }
 
     /// <summary>
     /// <para>Adds a chest to itemReferences</para>
@@ -84,17 +114,15 @@ public class GlobalStorage : MonoBehaviour
     /// Loops through each storage to find a given ItemName
     /// Returns the count of the item across all storages
     /// </summary>
-    // public int GetItemCount(string itemName) 
-    // {
-    //     if(itemReferences.ContainsKey(item))
-    //     {
-    //         int count = itemReferences[item].Count - 1;
-    //         List<Chest> newChestList = itemReferences[item];
-    //         newChestList.Remove(chest);
-    //         itemReferences[item] = newChestList;
-    //         return count;
-    //     }
+    public int GetItemCount(string itemName) 
+    {
+        int total = 0;
 
-    //     return -1;
-    // }
+        foreach(Chest inventory in inventories)
+        {
+            total += inventory.ItemCountInChest(itemName);
+        } 
+
+        return total;
+    }
 }

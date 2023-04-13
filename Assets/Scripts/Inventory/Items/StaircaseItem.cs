@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StaircaseItem : Item
 {
-    public StaircaseItem(string name, bool consumable, Rarity rarity, int value, int quantity, string blockName) : base(name, consumable, rarity, value, quantity, blockName)
+    public StaircaseItem(string name, string displayName, bool consumable, Rarity rarity, int value, int quantity, string blockName) : base(name, displayName, consumable, rarity, value, quantity, blockName)
     {
         
     }

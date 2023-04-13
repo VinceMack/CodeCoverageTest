@@ -13,27 +13,27 @@ public class Resource
     public bool isEssential;
     public Condition essentialCondition;
 
-    private GlobalStorage globalStorage;
+    public string resourceIconLocation = "resource_default";
 
     // For non-essential resources
-    public Resource(string backendName, string frontendName, List<string> items, bool essential, GlobalStorage gs)
+    public Resource(string backendName, string frontendName, List<string> items, bool essential, string iconLocation = "resource_default")
     {
         resourceName = backendName;
         displayName = frontendName;
         resourceItems = items;
         isEssential = essential;
-        globalStorage = gs;
+        resourceIconLocation = iconLocation;
     }
 
     // For essential resources
-    public Resource(string backendName, string frontendName, List<string> items, bool essential, Condition condition, GlobalStorage gs)
+    public Resource(string backendName, string frontendName, List<string> items, bool essential, Condition condition, string iconLocation = "resource_default")
     {
         resourceName = backendName;
         displayName = frontendName;
         resourceItems = items;
         isEssential = essential;
         essentialCondition = condition;
-        globalStorage = gs;
+        resourceIconLocation = iconLocation;
     }
 
     // Will loop through each item which defines this resource and grab the quantity of the item via the GlobalStorage
@@ -42,7 +42,7 @@ public class Resource
         int total = 0;
         foreach(string itemName in resourceItems)
         {
-            //total += gs.GetItemQuantity(itemName);
+            total += GlobalInstance.Instance.gs.GetItemCount(itemName);
         }
         return total;
     }

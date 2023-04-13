@@ -1,8 +1,8 @@
 [System.Serializable]
 public class Armor : Equipment
 {
-    public Armor(string name, bool consumable, Rarity rarity, int value, int quantity, string blockName, Slot slot, int defense, int warmth, int coverage)
-         : base(name, consumable, rarity, value, quantity, blockName, slot)
+    public Armor(string name, string displayName, bool consumable, Rarity rarity, int value, int quantity, string blockName, Slot slot, int defense, int warmth, int coverage)
+         : base(name, displayName, consumable, rarity, value, quantity, blockName, slot)
     {
         Defense = defense;
         Warmth = warmth;

@@ -14,6 +14,7 @@ public class GlobalInstance : MonoBehaviour
     public PrefabList prefabList;
     public EntityDictionary entityDictionary;
     public GameObject sceneCamera;
+    public GlobalStorage gs;
 
     private void Awake()
     {

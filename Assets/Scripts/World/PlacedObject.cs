@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class PlacedObject : SaveableEntity
 {
-    [SerializeField] protected GameObjectTile homeTile;
+    [SerializeField] protected BaseTile homeTile;
 
-    public virtual void PlaceObject(GameObjectTile location)
+    public virtual void PlaceObject(BaseTile location)
     {
         homeTile = location;
-        transform.SetParent(location.transform);
-        transform.localPosition = new Vector3();
     }
 }
