@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
+
     // Check for user input
     public static void CheckForInput()
     {
