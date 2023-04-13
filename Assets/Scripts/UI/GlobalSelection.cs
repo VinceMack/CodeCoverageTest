@@ -6,7 +6,6 @@ using System;
 public class GlobalSelection : MonoBehaviour
 {
     [SerializeField] private Colony myColony;
-    [SerializeField] private UIManager uiManager;
 
     bool dragSelect = false;
 
@@ -23,7 +22,7 @@ public class GlobalSelection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if((int)uiManager.myMode > 1)
+        if((int)UIManager.myMode > 1)
         {
             //1. when left mouse button clicked (but not released)
             if (Input.GetMouseButtonDown(0))
@@ -64,9 +63,9 @@ public class GlobalSelection : MonoBehaviour
 
                     if(topRightTile != null && bottomLeftTile != null)
                     {
-                        if((int)uiManager.myMode < 7)
+                        if((int)UIManager.myMode < 7)
                         {
-                            Zone newZone = new Zone(topRight, bottomLeft, myColony, (int)uiManager.myMode);
+                            Zone newZone = new Zone(topRight, bottomLeft, myColony, (int)UIManager.myMode);
                         }
                         else
                         {

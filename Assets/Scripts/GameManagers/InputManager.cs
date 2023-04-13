@@ -24,5 +24,10 @@ public class InputManager : MonoBehaviour
                 Debug.Log("No tile found at position: " + mousePosition);
             }
         }
+
+        if(Input.GetKey("delete"))
+        {
+            UIManager.SelectUIMode(1);
+        }
     }
 }
