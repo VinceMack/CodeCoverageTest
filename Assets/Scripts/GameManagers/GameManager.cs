@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private const int NUM_OF_PAWNS_TO_SPAWN = 100;
+    private const int NUM_OF_PAWNS_TO_SPAWN = 10;
     private const int NUM_OF_LABOR_ORDERS_TO_SPAWN = 1000;
+    private const int NUM_OF_LEVELS = 4;
+
 
     void Awake()
     {
@@ -17,8 +19,11 @@ public class GameManager : MonoBehaviour
         // initialize the grid manager
         GridManager.InitializeGridManager();
 
-        // generate a random tile map
-        GridManager.GenerateRandomTileMap();
+        // generate random tile map levels
+        for (int i = 1; i <= NUM_OF_LEVELS; i++)
+        {
+            GridManager.CreateLevel();
+        }
 
         // initialize the labor order manager
         LaborOrderManager_VM.InitializeLaborOrderManager();
@@ -47,7 +52,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         InputManager.CheckForInput();
-
         // if there are available pawns and labor orders, assign pawns to labor orders
         if (LaborOrderManager_VM.GetAvailablePawnCount() > 0 && LaborOrderManager_VM.GetLaborOrderCount() > 0)
         {

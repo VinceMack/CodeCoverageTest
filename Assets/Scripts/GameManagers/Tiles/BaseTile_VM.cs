@@ -29,7 +29,7 @@ public class BaseTile_VM : Tile
     }
 
     // method to Set the properties of the tile
-    public void SetTileData(TileType tileType, bool collision, GameObject resource, int resourceCount, Vector3 position, int distance, bool visited, BaseTile_VM parent)
+    public virtual void SetTileData(TileType tileType, bool collision, GameObject resource, int resourceCount, Vector3 position, int distance, bool visited, BaseTile_VM parent)
     {
         type = tileType;
         isCollision = collision;

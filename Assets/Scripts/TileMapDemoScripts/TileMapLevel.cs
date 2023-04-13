@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level
+public class TileMapLevel
 {
     private int levelNumber;
     private int xMin, xMax, yMin, yMax;
     private Vector3Int? stairsPosition;
 
-    public Level()
+    public TileMapLevel()
     {
         levelNumber = -1;
         xMin = 0; xMax = 0; yMin = 0; yMax = 0;
         stairsPosition = null;
     }
 
-    public Level(int lNum, int xMin, int xMax, int yMin, int yMax)
+    public TileMapLevel(int lNum, int xMin, int xMax, int yMin, int yMax)
     {
         this.levelNumber = lNum;
         this.xMin = xMin;
@@ -25,7 +25,7 @@ public class Level
         stairsPosition = null; 
     }
 
-    public Level(int lNum, Vector2Int position, int xLength, int yLength)
+    public TileMapLevel(int lNum, Vector2Int position, int xLength, int yLength)
     {
         levelNumber = lNum;
         xMin = position.x;
