@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private const int NUM_OF_PAWNS_TO_SPAWN = 2;
-    private const int NUM_OF_LABOR_ORDERS_TO_SPAWN = 0;
+    private int NUM_OF_PAWNS_TO_SPAWN = 20;
+    private int NUM_OF_LABOR_ORDERS_TO_SPAWN = 100;
     private const int NUM_OF_LEVELS = 4;
 
 
@@ -25,9 +25,14 @@ public class GameManager : MonoBehaviour
             GridManager.CreateLevel();
         }
 
-        // Add objects to the map
-        GridManager.PopulateWithTrees();
-        GridManager.PopulateWithBushes();
+        // Add objects to the map if GlobalInstance exists
+        if (GameObject.Find("GlobalInstance") != null)
+        {
+            NUM_OF_PAWNS_TO_SPAWN = 2;
+            NUM_OF_LABOR_ORDERS_TO_SPAWN = 0;
+            GridManager.PopulateWithTrees();
+            GridManager.PopulateWithBushes();
+        }
 
         // initialize the labor order manager
         LaborOrderManager_VM.InitializeLaborOrderManager();
@@ -46,8 +51,11 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // create labor orders for objects
-        LaborOrderManager_VM.PopulateObjectLaborOrders();
+        // create labor orders for objects if GlobalInstance exists
+        if (GameObject.Find("GlobalInstance") != null)
+        {
+            LaborOrderManager_VM.PopulateObjectLaborOrders();
+        }
     }
 
     void FixedUpdate()

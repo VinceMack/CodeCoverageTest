@@ -21,6 +21,7 @@ public class Pawn_VM : BaseNPC
     public static List<Pawn_VM> PawnList = new List<Pawn_VM>();             // a list of all living pawns
     public bool refuseLaborOrders = false;                                  // prevents this pawn from being assigned labor orders, redundant for now but may be useful later
     public int hunger = 100;                                                // Hunger level of the pawn. Starves at 0
+    public Dictionary<string, Item> items;
 
     // pawn constructor
     public Pawn_VM()
@@ -42,6 +43,9 @@ public class Pawn_VM : BaseNPC
         // add this pawn to the pawn list
         hunger = 100;
         if (!PawnList.Contains(this)) PawnList.Add(this);
+
+        // Initialize item dictionary
+        items = new Dictionary<string, Item>();
     }
 
     // Method to return the number of priority levels
@@ -283,6 +287,10 @@ public class Pawn_VM : BaseNPC
                 PawnList[i].hunger = 0;
                 PawnList[i].Die("has starved to death.");
             }
+            else if (PawnList[i].hunger < PawnHunger.HUNGER_RESPONSE_THRESHOLD)
+            {
+                PawnHunger.EatFromInventory(PawnList[i]);
+            }
         }
     }
 
@@ -347,5 +355,8 @@ public class Pawn_VM : BaseNPC
         // add this pawn to the pawn list
         hunger = 100;
         if(!PawnList.Contains(this)) PawnList.Add(this);
+
+        // Initialize item dictionary
+        items = new Dictionary<string, Item>();
     }
 }

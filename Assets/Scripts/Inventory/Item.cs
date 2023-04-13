@@ -8,6 +8,7 @@ public class Item
     public int Value = 1;
     public int Quantity = 0;
     public string BlockName = ""; //Note may want to change this to int
+    public int FoodValue = 0;
 
     public virtual void InvokePlacing(BaseNPC placer)
     {
@@ -19,7 +20,7 @@ public class Item
         
     }
 
-    public Item(string name, string displayName, bool consumable, Rarity rarity, int value, int quantity, string blockName)
+    public Item(string name, string displayName, bool consumable, Rarity rarity, int value, int quantity, string blockName, int foodvalue = 0)
     {
         Name = name;
         DisplayName = displayName;
@@ -28,6 +29,7 @@ public class Item
         Value = value;
         Quantity = quantity;
         BlockName = blockName;
+        FoodValue = foodvalue;
     }
 
     public Item(Item duplicate)
@@ -39,5 +41,6 @@ public class Item
         Value = duplicate.Value;
         Quantity = duplicate.Quantity;
         BlockName = duplicate.BlockName;
+        FoodValue = duplicate.FoodValue;
     }
 }

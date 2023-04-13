@@ -174,12 +174,17 @@ public class LaborOrderManager_VM : MonoBehaviour
         availablePawns.Clear();
         for (int i = 0; i < count; i++)
         {
-            /*GameObject pawn_prefab = Resources.Load("prefabs/Pawn_VM") as GameObject;
-            AddAvailablePawn(Instantiate(pawn_prefab, GameObject.Find("Pawns").transform).GetComponent<Pawn_VM>());*/
-
-            GameObject pawn_prefab = GlobalInstance.Instance.entityDictionary.InstantiateEntity("pawn_vm");
-            pawn_prefab.transform.SetParent(GameObject.Find("Pawns").transform);
-            AddAvailablePawn(pawn_prefab.GetComponent<Pawn_VM>());
+            if(GameObject.Find("GlobalInstance") != null)
+            {
+                GameObject pawn_prefab = GlobalInstance.Instance.entityDictionary.InstantiateEntity("pawn_vm");
+                pawn_prefab.transform.SetParent(GameObject.Find("Pawns").transform);
+                AddAvailablePawn(pawn_prefab.GetComponent<Pawn_VM>());
+            }
+            else
+            {
+                GameObject pawn_prefab = Resources.Load("prefabs/Pawn_VM") as GameObject;
+                AddAvailablePawn(Instantiate(pawn_prefab, GameObject.Find("Pawns").transform).GetComponent<Pawn_VM>());
+            }
         }
     }
 
@@ -221,6 +226,9 @@ public class LaborOrderManager_VM : MonoBehaviour
             if (obj.name == "Tree(Clone)")
             {
                 LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Woodcut_VM(obj));
+            } else if(obj.name == "Bush(Clone)")
+            {
+                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(obj,false));
             }
         }
     }

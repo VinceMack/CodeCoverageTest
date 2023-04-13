@@ -710,7 +710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FREQUENCY: 1
-  HUNGER_DECREMENT: 10
+  HUNGER_DECREMENT: 1
   BERRY_INCREMENT: 1
 --- !u!4 &1388663538
 Transform:
