@@ -5,9 +5,9 @@ using UnityEngine;
 // PathfindingManager class to compute paths
 public class PathfindingManager : MonoBehaviour
 {
-    public static List<Vector3> GetPath(Vector3Int start, Vector3Int target)
+    public static List<Vector3> GetPath(Vector3Int start, Vector3Int target, int level)
     {
-        GridManager.ResetGrid();
+        GridManager.ResetGrid(level);
         PriorityQueue<BaseTile_VM> unvisited = new PriorityQueue<BaseTile_VM>();
         BaseTile_VM startTile = GridManager.GetTile(start);
         BaseTile_VM targetTile = GridManager.GetTile(target);
@@ -25,7 +25,7 @@ public class PathfindingManager : MonoBehaviour
 
             currentTile.visited = true;
 
-            foreach (BaseTile_VM neighbor in GetNeighbors(currentTile))
+            foreach (BaseTile_VM neighbor in GetNeighbors(currentTile, level))
             {
                 if (!neighbor.visited && !neighbor.isCollision)
                 {
@@ -67,7 +67,7 @@ public class PathfindingManager : MonoBehaviour
         return new List<Vector3>(); // Return empty path if no path is found
     }
 
-    private static List<BaseTile_VM> GetNeighbors(BaseTile_VM tile)
+    private static List<BaseTile_VM> GetNeighbors(BaseTile_VM tile, int level)
     {
         List<BaseTile_VM> neighbors = new List<BaseTile_VM>();
 
@@ -82,11 +82,14 @@ public class PathfindingManager : MonoBehaviour
 
                 int newX = tile.GetXPosition() + x;
                 int newY = tile.GetYPosition() + y;
-
-                if (newX >= GridManager.MIN_HORIZONTAL && newX < GridManager.MAX_HORIZONTAL && newY >= GridManager.MIN_VERTICAL && newY < GridManager.MAX_VERTICAL)
+                
+                if(newX >= GridManager.mapLevels[level].getXMin() &&
+		           newX < GridManager.mapLevels[level].getXMax() &&
+		           newY >= GridManager.mapLevels[level].getYMin() &&
+		           newY < GridManager.mapLevels[level].getYMax())
                 {
                     neighbors.Add(GridManager.GetTile(new Vector3Int(newX, newY, 0)));
-                }
+		        }
             }
         }
 

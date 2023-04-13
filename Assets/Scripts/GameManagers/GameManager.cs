@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private const int NUM_OF_PAWNS_TO_SPAWN = 7;
-    private const int NUM_OF_LABOR_ORDERS_TO_SPAWN = 0;
+    private const int NUM_OF_PAWNS_TO_SPAWN = 10;
+    private const int NUM_OF_LABOR_ORDERS_TO_SPAWN = 1000;
+    private const int NUM_OF_LEVELS = 4;
+
 
     void Awake()
     {
@@ -17,18 +19,16 @@ public class GameManager : MonoBehaviour
         // initialize the grid manager
         GridManager.InitializeGridManager();
 
-        // generate a random tile map
-        GridManager.GenerateRandomTileMap();
-
-        // Add objects to the map
-        GridManager.PopulateWithTrees();
-        GridManager.PopulateWithBushes();
+        // generate random tile map levels
+        for (int i = 1; i <= NUM_OF_LEVELS; i++)
+        {
+            GridManager.CreateLevel();
+        }
 
         // initialize the labor order manager
         LaborOrderManager_VM.InitializeLaborOrderManager();
 
         // fill the labor order manager with random pawns and labor orders
-        Pawn_VM.PawnList.Clear();
         LaborOrderManager_VM.FillWithRandomPawns(NUM_OF_PAWNS_TO_SPAWN);
 
         // fill the labor order manager with random labor orders
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        LaborOrderManager_VM.PopulateObjectLaborOrders();
+
     }
 
     void FixedUpdate()
@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         InputManager.CheckForInput();
-
         // if there are available pawns and labor orders, assign pawns to labor orders
         if (LaborOrderManager_VM.GetAvailablePawnCount() > 0 && LaborOrderManager_VM.GetLaborOrderCount() > 0)
         {

@@ -11,8 +11,11 @@ GameObject:
   - component: {fileID: 1110198859314352595}
   - component: {fileID: 1110198859314352599}
   - component: {fileID: 1110198859314352597}
-  - component: {fileID: 1110198859314352685}
   - component: {fileID: 1834671506077564441}
+  - component: {fileID: 5523241562121292569}
+  - component: {fileID: 1131258058030977349}
+  - component: {fileID: 121010317196051182}
+  - component: {fileID: -7480303172871171046}
   m_Layer: 0
   m_Name: Pawn
   m_TagString: Untagged
@@ -113,18 +116,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1110198859314352685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1110198859314352592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe9ee3635710d9f4694e0346c56f9627, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1834671506077564441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,6 +130,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 
   currentLocation: {fileID: 0}
+  damagedAnimationDuration: 1
+  deathAnimationDuration: 1
+  immuneFrameDuration: 2
+  timeBetweenFlashes: 0.5
+  flashColor: {r: 0, g: 0, b: 0, a: 0}
   stats:
     guid: 
     x: 0
@@ -149,12 +145,70 @@ MonoBehaviour:
     maxHealth: 0
     Inventory:
     - Name: Special Item
+      DisplayName: Special Item
       IsConsumable: 0
       Rarity: 4
       Value: 420
       Quantity: 1
       BlockName: 
-  pawnObject: {fileID: 0}
-  pawnName: test
-  type: 
-  isTypeExclusive: 0
+  refuseLaborOrders: 0
+  hunger: 100
+--- !u!114 &5523241562121292569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110198859314352592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2a291976bd6fac4b91b64af176d6ae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myState: 0
+--- !u!114 &1131258058030977349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110198859314352592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d97722ec54ca824d96483d69c4b93aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npc: {fileID: 0}
+--- !u!114 &121010317196051182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110198859314352592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 094eb60082ec8db47990ef41a8427710, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: -7480303172871171046}
+--- !u!95 &-7480303172871171046
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110198859314352592}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0

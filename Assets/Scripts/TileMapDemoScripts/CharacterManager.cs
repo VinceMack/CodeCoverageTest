@@ -29,7 +29,7 @@ public class CharacterManager
 	    }
     }
 
-    public void UpdateCharacters(List<Level> mapLevels)
+    public void UpdateCharacters(List<TileMapLevel> mapLevels)
     {
         foreach(Player character in characters) {
             if (character.getPathCount() == 0 && (character.transform.position != character.getTargetLocation()))
@@ -51,7 +51,7 @@ public class CharacterManager
                 {
                     Vector3Int characterPosition = Vector3Int.FloorToInt(character.transform.position);
                     Vector3Int stairsPosition = mapLevels[character.getCurrentLevel()].getStairsPosition();
-                    Level level = mapLevels[character.getCurrentLevel()];
+                    TileMapLevel level = mapLevels[character.getCurrentLevel()];
                     character.updatePath(pathFinding.getPath(characterPosition, stairsPosition, level));
                 }
                 // Target location is on the character's level, set path to target location.
@@ -59,7 +59,7 @@ public class CharacterManager
                 {
                     Vector3Int characterPosition = Vector3Int.FloorToInt(character.transform.position);
                     Vector3Int target = character.getTargetLocation();
-                    Level level = mapLevels[character.getCurrentLevel()];
+                    TileMapLevel level = mapLevels[character.getCurrentLevel()];
                     character.updatePath(pathFinding.getPath(characterPosition, target, level));
                 }
             }
