@@ -154,6 +154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabList: {fileID: 11400000, guid: 1974452ef6652ea42ae8a59b6aa76423, type: 2}
   entityDictionary: {fileID: 11400000, guid: ee0af8e1914615c48969381aa513aa83, type: 2}
+  sceneCamera: {fileID: 0}
+  gs: {fileID: 0}
 --- !u!4 &141869566
 Transform:
   m_ObjectHideFlags: 0
@@ -708,7 +710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FREQUENCY: 1
-  HUNGER_DECREMENT: 3
+  HUNGER_DECREMENT: 10
   BERRY_INCREMENT: 1
 --- !u!4 &1388663538
 Transform:
