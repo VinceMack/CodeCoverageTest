@@ -1,28 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Events;
+
 using UnityEngine.UI;
 using TMPro;
 
-public class PawnButton : MonoBehaviour
+public class PawnButton : MonoBehaviour, IPointerClickHandler
 {
 
-    [SerializeField, HideInInspector]
-    public GameObject pawn;
+    public Pawn_VM pawn;
+    public LaborType labor;
+    public GameObject textObj;
 
-    [SerializeField, HideInInspector]
-    private TMP_Text priorityText;
+    private TMP_Text _text;
 
-    // Start is called before the first frame update
-    void Start()
+    // Pawn button initialization.
+    public void InitializePawnButton()
     {
-        var textObj = GameObject.Find("Text");
-        priorityText = textObj.GetComponent<TMP_Text>();
+        _text = textObj.GetComponent<TMP_Text>();
+        _text.text = pawn.GetPriorityLevelOfLabor(labor).ToString();;
     }
 
-    // Update is called once per frame
-    //void Update()
-    //{
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            pawn.MoveLaborTypeUpPriorityLevel(labor);
+            _text.text = pawn.GetPriorityLevelOfLabor(labor).ToString();
+        }
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            pawn.MoveLaborTypeDownPriorityLevel(labor);
+            _text.text = pawn.GetPriorityLevelOfLabor(labor).ToString();
+        }
+    }
 
-    //}
 }

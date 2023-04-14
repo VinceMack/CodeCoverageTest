@@ -5,13 +5,13 @@ using UnityEngine;
 using System.Linq;
 
 // Enum to represent different types of labor tasks
-public enum LaborType { Woodcut, Forage, Gather, Craft, Place, Destroy, Basic };
+public enum LaborType { FireFight, Patient, Doctor, Sleep, Basic, Warden, Handle, Cook, Hunt, Construct, Grow, Mine, Farm, Woodcut, Smith, Tailor, Art, Craft, Haul, Clean, Research };
 
 // LaborOrderManager_VM class to manage and assign labor tasks for pawns
 public class LaborOrderManager_VM : MonoBehaviour
 {
     [SerializeField]
-    protected static Queue<Pawn_VM> availablePawns;
+    private static Queue<Pawn_VM> availablePawns;
     private static Queue<Pawn_VM> assignedPawns;
     private static Queue<LaborOrder_Base_VM>[] laborQueues;
     private static int laborOrderTotal = 0;
@@ -54,31 +54,19 @@ public class LaborOrderManager_VM : MonoBehaviour
         return availablePawns.Count;
     }
 
-    // Method to prematurely find and remove a specific pawn from the availablePawns and assignedPawns queues
-    // used to clean up after dying
-    public static void RemoveSpecificPawn(Pawn_VM pawn)
+    // Method to return the name of labor type by index
+    public static string GetLaborTypeName(int i)
     {
-        // removes the pawn from the queue
-        Queue<Pawn_VM> newQueue = new Queue<Pawn_VM>();
-        while (availablePawns.Count != 0)
-        {
-            Pawn_VM queuedPawn = availablePawns.Dequeue();
-            if (queuedPawn != pawn)
-            {
-                newQueue.Enqueue(queuedPawn);
-            }
-        }
-        availablePawns = newQueue;
+        return Enum.GetNames(typeof(LaborType))[i];
+    }
 
-        while (assignedPawns.Count != 0)
-        {
-            Pawn_VM queuedPawn = assignedPawns.Dequeue();
-            if (queuedPawn != pawn)
-            {
-                newQueue.Enqueue(queuedPawn);
-            }
-        }
-        assignedPawns = newQueue;
+    // Method to return the labor type enum by string name
+    public static LaborType GetLaborType(string typeString)
+    {
+        LaborType type;
+        if (!Enum.TryParse<LaborType>(typeString, out type))
+            Debug.Log("Error: type "+ typeString + " not found.");
+        return type;
     }
 
     // Method to add a pawn to the queue of available pawns
@@ -131,6 +119,7 @@ public class LaborOrderManager_VM : MonoBehaviour
     {
         while (availablePawns.Count > 0 && GetLaborOrderCount() > 0)
         {
+
             Pawn_VM pawn = GetAvailablePawn();
             List<LaborType>[] laborTypePriority = pawn.laborTypePriority;
             bool found = false;
@@ -167,24 +156,13 @@ public class LaborOrderManager_VM : MonoBehaviour
     }
 
     // Method to initialize and populate pawn queue (Instantiate them as the children of this object)
-    //      changed Instantiate to InstantiateEntity to be consistent with save system.
-    //      requires GlobalInstance2 (TMPCombined) to be in the scene and PrefabList initialized
     public static void FillWithRandomPawns(int count)
     {
         availablePawns.Clear();
         for (int i = 0; i < count; i++)
         {
-            if(GameObject.Find("GlobalInstance2") != null)
-            {
-                GameObject pawn_prefab = GlobalInstance.Instance.entityDictionary.InstantiateEntity("pawn_vm");
-                pawn_prefab.transform.SetParent(GameObject.Find("Pawns").transform);
-                AddAvailablePawn(pawn_prefab.GetComponent<Pawn_VM>());
-            }
-            else
-            {
-                GameObject pawn_prefab = Resources.Load("prefabs/Pawn_VM") as GameObject;
-                AddAvailablePawn(Instantiate(pawn_prefab, GameObject.Find("Pawns").transform).GetComponent<Pawn_VM>());
-            }
+            GameObject pawn_prefab = Resources.Load("prefabs/Pawn_VM") as GameObject;
+            AddAvailablePawn(Instantiate(pawn_prefab, GameObject.Find("Pawns").transform).GetComponent<Pawn_VM>());
         }
     }
 
@@ -200,7 +178,7 @@ public class LaborOrderManager_VM : MonoBehaviour
     // method to go through the queue of working pawns and start the coroutine to complete their labor order
     public static void StartAssignedPawns()
     {
-        while (GetWorkingPawnCount() > 0/* && GetLaborOrderCount() > 0*/)
+        while (GetWorkingPawnCount() > 0 && GetLaborOrderCount() > 0)
         {
             Pawn_VM pawn = assignedPawns.Dequeue();
             pawn.StartCoroutine(pawn.CompleteLaborOrder());
@@ -215,21 +193,4 @@ public class LaborOrderManager_VM : MonoBehaviour
         return pawn;
     }
 
-
-    // Finds all objects that can be associated with a labor order and adds them to the manager
-    //  For testing purposes
-    public static void PopulateObjectLaborOrders()
-    {
-        GameObject[] objects = FindObjectsOfType<GameObject>();
-        foreach (GameObject obj in objects)
-        {
-            if (obj.name == "Tree(Clone)")
-            {
-                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Woodcut_VM(obj));
-            } else if(obj.name == "Bush(Clone)")
-            {
-                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(obj,false));
-            }
-        }
-    }
 }

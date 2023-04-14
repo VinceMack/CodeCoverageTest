@@ -2,41 +2,148 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 
 public class LaborOrderPanelManager : MonoBehaviour
 {
-    public static GameObject buttonContainer;
-    public static GameObject button_prefab;
-    public static GameObject[,] buttonList;
-    private static int buttonTotal;
 
+    // Containers for pawns and buttons
+    public static GameObject buttonContainer;
+    public static GameObject pawnContainer;
+    public static GameObject pawnNameContainer;
+    public static GameObject LaborNameContainer;
+
+    // Prefabs for display.
+    public static GameObject button_prefab;
+    public static GameObject pawnText_prefab;
+    public static GameObject LaborText_prefab;
+
+    // For formatting panel.
+    public static GameObject content;
+
+    // Panel text objects.
+    public static GameObject[] laborTypeNames;
+    
     public static void InitializeLaborOrderPanel()
     {
-        // Adjust grid layout of buttons
-        buttonContainer = GameObject.Find("Buttons");
-        button_prefab = Resources.Load("prefabs/LaborOrderPawnButton") as GameObject;
-        GridLayoutGroup grid = buttonContainer.GetComponent<GridLayoutGroup>();
-        grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-        grid.constraintCount = LaborOrderManager_VM.GetLaborTypesCount();
 
-        buttonList = new GameObject[LaborOrderManager_VM.GetPawnCount(), LaborOrderManager_VM.GetLaborTypesCount()];
+        buttonContainer = GameObject.Find("Buttons");
+        pawnNameContainer = GameObject.Find("PawnNames");
+        LaborNameContainer = GameObject.Find("LaborTypeNames");
+        pawnContainer = GameObject.Find("/GameManager/Pawns");
+
+        button_prefab = Resources.Load("prefabs/pawnButton_LaborOrder") as GameObject;
+        pawnText_prefab = Resources.Load("prefabs/pawnText_LaborOrder") as GameObject;
+        LaborText_prefab = Resources.Load("prefabs/laborText_LaborOrder") as GameObject;
+
+        content = GameObject.Find("LaborOrderContent");
+
+        AdjustGridLayout();
+        
+        laborTypeNames = new GameObject[LaborOrderManager_VM.GetLaborTypesCount()];
+
+        // Initialize labor order panel
+        for (int i = 0; i < LaborOrderManager_VM.GetLaborTypesCount(); i++)
+        {
+            // Create text object for name
+            GameObject newTextObject = Instantiate(LaborText_prefab, LaborNameContainer.transform);
+            newTextObject.name = LaborOrderManager_VM.GetLaborTypeName(i);
+
+            // Change new text name
+            TMP_Text newText = newTextObject.GetComponent<TMP_Text>();
+            newText.text = LaborOrderManager_VM.GetLaborTypeName(i);
+            laborTypeNames[i] = newTextObject;
+        }    
+
+        List<GameObject> pawnList = new List<GameObject>();
+
+        foreach (Transform pawn in pawnContainer.transform)
+        {
+            pawnList.Add(pawn.gameObject);
+        }
+
+        for (int i = 0; i < pawnList.Count; i++)
+        {
+            AddPawnButtons(pawnList[i]);
+        }
 
     }
 
-    public static void AddButtons()
+    // Add buttons for the addition of a pawn.
+    public static void AddPawnButtons(GameObject pawn)
     {
-    
-        for (int i = 0; i < LaborOrderManager_VM.GetPawnCount(); i++)
+        
+        // Add pawn text.
+        Pawn_VM pawnComponent = pawn.GetComponent<Pawn_VM>();
+        GameObject newTextObject = Instantiate(pawnText_prefab, pawnNameContainer.transform);
+        newTextObject.name = pawnComponent.GetPawnName() + " (Text)";
+
+        TMP_Text newText = newTextObject.GetComponent<TMP_Text>();
+        newText.text = pawnComponent.GetPawnName();
+
+        // Add pawn buttons.
+        for (int i = 0; i < LaborOrderManager_VM.GetLaborTypesCount(); i++)
         {
-            GameObject pawn = GameObject.Find("Pawn" + (12 + i));
-            for (int j = 0; j < LaborOrderManager_VM.GetLaborTypesCount(); j++)
-            {
-                buttonList[i, j] = Instantiate(button_prefab, GameObject.Find("Buttons").transform);
-                buttonList[i, j].name = "Pawn" + i + "_Button" + j;
-                buttonList[i, j].GetComponent<PawnButton>().pawn = pawn;
-            }
+            // Create button and adjust component.
+            GameObject newButton = Instantiate(button_prefab, buttonContainer.transform);
+            newButton.name = pawnComponent.GetPawnName() + ": " + LaborOrderManager_VM.GetLaborTypeName(i);
+            PawnButton buttonComponent = newButton.GetComponent<PawnButton>();
+
+            buttonComponent.pawn = pawnComponent;
+            buttonComponent.labor = LaborOrderManager_VM.GetLaborType(LaborOrderManager_VM.GetLaborTypeName(i));
+            buttonComponent.textObj = GameObject.Find(newButton.name + "/Text");
+            buttonComponent.InitializePawnButton();
+
         }
+
+        // Resize content.
+        var rectTransform = content.GetComponent<RectTransform>();
+        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y + 40);
+
+    }
+
+    // Remove buttons for the removal of a pawn.
+    public static void RemovePawnButtons(GameObject pawn)
+    {
+        // Remove pawn name.
+        Pawn_VM pawnComponent = pawn.GetComponent<Pawn_VM>();
+        GameObject pawnNameObj = GameObject.Find(pawnComponent.GetPawnName() + " (Text)");
+        Destroy(pawnNameObj);
+
+        // Remove pawn buttons.
+        for (int i = 0; i < LaborOrderManager_VM.GetLaborTypesCount(); i++)
+        {
+            GameObject buttonObj = GameObject.Find(pawnComponent.GetPawnName() + ": " + LaborOrderManager_VM.GetLaborTypeName(i));
+            Destroy(buttonObj);
+        }
+
+        // Resize content.
+        var rectTransform = content.GetComponent<RectTransform>();
+        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y - 40);
+
+    }
+
+    // Make adjustments for layout.
+    public static void AdjustGridLayout()
+    {
+
+        // Adjust button layout.
+        GridLayoutGroup buttonGrid = buttonContainer.GetComponent<GridLayoutGroup>();
+        buttonGrid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+        buttonGrid.constraintCount = LaborOrderManager_VM.GetLaborTypesCount();
+
+        // Adjust pawn name layout.
+        GridLayoutGroup pawnNameGrid = pawnNameContainer.GetComponent<GridLayoutGroup>();
+        pawnNameGrid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+        pawnNameGrid.constraintCount = 1;
+
+        // Adjust labor name layout.
+        GridLayoutGroup laborNameGrid = LaborNameContainer.GetComponent<GridLayoutGroup>();
+        laborNameGrid.constraint = GridLayoutGroup.Constraint.FixedRowCount;
+        laborNameGrid.constraintCount = LaborOrderManager_VM.GetLaborTypesCount();
+
+        var rectTransform = content.GetComponent<RectTransform>();
+        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, 0);
 
     }
 

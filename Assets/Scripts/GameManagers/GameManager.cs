@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private int NUM_OF_PAWNS_TO_SPAWN = 20;
-    private int NUM_OF_LABOR_ORDERS_TO_SPAWN = 100;
-    private const int NUM_OF_LEVELS = 4;
+    private const int NUM_OF_PAWNS_TO_SPAWN = 10;
 
+    private const int NUM_OF_LABOR_ORDERS_TO_SPAWN = 1000;
+    private const int NUM_OF_LEVELS = 4;
 
     void Awake()
     {
@@ -25,37 +25,23 @@ public class GameManager : MonoBehaviour
             GridManager.CreateLevel();
         }
 
-        // Add objects to the map if GlobalInstance2 (TMPCombined) exists
-        if (GameObject.Find("GlobalInstance2") != null)
-        {
-            NUM_OF_PAWNS_TO_SPAWN = 2;
-            NUM_OF_LABOR_ORDERS_TO_SPAWN = 0;
-            GridManager.PopulateWithTrees();
-            GridManager.PopulateWithBushes();
-        }
-
         // initialize the labor order manager
         LaborOrderManager_VM.InitializeLaborOrderManager();
 
         // fill the labor order manager with random pawns and labor orders
-        Pawn_VM.PawnList.Clear();
         LaborOrderManager_VM.FillWithRandomPawns(NUM_OF_PAWNS_TO_SPAWN);
 
         // fill the labor order manager with random labor orders
         LaborOrderManager_VM.FillWithRandomLaborOrders(NUM_OF_LABOR_ORDERS_TO_SPAWN);
 
         // initialize the labor order ui
-        //LaborOrderPanelManager.InitializeLaborOrderPanel();
-        //LaborOrderPanelManager.AddButtons();
+        // LaborOrderPanelManager.InitializeLaborOrderPanel();
+
     }
 
     void Start()
     {
-        // create labor orders for objects if GlobalInstance2 (TMPCombined) exists
-        if (GameObject.Find("GlobalInstance2") != null)
-        {
-            LaborOrderManager_VM.PopulateObjectLaborOrders();
-        }
+
     }
 
     void FixedUpdate()
