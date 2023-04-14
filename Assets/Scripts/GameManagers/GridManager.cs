@@ -145,7 +145,7 @@ public class GridManager : MonoBehaviour
     }
 
     // Spawns trees on random vacant grass tiles
-    // requires GlobalInstance in scene
+    // requires GlobalInstance2 (TMPCombined) in scene
     public static void PopulateWithTrees()
     {
         TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
@@ -160,7 +160,7 @@ public class GridManager : MonoBehaviour
     }
 
     // Spawns bushes on random vacant grass tiles
-    // requires GlobalInstance in scene
+    // requires GlobalInstance2 (TMPCombined) in scene
     public static void PopulateWithBushes()
     {
         TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);

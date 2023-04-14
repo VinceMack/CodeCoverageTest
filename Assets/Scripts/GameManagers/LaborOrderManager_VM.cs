@@ -11,7 +11,7 @@ public enum LaborType { Woodcut, Forage, Gather, Craft, Place, Destroy, Basic };
 public class LaborOrderManager_VM : MonoBehaviour
 {
     [SerializeField]
-    private static Queue<Pawn_VM> availablePawns;
+    protected static Queue<Pawn_VM> availablePawns;
     private static Queue<Pawn_VM> assignedPawns;
     private static Queue<LaborOrder_Base_VM>[] laborQueues;
     private static int laborOrderTotal = 0;
@@ -168,13 +168,13 @@ public class LaborOrderManager_VM : MonoBehaviour
 
     // Method to initialize and populate pawn queue (Instantiate them as the children of this object)
     //      changed Instantiate to InstantiateEntity to be consistent with save system.
-    //      requires GlobalInstance to be in the scene and PrefabList initialized
+    //      requires GlobalInstance2 (TMPCombined) to be in the scene and PrefabList initialized
     public static void FillWithRandomPawns(int count)
     {
         availablePawns.Clear();
         for (int i = 0; i < count; i++)
         {
-            if(GameObject.Find("GlobalInstance") != null)
+            if(GameObject.Find("GlobalInstance2") != null)
             {
                 GameObject pawn_prefab = GlobalInstance.Instance.entityDictionary.InstantiateEntity("pawn_vm");
                 pawn_prefab.transform.SetParent(GameObject.Find("Pawns").transform);

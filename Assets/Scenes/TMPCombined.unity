@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 141869566}
   - component: {fileID: 141869565}
   m_Layer: 0
-  m_Name: GlobalInstance
+  m_Name: GlobalInstance2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -25,8 +25,8 @@ public class GameManager : MonoBehaviour
             GridManager.CreateLevel();
         }
 
-        // Add objects to the map if GlobalInstance exists
-        if (GameObject.Find("GlobalInstance") != null)
+        // Add objects to the map if GlobalInstance2 (TMPCombined) exists
+        if (GameObject.Find("GlobalInstance2") != null)
         {
             NUM_OF_PAWNS_TO_SPAWN = 2;
             NUM_OF_LABOR_ORDERS_TO_SPAWN = 0;
@@ -51,8 +51,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // create labor orders for objects if GlobalInstance exists
-        if (GameObject.Find("GlobalInstance") != null)
+        // create labor orders for objects if GlobalInstance2 (TMPCombined) exists
+        if (GameObject.Find("GlobalInstance2") != null)
         {
             LaborOrderManager_VM.PopulateObjectLaborOrders();
         }
