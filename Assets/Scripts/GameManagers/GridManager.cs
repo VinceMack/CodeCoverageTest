@@ -52,14 +52,14 @@ public class GridManager : MonoBehaviour
         int xMin, xMax, yMin, yMax;
         if(mapLevels.Count == 0)
 	    {
-            xMin = 0; xMax = LEVEL_WIDTH - 1; yMin = 0; yMax = LEVEL_WIDTH - 1;
+            xMin = 0; xMax = LEVEL_WIDTH - 1; yMin = 0; yMax = LEVEL_HEIGHT;
 	    }
         else
 	    {
             xMin = mapLevels[mapLevels.Count - 1].getXMax() + 1;
             xMax = xMin + LEVEL_WIDTH - 1;
-            yMin = mapLevels[mapLevels.Count - 1].getYMin();
-            yMax = yMin + LEVEL_WIDTH - 1;
+            yMin = 0;
+            yMax = LEVEL_HEIGHT;
 	    }
 
         // Add new level to map levels list
