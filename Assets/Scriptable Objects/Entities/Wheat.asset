@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9288d5e23700e73448be1961652241bf, type: 3}
   m_Name: Wheat
   m_EditorClassIdentifier: 
-  entityName: bush
-  displayName: Bush
-  prefab: {fileID: 241000566000305997, guid: dc5052cbc0e39d2479c4e656698c6289, type: 3}
+  entityName: wheat
+  displayName: Wheat
+  prefab: {fileID: 241000566000305997, guid: 772ac236c1ab74947b06a34523a0ec44, type: 3}
