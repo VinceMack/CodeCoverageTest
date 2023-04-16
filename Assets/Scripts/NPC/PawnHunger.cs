@@ -24,11 +24,12 @@ public static class PawnHunger
                 pawn.hunger += pawn.items[foodname].FoodValue;
                 pawn.items[foodname].Quantity--;
 
+                Debug.Log(pawn.name + " ate " + pawn.items[foodname].DisplayName);
+
                 // if quantity is 0, remove from dictionary
-                if(pawn.items[foodname].Quantity == 0)
+                if (pawn.items[foodname].Quantity == 0)
                     pawn.items.Remove(foodname);
 
-                Debug.Log(pawn.name + " ate " + pawn.items[foodname].DisplayName);
                 return true;
             }
         }

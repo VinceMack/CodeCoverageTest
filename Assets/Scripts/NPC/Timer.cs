@@ -13,6 +13,7 @@ public class Timer : MonoBehaviour
     [SerializeField] private float FREQUENCY = 1f;
     [SerializeField] private int HUNGER_DECREMENT = 1;
     [SerializeField] private int BERRY_INCREMENT = 1;
+    [SerializeField] private int WHEAT_INCREMENT = 1;
     private bool paused = true;
     private Coroutine coroutine;
 
@@ -59,5 +60,6 @@ public class Timer : MonoBehaviour
         lastTick = Time.time;
         Pawn_VM.DecrementHunger(HUNGER_DECREMENT);
         Bush.incrementBerries(BERRY_INCREMENT);
+        Wheat.growWheat(WHEAT_INCREMENT);
     }
 }

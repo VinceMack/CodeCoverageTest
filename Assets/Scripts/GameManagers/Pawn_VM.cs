@@ -109,17 +109,21 @@ public class Pawn_VM : BaseNPC
     }
 
     // Sets the current labor order for the pawn
-    public void SetCurrentLaborOrder(LaborOrder_Base_VM LaborOrder_Base_VM)
+    // True if successful, false if not
+    public bool SetCurrentLaborOrder(LaborOrder_Base_VM LaborOrder_Base_VM)
     {
         if (isAssigned)
         {
-            Debug.LogError("Pawn is already assigned to a labor order");
+            Debug.Log("Pawn is already assigned to a labor order");
+            return false;
         }
         else
         {
             currentLaborOrder = LaborOrder_Base_VM;
             isAssigned = true;
             LaborOrderManager_VM.AddAssignedPawn(this);
+            Debug.Log("Added " + GetPawnName() + " to assigned pawns"); //TMP
+            return true;
         }
     }
 

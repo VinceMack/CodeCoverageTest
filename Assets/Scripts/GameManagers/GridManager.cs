@@ -173,4 +173,20 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+
+    // Spawns bushes on random vacant sand tiles
+    // requires GlobalInstance2 (TMPCombined) in scene
+    //      Only intended for testing. Farms will be responsible for creating wheat.
+    public static void PopulateWithWheat()
+    {
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        foreach (BaseTile_VM tile in allTiles)
+        {
+            if (tile != null && tile.type == TileType.SAND && tile.resource == null && Random.Range(0, 10) == 0)
+            {
+                GameObject wheat = GlobalInstance.Instance.entityDictionary.InstantiateEntity("wheat", "", tile.position);
+                tile.SetTileInformation(tile.type, false, wheat, tile.resourceCount, tile.position);
+            }
+        }
+    }
 }

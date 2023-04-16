@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
             NUM_OF_LABOR_ORDERS_TO_SPAWN = 0;
             GridManager.PopulateWithTrees();
             GridManager.PopulateWithBushes();
+            GridManager.PopulateWithWheat();
         }
 
         // initialize the labor order manager
