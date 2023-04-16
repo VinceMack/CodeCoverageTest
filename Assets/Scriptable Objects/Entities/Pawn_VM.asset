@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9288d5e23700e73448be1961652241bf, type: 3}
+  m_Name: Pawn_VM
+  m_EditorClassIdentifier: 
+  entityName: pawn_vm
+  displayName: Pawn_VM
+  prefab: {fileID: 1110198859314352592, guid: 0410e8b0c6a483b41821fc1898c066e8, type: 3}

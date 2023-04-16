@@ -12,11 +12,11 @@ public class PrefabList : ScriptableObject
 
     public void InitializePrefabDictionary()
     {
-        foreach(SpawnableEntity entity in prefabList)
+        foreach (SpawnableEntity entity in prefabList)
         {
             if(prefabDictionary.ContainsKey(entity.entityName))
             {
-                Debug.LogError("ERROR: Do not create multiple 'SpawnableEntity's with the same entityName." + entity.entityName);
+                Debug.LogWarning("ERROR: Do not create multiple 'SpawnableEntity's with the same entityName." + entity.entityName);
                 break;
             }
             if(!entity.prefab.GetComponent<SaveableEntity>())

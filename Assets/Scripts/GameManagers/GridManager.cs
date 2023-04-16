@@ -144,4 +144,49 @@ public class GridManager : MonoBehaviour
         mapLevels = new List<Level>();
     }
 
+    // Spawns trees on random vacant grass tiles
+    // requires GlobalInstance2 (TMPCombined) in scene
+    public static void PopulateWithTrees()
+    {
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        foreach(BaseTile_VM tile in allTiles)
+        {
+            if (tile != null && tile.type == TileType.GRASS && tile.resource == null && Random.Range(0, 10) == 0)
+            {
+                GameObject tree = GlobalInstance.Instance.entityDictionary.InstantiateEntity("tree", "", tile.position);
+                tile.SetTileInformation(tile.type, false, tree, tile.resourceCount, tile.position);
+            }
+        }
+    }
+
+    // Spawns bushes on random vacant grass tiles
+    // requires GlobalInstance2 (TMPCombined) in scene
+    public static void PopulateWithBushes()
+    {
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        foreach (BaseTile_VM tile in allTiles)
+        {
+            if (tile != null && tile.type == TileType.GRASS && tile.resource == null && Random.Range(0, 10) == 0)
+            {
+                GameObject bush = GlobalInstance.Instance.entityDictionary.InstantiateEntity("bush", "", tile.position);
+                tile.SetTileInformation(tile.type, false, bush, tile.resourceCount, tile.position);
+            }
+        }
+    }
+
+    // Spawns bushes on random vacant sand tiles
+    // requires GlobalInstance2 (TMPCombined) in scene
+    //      Only intended for testing. Farms will be responsible for creating wheat.
+    public static void PopulateWithWheat()
+    {
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        foreach (BaseTile_VM tile in allTiles)
+        {
+            if (tile != null && tile.type == TileType.SAND && tile.resource == null && Random.Range(0, 10) == 0)
+            {
+                GameObject wheat = GlobalInstance.Instance.entityDictionary.InstantiateEntity("wheat", "", tile.position);
+                tile.SetTileInformation(tile.type, false, wheat, tile.resourceCount, tile.position);
+            }
+        }
+    }
 }
