@@ -122,7 +122,7 @@ public class Pawn_VM : BaseNPC
             currentLaborOrder = LaborOrder_Base_VM;
             isAssigned = true;
             LaborOrderManager_VM.AddAssignedPawn(this);
-            Debug.Log("Added " + GetPawnName() + " to assigned pawns"); //TMP
+            //Debug.Log("Added " + GetPawnName() + " to assigned pawns"); //TMP
             return true;
         }
     }

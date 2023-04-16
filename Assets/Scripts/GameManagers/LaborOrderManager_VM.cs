@@ -148,7 +148,7 @@ public class LaborOrderManager_VM : MonoBehaviour
         while (availablePawns.Count > 0 && GetLaborOrderCount() > 0)
         {
             Pawn_VM pawn = GetAvailablePawn();
-            Debug.Log("Finding order for " + pawn.GetPawnName()); //TMP
+            //Debug.Log("Finding order for " + pawn.GetPawnName()); //TMP
             List<LaborType>[] laborTypePriority = pawn.laborTypePriority;
             bool found = false;
 
@@ -161,7 +161,7 @@ public class LaborOrderManager_VM : MonoBehaviour
                         if (laborQueues[(int)laborTypePriority[i][j]] != null && laborQueues[(int)laborTypePriority[i][j]].Count > 0)
                         {
                             LaborOrder_Base_VM order = laborQueues[(int)laborTypePriority[i][j]].Dequeue();
-                            Debug.Log("Assigning " + order.laborType.ToString() + " to " + pawn.GetPawnName()); //TMP
+                            //Debug.Log("Assigning " + order.laborType.ToString() + " to " + pawn.GetPawnName()); //TMP
                             if (!pawn.SetCurrentLaborOrder(order)) AddLaborOrder(order);
                             found = true;
                             break;
@@ -221,7 +221,7 @@ public class LaborOrderManager_VM : MonoBehaviour
         while (GetWorkingPawnCount() > 0/* && GetLaborOrderCount() > 0*/)
         {
             Pawn_VM pawn = assignedPawns.Dequeue();
-            Debug.Log("Starting order for " + pawn.GetPawnName() + ". " + GetWorkingPawnCount() + " remaining assigned pawns. " + GetLaborOrderCount() + " remaining orders."); //TMP
+            //Debug.Log("Starting order for " + pawn.GetPawnName() + ". " + GetWorkingPawnCount() + " remaining assigned pawns. " + GetLaborOrderCount() + " remaining orders."); //TMP
             pawn.StartCoroutine(pawn.CompleteLaborOrder());
         }
     }
