@@ -34,6 +34,9 @@ public class GameManager : MonoBehaviour
             GridManager.PopulateWithWheat();
         }
 
+        // initialize camera 
+	    CameraManager.InitializeCamera();
+
         // initialize the labor order manager
         LaborOrderManager_VM.InitializeLaborOrderManager();
 
