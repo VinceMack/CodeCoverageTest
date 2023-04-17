@@ -8,6 +8,9 @@ public class InputManager : MonoBehaviour
     // Check for user input
     public static void CheckForInput()
     {
+        // Update camera
+        CameraManager.UpdateCamera();
+
         // Check if the left mouse button is pressed
         if (Input.GetMouseButtonDown(0))
         {

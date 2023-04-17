@@ -12,8 +12,8 @@ public class GridManager : MonoBehaviour
 
     // Constants for the size of a level
     public static List<Level> mapLevels;
-    public static readonly int LEVEL_WIDTH = 10;
-    public static readonly int LEVEL_HEIGHT = 5;
+    public static readonly int LEVEL_WIDTH = 100;
+    public static readonly int LEVEL_HEIGHT = 100;
 
 
     // Method to reset grid values for pathfinding

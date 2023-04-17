@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
             GridManager.CreateLevel();
         }
 
+        // initialize camera 
+	    CameraManager.InitializeCamera();
+
         // initialize the labor order manager
         LaborOrderManager_VM.InitializeLaborOrderManager();
 
