@@ -4,8 +4,37 @@ using UnityEngine;
 
 public class GlobalStorage : MonoBehaviour
 {
+    public GameObject chestPrefab;
+    public Colony myColony;
     public List<Chest> inventories = new List<Chest>();
     public Dictionary<Item, List<Chest>> itemReferences = new Dictionary<Item, List<Chest>>();
+
+    [ContextMenu("TestStorage")]
+    public void TestStorage()
+    {
+        GameObject chest = Instantiate(chestPrefab);
+        Chest newChest = chest.GetComponent<Chest>();
+        newChest.PlaceObject(new BaseTile(), this);
+
+        Item chestWoodItem = new Item(ItemList.itemList["wood"]);
+        chestWoodItem.Quantity = 5;
+        
+        newChest.ItemAddedToChest(chestWoodItem);
+    }
+
+    [ContextMenu("TEST")]
+    public void TESTING()
+    {
+        Debug.Log(GetItemCount("wood"));
+    }
+
+    /// <summary>
+    /// Will inform the colony script that resources quantities may have changed
+    /// </summary>
+    public void ItemChanged()
+    {
+        myColony.UpdateResourceList();
+    }
 
     /// <summary>
     /// <para>Adds a chest to itemReferences</para>
@@ -13,16 +42,18 @@ public class GlobalStorage : MonoBehaviour
     /// </summary>
     public int AddItem(Item item, Chest chest)
     {
-        if(itemReferences.ContainsKey(item))
+        Item key = ItemList.itemList[item.Name];
+
+        if(itemReferences.ContainsKey(key))
         {
-            itemReferences[item].Add(chest);
+            itemReferences[key].Add(chest);
         }
         else
         {
-            itemReferences.Add(item, new List<Chest>{ chest });
+            itemReferences.Add(key, new List<Chest>{ chest });
         }
 
-        return itemReferences[item].Count;
+        return itemReferences[key].Count;
     }
 
     /// <summary>
@@ -32,10 +63,13 @@ public class GlobalStorage : MonoBehaviour
     /// </summary>
     public List<Chest> GetChestWithItem(Item item)
     {
-        if(itemReferences.ContainsKey(item))
+        Item key = ItemList.itemList[item.Name];
+
+        if(itemReferences.ContainsKey(key))
         {
-            return itemReferences[item];
+            return itemReferences[key];
         }
+
         return null;
     }
 
@@ -47,9 +81,10 @@ public class GlobalStorage : MonoBehaviour
     public Chest GetClosestChestWithItem(Item item, Vector3 coordinate)
     {
         Chest closestChest = null;
+        Item key = ItemList.itemList[item.Name];
         float closest = Mathf.Infinity;
 
-        foreach (var chest in itemReferences[item])
+        foreach (var chest in itemReferences[key])
         {
             float distance = Vector3.Distance(coordinate, chest.coordinate);
             if (distance < closest)
@@ -68,15 +103,33 @@ public class GlobalStorage : MonoBehaviour
     /// Returns -1 if itemReferences does not even contain that item
     /// </summary>
     public int DeleteItem(Item item, Chest chest) {
-        if (itemReferences.ContainsKey(item))
+        Item key = ItemList.itemList[item.Name];
+
+        if (itemReferences.ContainsKey(key))
         {
-            int count = itemReferences[item].Count - 1;
-            List<Chest> newChestList = itemReferences[item];
+            int count = itemReferences[key].Count - 1;
+            List<Chest> newChestList = itemReferences[key];
             newChestList.Remove(chest);
-            itemReferences[item] = newChestList;
+            itemReferences[key] = newChestList;
             return count;
         }
 
         return -1;
+    }
+
+    /// <summary>
+    /// Loops through each storage to find a given ItemName
+    /// Returns the count of the item across all storages
+    /// </summary>
+    public int GetItemCount(string itemName) 
+    {
+        int total = 0;
+
+        foreach(Chest inventory in inventories)
+        {
+            total += inventory.ItemCountInChest(itemName);
+        } 
+
+        return total;
     }
 }

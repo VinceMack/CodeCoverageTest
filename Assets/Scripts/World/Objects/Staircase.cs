@@ -46,7 +46,7 @@ public class Staircase : PlacedObject
             return false;    
         }
 
-        base.PlaceObject(location);
+        //base.PlaceObject(location);
         this.downward = downward;
         this.originTile = location;
         this.originLayer = location.GetLayer();

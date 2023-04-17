@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 using System.Linq;
 using System;
 
-public class Pawn_VM : MonoBehaviour
+public class Pawn_VM : BaseNPC
 {
     public List<LaborType>[] laborTypePriority      { get; private set; }   // Priority list for different types of labor
     private LaborOrder_Base_VM currentLaborOrder;                           // Reference to the current labor order
@@ -16,6 +16,12 @@ public class Pawn_VM : MonoBehaviour
     private float pawnSpeed;                                                // Speed of the pawn movement
     private Vector3Int position;                                            // Current position of the pawn in the grid
     private string pawnName;                                                // Name of the pawn
+    private Coroutine currentExecution;                                     // holds a reference to labor order execute() coroutine
+
+    public static List<Pawn_VM> PawnList = new List<Pawn_VM>();             // a list of all living pawns
+    public bool refuseLaborOrders = false;                                  // prevents this pawn from being assigned labor orders, redundant for now but may be useful later
+    public int hunger = 100;                                                // Hunger level of the pawn. Starves at 0
+    public Dictionary<string, Item> items;
 
     // pawn constructor
     public Pawn_VM()
@@ -33,6 +39,13 @@ public class Pawn_VM : MonoBehaviour
         // Initialize the pawn name
         pawnName = "Pawn " + pawnCount;
         pawnCount++;
+
+        // add this pawn to the pawn list
+        hunger = 100;
+        if (!PawnList.Contains(this)) PawnList.Add(this);
+
+        // Initialize item dictionary
+        items = new Dictionary<string, Item>();
     }
 
     // Method to return the number of priority levels
@@ -51,6 +64,24 @@ public class Pawn_VM : MonoBehaviour
     public int GetLaborTypesCount()
     {
         return Enum.GetNames(typeof(LaborType)).Length;
+    }
+
+    // Method to return the name of the pawn
+    public string GetPawnName()
+    {
+        return pawnName;
+    }
+
+    // Method to return the priority level according to labor type
+    public int GetPriorityLevelOfLabor(LaborType type)
+    {
+        for (int i = 1; i < NUM_OF_PRIORITY_LEVELS; i++)
+        {
+            if (laborTypePriority[i-1] != null)
+                if (laborTypePriority[i-1].Contains(type))
+                    return i;
+        }
+        return NUM_OF_PRIORITY_LEVELS;
     }
 
     // Gets the tile the pawn is currently on from the tilemap
@@ -78,17 +109,21 @@ public class Pawn_VM : MonoBehaviour
     }
 
     // Sets the current labor order for the pawn
-    public void SetCurrentLaborOrder(LaborOrder_Base_VM LaborOrder_Base_VM)
+    // True if successful, false if not
+    public bool SetCurrentLaborOrder(LaborOrder_Base_VM LaborOrder_Base_VM)
     {
         if (isAssigned)
         {
-            Debug.LogError("Pawn is already assigned to a labor order");
+            Debug.Log("Pawn is already assigned to a labor order");
+            return false;
         }
         else
         {
             currentLaborOrder = LaborOrder_Base_VM;
             isAssigned = true;
             LaborOrderManager_VM.AddAssignedPawn(this);
+            //Debug.Log("Added " + GetPawnName() + " to assigned pawns"); //TMP
+            return true;
         }
     }
 
@@ -166,6 +201,7 @@ public class Pawn_VM : MonoBehaviour
     {
         TileBase foundTile = GetLaborOrderTileFromTilemap();
         TileBase currentTile = GetPawnTileFromTilemap();
+        
 
         if (foundTile == null)
         {
@@ -184,23 +220,122 @@ public class Pawn_VM : MonoBehaviour
         BaseTile_VM target = (BaseTile_VM)foundTile;
         BaseTile_VM current = (BaseTile_VM)currentTile;
 
-        Vector3Int x = Vector3Int.FloorToInt(target.position);
-        Vector3Int y = Vector3Int.FloorToInt(current.position);
+        Vector3Int targetPosition = Vector3Int.FloorToInt(target.position);
+        Vector3Int currentPosition = Vector3Int.FloorToInt(current.position);
 
-        path = PathfindingManager.GetPath(y, x);
-        yield return StartCoroutine(TakePath());
+        // Get the level the target tile is on
+        int targetLevel = targetPosition.x / GridManager.LEVEL_WIDTH;
+        // Get the level the pawn is on
+        int currentLevel = currentPosition.x / GridManager.LEVEL_WIDTH;
+
+        while (currentPosition != targetPosition)
+        {
+            // If target location is on a different level, set path to stairs
+            if (currentLevel != targetLevel)
+            {
+                StairsTile_VM stairs;
+                Vector3 levelChangeStairsPosition;
+
+                // Get stairs to lower level
+                if (currentLevel < targetLevel)
+                {
+                    stairs = GridManager.mapLevels[currentLevel].getDescendingStairs_VM(currentPosition);
+                    if(stairs == null)
+                    {
+                        Debug.LogError("descending stairs tile is null at CompleteLaborOrder()");
+                        break;
+		            }
+                    levelChangeStairsPosition = stairs.getLowerLevelStairs().position;
+                }
+                // Get stairs to upper level
+                else
+                {
+                    stairs = GridManager.mapLevels[currentLevel].getAscendingStairs_VM(currentPosition);
+                    if(stairs == null)
+                    {
+                        Debug.LogError("ascending stairs tile is null at CompleteLaborOrder()");
+                        break;
+		            }
+                    levelChangeStairsPosition = stairs.getUpperLevelStairs().position;
+                }
+
+                Vector3Int stairsPosition = Vector3Int.FloorToInt(stairs.position);
+
+                // Move to next level
+                if (currentPosition == stairsPosition)
+                {
+                    transform.position = levelChangeStairsPosition;
+                    currentLevel = (int)levelChangeStairsPosition.x / GridManager.LEVEL_WIDTH;
+                    continue;
+                }
+                // Set path to stairs at current level
+                else
+                {
+                    path = PathfindingManager.GetPath(currentPosition, Vector3Int.FloorToInt(stairs.position), currentLevel);
+		        }
+            }
+            // Target level is the same as current level
+            else
+            {
+                path = PathfindingManager.GetPath(currentPosition, targetPosition, currentLevel);
+	        }
+
+            yield return StartCoroutine(TakePath());
+            currentPosition = Vector3Int.FloorToInt(transform.position);
+        }
 
         // check if returned path is empty 
-        if (path.Count == 0)
+        if (path.Count == 0 && currentPosition != targetPosition)
         {
             Debug.Log($"{pawnName,-10} FAILED Labor Order #{currentLaborOrder.orderNumber,-5} UNREACHABLE: {target.ToString(),-80}");
         }else{
-            yield return StartCoroutine(currentLaborOrder.Execute(this));
+            currentExecution = StartCoroutine(currentLaborOrder.Execute(this));
+            yield return currentExecution;
             Debug.Log($"{pawnName,-10} COMPLETED Labor Order #{currentLaborOrder.orderNumber,-5} TTC: {currentLaborOrder.timeToComplete,-10:F2} {"Order Type: " + currentLaborOrder.laborType,-25} {target.ToString(),-80}");
         }
 
         LaborOrderManager_VM.AddAvailablePawn(this);
         isAssigned = false;
+    }
+
+    // Decrement the hunger for all living pawns
+    public static void DecrementHunger(int decAmount)
+    {
+        for (int i = PawnList.Count - 1; i >= 0; i--)
+        {
+            PawnList[i].hunger -= decAmount;
+            if (PawnList[i].hunger <= 0)
+            {
+                PawnList[i].hunger = 0;
+                PawnList[i].Die("has starved to death.");
+            }
+            else if (PawnList[i].hunger < PawnHunger.HUNGER_RESPONSE_THRESHOLD)
+            {
+                PawnHunger.EatFromInventory(PawnList[i]);
+            }
+        }
+    }
+
+    // cancels the current labor order
+    public void CancelCurrentLaborOrder()
+    {
+        path.Clear();
+        if (currentExecution != null)
+            StopCoroutine(currentExecution);
+    }
+
+    // kills the pawn. Cancels labor order and removes them from appropriate lists.
+    public override void Die() { Die("has died."); }
+    public void Die(string cause)
+    {
+        PawnList.Remove(this);
+        LaborOrderManager_VM.RemoveSpecificPawn(this);
+        CancelCurrentLaborOrder();
+        refuseLaborOrders = true;
+        Debug.Log(pawnName + " " + cause);
+        //base.Die();
+        GlobalInstance.Instance.entityDictionary.DestroySaveableObject(this);
+        // maybe check if PawnList is empty to initiate the Game Lose here
     }
 
     // Initialization function for the pawn
@@ -238,5 +373,12 @@ public class Pawn_VM : MonoBehaviour
 
         // Set the pawn to not be assigned
         isAssigned = false;
+
+        // add this pawn to the pawn list
+        hunger = 100;
+        if(!PawnList.Contains(this)) PawnList.Add(this);
+
+        // Initialize item dictionary
+        items = new Dictionary<string, Item>();
     }
 }

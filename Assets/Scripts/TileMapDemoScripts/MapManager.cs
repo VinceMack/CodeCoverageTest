@@ -10,21 +10,19 @@ public class MapManager : MonoBehaviour
     private GameObject tileMapGameObject;
     private Tilemap tileMap;
 
-    private List<Level> mapLevels;
+    private List<TileMapLevel> mapLevels;
     private const int LEVEL_DISTANCE = 5;
 
-    private CameraManager cameraManager;
     private CharacterManager characterManager;
 
 
     private void Awake()
     {
-        mapLevels = new List<Level>();
+        mapLevels = new List<TileMapLevel>();
         CreateGrid();
         CreateTileMap();
         CreateLevel();
         
-        cameraManager = new CameraManager(Camera.main);
         characterManager = new CharacterManager(tileMap);
         characterManager.AddCharacter((Player)FindObjectOfType(typeof(Player)));
     }
@@ -37,7 +35,6 @@ public class MapManager : MonoBehaviour
     void Update()
     {
         updateGameObjects();
-        cameraManager.UpdateCamera();
     }
 
     private void updateGameObjects()
@@ -96,7 +93,7 @@ public class MapManager : MonoBehaviour
             yMax = yMin + LEVEL_DISTANCE-1;
 	    }
         // Add new level to map levels list
-        mapLevels.Add(new Level(mapLevels.Count, xMin, xMax, yMin, yMax));
+        mapLevels.Add(new TileMapLevel(mapLevels.Count, xMin, xMax, yMin, yMax));
 
         // Set levels tiles
         for(int x = xMin; x<xMax; x++) { 

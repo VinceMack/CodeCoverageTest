@@ -14,6 +14,7 @@ public class GlobalInstance : MonoBehaviour
     public PrefabList prefabList;
     public EntityDictionary entityDictionary;
     public GameObject sceneCamera;
+    public GlobalStorage gs;
 
     private void Awake()
     {
@@ -33,7 +34,7 @@ public class GlobalInstance : MonoBehaviour
             // Save an internal reference to the first instance of this class
             Instance = this;
         }
-
+        Instance.prefabList.InitializePrefabDictionary();
     }
 
     [ContextMenu("PrintEntityDictionary")]

@@ -7,10 +7,10 @@ using UnityEngine.Tilemaps;
 [System.Serializable]
 public class LaborOrder_Base_VM
 {
-    public LaborType laborType      { get; private set; }           // type of labor needed
+    public LaborType laborType      { get; protected set; }           // type of labor needed
     public Vector3Int location;                                     // location of the labor order in the grid
-    public float timeToComplete     { get; private set; }           // time it takes to complete the labor order
-    public int orderNumber          { get; private set; }           // order number of the labor order
+    public float timeToComplete     { get; protected set; }           // time it takes to complete the labor order
+    public int orderNumber          { get; protected set; }           // order number of the labor order
 
     public const float MIN_TTC = 1.0f;                          // minimum time to complete
     public const float MAX_TTC = 3.0f;                          // maximum time to complete
@@ -31,9 +31,16 @@ public class LaborOrder_Base_VM
         laborType = (LaborType)UnityEngine.Random.Range(0, LaborOrderManager_VM.GetLaborTypesCount());
         timeToComplete = UnityEngine.Random.Range(MIN_TTC, MAX_TTC);
 
-        // choose a random location within the grid that does not have a tile with collision Set to true
-        location = new Vector3Int(UnityEngine.Random.Range(GridManager.MIN_HORIZONTAL, GridManager.MAX_HORIZONTAL), UnityEngine.Random.Range(GridManager.MIN_VERTICAL, GridManager.MAX_VERTICAL), 0);
+        // Get a random level
+        int randomLevelIndex = UnityEngine.Random.Range(0, GridManager.mapLevels.Count);
+        Level level = GridManager.mapLevels[randomLevelIndex];
+        // Get a random x and y
+        int randomX = UnityEngine.Random.Range(level.getXMin(), level.getXMax());
+        int randomY = UnityEngine.Random.Range(level.getYMin(), level.getYMax());
 
+        // Set labor order location
+        location = new Vector3Int(randomX, randomY, 0);
+        
         BaseTile_VM tile = GridManager.GetTile(location);
         if (tile == null)
         {
@@ -43,8 +50,9 @@ public class LaborOrder_Base_VM
         {
             while (GridManager.GetTile(location).isCollision == true)
             {
-                location = new Vector3Int(UnityEngine.Random.Range(GridManager.MIN_HORIZONTAL, GridManager.MAX_HORIZONTAL), UnityEngine.Random.Range(GridManager.MIN_VERTICAL, GridManager.MAX_VERTICAL), 0);
-
+                randomX = UnityEngine.Random.Range(level.getXMin(), level.getXMax());
+                randomY = UnityEngine.Random.Range(level.getYMin(), level.getYMax());
+                location = new Vector3Int(randomX, randomY, 0);
             }
 
             // Set the order number and add the labor order to the LaborOrderManager_VM

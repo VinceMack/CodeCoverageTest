@@ -7,6 +7,7 @@ public class ColonyInfoManager : MonoBehaviour
 {
     [SerializeField] private Colony myColony;
 
+    // Colony Panel Variables
     [SerializeField] private TextMeshProUGUI colonyName;
     [SerializeField] private TextMeshProUGUI zoneNumber;
 
@@ -17,11 +18,47 @@ public class ColonyInfoManager : MonoBehaviour
 
     [SerializeField] private GameObject zoneInfoTile;
 
+    // Resource List Variables
+    [SerializeField] private GameObject resourceListContent;
+
+    [SerializeField] private GameObject resourceListElement;
+
+    /////////////////////////////////////
+    // Resource List Methods
+    /////////////////////////////////////
+
+    [ContextMenu("InitializeList")]
+    public void InitializeResourceList()
+    {
+        // Remove the whole list
+        foreach(Transform child in resourceListContent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        // Build the whole list
+        foreach(KeyValuePair<string, Resource> kvp in ResourceManager.resourceDictionary)
+        {
+            GameObject newElement = Instantiate(resourceListElement);
+            newElement.transform.SetParent(resourceListContent.transform);
+
+            newElement.GetComponent<ResourceListElement>().Initialize(myColony, kvp.Value);
+        }
+    }
+
+    /////////////////////////////////////
+    // Colony Panel Methods
+    /////////////////////////////////////
+
     public void OpenColonyInfo()
     {
         zoneNumber.text = (myColony.GetNextZoneNumber() - 1).ToString();
         colonyName.text = myColony.GetColonyName();
     }
+
+    /////////////////////////////////////
+    // Zone UI Methods
+    /////////////////////////////////////
 
     public void BuildZoneList()
     {

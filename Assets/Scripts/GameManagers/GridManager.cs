@@ -10,35 +10,34 @@ public class GridManager : MonoBehaviour
     public static Grid grid;
     public static Tilemap tileMap;
 
-    // Constants for the size of the grid
-    public static readonly int MAX_HORIZONTAL = 50;
-    public static readonly int MIN_HORIZONTAL = 0;
-    public static readonly int MAX_VERTICAL = 25;
-    public static readonly int MIN_VERTICAL = 0;
+    // Constants for the size of a level
+    public static List<Level> mapLevels;
+    public static readonly int LEVEL_WIDTH = 100;
+    public static readonly int LEVEL_HEIGHT = 100;
+
 
     // Method to reset grid values for pathfinding
-    public static void ResetGrid()
+    public static void ResetGrid(int levelNumber)
     {
-        // Iterate through each tile in the grid and reset its properties
-        for (int x = GridManager.MIN_HORIZONTAL; x < GridManager.MAX_HORIZONTAL; x++)
-        {
-            for (int y = GridManager.MIN_VERTICAL; y < GridManager.MAX_VERTICAL; y++)
+        // Reset only the level used for pathfinding
+        Level level = mapLevels[levelNumber];
+        for(int x = level.getXMin(); x < level.getXMax(); x++)
+	    {
+            for(int y = level.getYMin(); y < level.getYMax(); y++)
             {
                 BaseTile_VM tile = (BaseTile_VM)GridManager.tileMap.GetTile(new Vector3Int(x, y, 0));
-
-                // Check if tile is not null and debug if it is
-                if (tile == null)
+                if(tile == null)
                 {
-                    Debug.LogError("tile is null @ resetGrid");
+                    Debug.LogError("Tile is null @ GridManager.ResetGrid()");
                     break;
-                }
+		        }
 
                 tile.visited = false;
                 tile.distance = -1;
                 tile.parent = null;
                 tile = null;
-            }
-        }
+	        }
+	    }
     }
 
     // Method to Get the tile at a specific position in the grid
@@ -47,21 +46,38 @@ public class GridManager : MonoBehaviour
         return (BaseTile_VM)tileMap.GetTile(position);
     }
 
-    // Method to create and Set a random tile for each position in the grid
-    public static void GenerateRandomTileMap()
+    // Method to create and add a level to the grid
+    public static void CreateLevel()
     {
-        for (int x = MIN_HORIZONTAL; x < MAX_HORIZONTAL; x++)
-        {
-            for (int y = MIN_VERTICAL; y < MAX_VERTICAL; y++)
+        int xMin, xMax, yMin, yMax;
+        if(mapLevels.Count == 0)
+	    {
+            xMin = 0; xMax = LEVEL_WIDTH - 1; yMin = 0; yMax = LEVEL_HEIGHT;
+	    }
+        else
+	    {
+            xMin = mapLevels[mapLevels.Count - 1].getXMax() + 1;
+            xMax = xMin + LEVEL_WIDTH - 1;
+            yMin = 0;
+            yMax = LEVEL_HEIGHT;
+	    }
+
+        // Add new level to map levels list
+        mapLevels.Add(new Level(mapLevels.Count, xMin, xMax, yMin, yMax));
+
+        // Set tiles for level
+        for(int x = xMin; x < xMax; x++)
+        { 
+            for(int y = yMin; y < yMax; y++)
             {
                 Vector3Int position = new Vector3Int(x, y, 0);
 
-                // Generate a random tile based on the random value and Set its properties
+                // Generate a random tile based on the random value and set its properties
                 int random = Random.Range(1, 5);
-                if (random == 4)
+                if(random == 4)
                 {
-                    random = Random.Range(3, 5); // reduce the chance of rock, replaced decreased chances with chance to increase water or sand
-                }
+                    random = Random.Range(3, 5); // Reduce the chance of rock, replace decreased chances with chance to increase water or sand
+		        }
                 switch (random)
                 {
                     case 0:
@@ -91,6 +107,31 @@ public class GridManager : MonoBehaviour
                         break;
                 }
             }
+	    }
+        
+        // Add stairs to upper and lower levels
+        if (mapLevels.Count > 1)
+        {
+            int randomX = UnityEngine.Random.Range(xMin, xMax);
+            int randomY = UnityEngine.Random.Range(yMin, yMax);
+
+            // Set stairs in random location in upper level
+            Vector3Int upperLevelStairsPosition = new Vector3Int(randomX - LEVEL_WIDTH, randomY, 0);
+            StairsTile_VM upperLevelStairs = ScriptableObject.CreateInstance<StairsTile_VM>();
+            tileMap.SetTile(upperLevelStairsPosition, upperLevelStairs);
+            upperLevelStairs.SetTileData(TileType.STAIRS, false, null, 0, tileMap.GetCellCenterWorld(upperLevelStairsPosition), -9, false, null);
+            mapLevels[mapLevels.Count - 2].AddDescendingStairs_VM(upperLevelStairs);
+
+            // Set stairs in lower level
+            Vector3Int lowerLevelStairsPosition = new Vector3Int(randomX, randomY, 0);
+            StairsTile_VM lowerLevelStairs = ScriptableObject.CreateInstance<StairsTile_VM>();
+            tileMap.SetTile(lowerLevelStairsPosition, lowerLevelStairs);
+            lowerLevelStairs.SetTileData(TileType.STAIRS, false, null, 0, tileMap.GetCellCenterWorld(lowerLevelStairsPosition), -9, false, null);
+            mapLevels[mapLevels.Count - 1].AddAscendingStairs_VM(lowerLevelStairs);
+
+            // Connect upper and lower level stairs
+            upperLevelStairs.setLowerLevelStairs(lowerLevelStairs);
+            lowerLevelStairs.setUpperLevelStairs(upperLevelStairs);
         }
     }
 
@@ -99,6 +140,53 @@ public class GridManager : MonoBehaviour
     {
         grid = GameObject.Find("Grid").GetComponent<Grid>();
         tileMap = GameObject.Find("Grid").GetComponent<Tilemap>();
+
+        mapLevels = new List<Level>();
     }
 
+    // Spawns trees on random vacant grass tiles
+    // requires GlobalInstance2 (TMPCombined) in scene
+    public static void PopulateWithTrees()
+    {
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        foreach(BaseTile_VM tile in allTiles)
+        {
+            if (tile != null && tile.type == TileType.GRASS && tile.resource == null && Random.Range(0, 10) == 0)
+            {
+                GameObject tree = GlobalInstance.Instance.entityDictionary.InstantiateEntity("tree", "", tile.position);
+                tile.SetTileInformation(tile.type, false, tree, tile.resourceCount, tile.position);
+            }
+        }
+    }
+
+    // Spawns bushes on random vacant grass tiles
+    // requires GlobalInstance2 (TMPCombined) in scene
+    public static void PopulateWithBushes()
+    {
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        foreach (BaseTile_VM tile in allTiles)
+        {
+            if (tile != null && tile.type == TileType.GRASS && tile.resource == null && Random.Range(0, 10) == 0)
+            {
+                GameObject bush = GlobalInstance.Instance.entityDictionary.InstantiateEntity("bush", "", tile.position);
+                tile.SetTileInformation(tile.type, false, bush, tile.resourceCount, tile.position);
+            }
+        }
+    }
+
+    // Spawns bushes on random vacant sand tiles
+    // requires GlobalInstance2 (TMPCombined) in scene
+    //      Only intended for testing. Farms will be responsible for creating wheat.
+    public static void PopulateWithWheat()
+    {
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        foreach (BaseTile_VM tile in allTiles)
+        {
+            if (tile != null && tile.type == TileType.SAND && tile.resource == null && Random.Range(0, 10) == 0)
+            {
+                GameObject wheat = GlobalInstance.Instance.entityDictionary.InstantiateEntity("wheat", "", tile.position);
+                tile.SetTileInformation(tile.type, false, wheat, tile.resourceCount, tile.position);
+            }
+        }
+    }
 }

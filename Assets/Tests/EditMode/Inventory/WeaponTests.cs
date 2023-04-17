@@ -15,7 +15,7 @@ namespace Tests
         public void testDamageAssignment()
         {
             //Arrange
-            weapon = new Weapon();
+            weapon = new Weapon("testWeapon", "Test Weapon", false, Rarity.Rare, 100, 1, "Dropped Test Weapon", Slot.WeaponLeft, 1, 2, 1);
             
             //Act
 

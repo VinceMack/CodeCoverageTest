@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Chest : PlacedObject
 {
@@ -26,6 +27,14 @@ public class Chest : PlacedObject
         coordinate = coord;
     }
 
+    /// "Override" for whenever a new chest is placed
+    public void PlaceObject(BaseTile location, GlobalStorage gs)
+    {
+        homeTile = location;
+        globalStorage = gs;
+        globalStorage.inventories.Add(this);
+    }
+
     /// <summary>
     /// <para>Checks if the chest contains the specified item</para>
     /// <para>Returns true if it does, false if it doesn't</para>
@@ -34,6 +43,21 @@ public class Chest : PlacedObject
     {
         bool contains = contents.Contains(item);
         return contains;
+    }
+
+    /// <summary>
+    /// <para>Checks if the chest contains the specified item</para>
+    /// <para>Returns true if it does, false if it doesn't</para>
+    /// </summary>
+    public int ItemCountInChest(string itemName)
+    {
+        Item returnItem = contents.FirstOrDefault(x => x.Name == itemName);
+        if(returnItem == null)
+        {
+            Debug.Log("RETURN ITEM NULL");
+            return 0;
+        }
+        return returnItem.Quantity;
     }
 
     /// <summary>
@@ -62,6 +86,8 @@ public class Chest : PlacedObject
             globalStorage.AddItem(item, this);
             quantity = item.Quantity;
         }
+
+        globalStorage.ItemChanged();
 
         return quantity;
     }
@@ -102,6 +128,8 @@ public class Chest : PlacedObject
             }
         }
 
+        globalStorage.ItemChanged();
+
         return remainingQuantity;
     }
 
@@ -139,6 +167,8 @@ public class Chest : PlacedObject
             }
         }
 
+        globalStorage.ItemChanged();
+
         return remainingQuantity;
     }
 
@@ -163,6 +193,9 @@ public class Chest : PlacedObject
         }
 
         int response = globalStorage.DeleteItem(item, this);
+
+        globalStorage.ItemChanged();
+        
         return response == -1 ? -1 : remainingQuantity;
     }
 
