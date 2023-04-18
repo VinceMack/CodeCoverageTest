@@ -11,6 +11,7 @@ public class PanelManager : MonoBehaviour
     [SerializeField] private GameObject saveSystemUI;
 
     [SerializeField] private GameObject colonyInfo;
+    [SerializeField] private ColonyInfoManager colonyInfoManager;
 
     public void CloseSaveSystemUI()
     {
@@ -45,7 +46,7 @@ public class PanelManager : MonoBehaviour
     {
         CloseMenus();
         colonyInfo.SetActive(true);
-        colonyInfo.GetComponent<ColonyInfoManager>().OpenColonyInfo();
+        colonyInfoManager.OpenColonyInfo();
     }
 
     public void ToggleColonyUI()
@@ -57,19 +58,6 @@ public class PanelManager : MonoBehaviour
         else
         {
             EnableColonyUI();
-        }
-    }
-
-    private void Update() 
-    {
-        if (Input.GetKeyDown("e"))
-        {
-            ToggleSaveSystemUI();
-        }
-
-        if(Input.GetKeyDown("i"))
-        {
-            ToggleColonyUI();
         }
     }
 

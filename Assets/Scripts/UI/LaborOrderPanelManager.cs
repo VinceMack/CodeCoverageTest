@@ -8,23 +8,24 @@ public class LaborOrderPanelManager : MonoBehaviour
 {
 
     // Containers for pawns and buttons
-    public static GameObject buttonContainer;
-    public static GameObject pawnContainer;
-    public static GameObject pawnNameContainer;
-    public static GameObject LaborNameContainer;
+    public  GameObject buttonContainer;
+    public  GameObject pawnContainer;
+    public  GameObject pawnNameContainer;
+    public  GameObject LaborNameContainer;
 
     // Prefabs for display.
-    public static GameObject button_prefab;
-    public static GameObject pawnText_prefab;
-    public static GameObject LaborText_prefab;
+    public  GameObject button_prefab;
+    public  GameObject pawnText_prefab;
+    public  GameObject LaborText_prefab;
 
     // For formatting panel.
-    public static GameObject content;
+    public  GameObject content;
 
     // Panel text objects.
-    public static GameObject[] laborTypeNames;
+    public  GameObject[] laborTypeNames;
     
-    public static void InitializeLaborOrderPanel()
+    [ContextMenu("TestInit")]
+    public  void InitializeLaborOrderPanel()
     {
 
         buttonContainer = GameObject.Find("Buttons");
@@ -70,7 +71,7 @@ public class LaborOrderPanelManager : MonoBehaviour
     }
 
     // Add buttons for the addition of a pawn.
-    public static void AddPawnButtons(GameObject pawn)
+    public  void AddPawnButtons(GameObject pawn)
     {
         
         // Add pawn text.
@@ -103,7 +104,7 @@ public class LaborOrderPanelManager : MonoBehaviour
     }
 
     // Remove buttons for the removal of a pawn.
-    public static void RemovePawnButtons(GameObject pawn)
+    public  void RemovePawnButtons(GameObject pawn)
     {
         // Remove pawn name.
         Pawn_VM pawnComponent = pawn.GetComponent<Pawn_VM>();
@@ -124,7 +125,7 @@ public class LaborOrderPanelManager : MonoBehaviour
     }
 
     // Make adjustments for layout.
-    public static void AdjustGridLayout()
+    public  void AdjustGridLayout()
     {
 
         // Adjust button layout.
