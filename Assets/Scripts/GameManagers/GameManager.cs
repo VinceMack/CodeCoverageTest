@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     private int NUM_OF_LABOR_ORDERS_TO_SPAWN = 100;
     private const int NUM_OF_LEVELS = 4;
 
+    [SerializeField] private InputManager inputManager;
+
     void Awake()
     {
         // set target frame rate to 60
@@ -68,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        InputManager.CheckForInput();
+        inputManager.CheckForInput();
         // if there are available pawns and labor orders, assign pawns to labor orders
         if (LaborOrderManager_VM.GetAvailablePawnCount() > 0 && LaborOrderManager_VM.GetLaborOrderCount() > 0)
         {
