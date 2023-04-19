@@ -16,7 +16,7 @@ public class Area
     {
         topRight = tR;
         bottomLeft = bL;
-        List<Vector2> corners = new List<Vector2>();
+        corners = new List<Vector2>();
         corners.Add(topRight);                  //Top right
         corners.Add(bottomLeft);                //Bottom left
         corners.Add(new Vector2(bL.x, tR.y));   //Top left
