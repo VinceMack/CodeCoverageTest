@@ -39,6 +39,11 @@ public class BaseNPC : SaveableEntity
         return stats;
     }
 
+    public Health GetHealth()
+    {
+        return myHealth;
+    }
+
     public override void SaveMyData(int saveSlot)
     {
         SaveData<NPCStats>(stats, saveSlot);
@@ -49,18 +54,6 @@ public class BaseNPC : SaveableEntity
         stats = LoadData<NPCStats>(saveSlot);
         // Do whatever we want with stats
         // I.e. change transform.position, update any components, etc.
-    }
-
-    [ContextMenu("TakeDam")]
-    public void DealDamage()
-    {
-        TakeDamage(200);
-    }
-
-    [ContextMenu("SetupHealth")]
-    public void SetupNPCHealth()
-    {
-        myHealth.SetUpHealth(5);
     }
 
     public virtual void TakeDamage(int damageAmount)

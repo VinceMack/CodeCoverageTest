@@ -12,8 +12,8 @@ public class GridManager : MonoBehaviour
 
     // Constants for the size of a level
     public static List<Level> mapLevels;
-    public static readonly int LEVEL_WIDTH = 10;
-    public static readonly int LEVEL_HEIGHT = 5;
+    public static readonly int LEVEL_WIDTH = 100;
+    public static readonly int LEVEL_HEIGHT = 100;
 
 
     // Method to reset grid values for pathfinding
@@ -52,14 +52,14 @@ public class GridManager : MonoBehaviour
         int xMin, xMax, yMin, yMax;
         if(mapLevels.Count == 0)
 	    {
-            xMin = 0; xMax = LEVEL_WIDTH - 1; yMin = 0; yMax = LEVEL_WIDTH - 1;
+            xMin = 0; xMax = LEVEL_WIDTH - 1; yMin = 0; yMax = LEVEL_HEIGHT;
 	    }
         else
 	    {
             xMin = mapLevels[mapLevels.Count - 1].getXMax() + 1;
             xMax = xMin + LEVEL_WIDTH - 1;
-            yMin = mapLevels[mapLevels.Count - 1].getYMin();
-            yMax = yMin + LEVEL_WIDTH - 1;
+            yMin = 0;
+            yMax = LEVEL_HEIGHT;
 	    }
 
         // Add new level to map levels list
@@ -144,4 +144,49 @@ public class GridManager : MonoBehaviour
         mapLevels = new List<Level>();
     }
 
+    // Spawns trees on random vacant grass tiles
+    // requires GlobalInstance2 (TMPCombined) in scene
+    public static void PopulateWithTrees()
+    {
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        foreach(BaseTile_VM tile in allTiles)
+        {
+            if (tile != null && tile.type == TileType.GRASS && tile.resource == null && Random.Range(0, 10) == 0)
+            {
+                GameObject tree = GlobalInstance.Instance.entityDictionary.InstantiateEntity("tree", "", tile.position);
+                tile.SetTileInformation(tile.type, false, tree, tile.resourceCount, tile.position);
+            }
+        }
+    }
+
+    // Spawns bushes on random vacant grass tiles
+    // requires GlobalInstance2 (TMPCombined) in scene
+    public static void PopulateWithBushes()
+    {
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        foreach (BaseTile_VM tile in allTiles)
+        {
+            if (tile != null && tile.type == TileType.GRASS && tile.resource == null && Random.Range(0, 10) == 0)
+            {
+                GameObject bush = GlobalInstance.Instance.entityDictionary.InstantiateEntity("bush", "", tile.position);
+                tile.SetTileInformation(tile.type, false, bush, tile.resourceCount, tile.position);
+            }
+        }
+    }
+
+    // Spawns bushes on random vacant sand tiles
+    // requires GlobalInstance2 (TMPCombined) in scene
+    //      Only intended for testing. Farms will be responsible for creating wheat.
+    public static void PopulateWithWheat()
+    {
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        foreach (BaseTile_VM tile in allTiles)
+        {
+            if (tile != null && tile.type == TileType.SAND && tile.resource == null && Random.Range(0, 10) == 0)
+            {
+                GameObject wheat = GlobalInstance.Instance.entityDictionary.InstantiateEntity("wheat", "", tile.position);
+                tile.SetTileInformation(tile.type, false, wheat, tile.resourceCount, tile.position);
+            }
+        }
+    }
 }

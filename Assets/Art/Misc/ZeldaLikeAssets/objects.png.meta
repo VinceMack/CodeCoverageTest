@@ -7083,7 +7083,7 @@ TextureImporter:
       objects_44: -1435143891
       objects_78: 944197069
       objects_145: 809396976
-      objects_20: -1866555113
+      objects_128: 1484109637
       objects_156: -174076263
       objects_83: -1260397715
       objects_116: 1786437147
@@ -7406,9 +7406,9 @@ TextureImporter:
       objects_111: -1574364114
       objects_88: -616173910
       objects_178: -671522615
-      objects_4: -1007594687
       objects_127: -477767277
-      objects_128: 1484109637
+      objects_4: -1007594687
+      objects_20: -1866555113
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

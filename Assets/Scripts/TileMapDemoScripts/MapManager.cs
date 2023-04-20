@@ -13,7 +13,6 @@ public class MapManager : MonoBehaviour
     private List<TileMapLevel> mapLevels;
     private const int LEVEL_DISTANCE = 5;
 
-    private CameraManager cameraManager;
     private CharacterManager characterManager;
 
 
@@ -24,7 +23,6 @@ public class MapManager : MonoBehaviour
         CreateTileMap();
         CreateLevel();
         
-        cameraManager = new CameraManager(Camera.main);
         characterManager = new CharacterManager(tileMap);
         characterManager.AddCharacter((Player)FindObjectOfType(typeof(Player)));
     }
@@ -37,7 +35,6 @@ public class MapManager : MonoBehaviour
     void Update()
     {
         updateGameObjects();
-        cameraManager.UpdateCamera();
     }
 
     private void updateGameObjects()

@@ -34,7 +34,7 @@ public class GlobalInstance : MonoBehaviour
             // Save an internal reference to the first instance of this class
             Instance = this;
         }
-
+        Instance.prefabList.InitializePrefabDictionary();
     }
 
     [ContextMenu("PrintEntityDictionary")]
