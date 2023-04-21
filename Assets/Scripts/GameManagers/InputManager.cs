@@ -5,8 +5,10 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
 
+    [SerializeField] private ActionUIManager myActionManager;
+
     // Check for user input
-    public static void CheckForInput()
+    public void CheckForInput()
     {
         // Update camera
         CameraManager.UpdateCamera();
@@ -31,6 +33,10 @@ public class InputManager : MonoBehaviour
         if(Input.GetKey("delete"))
         {
             UIManager.SelectUIMode(1);
+            if((int)UIManager.myMode >= 7)
+            {
+                myActionManager?.DeSelectAll();
+            }
         }
     }
 }

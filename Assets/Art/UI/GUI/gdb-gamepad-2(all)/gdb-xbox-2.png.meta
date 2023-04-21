@@ -101,6 +101,18 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -16073,15 +16085,15 @@ TextureImporter:
       gdb-xbox-2_175: -1393379915
       gdb-xbox-2_452: -1422944398
       gdb-xbox-2_173: -1111198337
+      gdb-xbox-2_12: -1122665252
       gdb-xbox-2_60: 1054894099
-      gdb-xbox-2_424: -1240537190
-      gdb-xbox-2_669: -1931642555
+      gdb-xbox-2_95: -94297912
       gdb-xbox-2_469: 1317352801
       gdb-xbox-2_527: -1268938268
-      gdb-xbox-2_95: -94297912
+      gdb-xbox-2_424: -1240537190
       gdb-xbox-2_158: 1680474076
       gdb-xbox-2_68: -2057083271
-      gdb-xbox-2_12: -1122665252
+      gdb-xbox-2_669: -1931642555
       gdb-xbox-2_715: -1000700816
       gdb-xbox-2_322: 1191161627
       gdb-xbox-2_106: -169744616

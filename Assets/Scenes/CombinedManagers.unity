@@ -176,6 +176,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48cb8565216f6394c928dbe7de49477d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonContainer: {fileID: 0}
+  pawnContainer: {fileID: 0}
+  pawnNameContainer: {fileID: 0}
+  LaborNameContainer: {fileID: 0}
+  button_prefab: {fileID: 0}
+  pawnText_prefab: {fileID: 0}
+  LaborText_prefab: {fileID: 0}
+  laborTypeNames: []
 --- !u!82 &512448434
 AudioSource:
   m_ObjectHideFlags: 0
@@ -774,6 +782,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1687096687}
   - component: {fileID: 1687096692}
+  - component: {fileID: 1687096693}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -810,6 +819,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ab9cbf3d8117f4abed24a2bce63bb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputManager: {fileID: 1687096693}
+  laborOrderPanelManager: {fileID: 512448433}
+--- !u!114 &1687096693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687096685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49418c196ad8d2e4ca50c54901546fbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myActionManager: {fileID: 0}
 --- !u!1 &2106486086
 GameObject:
   m_ObjectHideFlags: 0

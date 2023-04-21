@@ -37,8 +37,11 @@ public class PopupUI : MonoBehaviour
                 float yPos = direction > 0 ? visibleY : hiddenY;
                 transform.position = new Vector3(transform.position.x, yPos, transform.position.z);
 
-                arrowButton.transform.localRotation = Quaternion.Euler(arrowButton.transform.localRotation.x, arrowButton.transform.localRotation.y, 90 * direction);
-
+                if(arrowButton != null)
+                {
+                    arrowButton.transform.localRotation = Quaternion.Euler(arrowButton.transform.localRotation.x, arrowButton.transform.localRotation.y, 90 * direction);
+                }
+                
                 changing = false;
                 return;
             }
