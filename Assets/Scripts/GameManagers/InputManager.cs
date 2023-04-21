@@ -35,7 +35,7 @@ public class InputManager : MonoBehaviour
             UIManager.SelectUIMode(1);
             if((int)UIManager.myMode >= 7)
             {
-                myActionManager.DeSelectAll();
+                myActionManager?.DeSelectAll();
             }
         }
     }

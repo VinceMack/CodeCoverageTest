@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private const int NUM_OF_LEVELS = 4;
 
     [SerializeField] private InputManager inputManager;
+    [SerializeField] private LaborOrderPanelManager laborOrderPanelManager;
 
     void Awake()
     {
@@ -50,7 +51,7 @@ public class GameManager : MonoBehaviour
         LaborOrderManager_VM.FillWithRandomLaborOrders(NUM_OF_LABOR_ORDERS_TO_SPAWN);
 
         // initialize the labor order ui
-        LaborOrderPanelManager.InitializeLaborOrderPanel();
+        laborOrderPanelManager.InitializeLaborOrderPanel();
 
     }
 
