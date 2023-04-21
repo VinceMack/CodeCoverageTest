@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
         LaborOrderManager_VM.FillWithRandomLaborOrders(NUM_OF_LABOR_ORDERS_TO_SPAWN);
 
         // initialize the labor order ui
-        // LaborOrderPanelManager.InitializeLaborOrderPanel();
+        LaborOrderPanelManager.InitializeLaborOrderPanel();
 
     }
 
