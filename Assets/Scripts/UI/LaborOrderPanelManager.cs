@@ -20,6 +20,7 @@ public class LaborOrderPanelManager : MonoBehaviour
 
     // For formatting panel.
     public static GameObject content;
+    private static float spacing;
 
     // Panel text objects.
     public static GameObject[] laborTypeNames;
@@ -91,14 +92,13 @@ public class LaborOrderPanelManager : MonoBehaviour
 
             buttonComponent.pawn = pawnComponent;
             buttonComponent.labor = LaborOrderManager_VM.GetLaborType(LaborOrderManager_VM.GetLaborTypeName(i));
-            buttonComponent.textObj = GameObject.Find(newButton.name + "/Text");
             buttonComponent.InitializePawnButton();
 
         }
 
         // Resize content.
         var rectTransform = content.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y + 40);
+        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y + spacing);
 
     }
 
@@ -119,7 +119,7 @@ public class LaborOrderPanelManager : MonoBehaviour
 
         // Resize content.
         var rectTransform = content.GetComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y - 40);
+        rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransform.sizeDelta.y - spacing);
 
     }
 
@@ -144,6 +144,8 @@ public class LaborOrderPanelManager : MonoBehaviour
 
         var rectTransform = content.GetComponent<RectTransform>();
         rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, 0);
+
+        spacing = pawnNameGrid.spacing.y + pawnNameGrid.cellSize.y;
 
     }
 

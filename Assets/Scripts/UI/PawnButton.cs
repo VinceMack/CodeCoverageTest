@@ -21,7 +21,7 @@ public class PawnButton : MonoBehaviour, IPointerClickHandler
     public void InitializePawnButton()
     {
         _text = textObj.GetComponent<TMP_Text>();
-        _text.text = pawn.GetPriorityLevelOfLabor(labor).ToString();;
+        _text.text = pawn.GetPriorityLevelOfLabor(labor).ToString();
     }
 
     public void OnPointerClick(PointerEventData eventData)
