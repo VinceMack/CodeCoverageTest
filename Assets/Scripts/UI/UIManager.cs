@@ -27,24 +27,28 @@ public static class UIManager
             case 6:
             {
                 GameObject.Find("Canvas/Warnings/CancelHint").SetActive(true);
+                GameObject.Find("Canvas/Warnings/DragDropInfo").SetActive(true);
                 Cursor.SetCursor(farmCursor, hotSpot, cursorMode);
                 break;
             }
             case 7:
             {
                 GameObject.Find("Canvas/Warnings/CancelHint").SetActive(true);
+                GameObject.Find("Canvas/Warnings/DragDropInfo").SetActive(true);
                 Cursor.SetCursor(destroyCursor, hotSpot, cursorMode);
                 break;
             }
             case 8:
             {
                 GameObject.Find("Canvas/Warnings/CancelHint").SetActive(true);
+                GameObject.Find("Canvas/Warnings/DragDropInfo").SetActive(true);
                 Cursor.SetCursor(createCursor, hotSpot, cursorMode);
                 break;
             }
             default:
             {
                 GameObject.Find("Canvas/Warnings/CancelHint").SetActive(false);
+                GameObject.Find("Canvas/Warnings/DragDropInfo").SetActive(false);
                 Cursor.SetCursor(null, hotSpot, cursorMode);
                 break;
             }
