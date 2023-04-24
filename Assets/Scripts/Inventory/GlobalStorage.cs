@@ -22,12 +22,6 @@ public class GlobalStorage : MonoBehaviour
         newChest.ItemAddedToChest(chestWoodItem);
     }
 
-    [ContextMenu("TEST")]
-    public void TESTING()
-    {
-        Debug.Log(GetItemCount("wood"));
-    }
-
     /// <summary>
     /// Will inform the colony script that resources quantities may have changed
     /// </summary>
@@ -63,11 +57,17 @@ public class GlobalStorage : MonoBehaviour
     /// </summary>
     public List<Chest> GetChestWithItem(Item item)
     {
+        List<Chest> returnList = new List<Chest>();
+
         Item key = ItemList.itemList[item.Name];
 
         if(itemReferences.ContainsKey(key))
         {
-            return itemReferences[key];
+            foreach(Chest chest in itemReferences[key])
+            {
+                returnList.Add(chest);
+            }
+            return returnList;
         }
 
         return null;
@@ -85,6 +85,29 @@ public class GlobalStorage : MonoBehaviour
         float closest = Mathf.Infinity;
 
         foreach (var chest in itemReferences[key])
+        {
+            float distance = Vector3.Distance(coordinate, chest.coordinate);
+            if (distance < closest)
+            {
+                closest = distance;
+                closestChest = chest;
+            }
+        }
+
+        return closestChest;
+    }
+
+    /// <summary>
+    /// Gets the closest chest to a location
+    /// Returns closest chest if a chest exists
+    /// Returns null if it does not 
+    /// </summary>
+    public Chest GetClosestChest(Vector3 coordinate)
+    {
+        Chest closestChest = null;
+        float closest = Mathf.Infinity;
+
+        foreach (var chest in inventories)
         {
             float distance = Vector3.Distance(coordinate, chest.coordinate);
             if (distance < closest)
