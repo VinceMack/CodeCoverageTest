@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
 
 public class GlobalSelection : MonoBehaviour
 {
+    [SerializeField] private TextMeshProUGUI DragDropHint;
     [SerializeField] private Colony myColony;
 
+
+    // Work Area variables
     bool dragSelect = false;
 
     Vector3 p1;
@@ -19,9 +23,59 @@ public class GlobalSelection : MonoBehaviour
     float width;
     Vector2 middle;
 
+    // Hover tile variables
+    [SerializeField] private float hoverDuration = 2f;
+
+    [SerializeField] private Vector3 previousMousePosition;
+    [SerializeField] private float wiggleRoom = 0.5f;
+
+    private float timeHovering = 0f;
+
+    // Variable will help some with efficiency
+    private bool checkHover = true;
+
+    [SerializeField] private TextMeshProUGUI tileInfo;
+
     // Update is called once per frame
     void Update()
     {
+        if(Vector3.Distance(previousMousePosition, Input.mousePosition) > wiggleRoom)
+        {
+            //Update last resting mouse position
+            previousMousePosition = Input.mousePosition;
+
+            //Reset relevant variables
+            timeHovering = 0f;
+            checkHover = true;
+            
+            //Hide info
+            tileInfo.gameObject.SetActive(false);
+        }
+        else
+        {
+            //Mouse is hovering, increase tracking time
+            timeHovering += Time.deltaTime;
+        }
+
+        //If info isn't being shown and mouse has set amount of time,
+        if(checkHover && timeHovering > hoverDuration)
+        {
+            //Indicate we are showing info
+            checkHover = false;
+
+            //Get info
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3Int gridPosition = GridManager.tileMap.WorldToCell(mousePosition);
+            BaseTile_VM tile = (BaseTile_VM)GridManager.tileMap.GetTile(gridPosition);
+
+            if (tile != null)
+            {
+                //Show info
+                tileInfo.gameObject.SetActive(true);
+                tileInfo.text = tile.ToString();
+            }
+        }
+
         if((int)UIManager.myMode > 1)
         {
             //1. when left mouse button clicked (but not released)
@@ -74,6 +128,8 @@ public class GlobalSelection : MonoBehaviour
                     }
                 }
 
+                DragDropHint.text = "Drag and Drop to create zone.";
+
                 dragSelect = false;
             }
         }
@@ -86,6 +142,19 @@ public class GlobalSelection : MonoBehaviour
             var rect = Utils.GetScreenRect(p1, Input.mousePosition);
             Utils.DrawScreenRect(rect, new Color(0.8f, 0.8f, 0.95f, 0.25f));
             Utils.DrawScreenRectBorder(rect, 2, new Color(0.8f, 0.8f, 0.95f));
+
+            if(DragDropHint != null)
+            {
+                corners = getBoundingBox(p1, Input.mousePosition);
+
+                Vector3 topRight = Camera.main.ScreenPointToRay(corners[1]).origin;
+                Vector3 bottomLeft = Camera.main.ScreenPointToRay(corners[2]).origin;
+
+                topRight = new Vector3((float)Math.Ceiling(topRight.x), (float)Math.Ceiling(topRight.y), topRight.z);
+                bottomLeft = new Vector3((float)Math.Floor(bottomLeft.x), (float)Math.Floor(bottomLeft.y), bottomLeft.z);
+
+                DragDropHint.text = "Area Dimensions: (" + (topRight.x-bottomLeft.x) + ", " + (-(bottomLeft.y - topRight.y)) + ")";
+            }
         }
     }
 
