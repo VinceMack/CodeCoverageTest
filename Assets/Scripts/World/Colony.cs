@@ -9,6 +9,7 @@ public class Colony : MonoBehaviour
     private Dictionary<string, ResourceListElement> resourceListRef =  new Dictionary<string, ResourceListElement>();
     [SerializeField] private SpriteRenderer zoneSprite;
     [SerializeField] private string colonyName = "Test Colony";
+    [SerializeField] private GlobalStorage globalStorage;
     private int colonyResourceCheckTime = 1;
 
     /////////////////////////////////////
@@ -28,6 +29,71 @@ public class Colony : MonoBehaviour
     {
         return colonyName;
     }
+
+    /////////////////////////////////////
+    // Global Storage Methods
+    /////////////////////////////////////
+
+    public bool ColonyHasItem(Item item, int quantity)
+    {
+        return (globalStorage.GetItemCount(item.Name) > 0);
+    }
+
+    public bool ColonyHasItem(string itemName, int quantity)
+    {
+        return (globalStorage.GetItemCount(itemName) > 0);
+    }
+
+    public int GetNumberOfItemInGalaxy(string itemName)
+    {
+        return globalStorage.GetItemCount(itemName);
+    }
+
+    public bool RemoveItemFromColony(Item item, int quantity)
+    {
+        if(globalStorage.GetItemCount(item.Name) < quantity)
+        {
+            return false;
+        }
+
+        List<Chest> chestWithItem = globalStorage.GetChestWithItem(item);
+        foreach(Chest chest in chestWithItem)
+        {
+            if(quantity <= 0)
+            {
+                break;
+            }
+
+            int itemsDeleted = chest.ItemCountInChest(item.Name);
+            if(itemsDeleted < quantity)
+            {
+                chest.RemoveItemFromChest(item.Name, itemsDeleted);
+                quantity -= itemsDeleted;
+            }
+            else
+            {
+                chest.RemoveItemFromChest(item.Name, quantity);
+                quantity = 0;
+            }
+        }
+
+        return true;
+    }
+
+    public void AddItemToColony(Item item)
+    {
+        Chest lootLocation = globalStorage.GetClosestChest(new Vector3());
+        if(lootLocation == null)
+        {
+            return;
+        }
+
+        lootLocation.ItemAddedToChest(item);
+    }
+
+    /////////////////////////////////////
+    // Resource List Methods
+    /////////////////////////////////////
 
     public IEnumerable EssentialResourceCoroutine()
     {
@@ -72,15 +138,6 @@ public class Colony : MonoBehaviour
         foreach(string resourceName in colonyResources)
         {
             UpdateResourceListElement(resourceName);
-        }
-    }
-
-    [ContextMenu("TestResourceCount")]
-    public void Test()
-    {
-        foreach(string resourceName in colonyResources)
-        {
-            Debug.Log(resourceName + " : " + GetResourceQuantity(resourceName));
         }
     }
 

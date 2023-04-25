@@ -54,7 +54,6 @@ public class Chest : PlacedObject
         Item returnItem = contents.FirstOrDefault(x => x.Name == itemName);
         if(returnItem == null)
         {
-            Debug.Log("RETURN ITEM NULL");
             return 0;
         }
         return returnItem.Quantity;
