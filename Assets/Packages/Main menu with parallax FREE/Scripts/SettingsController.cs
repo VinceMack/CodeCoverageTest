@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿/*
+
+using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using System.IO;
@@ -85,3 +87,6 @@ public class SettingsController : MonoBehaviour {
         resolutionDrop.RefreshShownValue();
     }
 }
+
+
+*/

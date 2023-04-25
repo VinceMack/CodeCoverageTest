@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Area
 {
-    protected Vector2 topRight;
+    /*protected Vector2 topRight;
     protected Vector2 bottomLeft;
     protected List<Vector2> corners;
 
@@ -41,5 +41,5 @@ public class Area
     public Vector2 GetCenter()
     {
         return middle;
-    }
+    }*/
 }

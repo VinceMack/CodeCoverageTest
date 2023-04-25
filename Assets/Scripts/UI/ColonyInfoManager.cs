@@ -1,3 +1,5 @@
+/*
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -92,3 +94,6 @@ public class ColonyInfoManager : MonoBehaviour
         homeInfo.SetActive(true);
     }
 }
+
+
+*/

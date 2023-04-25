@@ -1,3 +1,5 @@
+/*
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,3 +31,6 @@ public class NPCStats : BaseStats
         new Item("special_item", "Special Item", false, Rarity.Legendary, 420, 1, "Dropped Special Item")
     };
 }
+
+
+*/

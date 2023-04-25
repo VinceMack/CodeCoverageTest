@@ -35,6 +35,12 @@ public class PawnEditor : Editor
             EditorGUILayout.BeginVertical(GUI.skin.box);
             EditorGUILayout.LabelField("Priority Level " + (i + 1), EditorStyles.boldLabel);
 
+            if(laborTypePriority == null){
+                EditorGUILayout.LabelField("No Labor Types at this level");
+                EditorGUILayout.EndVertical();
+                continue;
+            }
+
             if (laborTypePriority[i] != null)
             {
                 foreach (var laborType in laborTypePriority[i])
