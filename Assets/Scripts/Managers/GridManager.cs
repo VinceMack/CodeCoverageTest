@@ -114,28 +114,6 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        // make a 10x10 hollow square in the center of the level with stone tiles (all the center tiles should be grass tiles)
-        for (int x = xMin + (LEVEL_WIDTH / 2) - 5; x < xMin + (LEVEL_WIDTH / 2) + 5; x++)
-        {
-            for (int y = yMin + (LEVEL_HEIGHT / 2) - 5; y < yMin + (LEVEL_HEIGHT / 2) + 5; y++)
-            {
-                Vector3Int position = new Vector3Int(x, y, 0);
-                if (x == xMin + (LEVEL_WIDTH / 2) - 5 || x == xMin + (LEVEL_WIDTH / 2) + 4 ||
-                    y == yMin + (LEVEL_HEIGHT / 2) - 5 || y == yMin + (LEVEL_HEIGHT / 2) + 4)
-                {
-                    StoneTile_VM newStoneTile_VM = ScriptableObject.CreateInstance<StoneTile_VM>();
-                    tileMap.SetTile(position, newStoneTile_VM);
-                    newStoneTile_VM.SetTileData(TileType.STONE, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
-                }
-                else
-                {
-                    GrassTile_VM newGrassTile_VM = ScriptableObject.CreateInstance<GrassTile_VM>();
-                    tileMap.SetTile(position, newGrassTile_VM);
-                    newGrassTile_VM.SetTileData(TileType.GRASS, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
-                }
-            }
-        }
-        
         // Add stairs to upper and lower levels
         if (mapLevels.Count > 1)
         {
@@ -169,8 +147,6 @@ public class GridManager : MonoBehaviour
         mapLevels = new List<Level>();
     }
 
-    // Spawns trees on random vacant grass tiles
-    // requires GlobalInstance2 (TMPCombined) in scene
     public static void PopulateWithTrees()
     {
         TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
@@ -180,14 +156,12 @@ public class GridManager : MonoBehaviour
             {
                 GameObject treePrefab = Resources.Load<GameObject>("prefabs/items/Tree");
                 GameObject treeInstance = UnityEngine.Object.Instantiate(treePrefab, tile.position, Quaternion.identity);
-                treeInstance.transform.SetParent(GameObject.Find("Objects").transform);
+                treeInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, true, treeInstance, tile.resourceCount, tile.position);
             }
         }
     }
 
-    // Spawn a single tree at some random vacant grass tile
-    // requires GlobalInstance2 (TMPCombined) in scene
     public static void PopulateWithTree()
     {
         TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
@@ -199,15 +173,13 @@ public class GridManager : MonoBehaviour
             {
                 GameObject treePrefab = Resources.Load<GameObject>("prefabs/items/Tree");
                 GameObject treeInstance = UnityEngine.Object.Instantiate(treePrefab, tile.position, Quaternion.identity);
-                treeInstance.transform.SetParent(GameObject.Find("Objects").transform);
+                treeInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, true, treeInstance, tile.resourceCount, tile.position);
                 break;
             }
         }
     }
     
-    // Method to populate all vacant stone tiles with rocks
-    // requires GlobalInstance2 (TMPCombined) in scene
     public static void PopulateWithRocks()
     {
         TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
@@ -217,11 +189,43 @@ public class GridManager : MonoBehaviour
             {
                 GameObject rockPrefab = Resources.Load<GameObject>("prefabs/items/Rock");
                 GameObject rockInstance = UnityEngine.Object.Instantiate(rockPrefab, tile.position, Quaternion.identity);
-                rockInstance.transform.SetParent(GameObject.Find("Objects").transform);
+                rockInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, true, rockInstance, tile.resourceCount, tile.position);
             }
         }
     }
+
+    public static void PopulateWithRocksPerlin()
+    {
+        // Perlin noise parameters
+        float scale = 0.1f;
+        float threshold = 0.5f;
+
+        // Randomization offsets
+        float offsetX = UnityEngine.Random.Range(0f, 1000f);
+        float offsetY = UnityEngine.Random.Range(0f, 1000f);
+
+        TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
+        foreach (BaseTile_VM tile in allTiles)
+        {
+            if (tile != null && tile.type == TileType.STONE && tile.resource == null)
+            {
+                // Calculate Perlin noise value for the current tile position
+                float perlinValue = Mathf.PerlinNoise((tile.position.x + offsetX) * scale, (tile.position.y + offsetY) * scale);
+
+                // Only place rock if the Perlin noise value is above the threshold
+                if (perlinValue > threshold)
+                {
+                    GameObject rockPrefab = Resources.Load<GameObject>("prefabs/items/Rock");
+                    GameObject rockInstance = UnityEngine.Object.Instantiate(rockPrefab, tile.position, Quaternion.identity);
+                    rockInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                    tile.SetTileInformation(tile.type, true, rockInstance, tile.resourceCount, tile.position);
+                }
+            }
+        }
+    }
+
+
 
     public static void PopulateWithRock()
     {
@@ -234,7 +238,7 @@ public class GridManager : MonoBehaviour
             {
                 GameObject rockPrefab = Resources.Load<GameObject>("prefabs/items/Rock");
                 GameObject rockInstance = UnityEngine.Object.Instantiate(rockPrefab, tile.position, Quaternion.identity);
-                rockInstance.transform.SetParent(GameObject.Find("Objects").transform);
+                rockInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, true, rockInstance, tile.resourceCount, tile.position);
                 break;
             }
@@ -277,7 +281,7 @@ public class GridManager : MonoBehaviour
             {
                 GameObject chestPrefab = Resources.Load<GameObject>("prefabs/items/Chest");
                 GameObject chestInstance = UnityEngine.Object.Instantiate(chestPrefab, tile.position, Quaternion.identity);
-                chestInstance.transform.SetParent(GameObject.Find("Objects").transform);
+                chestInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, true, chestInstance, tile.resourceCount, tile.position);
                 break;
             }
@@ -293,7 +297,7 @@ public class GridManager : MonoBehaviour
             {
                 GameObject bushPrefab = Resources.Load<GameObject>("prefabs/items/Bush");
                 GameObject bushInstance = UnityEngine.Object.Instantiate(bushPrefab, tile.position, Quaternion.identity);
-                bushInstance.transform.SetParent(GameObject.Find("Objects").transform);
+                bushInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, true, bushInstance, tile.resourceCount, tile.position);
             }
         }
@@ -310,7 +314,7 @@ public class GridManager : MonoBehaviour
             {
                 GameObject bushPrefab = Resources.Load<GameObject>("prefabs/items/Bush");
                 GameObject bushInstance = UnityEngine.Object.Instantiate(bushPrefab, tile.position, Quaternion.identity);
-                bushInstance.transform.SetParent(GameObject.Find("Objects").transform);
+                bushInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, true, bushInstance, tile.resourceCount, tile.position);
                 break;
             }
@@ -326,7 +330,7 @@ public class GridManager : MonoBehaviour
             {
                 GameObject wheatPrefab = Resources.Load<GameObject>("prefabs/items/Wheat");
                 GameObject wheatInstance = UnityEngine.Object.Instantiate(wheatPrefab, tile.position, Quaternion.identity);
-                wheatInstance.transform.SetParent(GameObject.Find("Objects").transform);
+                wheatInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, false, wheatInstance, tile.resourceCount, tile.position);
             }
         }
@@ -343,11 +347,59 @@ public class GridManager : MonoBehaviour
             {
                 GameObject wheatPrefab = Resources.Load<GameObject>("prefabs/items/Wheat");
                 GameObject wheatInstance = UnityEngine.Object.Instantiate(wheatPrefab, tile.position, Quaternion.identity);
-                wheatInstance.transform.SetParent(GameObject.Find("Objects").transform);
+                wheatInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, false, wheatInstance, tile.resourceCount, tile.position);
                 break;
             }
         }
     }
+
+    public static List<BaseTile_VM> GetAdjacentAndDiagonalTiles(BaseTile_VM centerTile)
+    {
+        List<BaseTile_VM> tiles = new List<BaseTile_VM>();
+
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                if (x == 0 && y == 0) continue; // Skip the center tile itself
+
+                Vector3Int newPosition = new Vector3Int((int)centerTile.position.x + x, (int)centerTile.position.y + y, (int)centerTile.position.z);
+                BaseTile_VM tile = GetTile(newPosition);
+                if (tile != null)
+                {
+                    tiles.Add(tile);
+                }
+            }
+        }
+
+        return tiles;
+    }
+
+    public static void ClearStairs()
+    {
+        foreach (Level level in mapLevels)
+        {
+            // Check for both ascending and descending stairs
+            List<StairsTile_VM> stairsTiles = new List<StairsTile_VM>();
+            stairsTiles.AddRange(level.getAllAscendingStairs_VM());
+            stairsTiles.AddRange(level.getAllDescendingStairs_VM());
+
+            foreach (StairsTile_VM stairsTile in stairsTiles)
+            {
+                List<BaseTile_VM> adjacentAndDiagonalTiles = GetAdjacentAndDiagonalTiles(stairsTile);
+                foreach (BaseTile_VM tile in adjacentAndDiagonalTiles)
+                {
+                    if (tile != null && tile.resource != null)
+                    {
+                        Destroy(tile.resource);
+                        tile.SetTileInformation(tile.type, false, null, tile.resourceCount, tile.position);
+                    }
+                }
+            }
+        }
+    }
+
+
 
 }
