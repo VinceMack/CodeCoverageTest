@@ -5,7 +5,7 @@ using TMPro;
 
 public class ActiveQuestUIElement : MonoBehaviour
 {
-    /*private Quest myQuest;
+    private Quest myQuest;
     private QuestUIManager myManager;
 
     [SerializeField] private TextMeshProUGUI requiredItemName;
@@ -24,16 +24,16 @@ public class ActiveQuestUIElement : MonoBehaviour
         myQuest = quest;
         myManager = manager;
 
-        requiredItemName.text = quest.GetRequirementItem().DisplayName;
-        requiredItemQuantity.text = "*" + quest.GetRequirementItem().Quantity.ToString();
+        requiredItemName.text = quest.GetRequirementItemName();
+        requiredItemQuantity.text = "*" + quest.GetRequirementItemCount().ToString();
 
-        rewardItemName.text = quest.GetRewardItem().DisplayName;
-        rewardItemQuantity.text = "*" + quest.GetRewardItem().Quantity.ToString();
+        rewardItemName.text = quest.GetRewardItemName();
+        rewardItemQuantity.text = "*" + quest.GetRewardItemCount().ToString();
 
-        statusItemName.text = quest.GetRequirementItem().DisplayName;
+        statusItemName.text = quest.GetRequirementItemName();
         statusItemQuantity.text = "*" + myQuest.GetStatus().ToString();
 
-        if(myQuest.GetStatus() >= myQuest.GetRequirementItem().Quantity)
+        if(myQuest.GetStatus() >= myQuest.GetRequirementItemCount())
         {
             finishQuestButton.SetActive(true);
         }
@@ -43,7 +43,7 @@ public class ActiveQuestUIElement : MonoBehaviour
     {
         statusItemQuantity.text = "*" + myQuest.GetStatus().ToString();
 
-        if(myQuest.GetStatus() >= myQuest.GetRequirementItem().Quantity)
+        if(myQuest.GetStatus() >= myQuest.GetRequirementItemCount())
         {
             finishQuestButton.SetActive(true);
         }
@@ -51,11 +51,11 @@ public class ActiveQuestUIElement : MonoBehaviour
 
     public void FinishQuest()
     {
-        if(myQuest.CompleteQuest())
-        {
-            myManager.RemoveActiveQuest(myQuest);
-            return;
-        }
-        UpdateStatus();
-    }*/
+        // if(myQuest.CompleteQuest())
+        // {
+        //     myManager.RemoveActiveQuest(myQuest);
+        //     return;
+        // }
+        // UpdateStatus();
+    }
 }

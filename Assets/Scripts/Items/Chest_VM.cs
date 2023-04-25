@@ -89,6 +89,19 @@ public class Chest_VM : Item
         Itemize();
     }
 
+    /// <summary>
+    /// <para>Checks if the chest contains the specified item</para>
+    /// <para>Returns true if it does, false if it doesn't</para>
+    /// </summary>
+    public int ItemCountInChest(string itemName)
+    {
+        if(!contents.ContainsKey(itemName))
+        {
+            return 0;
+        }
+        return contents[itemName];
+    }
+
     void Awake()
     {
         isGatherable = false;
@@ -100,6 +113,11 @@ public class Chest_VM : Item
         location = GridManager.GetTile(Vector3Int.RoundToInt(transform.position));
         // add the chest to the global storage
         GlobalStorage_VM.AddChest(this, transform.position);
+    }
+
+    public void ResetPosition()
+    {
+        location = GridManager.GetTile(new Vector3Int((int)Mathf.Ceil(transform.position.x), (int)Mathf.Ceil(transform.position.y), 0));
     }
 
 }

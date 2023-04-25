@@ -40,5 +40,14 @@ public class InputManager : MonoBehaviour
                 myActionManager?.DeSelectAll();
             }
         }
+
+        if(Input.GetKey("z"))
+        {
+            TestUIScript.AddResourcesToWorld();
+        }
+    }
+
+    private void Awake() {
+        TestUIScript.AddResourcesToWorld();
     }
 }

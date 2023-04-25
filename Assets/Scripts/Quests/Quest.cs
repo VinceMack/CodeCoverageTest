@@ -4,44 +4,59 @@ using UnityEngine;
 
 public class Quest
 {
-    /*private Item reward;
-    private Item requirement;
+    private string rewardName;
+    private int rewardQuantity;
+    private string requirementName;
+    private int requirementQuantity;
     private Colony myColony;
 
-    public Quest(Item reward, Item requirement, Colony colony)
+    public Quest(string rewardName, int rewardQuantity, string requirementName, int requiredItemQuantity, Colony colony)
     {
-        this.reward = reward;
-        this.requirement = requirement;
+        this.rewardName = rewardName;
+        this.rewardQuantity = rewardQuantity;
+        this.requirementName = requirementName;
+        this.requirementQuantity = requiredItemQuantity;
         myColony = colony;
     }
 
-    public Item GetRewardItem()
+    public string GetRewardItemName()
     {
-        return reward;
+        return rewardName;
     }
 
-    public Item GetRequirementItem()
+    public int GetRewardItemCount()
     {
-        return requirement;
+        return rewardQuantity;
+    }
+
+    public string GetRequirementItemName()
+    {
+        return requirementName;
+    }
+
+    public int GetRequirementItemCount()
+    {
+        return requirementQuantity;
     }
 
     public int GetStatus()
     {
-        return myColony.GetNumberOfItemInGalaxy(requirement.Name);
+        return myColony.GetNumberOfItemInGalaxy(requirementName);
     }
 
     public bool CheckCondition()
     {
-        return(myColony.ColonyHasItem(requirement.Name, requirement.Quantity));
+        return(myColony.ColonyHasItem(requirementName, requirementQuantity));
     }
 
     public bool CompleteQuest()
     {
-        if(myColony.RemoveItemFromColony(requirement, requirement.Quantity))
-        {
-            myColony.AddItemToColony(reward);
-            return true;
-        }
-        return false;
-    }*/
+        // if(myColony.RemoveItemFromColony(requirementName, requirementQuantity))
+        // {
+        //     myColony.AddItemToColony(rewardName, rewardQuantity);
+        //     return true;
+        // }
+        // return false;
+        return true;
+    }
 }

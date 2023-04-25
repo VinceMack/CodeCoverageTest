@@ -1,5 +1,3 @@
-/*
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +12,24 @@ public class PanelManager : MonoBehaviour
 
     [SerializeField] private GameObject colonyInfo;
     [SerializeField] private ColonyInfoManager colonyInfoManager;
+    [SerializeField] private GameObject laborOrderPanel;
+
+    private void Awake() 
+    {
+        laborOrderPanel.GetComponent<LaborOrderPanelManager>().InitializeLaborOrderPanel();
+    }
+
+    public void ToggleLaborOrderPanel()
+    {
+        if(laborOrderPanel.activeSelf)
+        {
+            laborOrderPanel.SetActive(false);
+        }
+        else
+        {
+            laborOrderPanel.SetActive(true);
+        }
+    }
 
     public void CloseSaveSystemUI()
     {
@@ -69,6 +85,3 @@ public class PanelManager : MonoBehaviour
         CloseColonyUI();
     }
 }
-
-
-*/
