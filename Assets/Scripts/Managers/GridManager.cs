@@ -180,7 +180,7 @@ public class GridManager : MonoBehaviour
             {
                 GameObject treePrefab = Resources.Load<GameObject>("prefabs/items/Tree");
                 GameObject treeInstance = UnityEngine.Object.Instantiate(treePrefab, tile.position, Quaternion.identity);
-                treeInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                treeInstance.transform.SetParent(GameObject.Find("Objects").transform);
                 tile.SetTileInformation(tile.type, true, treeInstance, tile.resourceCount, tile.position);
             }
         }
@@ -199,7 +199,7 @@ public class GridManager : MonoBehaviour
             {
                 GameObject treePrefab = Resources.Load<GameObject>("prefabs/items/Tree");
                 GameObject treeInstance = UnityEngine.Object.Instantiate(treePrefab, tile.position, Quaternion.identity);
-                treeInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                treeInstance.transform.SetParent(GameObject.Find("Objects").transform);
                 tile.SetTileInformation(tile.type, true, treeInstance, tile.resourceCount, tile.position);
                 break;
             }
@@ -217,7 +217,7 @@ public class GridManager : MonoBehaviour
             {
                 GameObject rockPrefab = Resources.Load<GameObject>("prefabs/items/Rock");
                 GameObject rockInstance = UnityEngine.Object.Instantiate(rockPrefab, tile.position, Quaternion.identity);
-                rockInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                rockInstance.transform.SetParent(GameObject.Find("Objects").transform);
                 tile.SetTileInformation(tile.type, true, rockInstance, tile.resourceCount, tile.position);
             }
         }
@@ -234,7 +234,7 @@ public class GridManager : MonoBehaviour
             {
                 GameObject rockPrefab = Resources.Load<GameObject>("prefabs/items/Rock");
                 GameObject rockInstance = UnityEngine.Object.Instantiate(rockPrefab, tile.position, Quaternion.identity);
-                rockInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                rockInstance.transform.SetParent(GameObject.Find("Objects").transform);
                 tile.SetTileInformation(tile.type, true, rockInstance, tile.resourceCount, tile.position);
                 break;
             }
@@ -277,7 +277,7 @@ public class GridManager : MonoBehaviour
             {
                 GameObject chestPrefab = Resources.Load<GameObject>("prefabs/items/Chest");
                 GameObject chestInstance = UnityEngine.Object.Instantiate(chestPrefab, tile.position, Quaternion.identity);
-                chestInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                chestInstance.transform.SetParent(GameObject.Find("Objects").transform);
                 tile.SetTileInformation(tile.type, true, chestInstance, tile.resourceCount, tile.position);
                 break;
             }
@@ -293,7 +293,7 @@ public class GridManager : MonoBehaviour
             {
                 GameObject bushPrefab = Resources.Load<GameObject>("prefabs/items/Bush");
                 GameObject bushInstance = UnityEngine.Object.Instantiate(bushPrefab, tile.position, Quaternion.identity);
-                bushInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                bushInstance.transform.SetParent(GameObject.Find("Objects").transform);
                 tile.SetTileInformation(tile.type, true, bushInstance, tile.resourceCount, tile.position);
             }
         }
@@ -310,7 +310,7 @@ public class GridManager : MonoBehaviour
             {
                 GameObject bushPrefab = Resources.Load<GameObject>("prefabs/items/Bush");
                 GameObject bushInstance = UnityEngine.Object.Instantiate(bushPrefab, tile.position, Quaternion.identity);
-                bushInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                bushInstance.transform.SetParent(GameObject.Find("Objects").transform);
                 tile.SetTileInformation(tile.type, true, bushInstance, tile.resourceCount, tile.position);
                 break;
             }
@@ -326,7 +326,7 @@ public class GridManager : MonoBehaviour
             {
                 GameObject wheatPrefab = Resources.Load<GameObject>("prefabs/items/Wheat");
                 GameObject wheatInstance = UnityEngine.Object.Instantiate(wheatPrefab, tile.position, Quaternion.identity);
-                wheatInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                wheatInstance.transform.SetParent(GameObject.Find("Objects").transform);
                 tile.SetTileInformation(tile.type, false, wheatInstance, tile.resourceCount, tile.position);
             }
         }
@@ -343,7 +343,7 @@ public class GridManager : MonoBehaviour
             {
                 GameObject wheatPrefab = Resources.Load<GameObject>("prefabs/items/Wheat");
                 GameObject wheatInstance = UnityEngine.Object.Instantiate(wheatPrefab, tile.position, Quaternion.identity);
-                wheatInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                wheatInstance.transform.SetParent(GameObject.Find("Objects").transform);
                 tile.SetTileInformation(tile.type, false, wheatInstance, tile.resourceCount, tile.position);
                 break;
             }

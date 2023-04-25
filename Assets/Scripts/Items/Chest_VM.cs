@@ -115,4 +115,9 @@ public class Chest_VM : Item
         GlobalStorage_VM.AddChest(this, transform.position);
     }
 
+    public void ResetPosition()
+    {
+        location = GridManager.GetTile(new Vector3Int((int)Mathf.Ceil(transform.position.x), (int)Mathf.Ceil(transform.position.y), 0));
+    }
+
 }

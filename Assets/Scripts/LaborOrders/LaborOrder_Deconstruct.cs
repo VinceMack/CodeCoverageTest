@@ -33,6 +33,7 @@ public class LaborOrder_Deconstruct : LaborOrder_Base_VM
             if (tile.resource != null) // Add this null check
             {
                 Item itemComponent = tile.resource.GetComponent<Item>();
+                Debug.Log(itemComponent);
                 if (itemComponent != null && itemComponent.isDeconstructable)
                 {
                     tile.SetTileInformation(tile.type, false, tile.resource, tile.resourceCount, tile.position);

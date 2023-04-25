@@ -33,14 +33,9 @@ public class Colony : MonoBehaviour
     // Global Storage Methods
     /////////////////////////////////////
 
-    public bool ColonyHasItem(Item item, int quantity)
-    {
-        return (GlobalStorage_VM.GetItemCount(item.itemName) > 0);
-    }
-
     public bool ColonyHasItem(string itemName, int quantity)
     {
-        return (GlobalStorage_VM.GetItemCount(itemName) > 0);
+        return (GlobalStorage_VM.GetItemCount(itemName) > quantity);
     }
 
     public int GetNumberOfItemInGalaxy(string itemName)

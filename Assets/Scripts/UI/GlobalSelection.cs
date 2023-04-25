@@ -70,6 +70,17 @@ public class GlobalSelection : MonoBehaviour
                         else
                         {
                             Area newZone = new Area(topRight, bottomLeft);
+                            if((int)UIManager.myMode == 8)
+                            {
+                                newZone.CreateChests();
+                            }
+                            else
+                            {
+                                // iterate through all objects and find the first tile with an item that is deconstructable
+                                Item[] items = GameObject.Find("Objects").GetComponentsInChildren<Item>();
+
+                                newZone.DestroyObjects(items);
+                            }
                         }
                     }
                 }

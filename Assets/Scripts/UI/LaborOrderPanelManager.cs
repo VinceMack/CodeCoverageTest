@@ -34,9 +34,9 @@ public class LaborOrderPanelManager : MonoBehaviour
         LaborNameContainer = GameObject.Find("LaborTypeNames");
         pawnContainer = GameObject.Find("/GameManager/Pawns");
 
-        button_prefab = Resources.Load("prefabs/pawnButton_LaborOrder") as GameObject;
-        pawnText_prefab = Resources.Load("prefabs/pawnText_LaborOrder") as GameObject;
-        LaborText_prefab = Resources.Load("prefabs/laborText_LaborOrder") as GameObject;
+        button_prefab = Resources.Load("prefabs/ui/pawnButton_LaborOrder") as GameObject;
+        pawnText_prefab = Resources.Load("prefabs/ui/pawnText_LaborOrder") as GameObject;
+        LaborText_prefab = Resources.Load("prefabs/ui/laborText_LaborOrder") as GameObject;
 
         content = GameObject.Find("LaborOrderContent");
 

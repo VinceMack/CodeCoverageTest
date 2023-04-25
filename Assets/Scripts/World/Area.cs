@@ -42,4 +42,55 @@ public class Area
     {
         return middle;
     }
+
+    public void CreateChests()
+    {
+        for(int i = (int)bottomLeft.x; i < (int)topRight.x; i++)
+        {
+            for(int j = (int)bottomLeft.y; j < (int)topRight.y; j++)
+            {
+                GameObject itemToPlace = Resources.Load<GameObject>("prefabs/items/Chest") as GameObject;
+                LaborOrderManager_VM.AddPlaceLaborOrder(itemToPlace, new Vector2(i, j));
+
+                // // AUTO CREATION OF CHESTS
+                // BaseTile_VM tile = (BaseTile_VM)GridManager.tileMap.GetTile(new Vector3Int(i, j, 0));
+                // if (tile != null && tile.type == TileType.GRASS && tile.resource == null)
+                // {
+                    
+                //     GameObject chestPrefab = Resources.Load<GameObject>("prefabs/items/Chest");
+                //     GameObject chestInstance = UnityEngine.Object.Instantiate(chestPrefab, tile.position, Quaternion.identity);
+                //     chestInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
+                //     tile.SetTileInformation(tile.type, true, chestInstance, tile.resourceCount, tile.position);
+                // }
+            }
+        }
+    }
+
+    public void DestroyObjects(Item[] gameObjectsInScene)
+    {        
+        // Check if the objects array is null
+        if (gameObjectsInScene == null)
+        {
+            Debug.LogWarning("No GameObjects found in the scene.");
+            return;
+        }
+        Debug.Log(topRight);
+        Debug.Log(bottomLeft);
+
+        foreach (Item itemComponent in gameObjectsInScene)
+        {
+            if (itemComponent.isDeconstructable)
+            {
+                Debug.Log(itemComponent.location.GetXPosition());
+                Debug.Log(itemComponent.location.GetYPosition());
+                if(itemComponent.location.GetXPosition() <= topRight.x && itemComponent.location.GetXPosition() > bottomLeft.x)
+                {
+                    if(itemComponent.location.GetYPosition() <= topRight.y && itemComponent.location.GetYPosition() > bottomLeft.y)
+                    {
+                        LaborOrderManager_VM.AddSpecificDeconstructLaborOrder(itemComponent.gameObject);
+                    }
+                }
+            }
+        }
+    }
 }

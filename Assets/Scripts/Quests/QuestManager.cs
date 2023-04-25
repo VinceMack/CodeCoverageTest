@@ -21,14 +21,14 @@ public class QuestInfo
 
 public class QuestManager : MonoBehaviour
 {
-    /*// First string, int is name and quantity of required item, second is for reward
+    // First string, int is name and quantity of required item, second is for reward
     private List<QuestInfo> possibleQuests = new List<QuestInfo> 
     { 
-        new QuestInfo("wood", 64, "bread", 16),
-        new QuestInfo("wood", 32, "bread", 4),
-        new QuestInfo("wood", 16, "bread", 1),
-        new QuestInfo("berry", 32, "bread", 5),
-        new QuestInfo("honey", 5, "bread", 5)
+        new QuestInfo("Wood", 64, "Bread", 16),
+        new QuestInfo("Wood", 32, "Bread", 4),
+        new QuestInfo("Wood", 16, "Bread", 1),
+        new QuestInfo("Berry", 32, "Bread", 5),
+        new QuestInfo("Honey", 5, "Bread", 5)
     };
 
     private List<Quest> activeQuests = new List<Quest>();
@@ -83,14 +83,6 @@ public class QuestManager : MonoBehaviour
         int questNumber = Random.Range(0, possibleQuests.Count);
         QuestInfo questInfo = possibleQuests[questNumber];
 
-        // Creating the required item
-        Item requiredItem = new Item(ItemList.itemList[questInfo.requiredItemName]);
-        requiredItem.Quantity = questInfo.requiredItemQuantity;
-
-        // Creating the reward item
-        Item rewardItem = new Item(ItemList.itemList[questInfo.rewardItemName]);
-        rewardItem.Quantity = questInfo.rewardItemQuantity;
-
-        pendingQuests.Add(new Quest(rewardItem, requiredItem, myColony));
-    }*/
+        pendingQuests.Add(new Quest(questInfo.rewardItemName, questInfo.rewardItemQuantity, questInfo.requiredItemName, questInfo.requiredItemQuantity, myColony));
+    }
 }
