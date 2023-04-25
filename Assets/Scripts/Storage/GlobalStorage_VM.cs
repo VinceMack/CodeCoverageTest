@@ -90,4 +90,40 @@ public static class GlobalStorage_VM
         return closestChest;
     }
 
+
+    /// <summary>
+    /// Loops through each storage to find a given ItemName
+    /// Returns the count of the item across all storages
+    /// </summary>
+    public static int GetItemCount(string itemName) 
+    {
+        int total = 0;
+
+        foreach(KeyValuePair<Chest_VM, Vector3> kvp in chests)
+        {
+            total += kvp.Key.ItemCountInChest(itemName);
+        }
+
+        return total;
+    }
+
+    /// <summary>
+    /// <para>Gets chest that contains that specified item (first one in the list)</para>
+    /// <para>Returns null if no chest contains that item</para>
+    /// <para>Returns the list of chests that contains said item</para>
+    /// </summary>
+    public static List<Chest_VM> GetChestWithItem(Item item)
+    {
+        List<Chest_VM> returnList = new List<Chest_VM>();
+
+        foreach(KeyValuePair<Chest_VM, Vector3> kvp in chests)
+        {
+            if(kvp.Key.ItemCountInChest(item.itemName) > 0)
+            {
+                returnList.Add(kvp.Key);
+            }
+        }
+
+        return returnList;
+    }
 }

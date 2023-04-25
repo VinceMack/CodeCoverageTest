@@ -89,6 +89,19 @@ public class Chest_VM : Item
         Itemize();
     }
 
+    /// <summary>
+    /// <para>Checks if the chest contains the specified item</para>
+    /// <para>Returns true if it does, false if it doesn't</para>
+    /// </summary>
+    public int ItemCountInChest(string itemName)
+    {
+        if(!contents.ContainsKey(itemName))
+        {
+            return 0;
+        }
+        return contents[itemName];
+    }
+
     void Awake()
     {
         isGatherable = false;

@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Colony : MonoBehaviour
 {
-    /*public List<Zone> zones = new List<Zone>();
+    public List<Zone> zones = new List<Zone>();
     public List<string> colonyResources = new List<string>();
     private Dictionary<string, ResourceListElement> resourceListRef =  new Dictionary<string, ResourceListElement>();
     [SerializeField] private SpriteRenderer zoneSprite;
     [SerializeField] private string colonyName = "Test Colony";
-    [SerializeField] private GlobalStorage globalStorage;
     private int colonyResourceCheckTime = 1;
 
     /////////////////////////////////////
@@ -36,60 +35,60 @@ public class Colony : MonoBehaviour
 
     public bool ColonyHasItem(Item item, int quantity)
     {
-        return (globalStorage.GetItemCount(item.Name) > 0);
+        return (GlobalStorage_VM.GetItemCount(item.itemName) > 0);
     }
 
     public bool ColonyHasItem(string itemName, int quantity)
     {
-        return (globalStorage.GetItemCount(itemName) > 0);
+        return (GlobalStorage_VM.GetItemCount(itemName) > 0);
     }
 
     public int GetNumberOfItemInGalaxy(string itemName)
     {
-        return globalStorage.GetItemCount(itemName);
+        return GlobalStorage_VM.GetItemCount(itemName);
     }
 
-    public bool RemoveItemFromColony(Item item, int quantity)
+    /*public bool RemoveItemFromColony(Item item, int quantity)
     {
-        if(globalStorage.GetItemCount(item.Name) < quantity)
+        if(GlobalStorage_VM.GetItemCount(item.itemName) < quantity)
         {
             return false;
         }
 
-        List<Chest> chestWithItem = globalStorage.GetChestWithItem(item);
-        foreach(Chest chest in chestWithItem)
+        List<Chest_VM> chestWithItem = GlobalStorage_VM.GetChestWithItem(item);
+        foreach(Chest_VM chest in chestWithItem)
         {
             if(quantity <= 0)
             {
                 break;
             }
 
-            int itemsDeleted = chest.ItemCountInChest(item.Name);
+            int itemsDeleted = chest.ItemCountInChest(item.itemName);
             if(itemsDeleted < quantity)
             {
-                chest.RemoveItemFromChest(item.Name, itemsDeleted);
+                chest.RemoveItemFromChest(item.itemName, itemsDeleted);
                 quantity -= itemsDeleted;
             }
             else
             {
-                chest.RemoveItemFromChest(item.Name, quantity);
+                chest.RemoveItemFromChest(item.itemName, quantity);
                 quantity = 0;
             }
         }
 
         return true;
-    }
+    }*/
 
-    public void AddItemToColony(Item item)
+    /*public void AddItemToColony(Item item)
     {
-        Chest lootLocation = globalStorage.GetClosestChest(new Vector3());
+        Chest_VM lootLocation = GlobalStorage_VM.GetClosestChest(new Vector3());
         if(lootLocation == null)
         {
             return;
         }
 
-        lootLocation.ItemAddedToChest(item);
-    }
+        lootLocation.AddItem(item);
+    }*/
 
     /////////////////////////////////////
     // Resource List Methods
@@ -172,5 +171,5 @@ public class Colony : MonoBehaviour
     public List<Zone> GetZones()
     {
         return zones;
-    }*/
+    }
 }

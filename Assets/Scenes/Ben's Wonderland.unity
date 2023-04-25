@@ -2477,8 +2477,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ab9cbf3d8117f4abed24a2bce63bb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputManager: {fileID: 502225668}
-  laborOrderPanelManager: {fileID: 6601706405368040374}
 --- !u!4 &502225666
 Transform:
   m_ObjectHideFlags: 0
@@ -2508,12 +2506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dbcd7229d9b4e849b2a8647803bf80b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DragDropHint: {fileID: 1025244093}
-  myColony: {fileID: 304779965}
-  hoverDuration: 2
-  previousMousePosition: {x: 0, y: 0, z: 0}
-  wiggleRoom: 0.5
-  tileInfo: {fileID: 526035397}
+  myColony: {fileID: 0}
 --- !u!114 &502225668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2526,7 +2519,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49418c196ad8d2e4ca50c54901546fbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myActionManager: {fileID: 1077886715}
 --- !u!114 &502225669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2539,7 +2531,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5160636fa6472a44388e88babe23860b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myColony: {fileID: 304779965}
 --- !u!1 &504543777
 GameObject:
   m_ObjectHideFlags: 0
@@ -5256,7 +5247,6 @@ MonoBehaviour:
   prefabList: {fileID: 11400000, guid: 1974452ef6652ea42ae8a59b6aa76423, type: 2}
   entityDictionary: {fileID: 11400000, guid: ee0af8e1914615c48969381aa513aa83, type: 2}
   sceneCamera: {fileID: 1246291177}
-  gs: {fileID: 304779967}
 --- !u!4 &1055338629
 Transform:
   m_ObjectHideFlags: 0
@@ -12662,14 +12652,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2d3ef616c486b4b972d5a5ff9b9dd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questManager: {fileID: 502225669}
-  questPanel: {fileID: 484240110894290533}
-  availableQuestPanel: {fileID: 484240112131223870}
-  activeQuestPanel: {fileID: 484240111562722876}
-  activeQuestListContent: {fileID: 484240110582499195}
-  pendingQuestListContent: {fileID: 484240111850305770}
-  activeQuestUIElement: {fileID: 2094442338590715753, guid: 30760e572245fb84d90e0a453371a652, type: 3}
-  pendingQuestUIElement: {fileID: 248147278007241113, guid: 00966d5a46f05a94d9d0e80dbcb08a98, type: 3}
 --- !u!1 &484240110894290533
 GameObject:
   m_ObjectHideFlags: 0
@@ -13910,10 +13892,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e1ac70ce61eaf84897796a69395427c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredItemName: {fileID: 0}
-  requiredItemQuantity: {fileID: 0}
-  rewardItemName: {fileID: 0}
-  rewardItemQuantity: {fileID: 0}
 --- !u!114 &484240111277532639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16004,13 +15982,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faa6e631e6547aa4e83cb130d46ac0ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredItemName: {fileID: 0}
-  requiredItemQuantity: {fileID: 0}
-  rewardItemName: {fileID: 0}
-  rewardItemQuantity: {fileID: 0}
-  statusItemName: {fileID: 0}
-  statusItemQuantity: {fileID: 0}
-  finishQuestButton: {fileID: 0}
 --- !u!114 &484240112159564703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17045,7 +17016,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 6601706406400536460}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.5
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
