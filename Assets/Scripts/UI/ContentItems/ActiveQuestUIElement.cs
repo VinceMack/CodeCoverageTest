@@ -5,7 +5,7 @@ using TMPro;
 
 public class ActiveQuestUIElement : MonoBehaviour
 {
-    private Quest myQuest;
+    /*private Quest myQuest;
     private QuestUIManager myManager;
 
     [SerializeField] private TextMeshProUGUI requiredItemName;
@@ -57,5 +57,5 @@ public class ActiveQuestUIElement : MonoBehaviour
             return;
         }
         UpdateStatus();
-    }
+    }*/
 }

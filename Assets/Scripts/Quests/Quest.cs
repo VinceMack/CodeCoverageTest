@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Quest
 {
-    private Item reward;
+    /*private Item reward;
     private Item requirement;
     private Colony myColony;
 
@@ -43,5 +43,5 @@ public class Quest
             return true;
         }
         return false;
-    }
+    }*/
 }

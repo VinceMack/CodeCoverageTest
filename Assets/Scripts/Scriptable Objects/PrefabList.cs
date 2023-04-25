@@ -19,10 +19,10 @@ public class PrefabList : ScriptableObject
                 Debug.LogWarning("ERROR: Do not create multiple 'SpawnableEntity's with the same entityName." + entity.entityName);
                 break;
             }
-            if(!entity.prefab.GetComponent<SaveableEntity>())
-            {
-                Debug.LogWarning("WARNING: Prefab in Prefab List detected to not have a Saveable Entity component attached.");
-            }
+            //if(!entity.prefab.GetComponent<SaveableEntity>())
+            //{
+            //    Debug.LogWarning("WARNING: Prefab in Prefab List detected to not have a Saveable Entity component attached.");
+            //}
             prefabDictionary.Add(entity.entityName, entity);
         }
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class QuestUIManager : MonoBehaviour
 {
-    [SerializeField] private QuestManager questManager;
+    /*[SerializeField] private QuestManager questManager;
 
     // Panels
     [SerializeField] private GameObject questPanel;
@@ -108,5 +108,5 @@ public class QuestUIManager : MonoBehaviour
     {
         questManager.RemoveActiveQuest(activeQuest);
         ReloadActiveQuestPanel();
-    }
+    }*/
 }

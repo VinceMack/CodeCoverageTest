@@ -5,7 +5,7 @@ using TMPro;
 
 public class AvailableQuestUIElement : MonoBehaviour
 {
-    private Quest myQuest;
+    /*private Quest myQuest;
     private QuestUIManager myManager;
 
     [SerializeField] private TextMeshProUGUI requiredItemName;
@@ -36,5 +36,5 @@ public class AvailableQuestUIElement : MonoBehaviour
     {
         myManager.DeclineQuest(myQuest);
         myManager.ReloadPendingQuestPanel();
-    }
+    }*/
 }

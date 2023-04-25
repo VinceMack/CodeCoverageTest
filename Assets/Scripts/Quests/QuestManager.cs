@@ -21,7 +21,7 @@ public class QuestInfo
 
 public class QuestManager : MonoBehaviour
 {
-    // First string, int is name and quantity of required item, second is for reward
+    /*// First string, int is name and quantity of required item, second is for reward
     private List<QuestInfo> possibleQuests = new List<QuestInfo> 
     { 
         new QuestInfo("wood", 64, "bread", 16),
@@ -92,5 +92,5 @@ public class QuestManager : MonoBehaviour
         rewardItem.Quantity = questInfo.rewardItemQuantity;
 
         pendingQuests.Add(new Quest(rewardItem, requiredItem, myColony));
-    }
+    }*/
 }
