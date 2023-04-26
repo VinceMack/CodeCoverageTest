@@ -58,6 +58,16 @@ public class Level
     public int getYMax() { return yMax; }
     public int getLevelNumber() { return levelNumber; }
 
+    public List<StairsTile_VM> getAllAscendingStairs_VM()
+    {
+        return ascendingStairs_VM;
+    }
+
+    public List<StairsTile_VM> getAllDescendingStairs_VM()
+    {
+        return descendingStairs_VM;
+    }
+
     public StairsTile_VM getAscendingStairs_VM(Vector3Int currentPosition)
     {
         // Get closest stairs
