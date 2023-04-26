@@ -35,6 +35,12 @@ public class TestWindow : EditorWindow
 
         EditorGUILayout.LabelField("Populate Actions", EditorStyles.boldLabel);
 
+        if (GUILayout.Button("Clear Stairs"))
+        {
+            GridManager.ClearStairs();
+        }
+
+
         if (GUILayout.Button("Populate Object Labor Orders"))
         {
             LaborOrderManager_VM.PopulateObjectLaborOrders();
@@ -86,21 +92,31 @@ public class TestWindow : EditorWindow
         if (GUILayout.Button("Wheat Plants"))
         {
             GridManager.PopulateWithWheatPlants();
+            GridManager.ClearStairs();
         }
 
         if (GUILayout.Button("Bushes"))
         {
             GridManager.PopulateWithBushes();
+            GridManager.ClearStairs();
         }
 
         if (GUILayout.Button("Trees"))
         {
             GridManager.PopulateWithTrees();
+            GridManager.ClearStairs();
         }
 
         if (GUILayout.Button("Rocks"))
         {
             GridManager.PopulateWithRocks();
+            GridManager.ClearStairs();
+        }
+
+        if (GUILayout.Button("Rocks (Perlin)"))
+        {
+            GridManager.PopulateWithRocksPerlin();
+            GridManager.ClearStairs();
         }
 
         EditorGUILayout.LabelField("Populate Object", EditorStyles.boldLabel);
@@ -108,21 +124,25 @@ public class TestWindow : EditorWindow
         if (GUILayout.Button("Wheat Plant"))
         {
             GridManager.PopulateWithWheatPlant();
+            GridManager.ClearStairs();
         }
 
         if (GUILayout.Button("Bush"))
         {
             GridManager.PopulateWithBush();
+            GridManager.ClearStairs();
         }
 
         if (GUILayout.Button("Tree"))
         {
             GridManager.PopulateWithTree();
+            GridManager.ClearStairs();
         }
 
         if (GUILayout.Button("Rock"))
         {
             GridManager.PopulateWithRock();
+            GridManager.ClearStairs();
         }
 
         EditorGUILayout.Space();
