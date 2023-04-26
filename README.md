@@ -1,4 +1,3 @@
-
 Necessary:
 
 AnimatorController.cs
