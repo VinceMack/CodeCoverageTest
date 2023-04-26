@@ -57,7 +57,7 @@ public static class GlobalStorage_VM
             return null;
         }
 
-        int randomIndex = UnityEngine.Random.Range(0, chests.Count - 1);
+        int randomIndex = UnityEngine.Random.Range(0, chests.Count);
         KeyValuePair<Chest_VM, Vector3> randomChest = chests.ElementAt(randomIndex);
         return randomChest.Key;
     }
