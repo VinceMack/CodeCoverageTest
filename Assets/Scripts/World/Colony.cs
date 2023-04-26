@@ -5,24 +5,8 @@ using UnityEngine;
 public class Colony : MonoBehaviour
 {
     public List<Zone> zones = new List<Zone>();
-    public List<string> colonyResources = new List<string>();
-    private Dictionary<string, ResourceListElement> resourceListRef =  new Dictionary<string, ResourceListElement>();
     [SerializeField] private SpriteRenderer zoneSprite;
     [SerializeField] private string colonyName = "Test Colony";
-    private int colonyResourceCheckTime = 1;
-
-    /////////////////////////////////////
-    // General Methods
-    /////////////////////////////////////
-
-    private void Awake() 
-    {
-        foreach(KeyValuePair<string, Resource> kvp in ResourceManager.resourceDictionary)
-        {
-            colonyResources.Add(kvp.Key);
-        }
-        StartCoroutine("EssentialResourceCoroutine");
-    }
 
     public string GetColonyName()
     {
@@ -84,56 +68,6 @@ public class Colony : MonoBehaviour
 
         lootLocation.AddItem(item);
     }*/
-
-    /////////////////////////////////////
-    // Resource List Methods
-    /////////////////////////////////////
-
-    public IEnumerable EssentialResourceCoroutine()
-    {
-        foreach(string resourceName in colonyResources)
-        {
-            if(!ResourceManager.resourceDictionary[resourceName].EssentialConditionMet())
-            {
-                // Give some warning or end the colony
-            }
-        }
-        yield return new WaitForSeconds(colonyResourceCheckTime);
-    }
-
-    public void RegisterResourceListElement(ResourceListElement element, string name)
-    {
-        if(!resourceListRef.ContainsKey(name))
-        {
-            resourceListRef.Add(name, element);
-        }
-    }
-
-    public int GetResourceQuantity(string resourceName)
-    {
-        if(!ResourceManager.resourceDictionary.ContainsKey(resourceName))
-        {
-            return 0;
-        }
-
-        return ResourceManager.resourceDictionary[resourceName].GetResourceQuantity();
-    }
-
-    public void UpdateResourceListElement(string resourceName)
-    {
-        if(resourceListRef.ContainsKey(resourceName))
-        {
-            resourceListRef[resourceName].UpdateValue();
-        }
-    }
-
-    public void UpdateResourceList()
-    {
-        foreach(string resourceName in colonyResources)
-        {
-            UpdateResourceListElement(resourceName);
-        }
-    }
 
     /////////////////////////////////////
     // Zone Methods 
