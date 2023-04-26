@@ -1,7 +1,6 @@
 Necessary:
 
 AnimatorController.cs
-
 Item.cs
 ErrorObject.cs
 Chest_VM.cs
