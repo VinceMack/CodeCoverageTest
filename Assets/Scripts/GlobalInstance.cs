@@ -11,8 +11,6 @@ public class GlobalInstance : MonoBehaviour
     public static GlobalInstance Instance;
 
     // References
-    public PrefabList prefabList;
-    public EntityDictionary entityDictionary;
     public GameObject sceneCamera;
 
     private void Awake()
@@ -32,16 +30,6 @@ public class GlobalInstance : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             // Save an internal reference to the first instance of this class
             Instance = this;
-        }
-        Instance.prefabList.InitializePrefabDictionary();
-    }
-
-    [ContextMenu("PrintEntityDictionary")]
-    public void PrintEntityDictionary()
-    {
-        foreach(KeyValuePair<string, GameObject> kvp in entityDictionary.entityDictionary)
-        {
-            Debug.Log("GUID: '" + kvp.Key + "' of object: " + kvp.Value);
         }
     }
 }
