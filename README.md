@@ -1,4 +1,4 @@
-Necessary:
+**Necessary:**
  - AnimatorController.cs
  - Item.cs
  - ErrorObject.cs
@@ -68,12 +68,12 @@ Necessary:
  - Exit.cs
  - Game.cs
 
-Pending Decision:
+**Pending Decision:**
  - PawnHunger.cs
  - Craftbench.cs
  - LaborOrder_Craft.cs
 
-Not (seemingly) Necessary:
+**Not (seemingly) Necessary:**
  - GlobalInstance.cs
  - Movement.cs
  - StateMachine.cs
