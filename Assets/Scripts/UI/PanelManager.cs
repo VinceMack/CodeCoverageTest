@@ -8,8 +8,6 @@ public class PanelManager : MonoBehaviour
 {
     [SerializeField] private GameObject uiCanvas;
 
-    [SerializeField] private GameObject saveSystemUI;
-
     [SerializeField] private GameObject colonyInfo;
     [SerializeField] private ColonyInfoManager colonyInfoManager;
     [SerializeField] private GameObject laborOrderPanel;
@@ -30,30 +28,6 @@ public class PanelManager : MonoBehaviour
                 initialized = true;
                 laborOrderPanel.GetComponentsInChildren<LaborOrderPanelManager>()[0].InitializeLaborOrderPanel();
             }
-        }
-    }
-
-    public void CloseSaveSystemUI()
-    {
-       saveSystemUI.SetActive(false);
-    }
-
-    public void EnableSaveSystemUI()
-    {
-        CloseMenus();
-        saveSystemUI.SetActive(true);
-        saveSystemUI.GetComponent<SaveSystemUIManager>().OpenSaveMenu();
-    }
-
-    public void ToggleSaveSystemUI()
-    {
-        if(saveSystemUI.activeSelf)
-        {
-            CloseSaveSystemUI();
-        }
-        else
-        {
-            EnableSaveSystemUI();
         }
     }
 
@@ -83,7 +57,6 @@ public class PanelManager : MonoBehaviour
 
     private void CloseMenus()
     {
-        CloseSaveSystemUI();
         CloseColonyUI();
     }
 }

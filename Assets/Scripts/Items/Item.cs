@@ -49,9 +49,4 @@ public class Item : MonoBehaviour
             items.Add(item.GetComponent<GameObject>());
         }
     }
-
-    public void ResetPosition()
-    {
-        location = GridManager.GetTile(new Vector3Int((int)Mathf.Ceil(transform.position.x), (int)Mathf.Ceil(transform.position.y), 0));
-    }
 }
