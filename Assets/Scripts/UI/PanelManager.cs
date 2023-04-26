@@ -14,10 +14,7 @@ public class PanelManager : MonoBehaviour
     [SerializeField] private ColonyInfoManager colonyInfoManager;
     [SerializeField] private GameObject laborOrderPanel;
 
-    private void Awake() 
-    {
-        laborOrderPanel.GetComponent<LaborOrderPanelManager>().InitializeLaborOrderPanel();
-    }
+    private bool initialized = false;
 
     public void ToggleLaborOrderPanel()
     {
@@ -28,6 +25,11 @@ public class PanelManager : MonoBehaviour
         else
         {
             laborOrderPanel.SetActive(true);
+            if(!initialized)
+            {
+                initialized = true;
+                laborOrderPanel.GetComponentsInChildren<LaborOrderPanelManager>()[0].InitializeLaborOrderPanel();
+            }
         }
     }
 
