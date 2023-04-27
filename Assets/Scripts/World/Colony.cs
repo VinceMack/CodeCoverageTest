@@ -19,23 +19,23 @@ public class Colony : MonoBehaviour
 
     public bool ColonyHasItem(string itemName, int quantity)
     {
-        return (GlobalStorage_VM.GetItemCount(itemName) > quantity);
+        return (GlobalStorage.GetItemCount(itemName) > quantity);
     }
 
     public int GetNumberOfItemInGalaxy(string itemName)
     {
-        return GlobalStorage_VM.GetItemCount(itemName);
+        return GlobalStorage.GetItemCount(itemName);
     }
 
     /*public bool RemoveItemFromColony(Item item, int quantity)
     {
-        if(GlobalStorage_VM.GetItemCount(item.itemName) < quantity)
+        if(GlobalStorage.GetItemCount(item.itemName) < quantity)
         {
             return false;
         }
 
-        List<Chest_VM> chestWithItem = GlobalStorage_VM.GetChestWithItem(item);
-        foreach(Chest_VM chest in chestWithItem)
+        List<Chest> chestWithItem = GlobalStorage.GetChestWithItem(item);
+        foreach(Chest chest in chestWithItem)
         {
             if(quantity <= 0)
             {
@@ -60,7 +60,7 @@ public class Colony : MonoBehaviour
 
     /*public void AddItemToColony(Item item)
     {
-        Chest_VM lootLocation = GlobalStorage_VM.GetClosestChest(new Vector3());
+        Chest lootLocation = GlobalStorage.GetClosestChest(new Vector3());
         if(lootLocation == null)
         {
             return;
@@ -102,3 +102,5 @@ public class Colony : MonoBehaviour
         return zones;
     }
 }
+
+

@@ -15,3 +15,6 @@ public class MainMenuUIObject : MonoBehaviour
         GetComponent<Image>().enabled = false;
     }
 }
+
+
+

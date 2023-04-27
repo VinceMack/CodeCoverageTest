@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Berries : Item
 {
+    int foodValue = 10;
+
     void Awake()
     {
         isGatherable = true;
@@ -11,3 +13,6 @@ public class Berries : Item
         itemName = "Berries";
     }
 }
+
+
+

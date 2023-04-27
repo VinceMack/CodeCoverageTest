@@ -49,11 +49,11 @@ public class Area
         {
             for(int j = (int)bottomLeft.y; j < (int)topRight.y; j++)
             {
-                GameObject itemToPlace = Resources.Load<GameObject>("prefabs/items/Chest") as GameObject;
-                LaborOrderManager_VM.AddPlaceLaborOrder(itemToPlace, new Vector2(i, j));
+                Item itemToPlace = Resources.Load<GameObject>("prefabs/items/Chest").GetComponent<Item>();
+                LaborOrderManager.AddPlaceLaborOrder(itemToPlace, new Vector2(i, j));
 
                 // // AUTO CREATION OF CHESTS
-                // BaseTile_VM tile = (BaseTile_VM)GridManager.tileMap.GetTile(new Vector3Int(i, j, 0));
+                // BaseTile tile = (BaseTile)GridManager.tileMap.GetTile(new Vector3Int(i, j, 0));
                 // if (tile != null && tile.type == TileType.GRASS && tile.resource == null)
                 // {
                     
@@ -87,10 +87,13 @@ public class Area
                 {
                     if(itemComponent.location.GetYPosition() <= topRight.y && itemComponent.location.GetYPosition() > bottomLeft.y)
                     {
-                        LaborOrderManager_VM.AddSpecificDeconstructLaborOrder(itemComponent.gameObject);
+                        LaborOrderManager.AddSpecificDeconstructLaborOrder(itemComponent);
                     }
                 }
             }
         }
     }
 }
+
+
+

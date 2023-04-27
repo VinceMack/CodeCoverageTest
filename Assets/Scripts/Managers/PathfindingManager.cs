@@ -24,10 +24,10 @@ public class PathfindingManager : MonoBehaviour
     public static List<Vector3> GetPath(Vector3Int start, Vector3Int target, int level, bool isDirectPathing)
     {
         GridManager.ResetGrid(level);
-        PriorityQueue<BaseTile_VM> unvisited = new PriorityQueue<BaseTile_VM>();
-        BaseTile_VM startTile = GridManager.GetTile(start);
+        PriorityQueue<BaseTile> unvisited = new PriorityQueue<BaseTile>();
+        BaseTile startTile = GridManager.GetTile(start);
 
-        List<BaseTile_VM> targetTiles;
+        List<BaseTile> targetTiles;
         if (!isDirectPathing)
         {
             List<Vector3Int> adjacentTilePositions = GetAdjacentTiles(target);
@@ -35,7 +35,7 @@ public class PathfindingManager : MonoBehaviour
         }
         else
         {
-            targetTiles = new List<BaseTile_VM> { GridManager.GetTile(target) };
+            targetTiles = new List<BaseTile> { GridManager.GetTile(target) };
         }
 
         startTile.distance = 0;
@@ -43,7 +43,7 @@ public class PathfindingManager : MonoBehaviour
 
         while (unvisited.Count > 0)
         {
-            BaseTile_VM currentTile = unvisited.Dequeue();
+            BaseTile currentTile = unvisited.Dequeue();
 
             if (targetTiles.Contains(currentTile))
             {
@@ -52,7 +52,7 @@ public class PathfindingManager : MonoBehaviour
 
             currentTile.visited = true;
 
-            foreach (BaseTile_VM neighbor in GetNeighbors(currentTile, level))
+            foreach (BaseTile neighbor in GetNeighbors(currentTile, level))
             {
                 if (!neighbor.visited && !neighbor.isCollision)
                 {
@@ -98,9 +98,9 @@ public class PathfindingManager : MonoBehaviour
     }
 
 
-    private static List<BaseTile_VM> GetNeighbors(BaseTile_VM tile, int level)
+    private static List<BaseTile> GetNeighbors(BaseTile tile, int level)
     {
-        List<BaseTile_VM> neighbors = new List<BaseTile_VM>();
+        List<BaseTile> neighbors = new List<BaseTile>();
 
         for (int y = -1; y <= 1; y++)
         {
@@ -127,10 +127,10 @@ public class PathfindingManager : MonoBehaviour
         return neighbors;
     }
 
-    private static List<Vector3> ReconstructPath(BaseTile_VM targetTile)
+    private static List<Vector3> ReconstructPath(BaseTile targetTile)
     {
         List<Vector3> path = new List<Vector3>();
-        BaseTile_VM currentNode = targetTile;
+        BaseTile currentNode = targetTile;
 
         while (currentNode.parent != null)
         {
@@ -184,3 +184,5 @@ public class PriorityQueue<T>
         elements.Clear();
     }
 }
+
+

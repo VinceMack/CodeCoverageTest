@@ -16,7 +16,7 @@ public static class PawnHunger
 
     // Eat items from pawn items until full or no more food is available
     // True if successful, false if no food found
-    public static bool EatFromInventory(Pawn_VM pawn)
+    public static bool EatFromInventory(Pawn pawn)
     {
         bool foodFound = false;
 
@@ -45,3 +45,6 @@ public static class PawnHunger
 
     */
 }
+
+
+

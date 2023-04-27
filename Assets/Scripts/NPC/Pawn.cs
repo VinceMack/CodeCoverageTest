@@ -5,10 +5,10 @@ using UnityEngine.Tilemaps;
 using System.Linq;
 using System;
 
-public class Pawn_VM : MonoBehaviour
+public class Pawn : MonoBehaviour
 {
     public List<LaborType>[] laborTypePriority { get; private set; }   // Priority list for different types of labor
-    private LaborOrder_Base_VM currentLaborOrder;                           // Reference to the current labor order
+    private LaborOrder_Base currentLaborOrder;                           // Reference to the current labor order
     private bool isAssigned;                                                // Indicates if the pawn is currently assigned to a labor order
     private static int pawnCount = 0;                                       // Counter for the total number of pawns
     private const int NUM_OF_PRIORITY_LEVELS = 4;                           // Number of priority levels for labor types
@@ -20,7 +20,7 @@ public class Pawn_VM : MonoBehaviour
     public Coroutine currentPathExecution { get; set; }                     // holds a reference to labor order execute() coroutine
     private AnimatorController anim;
 
-    public static List<Pawn_VM> PawnList = new List<Pawn_VM>();             // a list of all living pawns
+    public static List<Pawn> PawnList = new List<Pawn>();             // a list of all living pawns
     public bool refuseLaborOrders = false;                                  // prevents this pawn from being assigned labor orders, redundant for now but may be useful later
     [SerializeField] public int hunger = 10000;                               // Hunger level of the pawn. Starves at 0
     public Dictionary<string, Item> items;
@@ -85,7 +85,7 @@ public class Pawn_VM : MonoBehaviour
     }
 
     // Method to return the currentLaborOrder
-    public LaborOrder_Base_VM GetCurrentLaborOrder()
+    public LaborOrder_Base GetCurrentLaborOrder()
     {
         return currentLaborOrder;
     }
@@ -140,7 +140,7 @@ public class Pawn_VM : MonoBehaviour
 
     // Sets the current labor order for the pawn
     // True if successful, false if not
-    public bool SetCurrentLaborOrder(LaborOrder_Base_VM LaborOrder_Base_VM)
+    public bool SetCurrentLaborOrder(LaborOrder_Base LaborOrder_Base)
     {
         if (isAssigned)
         {
@@ -149,9 +149,9 @@ public class Pawn_VM : MonoBehaviour
         }
         else
         {
-            currentLaborOrder = LaborOrder_Base_VM;
+            currentLaborOrder = LaborOrder_Base;
             isAssigned = true;
-            LaborOrderManager_VM.AddAssignedPawn(this);
+            LaborOrderManager.AddAssignedPawn(this);
             //Debug.Log("Added " + GetPawnName() + " to assigned pawns"); //TMP
             return true;
         }
@@ -250,19 +250,19 @@ public class Pawn_VM : MonoBehaviour
         if (foundTile == null)
         {
             Debug.LogWarning("foundTile is null; adding pawn back to labor order manager; breaking out of coroutine");
-            LaborOrderManager_VM.AddAvailablePawn(this);
+            LaborOrderManager.AddAvailablePawn(this);
             yield break;
         }
 
         if (currentTile == null)
         {
             Debug.LogWarning("currentTile is null; adding pawn back to labor order manager; breaking out of coroutine");
-            LaborOrderManager_VM.AddAvailablePawn(this);
+            LaborOrderManager.AddAvailablePawn(this);
             yield break;
         }
 
-        BaseTile_VM target = (BaseTile_VM)foundTile;
-        BaseTile_VM current = (BaseTile_VM)currentTile;
+        BaseTile target = (BaseTile)foundTile;
+        BaseTile current = (BaseTile)currentTile;
 
         Vector3Int targetPosition = Vector3Int.FloorToInt(target.position);
         Vector3Int currentPosition = Vector3Int.FloorToInt(current.position);
@@ -286,13 +286,13 @@ public class Pawn_VM : MonoBehaviour
             // If target location is on a different level, set path to stairs
             if (currentLevel != targetLevel)
             {
-                StairsTile_VM stairs;
+                StairsTile stairs;
                 Vector3 levelChangeStairsPosition;
 
                 // Get stairs to lower level
                 if (currentLevel < targetLevel)
                 {
-                    stairs = GridManager.mapLevels[currentLevel].getDescendingStairs_VM(currentPosition);
+                    stairs = GridManager.mapLevels[currentLevel].getDescendingStairs(currentPosition);
                     if (stairs == null)
                     {
                         Debug.LogWarning("descending stairs tile is null at CompleteLaborOrder()");
@@ -303,7 +303,7 @@ public class Pawn_VM : MonoBehaviour
                 // Get stairs to upper level
                 else
                 {
-                    stairs = GridManager.mapLevels[currentLevel].getAscendingStairs_VM(currentPosition);
+                    stairs = GridManager.mapLevels[currentLevel].getAscendingStairs(currentPosition);
                     if (stairs == null)
                     {
                         Debug.LogWarning("ascending stairs tile is null at CompleteLaborOrder()");
@@ -355,7 +355,7 @@ public class Pawn_VM : MonoBehaviour
         isAssigned = false;
         path.Clear();
         currentLaborOrder = null;
-        LaborOrderManager_VM.AddAvailablePawn(this);
+        LaborOrderManager.AddAvailablePawn(this);
     }
 
 
@@ -397,7 +397,7 @@ public class Pawn_VM : MonoBehaviour
         CancelCurrentLaborOrder();
         anim.SetAnimParameter("dead", true);
         PawnList.Remove(this);
-        LaborOrderManager_VM.RemoveSpecificPawn(this);
+        LaborOrderManager.RemoveSpecificPawn(this);
         CancelCurrentLaborOrder();
         refuseLaborOrders = true;
         Debug.Log(pawnName + " " + cause);
@@ -490,3 +490,6 @@ public class Pawn_VM : MonoBehaviour
     }
 
 }
+
+
+

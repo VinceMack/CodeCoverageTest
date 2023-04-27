@@ -5,15 +5,15 @@ using UnityEngine;
 using System.Linq;
 
 // Enum to represent different types of labor tasks
-public enum LaborType { Woodcut, Mine, Forage, Gather, Craft, Place, Deconstruct, Basic, Plantcut };
+public enum LaborType { Mine, Forage, Gather, Place, Deconstruct, Basic, Plantcut, Eat };
 
-// LaborOrderManager_VM class to manage and assign labor tasks for pawns
-public class LaborOrderManager_VM : MonoBehaviour
+// LaborOrderManager class to manage and assign labor tasks for pawns
+public class LaborOrderManager : MonoBehaviour
 {
     [SerializeField]
-    protected static Queue<Pawn_VM> availablePawns;
-    private static Queue<Pawn_VM> assignedPawns;
-    private static Queue<LaborOrder_Base_VM>[] laborQueues;
+    protected static Queue<Pawn> availablePawns;
+    private static Queue<Pawn> assignedPawns;
+    private static Queue<LaborOrder_Base>[] laborQueues;
     private static int laborOrderTotal = 0;
 
     private const int NUM_OF_PAWNS_TO_SPAWN = 1000;
@@ -59,7 +59,7 @@ public class LaborOrderManager_VM : MonoBehaviour
     }
 
     // Method to add a place labor order to the queue
-    public static void AddPlaceLaborOrder(GameObject itemToPlace)
+    public static void AddPlaceLaborOrder(Item itemToPlace)
     {
         // create a new place labor order
         LaborOrder_Place placeOrder = new LaborOrder_Place(itemToPlace);
@@ -67,7 +67,7 @@ public class LaborOrderManager_VM : MonoBehaviour
         laborQueues[(int)LaborType.Place].Enqueue(placeOrder);
     }
 
-    public static void AddPlaceLaborOrder(GameObject itemToPlace, Vector2 location)
+    public static void AddPlaceLaborOrder(Item itemToPlace, Vector2 location)
     {
         // create a new place labor order
         LaborOrder_Place placeOrder = new LaborOrder_Place(itemToPlace, location);
@@ -79,7 +79,7 @@ public class LaborOrderManager_VM : MonoBehaviour
     public static void AddDeconstructLaborOrder()
     {
         // iterate through all objects and find the first tile with an item that is deconstructable
-        GameObject[] objects = FindObjectsOfType<GameObject>();
+        Item[] objects = FindObjectsOfType<Item>();
         
         // Check if the objects array is null
         if (objects == null)
@@ -88,7 +88,7 @@ public class LaborOrderManager_VM : MonoBehaviour
             return;
         }
 
-        foreach (GameObject obj in objects)
+        foreach (Item obj in objects)
         {
             Item itemComponent = obj.GetComponent<Item>();
             if (itemComponent != null && itemComponent.isDeconstructable)
@@ -102,7 +102,7 @@ public class LaborOrderManager_VM : MonoBehaviour
         }
     }
 
-    public static void AddSpecificDeconstructLaborOrder(GameObject obj)
+    public static void AddSpecificDeconstructLaborOrder(Item obj)
     {
         // create a new deconstruct labor order
         LaborOrder_Deconstruct deconstructOrder = new LaborOrder_Deconstruct(obj);
@@ -148,13 +148,13 @@ public class LaborOrderManager_VM : MonoBehaviour
 
     // Method to prematurely find and remove a specific pawn from the availablePawns and assignedPawns queues
     // used to clean up after dying
-    public static void RemoveSpecificPawn(Pawn_VM pawn)
+    public static void RemoveSpecificPawn(Pawn pawn)
     {
         // removes the pawn from the queue
-        Queue<Pawn_VM> newQueue = new Queue<Pawn_VM>();
+        Queue<Pawn> newQueue = new Queue<Pawn>();
         while (availablePawns.Count != 0)
         {
-            Pawn_VM queuedPawn = availablePawns.Dequeue();
+            Pawn queuedPawn = availablePawns.Dequeue();
             if (queuedPawn != pawn)
             {
                 newQueue.Enqueue(queuedPawn);
@@ -165,7 +165,7 @@ public class LaborOrderManager_VM : MonoBehaviour
         newQueue.Clear();
         while (assignedPawns.Count != 0)
         {
-            Pawn_VM queuedPawn = assignedPawns.Dequeue();
+            Pawn queuedPawn = assignedPawns.Dequeue();
             if (queuedPawn != pawn)
             {
                 newQueue.Enqueue(queuedPawn);
@@ -190,27 +190,27 @@ public class LaborOrderManager_VM : MonoBehaviour
     }
 
     // Method to add a pawn to the queue of available pawns
-    public static void AddAvailablePawn(Pawn_VM pawn)
+    public static void AddAvailablePawn(Pawn pawn)
     {
         // add pawn to the queue
         availablePawns.Enqueue(pawn);
     }
 
     // Method to add a pawn to the queue of assigned pawns
-    public static void AddAssignedPawn(Pawn_VM pawn)
+    public static void AddAssignedPawn(Pawn pawn)
     {
         // add pawn to the queue
         assignedPawns.Enqueue(pawn);
     }
 
     // Method to add a labor task to the appropriate queue
-    public static void AddLaborOrder(LaborOrder_Base_VM LaborOrder_Base_VM)
+    public static void AddLaborOrder(LaborOrder_Base LaborOrder_Base)
     {
         // check if the labor order is already in the queue
-        if (!laborQueues[(int)LaborOrder_Base_VM.laborType].Contains(LaborOrder_Base_VM))
+        if (!laborQueues[(int)LaborOrder_Base.laborType].Contains(LaborOrder_Base))
         {
             // add labor order to the queue
-            laborQueues[(int)LaborOrder_Base_VM.laborType].Enqueue(LaborOrder_Base_VM);
+            laborQueues[(int)LaborOrder_Base.laborType].Enqueue(LaborOrder_Base);
             laborOrderTotal++;
         }
     }
@@ -219,18 +219,18 @@ public class LaborOrderManager_VM : MonoBehaviour
     public static void InitializeLaborOrderManager()
     {
         // Initialize the pawn queue
-        availablePawns = new Queue<Pawn_VM>();
+        availablePawns = new Queue<Pawn>();
 
         // Initialize the laborQueues array
-        laborQueues = new Queue<LaborOrder_Base_VM>[GetLaborTypesCount()];
+        laborQueues = new Queue<LaborOrder_Base>[GetLaborTypesCount()];
 
         // Initialize the working pawn queue
-        assignedPawns = new Queue<Pawn_VM>();
+        assignedPawns = new Queue<Pawn>();
 
         // Initialize the array of labor order queues
         for (int i = 0; i < GetLaborTypesCount(); i++)
         {
-            laborQueues[i] = new Queue<LaborOrder_Base_VM>();
+            laborQueues[i] = new Queue<LaborOrder_Base>();
         }
     }
 
@@ -239,7 +239,7 @@ public class LaborOrderManager_VM : MonoBehaviour
     {
         while (availablePawns.Count > 0 && GetLaborOrderCount() > 0)
         {
-            Pawn_VM pawn = GetAvailablePawn();
+            Pawn pawn = GetAvailablePawn();
             //Debug.Log("Finding order for " + pawn.GetPawnName()); //TMP
             List<LaborType>[] laborTypePriority = pawn.laborTypePriority;
             bool found = false;
@@ -252,7 +252,7 @@ public class LaborOrderManager_VM : MonoBehaviour
                     {
                         if (laborQueues[(int)laborTypePriority[i][j]] != null && laborQueues[(int)laborTypePriority[i][j]].Count > 0)
                         {
-                            LaborOrder_Base_VM order = laborQueues[(int)laborTypePriority[i][j]].Dequeue();
+                            LaborOrder_Base order = laborQueues[(int)laborTypePriority[i][j]].Dequeue();
                             //Debug.Log("Assigning " + order.laborType.ToString() + " to " + pawn.GetPawnName()); //TMP
                             if (!pawn.SetCurrentLaborOrder(order)) AddLaborOrder(order);
                             found = true;
@@ -284,14 +284,14 @@ public class LaborOrderManager_VM : MonoBehaviour
         availablePawns.Clear();
         for (int i = 0; i < count; i++)
         {
-            GameObject pawn_prefab = Resources.Load<GameObject>("prefabs/npc/Pawn_VM");
+            GameObject pawn_prefab = Resources.Load<GameObject>("prefabs/npc/Pawn");
 
             // Instantiate the pawn and store the reference in a variable
             GameObject pawn_instance = UnityEngine.Object.Instantiate(pawn_prefab, GridManager.tileMap.GetCellCenterWorld(Vector3Int.FloorToInt(new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0))), Quaternion.identity);
 
             // Set the parent of the instantiated pawn, not the prefab itself
             pawn_instance.transform.SetParent(GameObject.Find("Pawns").transform);
-            AddAvailablePawn(pawn_instance.GetComponent<Pawn_VM>());
+            AddAvailablePawn(pawn_instance.GetComponent<Pawn>());
         }
     }
 
@@ -301,7 +301,7 @@ public class LaborOrderManager_VM : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            AddLaborOrder(new LaborOrder_Base_VM(true));
+            AddLaborOrder(new LaborOrder_Base(true));
         }
     }
 
@@ -310,17 +310,17 @@ public class LaborOrderManager_VM : MonoBehaviour
     {
         while (GetWorkingPawnCount() > 0/* && GetLaborOrderCount() > 0*/)
         {
-            Pawn_VM pawn = assignedPawns.Dequeue();
+            Pawn pawn = assignedPawns.Dequeue();
             //Debug.Log("Starting order for " + pawn.GetPawnName() + ". " + GetWorkingPawnCount() + " remaining assigned pawns. " + GetLaborOrderCount() + " remaining orders."); //TMP
             pawn.StartCoroutine(pawn.CompleteLaborOrder());
         }
     }
 
     // Method to Get an available pawn from the queue
-    private static Pawn_VM GetAvailablePawn()
+    private static Pawn GetAvailablePawn()
     {
         // return pawn from the queue
-        Pawn_VM pawn = availablePawns.Dequeue();
+        Pawn pawn = availablePawns.Dequeue();
         return pawn;
     }
 
@@ -328,7 +328,7 @@ public class LaborOrderManager_VM : MonoBehaviour
     //  For testing purposes
     public static void PopulateObjectLaborOrders()
     {
-        GameObject[] objects = FindObjectsOfType<GameObject>();
+        Item[] objects = FindObjectsOfType<Item>();
         
         // Check if the objects array is null
         if (objects == null)
@@ -337,16 +337,16 @@ public class LaborOrderManager_VM : MonoBehaviour
             return;
         }
 
-        foreach (GameObject obj in objects)
+        foreach (Item obj in objects)
         {
             if (obj.name == "Tree(Clone)")
             {
                 if(obj.GetComponent<Tree>().isForageable == true){
-                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Tree));
+                    LaborOrderManager.AddLaborOrder(new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Tree));
                 }
 
                 if(obj.GetComponent<Tree>().isDeconstructable == true){
-                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Deconstruct(obj));
+                    LaborOrderManager.AddLaborOrder(new LaborOrder_Deconstruct(obj));
                 }
 
             }
@@ -354,7 +354,7 @@ public class LaborOrderManager_VM : MonoBehaviour
             if (obj.name == "Bush(Clone)") // && obj.GetComponent<Bush>().berryCount > 0
             {
                 if(obj.GetComponent<Bush>().isForageable){
-                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Bush));
+                    LaborOrderManager.AddLaborOrder(new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Bush));
                 }
                 
             }
@@ -362,7 +362,7 @@ public class LaborOrderManager_VM : MonoBehaviour
             if (obj.name == "Wheat(Clone)")
             {
                 if(obj.GetComponent<Wheat>().isPlantcuttable){
-                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Plantcut(obj));
+                    LaborOrderManager.AddLaborOrder(new LaborOrder_Plantcut(obj));
                 }
                 
             }
@@ -370,7 +370,7 @@ public class LaborOrderManager_VM : MonoBehaviour
             if (obj.name == "Rock(Clone)")
             {
                 if(obj.GetComponent<Rock>().isMineable == true){
-                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Mine(obj));
+                    LaborOrderManager.AddLaborOrder(new LaborOrder_Mine(obj));
                 }
                 
             }
@@ -379,37 +379,37 @@ public class LaborOrderManager_VM : MonoBehaviour
                 Item item = obj.GetComponent<Berries>();
                 if(item != null && item.isGatherable)
                 {
-                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather(obj));
+                    LaborOrderManager.AddLaborOrder(new LaborOrder_Gather(obj));
                     continue;
                 }
                 item = obj.GetComponent<RockResource>();
                 if(item != null && item.isGatherable)
                 {
-                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather(obj));
+                    LaborOrderManager.AddLaborOrder(new LaborOrder_Gather(obj));
                     continue;
                 }
                 item = obj.GetComponent<WheatItem>();
                 if(item != null && item.isGatherable)
                 {
-                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather(obj));
+                    LaborOrderManager.AddLaborOrder(new LaborOrder_Gather(obj));
                     continue;
                 }
                 item = obj.GetComponent<Coin>();
                 if(item != null && item.isGatherable)
                 {
-                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather(obj));
+                    LaborOrderManager.AddLaborOrder(new LaborOrder_Gather(obj));
                     continue;
                 }
                 item = obj.GetComponent<Wood>();
                 if(item != null && item.isGatherable)
                 {
-                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather(obj));
+                    LaborOrderManager.AddLaborOrder(new LaborOrder_Gather(obj));
                     continue;
                 }
                 item = obj.GetComponent<Wheat>();
                 if(item != null && item.isGatherable)
                 {
-                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather(obj));
+                    LaborOrderManager.AddLaborOrder(new LaborOrder_Gather(obj));
                     continue;
                 }
 
@@ -421,7 +421,7 @@ public class LaborOrderManager_VM : MonoBehaviour
     //  For testing purposes
     public static void PopulateObjectLaborOrdersUpdated()
     {
-        GameObject[] objects = FindObjectsOfType<GameObject>();
+        Item[] objects = FindObjectsOfType<Item>();
         
         // Check if the objects array is null
         if (objects == null)
@@ -430,21 +430,21 @@ public class LaborOrderManager_VM : MonoBehaviour
             return;
         }
 
-        foreach (GameObject obj in objects)
+        foreach (Item obj in objects)
         {
             Item item = obj.GetComponent<Item>();
 
             // check if the item is mineable
             if (item != null && item.isMineable)
             {
-                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Mine(obj));
+                LaborOrderManager.AddLaborOrder(new LaborOrder_Mine(obj));
                 continue;
             }
 
             // check if the item is plantcuttable
             if (item != null && item.isPlantcuttable)
             {
-                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Plantcut(obj));
+                LaborOrderManager.AddLaborOrder(new LaborOrder_Plantcut(obj));
                 continue;
             }
 
@@ -454,14 +454,14 @@ public class LaborOrderManager_VM : MonoBehaviour
                 // check name to see if it's a bush
                 if (obj.name == "Bush(Clone)")
                 {
-                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Bush));
+                    LaborOrderManager.AddLaborOrder(new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Bush));
                     continue;
                 }
 
                 // check name to see if it's a tree
                 if (obj.name == "Tree(Clone)")
                 {
-                    LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Tree));
+                    LaborOrderManager.AddLaborOrder(new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Tree));
                     continue;
                 }
 
@@ -470,14 +470,14 @@ public class LaborOrderManager_VM : MonoBehaviour
             // check if the item is gatherable
             if (item != null && item.isGatherable)
             {
-                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather(obj));
+                LaborOrderManager.AddLaborOrder(new LaborOrder_Gather(obj));
                 continue;
             }
 
             // check if the item is deconstructable
             if (item != null && item.isDeconstructable)
             {
-                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Deconstruct(obj));
+                LaborOrderManager.AddLaborOrder(new LaborOrder_Deconstruct(obj));
                 continue;
             }
 
@@ -514,9 +514,9 @@ public class LaborOrderManager_VM : MonoBehaviour
         PopulateObjectLaborOrdersOfType(item => item.isDeconstructable, obj => new LaborOrder_Deconstruct(obj));
     }
 
-    private static void PopulateObjectLaborOrdersOfType(Func<Item, bool> itemCondition, Func<GameObject, LaborOrder_Base_VM> createLaborOrder)
+    private static void PopulateObjectLaborOrdersOfType(Func<Item, bool> itemCondition, Func<Item, LaborOrder_Base> createLaborOrder)
     {
-        GameObject[] objects = FindObjectsOfType<GameObject>();
+        Item[] objects = FindObjectsOfType<Item>();
 
         // Check if the objects array is null
         if (objects == null)
@@ -525,19 +525,19 @@ public class LaborOrderManager_VM : MonoBehaviour
             return;
         }
 
-        foreach (GameObject obj in objects)
+        foreach (Item obj in objects)
         {
             Item item = obj.GetComponent<Item>();
 
             if (item != null && itemCondition(item))
             {
-                LaborOrderManager_VM.AddLaborOrder(createLaborOrder(obj));
+                LaborOrderManager.AddLaborOrder(createLaborOrder(obj));
             }
         }
     }
 
     // populate the object labor order at the location of the tile
-    public static void PopulateObjectLaborOrderTile(BaseTile_VM tile)
+    public static void PopulateObjectLaborOrderTile(BaseTile tile)
     {
         // check if the tile is null
         if (tile == null)
@@ -564,14 +564,14 @@ public class LaborOrderManager_VM : MonoBehaviour
         // check if the item is mineable
         if (item.isMineable)
         {
-            LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Mine(tile.resource));
+            LaborOrderManager.AddLaborOrder(new LaborOrder_Mine(tile.resource));
             return;
         }
 
         // check if the item is plantcuttable
         if (item.isPlantcuttable)
         {
-            LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Plantcut(tile.resource));
+            LaborOrderManager.AddLaborOrder(new LaborOrder_Plantcut(tile.resource));
             return;
         }
 
@@ -581,14 +581,14 @@ public class LaborOrderManager_VM : MonoBehaviour
             // check name to see if it's a bush
             if (tile.resource.name == "Bush(Clone)")
             {
-                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(tile.resource, LaborOrder_Forage.ObjectType.Bush));
+                LaborOrderManager.AddLaborOrder(new LaborOrder_Forage(tile.resource, LaborOrder_Forage.ObjectType.Bush));
                 return;
             }
 
             // check name to see if it's a tree
             if (tile.resource.name == "Tree(Clone)")
             {
-                LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Forage(tile.resource, LaborOrder_Forage.ObjectType.Tree));
+                LaborOrderManager.AddLaborOrder(new LaborOrder_Forage(tile.resource, LaborOrder_Forage.ObjectType.Tree));
                 return;
             }
 
@@ -597,14 +597,14 @@ public class LaborOrderManager_VM : MonoBehaviour
         // check if the item is gatherable
         if (item.isGatherable)
         {
-            LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Gather(tile.resource));
+            LaborOrderManager.AddLaborOrder(new LaborOrder_Gather(tile.resource));
             return;
         }
 
         // check if the item is deconstructable
         if (item.isDeconstructable)
         {
-            LaborOrderManager_VM.AddLaborOrder(new LaborOrder_Deconstruct(tile.resource));
+            LaborOrderManager.AddLaborOrder(new LaborOrder_Deconstruct(tile.resource));
             return;
         }
 
@@ -612,8 +612,10 @@ public class LaborOrderManager_VM : MonoBehaviour
 
     private void Awake()
     {
-        availablePawns = new Queue<Pawn_VM>();
-        assignedPawns = new Queue<Pawn_VM>();
+        availablePawns = new Queue<Pawn>();
+        assignedPawns = new Queue<Pawn>();
     }
 
 }
+
+

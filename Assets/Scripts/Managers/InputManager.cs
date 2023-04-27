@@ -18,9 +18,9 @@ public class InputManager : MonoBehaviour
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int gridPosition = GridManager.tileMap.WorldToCell(mousePosition);
-            BaseTile_VM tile = (BaseTile_VM)GridManager.tileMap.GetTile(gridPosition);
+            BaseTile tile = (BaseTile)GridManager.tileMap.GetTile(gridPosition);
 
-            LaborOrderManager_VM.PopulateObjectLaborOrderTile(tile);
+            LaborOrderManager.PopulateObjectLaborOrderTile(tile);
 
             if (tile != null)
             {
@@ -51,3 +51,6 @@ public class InputManager : MonoBehaviour
         TestUIScript.AddResourcesToWorld();
     }
 }
+
+
+

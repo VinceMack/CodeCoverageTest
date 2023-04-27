@@ -4,20 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class LaborOrder_Place : LaborOrder_Base_VM
+public class LaborOrder_Place : LaborOrder_Base
 {
-    GameObject itemToPlace;
+    Item itemToPlace;
 
     // constructor
-    public LaborOrder_Place(GameObject item) : base()
+    public LaborOrder_Place(Item item) : base()
     {
         laborType = LaborType.Place;
         timeToComplete = 3f;
-        orderNumber = LaborOrderManager_VM.GetNumOfLaborOrders();
+        orderNumber = LaborOrderManager.GetNumOfLaborOrders();
         itemToPlace = item;
 
         // get tile with no resource
-        BaseTile_VM tile;
+        BaseTile tile;
         do
         {
             // Get a random level
@@ -34,23 +34,23 @@ public class LaborOrder_Place : LaborOrder_Base_VM
         while(tile.resource != null);
     }
 
-    public LaborOrder_Place(GameObject item, Vector2 placeLocation) : base()
+    public LaborOrder_Place(Item item, Vector2 placeLocation) : base()
     {
         laborType = LaborType.Place;
         timeToComplete = 3f;
-        orderNumber = LaborOrderManager_VM.GetNumOfLaborOrders();
+        orderNumber = LaborOrderManager.GetNumOfLaborOrders();
         itemToPlace = item;
 
         // get tile with no resource
         location = new Vector3Int((int)placeLocation.x, (int)placeLocation.y, 0);
     }
 
-    public override IEnumerator Execute(Pawn_VM pawn)
+    public override IEnumerator Execute(Pawn pawn)
     {
         pawn.path.Clear();
 
         yield return new WaitForSeconds(timeToComplete);
-        BaseTile_VM tile = GridManager.GetTile(location);
+        BaseTile tile = GridManager.GetTile(location);
 
         if (tile != null)
         {
@@ -61,10 +61,10 @@ public class LaborOrder_Place : LaborOrder_Base_VM
 
                 if (parentObjects != null)
                 {
-                    GameObject resource = UnityEngine.Object.Instantiate(itemToPlace, GridManager.grid.GetCellCenterWorld(location), Quaternion.identity, parentObjects.transform);
-                    if(resource.GetComponent<Chest_VM>() != null)
+                    Item resource = UnityEngine.Object.Instantiate(itemToPlace, GridManager.grid.GetCellCenterWorld(location), Quaternion.identity, parentObjects.transform);
+                    if(resource.GetComponent<Chest>() != null)
                     {
-                        resource.GetComponent<Chest_VM>().ResetPosition();
+                        resource.GetComponent<Chest>().ResetPosition();
                     }
                 }
                 else
@@ -85,3 +85,5 @@ public class LaborOrder_Place : LaborOrder_Base_VM
     }
 
 }
+
+

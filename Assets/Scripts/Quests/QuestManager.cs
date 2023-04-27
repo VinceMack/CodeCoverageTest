@@ -86,3 +86,6 @@ public class QuestManager : MonoBehaviour
         pendingQuests.Add(new Quest(questInfo.rewardItemName, questInfo.rewardItemQuantity, questInfo.requiredItemName, questInfo.requiredItemQuantity, myColony));
     }
 }
+
+
+

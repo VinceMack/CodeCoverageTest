@@ -16,3 +16,6 @@ public class RockCoin : Item
         
     }
 }
+
+
+

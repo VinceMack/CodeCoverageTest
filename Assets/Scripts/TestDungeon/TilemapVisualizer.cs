@@ -108,3 +108,6 @@ public class TilemapVisualizer : MonoBehaviour
         wallTileMap.ClearAllTiles();
     }
 }
+
+
+

@@ -63,9 +63,12 @@ public class GameClock : MonoBehaviour
         }
 
         lastTick = Time.time;
-        //Pawn_VM.DecrementHunger(HUNGER_DECREMENT);
+        //Pawn.DecrementHunger(HUNGER_DECREMENT);
         Bush.IncrementAllResources(BERRY_INCREMENT);
         Tree.IncrementAllResources(TREE_INCREMENT);
         Wheat.IncrementAllResources(WHEAT_INCREMENT);
     }
 }
+
+
+

@@ -7,8 +7,8 @@ public class Item : MonoBehaviour
     // list reference to all items
     public static List<GameObject> items = new List<GameObject>();
 
-    [SerializeField] public string itemName;
-    [SerializeField] public BaseTile_VM location;
+    [SerializeField] public string itemName = "baseItem";
+    [SerializeField] public BaseTile location;
     [SerializeField] public bool isGatherable = false;
     [SerializeField] public bool isPlaceable = false;
     [SerializeField] public bool isDeconstructable = false;
@@ -50,3 +50,6 @@ public class Item : MonoBehaviour
         }
     }
 }
+
+
+

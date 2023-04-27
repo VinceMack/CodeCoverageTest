@@ -42,18 +42,18 @@ public class LaborOrderPanelManager : MonoBehaviour
 
         AdjustGridLayout();
         
-        laborTypeNames = new GameObject[LaborOrderManager_VM.GetLaborTypesCount()];
+        laborTypeNames = new GameObject[LaborOrderManager.GetLaborTypesCount()];
 
         // Initialize labor order panel
-        for (int i = 0; i < LaborOrderManager_VM.GetLaborTypesCount(); i++)
+        for (int i = 0; i < LaborOrderManager.GetLaborTypesCount(); i++)
         {
             // Create text object for name
             GameObject newTextObject = Instantiate(LaborText_prefab, LaborNameContainer.transform);
-            newTextObject.name = LaborOrderManager_VM.GetLaborTypeName(i);
+            newTextObject.name = LaborOrderManager.GetLaborTypeName(i);
 
             // Change new text name
             TMP_Text newText = newTextObject.GetComponent<TMP_Text>();
-            newText.text = LaborOrderManager_VM.GetLaborTypeName(i);
+            newText.text = LaborOrderManager.GetLaborTypeName(i);
             laborTypeNames[i] = newTextObject;
         }    
 
@@ -76,7 +76,7 @@ public class LaborOrderPanelManager : MonoBehaviour
     {
         
         // Add pawn text.
-        Pawn_VM pawnComponent = pawn.GetComponent<Pawn_VM>();
+        Pawn pawnComponent = pawn.GetComponent<Pawn>();
         GameObject newTextObject = Instantiate(pawnText_prefab, pawnNameContainer.transform);
         newTextObject.name = pawnComponent.GetPawnName() + " (Text)";
 
@@ -84,15 +84,15 @@ public class LaborOrderPanelManager : MonoBehaviour
         newText.text = pawnComponent.GetPawnName();
 
         // Add pawn buttons.
-        for (int i = 0; i < LaborOrderManager_VM.GetLaborTypesCount(); i++)
+        for (int i = 0; i < LaborOrderManager.GetLaborTypesCount(); i++)
         {
             // Create button and adjust component.
             GameObject newButton = Instantiate(button_prefab, buttonContainer.transform);
-            newButton.name = pawnComponent.GetPawnName() + ": " + LaborOrderManager_VM.GetLaborTypeName(i);
+            newButton.name = pawnComponent.GetPawnName() + ": " + LaborOrderManager.GetLaborTypeName(i);
             PawnButton buttonComponent = newButton.GetComponent<PawnButton>();
 
             buttonComponent.pawn = pawnComponent;
-            buttonComponent.labor = LaborOrderManager_VM.GetLaborType(LaborOrderManager_VM.GetLaborTypeName(i));
+            buttonComponent.labor = LaborOrderManager.GetLaborType(LaborOrderManager.GetLaborTypeName(i));
             buttonComponent.InitializePawnButton();
 
         }
@@ -107,14 +107,14 @@ public class LaborOrderPanelManager : MonoBehaviour
     public  void RemovePawnButtons(GameObject pawn)
     {
         // Remove pawn name.
-        Pawn_VM pawnComponent = pawn.GetComponent<Pawn_VM>();
+        Pawn pawnComponent = pawn.GetComponent<Pawn>();
         GameObject pawnNameObj = GameObject.Find(pawnComponent.GetPawnName() + " (Text)");
         Destroy(pawnNameObj);
 
         // Remove pawn buttons.
-        for (int i = 0; i < LaborOrderManager_VM.GetLaborTypesCount(); i++)
+        for (int i = 0; i < LaborOrderManager.GetLaborTypesCount(); i++)
         {
-            GameObject buttonObj = GameObject.Find(pawnComponent.GetPawnName() + ": " + LaborOrderManager_VM.GetLaborTypeName(i));
+            GameObject buttonObj = GameObject.Find(pawnComponent.GetPawnName() + ": " + LaborOrderManager.GetLaborTypeName(i));
             Destroy(buttonObj);
         }
 
@@ -131,7 +131,7 @@ public class LaborOrderPanelManager : MonoBehaviour
         // Adjust button layout.
         GridLayoutGroup buttonGrid = buttonContainer.GetComponent<GridLayoutGroup>();
         buttonGrid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-        buttonGrid.constraintCount = LaborOrderManager_VM.GetLaborTypesCount();
+        buttonGrid.constraintCount = LaborOrderManager.GetLaborTypesCount();
 
         // Adjust pawn name layout.
         GridLayoutGroup pawnNameGrid = pawnNameContainer.GetComponent<GridLayoutGroup>();
@@ -141,7 +141,7 @@ public class LaborOrderPanelManager : MonoBehaviour
         // Adjust labor name layout.
         GridLayoutGroup laborNameGrid = LaborNameContainer.GetComponent<GridLayoutGroup>();
         laborNameGrid.constraint = GridLayoutGroup.Constraint.FixedRowCount;
-        laborNameGrid.constraintCount = LaborOrderManager_VM.GetLaborTypesCount();
+        laborNameGrid.constraintCount = LaborOrderManager.GetLaborTypesCount();
 
         var rectTransform = content.GetComponent<RectTransform>();
         rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, 0);
@@ -151,3 +151,6 @@ public class LaborOrderPanelManager : MonoBehaviour
     }
 
 }
+
+
+

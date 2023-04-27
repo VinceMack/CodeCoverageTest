@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class StoneTile_VM : BaseTile_VM
+public class StoneTile : BaseTile
 {
     // Method to Get the tile data for the tile
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
@@ -9,3 +9,5 @@ public class StoneTile_VM : BaseTile_VM
         tileData.sprite = Resources.Load<Sprite>("sprites/tiles/stone");
     }
 }
+
+

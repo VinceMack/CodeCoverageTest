@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Settings{
@@ -10,3 +10,6 @@ public class Settings{
     public float volume;
 
 }
+
+
+

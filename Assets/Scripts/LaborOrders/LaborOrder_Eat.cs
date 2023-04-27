@@ -4,39 +4,36 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class LaborOrder_Gather : LaborOrder_Base
+public class LaborOrder_Eat : LaborOrder_Base
 {
     // constructor
-    public LaborOrder_Gather(Item target)
+    public LaborOrder_Eat(Item target)
     {
-        laborType = LaborType.Gather;
+        laborType = LaborType.Eat;
         timeToComplete = 1f;
         location = Vector3Int.FloorToInt(target.transform.position);
     }
 
     public override IEnumerator Execute(Pawn pawn)
     {
-        pawn.path.Clear();
+        //pawn.path.Clear();
 
-        Chest chest = GlobalStorage.GetClosestChest(pawn.transform.position);
+        Chest chestContainingFood = GlobalStorage.GetClosestChestWithItem(new Berries(), pawn.transform.position);
+        if (chestContainingFood == null)
+        {
+            Debug.LogWarning("No chest found containing Berries. Aborting.");
+            yield break;
+        }
+
+        Chest target = chestContainingFood;
         BaseTile targetTile = GridManager.GetTile(location);
         BaseTile currentTile = (BaseTile)pawn.GetPawnTileFromTilemap();
 
-        Item resource = targetTile.resource;
-
-        if(resource == null){
-            Debug.LogWarning("Resource is null. Aborting.");
+        if (target == null)
+        {
+            Debug.LogWarning("Target is null. Aborting.");
             yield break;
         }
-
-        if(chest == null){
-            Debug.LogWarning("Chest is null. Aborting.");
-            yield break;
-        }
-
-        chest.AddItem(resource.itemName);
-        UnityEngine.Object.Destroy(targetTile.resource.gameObject);
-        targetTile.resource = null;
 
         if (targetTile == null || currentTile == null)
         {
@@ -44,7 +41,7 @@ public class LaborOrder_Gather : LaborOrder_Base
             yield break;
         }
 
-        Vector3Int targetPosition = Vector3Int.FloorToInt(chest.transform.position);
+        Vector3Int targetPosition = Vector3Int.FloorToInt(chestContainingFood.transform.position);
         Vector3Int currentPosition = Vector3Int.FloorToInt(pawn.transform.position);
 
         int targetLevel = targetPosition.x / GridManager.LEVEL_WIDTH;
@@ -107,6 +104,9 @@ public class LaborOrder_Gather : LaborOrder_Base
             pawn.currentPathExecution = null;
             currentPosition = Vector3Int.FloorToInt(pawn.transform.position);
         }
+
+        // Collect berries from the chest
+        chestContainingFood.RemoveItem(new Berries().itemName);
     }
 
     private bool IsAdjacent(Vector3Int currentPosition, Vector3Int targetPosition)
@@ -135,6 +135,3 @@ public class LaborOrder_Gather : LaborOrder_Base
         return false;
     }
 }
-
-
-

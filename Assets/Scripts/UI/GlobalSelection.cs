@@ -58,8 +58,8 @@ public class GlobalSelection : MonoBehaviour
                     Vector3Int bottomLeftGridPosition = GridManager.tileMap.WorldToCell(bottomLeft);
 
                     // Get the tile at the grid position
-                    BaseTile_VM topRightTile = (BaseTile_VM)GridManager.tileMap.GetTile(topRightGridPosition);
-                    BaseTile_VM bottomLeftTile = (BaseTile_VM)GridManager.tileMap.GetTile(bottomLeftGridPosition);
+                    BaseTile topRightTile = (BaseTile)GridManager.tileMap.GetTile(topRightGridPosition);
+                    BaseTile bottomLeftTile = (BaseTile)GridManager.tileMap.GetTile(bottomLeftGridPosition);
 
                     if(topRightTile != null && bottomLeftTile != null)
                     {
@@ -131,3 +131,6 @@ public class GlobalSelection : MonoBehaviour
     // If non reachable, cancel order
     // If some reachable, set conditionals, when conditional finsihed, enqueue next non reachable
 }
+
+
+

@@ -17,17 +17,17 @@ public class TestWindow : EditorWindow
         EditorGUILayout.BeginVertical();
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Total Labor Orders:", GUILayout.Width(130));
-        EditorGUILayout.LabelField(LaborOrderManager_VM.GetLaborOrderCount().ToString());
+        EditorGUILayout.LabelField(LaborOrderManager.GetLaborOrderCount().ToString());
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Working Pawns:", GUILayout.Width(130));
-        EditorGUILayout.LabelField(LaborOrderManager_VM.GetWorkingPawnCount().ToString());
+        EditorGUILayout.LabelField(LaborOrderManager.GetWorkingPawnCount().ToString());
         EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Available Pawns:", GUILayout.Width(130));
-        EditorGUILayout.LabelField(LaborOrderManager_VM.GetAvailablePawnCount().ToString());
+        EditorGUILayout.LabelField(LaborOrderManager.GetAvailablePawnCount().ToString());
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndVertical();
 
@@ -43,12 +43,12 @@ public class TestWindow : EditorWindow
 
         if (GUILayout.Button("Populate Object Labor Orders"))
         {
-            LaborOrderManager_VM.PopulateObjectLaborOrders();
+            LaborOrderManager.PopulateObjectLaborOrders();
         }
 
         if (GUILayout.Button("Populate Object Labor Orders (UPDATED)"))
         {
-            LaborOrderManager_VM.PopulateObjectLaborOrdersUpdated();
+            LaborOrderManager.PopulateObjectLaborOrdersUpdated();
         }
 
         EditorGUILayout.Space();
@@ -57,32 +57,32 @@ public class TestWindow : EditorWindow
 
         if (GUILayout.Button("Populate Mineable Labor Orders"))
         {
-            LaborOrderManager_VM.PopulateObjectLaborOrdersMineable();
+            LaborOrderManager.PopulateObjectLaborOrdersMineable();
         }
 
         if (GUILayout.Button("Populate Plantcuttable Labor Orders"))
         {
-            LaborOrderManager_VM.PopulateObjectLaborOrdersPlantcuttable();
+            LaborOrderManager.PopulateObjectLaborOrdersPlantcuttable();
         }
 
         if (GUILayout.Button("Populate Forageable Bushes Labor Orders"))
         {
-            LaborOrderManager_VM.PopulateObjectLaborOrdersForageableBushes();
+            LaborOrderManager.PopulateObjectLaborOrdersForageableBushes();
         }
 
         if (GUILayout.Button("Populate Forageable Trees Labor Orders"))
         {
-            LaborOrderManager_VM.PopulateObjectLaborOrdersForageableTrees();
+            LaborOrderManager.PopulateObjectLaborOrdersForageableTrees();
         }
 
         if (GUILayout.Button("Populate Gatherable Labor Orders"))
         {
-            LaborOrderManager_VM.PopulateObjectLaborOrdersGatherable();
+            LaborOrderManager.PopulateObjectLaborOrdersGatherable();
         }
 
         if (GUILayout.Button("Populate Deconstructable Labor Orders"))
         {
-            LaborOrderManager_VM.PopulateObjectLaborOrdersDeconstructable();
+            LaborOrderManager.PopulateObjectLaborOrdersDeconstructable();
         }
 
         EditorGUILayout.Space();
@@ -151,18 +151,18 @@ public class TestWindow : EditorWindow
 
         if (GUILayout.Button("Generate Place Order (ErrorObject)"))
         {
-            GameObject testObj = Resources.Load("prefabs/items/ErrorObject") as GameObject;
-            LaborOrderManager_VM.AddPlaceLaborOrder(testObj);
+            Item testObj = Resources.Load<GameObject>("prefabs/items/ErrorObject").GetComponent<Item>();
+            LaborOrderManager.AddPlaceLaborOrder(testObj);
         }
 
         if (GUILayout.Button("Clear Labor Orders"))
         {
-            LaborOrderManager_VM.ClearLaborOrders();
+            LaborOrderManager.ClearLaborOrders();
         }
 
         if (GUILayout.Button("Generate Deconstruct Order"))
         {
-            LaborOrderManager_VM.AddDeconstructLaborOrder();
+            LaborOrderManager.AddDeconstructLaborOrder();
         }
 
         EditorGUILayout.Space();
@@ -176,11 +176,11 @@ public class TestWindow : EditorWindow
 
         if (GUILayout.Button("Add ErrorObject to Random Chest"))
         {
-            Chest_VM randomChest = GlobalStorage_VM.GetRandomChest();
+            Chest randomChest = GlobalStorage.GetRandomChest();
             if (randomChest != null)
             {
-                GameObject errorObject = Resources.Load("prefabs/items/ErrorObject") as GameObject;
-                randomChest.AddItem(errorObject);
+                Item errorObject = Resources.Load<GameObject>("prefabs/items/Berries").GetComponent<Item>();
+                randomChest.AddItem(errorObject.itemName);
                 Debug.Log("ErrorObject added to a random chest.");
             }
             else
@@ -190,3 +190,6 @@ public class TestWindow : EditorWindow
         }
     }
 }
+
+
+

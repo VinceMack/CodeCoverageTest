@@ -5,13 +5,13 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [System.Serializable]
-public class LaborOrder_Deconstruct : LaborOrder_Base_VM
+public class LaborOrder_Deconstruct : LaborOrder_Base
 {
     private static float BASE_TTC = 3f;
-    private GameObject target;
+    private Item target;
 
     // constructor
-    public LaborOrder_Deconstruct(GameObject target)
+    public LaborOrder_Deconstruct(Item target)
     {
         laborType = LaborType.Deconstruct;
         timeToComplete = BASE_TTC;
@@ -19,14 +19,14 @@ public class LaborOrder_Deconstruct : LaborOrder_Base_VM
         location = Vector3Int.FloorToInt(target.transform.position);
     }
 
-    public override IEnumerator Execute(Pawn_VM pawn)
+    public override IEnumerator Execute(Pawn pawn)
     {
         pawn.path.Clear();
 
         yield return new WaitForSeconds(timeToComplete);
         Transform parentTransform = GameObject.Find("Objects").transform;
         // Remove the resources from the tile at the location of the labor order
-        BaseTile_VM tile = GridManager.GetTile(location);
+        BaseTile tile = GridManager.GetTile(location);
 
         if (tile != null)
         {
@@ -59,3 +59,5 @@ public class LaborOrder_Deconstruct : LaborOrder_Base_VM
 
 
 }
+
+
