@@ -33,7 +33,7 @@ public class ActiveQuestUIElement : MonoBehaviour
         statusItemName.text = quest.GetRequirementItemName();
         statusItemQuantity.text = "*" + myQuest.GetStatus().ToString();
 
-        if(myQuest.GetStatus() >= myQuest.GetRequirementItemCount())
+        if (myQuest.GetStatus() >= myQuest.GetRequirementItemCount())
         {
             finishQuestButton.SetActive(true);
         }
@@ -43,7 +43,7 @@ public class ActiveQuestUIElement : MonoBehaviour
     {
         statusItemQuantity.text = "*" + myQuest.GetStatus().ToString();
 
-        if(myQuest.GetStatus() >= myQuest.GetRequirementItemCount())
+        if (myQuest.GetStatus() >= myQuest.GetRequirementItemCount())
         {
             finishQuestButton.SetActive(true);
         }
@@ -59,6 +59,7 @@ public class ActiveQuestUIElement : MonoBehaviour
         // UpdateStatus();
     }
 }
+
 
 
 

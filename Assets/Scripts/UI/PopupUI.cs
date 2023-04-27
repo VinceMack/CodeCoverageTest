@@ -30,26 +30,27 @@ public class PopupUI : MonoBehaviour
 
     private void FixedUpdate() //50 times a second
     {
-        if(changing)
+        if (changing)
         {
-            if(transform.position.y < hiddenY - wiggleRoom || transform.position.y > visibleY + wiggleRoom)
+            if (transform.position.y < hiddenY - wiggleRoom || transform.position.y > visibleY + wiggleRoom)
             {
                 float yPos = direction > 0 ? visibleY : hiddenY;
                 transform.position = new Vector3(transform.position.x, yPos, transform.position.z);
 
-                if(arrowButton != null)
+                if (arrowButton != null)
                 {
                     arrowButton.transform.localRotation = Quaternion.Euler(arrowButton.transform.localRotation.x, arrowButton.transform.localRotation.y, 90 * direction);
                 }
-                
+
                 changing = false;
                 return;
             }
-            
+
             transform.position = new Vector3(transform.position.x, transform.position.y + (amountPerSecond / 50 * direction), transform.position.z);
         }
     }
 }
+
 
 
 

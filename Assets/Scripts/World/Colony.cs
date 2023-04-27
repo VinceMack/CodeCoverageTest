@@ -80,7 +80,7 @@ public class Colony : MonoBehaviour
 
     public int GetNextZoneNumber()
     {
-        return zones.Count+1;
+        return zones.Count + 1;
     }
 
     public Sprite GetZoneSprite()
@@ -91,7 +91,7 @@ public class Colony : MonoBehaviour
     public void RemoveZone(Zone zoneToRemove)
     {
         Destroy(zoneToRemove.GetVisualBox());
-        if(zones.Contains(zoneToRemove))
+        if (zones.Contains(zoneToRemove))
         {
             zones.Remove(zoneToRemove);
         }
@@ -102,5 +102,6 @@ public class Colony : MonoBehaviour
         return zones;
     }
 }
+
 
 

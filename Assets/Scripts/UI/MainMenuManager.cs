@@ -75,7 +75,7 @@ public class MainMenuManager : MonoBehaviour
         if (homeScreen.activeSelf && !isAnimating)
         {
             disableMenus();
-            switch(option)
+            switch (option)
             {
                 case "new":
                     newMenu.SetActive(true);
@@ -102,20 +102,23 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
-    public void PlayGame(){
+    public void PlayGame()
+    {
         SceneManager.LoadScene(1);
     }
-    
-    public void LoadSaveGame(){
+
+    public void LoadSaveGame()
+    {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
     }
-    
+
     public void ExitGame()
     {
         Application.Quit();
     }
 
 }
+
 
 
 

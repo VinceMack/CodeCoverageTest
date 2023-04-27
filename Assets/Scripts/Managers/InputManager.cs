@@ -35,22 +35,24 @@ public class InputManager : MonoBehaviour
         if (Input.GetKey("delete"))
         {
             UIManager.SelectUIMode(1);
-            if((int)UIManager.myMode >= 7)
+            if ((int)UIManager.myMode >= 7)
             {
                 myActionManager?.DeSelectAll();
             }
         }
 
-        if(Input.GetKey("z"))
+        if (Input.GetKey("z"))
         {
             TestUIScript.AddResourcesToWorld();
         }
     }
 
-    private void Awake() {
+    private void Awake()
+    {
         TestUIScript.AddResourcesToWorld();
     }
 }
+
 
 
 

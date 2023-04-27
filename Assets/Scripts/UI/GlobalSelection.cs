@@ -22,7 +22,7 @@ public class GlobalSelection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if((int)UIManager.myMode > 1)
+        if ((int)UIManager.myMode > 1)
         {
             //1. when left mouse button clicked (but not released)
             if (Input.GetMouseButtonDown(0))
@@ -33,7 +33,7 @@ public class GlobalSelection : MonoBehaviour
             //2. while left mouse button held
             if (Input.GetMouseButton(0))
             {
-                if((p1 - Input.mousePosition).magnitude > 40)
+                if ((p1 - Input.mousePosition).magnitude > 40)
                 {
                     dragSelect = true;
                 }
@@ -42,7 +42,7 @@ public class GlobalSelection : MonoBehaviour
             //3. when mouse button comes up
             if (Input.GetMouseButtonUp(0))
             {
-                if(dragSelect != false) 
+                if (dragSelect != false)
                 {
                     p2 = Input.mousePosition;
                     corners = getBoundingBox(p1, p2);
@@ -61,16 +61,16 @@ public class GlobalSelection : MonoBehaviour
                     BaseTile topRightTile = (BaseTile)GridManager.tileMap.GetTile(topRightGridPosition);
                     BaseTile bottomLeftTile = (BaseTile)GridManager.tileMap.GetTile(bottomLeftGridPosition);
 
-                    if(topRightTile != null && bottomLeftTile != null)
+                    if (topRightTile != null && bottomLeftTile != null)
                     {
-                        if((int)UIManager.myMode < 7)
+                        if ((int)UIManager.myMode < 7)
                         {
                             Zone newZone = new Zone(topRight, bottomLeft, myColony, (int)UIManager.myMode);
                         }
                         else
                         {
                             Area newZone = new Area(topRight, bottomLeft);
-                            if((int)UIManager.myMode == 8)
+                            if ((int)UIManager.myMode == 8)
                             {
                                 newZone.CreateChests();
                             }
@@ -92,7 +92,7 @@ public class GlobalSelection : MonoBehaviour
 
     private void OnGUI()
     {
-        if(dragSelect == true)
+        if (dragSelect == true)
         {
             var rect = Utils.GetScreenRect(p1, Input.mousePosition);
             Utils.DrawScreenRect(rect, new Color(0.8f, 0.8f, 0.95f, 0.25f));
@@ -101,7 +101,7 @@ public class GlobalSelection : MonoBehaviour
     }
 
     //create a bounding box (4 corners in order) from the start and end mouse position
-    Vector2[] getBoundingBox(Vector2 p1,Vector2 p2)
+    Vector2[] getBoundingBox(Vector2 p1, Vector2 p2)
     {
         // Min and Max to get 2 corners of rectangle regardless of drag direction.
         var bottomLeft = Vector3.Min(p1, p2);
@@ -131,6 +131,7 @@ public class GlobalSelection : MonoBehaviour
     // If non reachable, cancel order
     // If some reachable, set conditionals, when conditional finsihed, enqueue next non reachable
 }
+
 
 
 

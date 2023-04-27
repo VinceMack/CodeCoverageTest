@@ -15,7 +15,7 @@ public class Zone : Area
     {
         myColony = colony;
 
-        if(type < 7 && type > 1)
+        if (type < 7 && type > 1)
         {
             myType = (ZoneType)(type - 1);
         }
@@ -59,5 +59,6 @@ public class Zone : Area
         return visualBox;
     }
 }
+
 
 

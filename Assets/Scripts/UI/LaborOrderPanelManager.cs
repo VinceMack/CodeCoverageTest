@@ -8,25 +8,25 @@ public class LaborOrderPanelManager : MonoBehaviour
 {
 
     // Containers for pawns and buttons
-    public  GameObject buttonContainer;
-    public  GameObject pawnContainer;
-    public  GameObject pawnNameContainer;
-    public  GameObject LaborNameContainer;
+    public GameObject buttonContainer;
+    public GameObject pawnContainer;
+    public GameObject pawnNameContainer;
+    public GameObject LaborNameContainer;
 
     // Prefabs for display.
-    public  GameObject button_prefab;
-    public  GameObject pawnText_prefab;
-    public  GameObject LaborText_prefab;
+    public GameObject button_prefab;
+    public GameObject pawnText_prefab;
+    public GameObject LaborText_prefab;
 
     // For formatting panel.
     public static GameObject content;
     private static float spacing;
 
     // Panel text objects.
-    public  GameObject[] laborTypeNames;
-    
+    public GameObject[] laborTypeNames;
+
     [ContextMenu("TestInit")]
-    public  void InitializeLaborOrderPanel()
+    public void InitializeLaborOrderPanel()
     {
 
         buttonContainer = GameObject.Find("Buttons");
@@ -41,7 +41,7 @@ public class LaborOrderPanelManager : MonoBehaviour
         content = GameObject.Find("LaborOrderContent");
 
         AdjustGridLayout();
-        
+
         laborTypeNames = new GameObject[LaborOrderManager.GetLaborTypesCount()];
 
         // Initialize labor order panel
@@ -55,7 +55,7 @@ public class LaborOrderPanelManager : MonoBehaviour
             TMP_Text newText = newTextObject.GetComponent<TMP_Text>();
             newText.text = LaborOrderManager.GetLaborTypeName(i);
             laborTypeNames[i] = newTextObject;
-        }    
+        }
 
         List<GameObject> pawnList = new List<GameObject>();
 
@@ -72,9 +72,9 @@ public class LaborOrderPanelManager : MonoBehaviour
     }
 
     // Add buttons for the addition of a pawn.
-    public  void AddPawnButtons(GameObject pawn)
+    public void AddPawnButtons(GameObject pawn)
     {
-        
+
         // Add pawn text.
         Pawn pawnComponent = pawn.GetComponent<Pawn>();
         GameObject newTextObject = Instantiate(pawnText_prefab, pawnNameContainer.transform);
@@ -104,7 +104,7 @@ public class LaborOrderPanelManager : MonoBehaviour
     }
 
     // Remove buttons for the removal of a pawn.
-    public  void RemovePawnButtons(GameObject pawn)
+    public void RemovePawnButtons(GameObject pawn)
     {
         // Remove pawn name.
         Pawn pawnComponent = pawn.GetComponent<Pawn>();
@@ -125,7 +125,7 @@ public class LaborOrderPanelManager : MonoBehaviour
     }
 
     // Make adjustments for layout.
-    public  void AdjustGridLayout()
+    public void AdjustGridLayout()
     {
 
         // Adjust button layout.
@@ -151,6 +151,7 @@ public class LaborOrderPanelManager : MonoBehaviour
     }
 
 }
+
 
 
 

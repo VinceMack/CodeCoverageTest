@@ -9,18 +9,18 @@ public class UIButton : MonoBehaviour
     [SerializeField] protected Color selectedColor;
     [SerializeField] protected List<UIButton> comparableButtons = new List<UIButton>();
 
-    private void Awake() 
+    private void Awake()
     {
         originalColor = GetComponent<Image>().color;
     }
 
     public virtual void Select()
     {
-        if(GetComponent<Image>().color == originalColor)
+        if (GetComponent<Image>().color == originalColor)
         {
-            foreach(UIButton button in comparableButtons)
+            foreach (UIButton button in comparableButtons)
             {
-                if(button.GetComponent<Image>().color != button.originalColor)
+                if (button.GetComponent<Image>().color != button.originalColor)
                 {
                     button.GetComponent<Button>().onClick.Invoke();
                 }
@@ -43,6 +43,7 @@ public class UIButton : MonoBehaviour
         GetComponent<Image>().color = originalColor;
     }
 }
+
 
 
 

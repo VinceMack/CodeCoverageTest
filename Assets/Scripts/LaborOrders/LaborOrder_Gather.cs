@@ -24,12 +24,14 @@ public class LaborOrder_Gather : LaborOrder_Base
 
         Item resource = targetTile.resource;
 
-        if(resource == null){
+        if (resource == null)
+        {
             Debug.LogWarning("Resource is null. Aborting.");
             yield break;
         }
 
-        if(chest == null){
+        if (chest == null)
+        {
             Debug.LogWarning("Chest is null. Aborting.");
             yield break;
         }
@@ -135,6 +137,7 @@ public class LaborOrder_Gather : LaborOrder_Base
         return false;
     }
 }
+
 
 
 

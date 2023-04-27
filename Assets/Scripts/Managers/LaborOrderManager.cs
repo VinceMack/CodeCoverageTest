@@ -80,7 +80,7 @@ public class LaborOrderManager : MonoBehaviour
     {
         // iterate through all objects and find the first tile with an item that is deconstructable
         Item[] objects = FindObjectsOfType<Item>();
-        
+
         // Check if the objects array is null
         if (objects == null)
         {
@@ -142,7 +142,7 @@ public class LaborOrderManager : MonoBehaviour
         {
             return 0;
         }
-        
+
         return availablePawns.Count;
     }
 
@@ -329,7 +329,7 @@ public class LaborOrderManager : MonoBehaviour
     public static void PopulateObjectLaborOrders()
     {
         Item[] objects = FindObjectsOfType<Item>();
-        
+
         // Check if the objects array is null
         if (objects == null)
         {
@@ -341,73 +341,78 @@ public class LaborOrderManager : MonoBehaviour
         {
             if (obj.name == "Tree(Clone)")
             {
-                if(obj.GetComponent<Tree>().isForageable == true){
+                if (obj.GetComponent<Tree>().isForageable == true)
+                {
                     LaborOrderManager.AddLaborOrder(new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Tree));
                 }
 
-                if(obj.GetComponent<Tree>().isDeconstructable == true){
+                if (obj.GetComponent<Tree>().isDeconstructable == true)
+                {
                     LaborOrderManager.AddLaborOrder(new LaborOrder_Deconstruct(obj));
                 }
 
             }
-            
+
             if (obj.name == "Bush(Clone)") // && obj.GetComponent<Bush>().berryCount > 0
             {
-                if(obj.GetComponent<Bush>().isForageable){
+                if (obj.GetComponent<Bush>().isForageable)
+                {
                     LaborOrderManager.AddLaborOrder(new LaborOrder_Forage(obj, LaborOrder_Forage.ObjectType.Bush));
                 }
-                
+
             }
-            
+
             if (obj.name == "Wheat(Clone)")
             {
-                if(obj.GetComponent<Wheat>().isPlantcuttable){
+                if (obj.GetComponent<Wheat>().isPlantcuttable)
+                {
                     LaborOrderManager.AddLaborOrder(new LaborOrder_Plantcut(obj));
                 }
-                
+
             }
-            
+
             if (obj.name == "Rock(Clone)")
             {
-                if(obj.GetComponent<Rock>().isMineable == true){
+                if (obj.GetComponent<Rock>().isMineable == true)
+                {
                     LaborOrderManager.AddLaborOrder(new LaborOrder_Mine(obj));
                 }
-                
+
             }
             else
             {
                 Item item = obj.GetComponent<Berries>();
-                if(item != null && item.isGatherable)
+                if (item != null && item.isGatherable)
                 {
                     LaborOrderManager.AddLaborOrder(new LaborOrder_Gather(obj));
                     continue;
                 }
                 item = obj.GetComponent<RockResource>();
-                if(item != null && item.isGatherable)
+                if (item != null && item.isGatherable)
                 {
                     LaborOrderManager.AddLaborOrder(new LaborOrder_Gather(obj));
                     continue;
                 }
                 item = obj.GetComponent<WheatItem>();
-                if(item != null && item.isGatherable)
+                if (item != null && item.isGatherable)
                 {
                     LaborOrderManager.AddLaborOrder(new LaborOrder_Gather(obj));
                     continue;
                 }
                 item = obj.GetComponent<Coin>();
-                if(item != null && item.isGatherable)
+                if (item != null && item.isGatherable)
                 {
                     LaborOrderManager.AddLaborOrder(new LaborOrder_Gather(obj));
                     continue;
                 }
                 item = obj.GetComponent<Wood>();
-                if(item != null && item.isGatherable)
+                if (item != null && item.isGatherable)
                 {
                     LaborOrderManager.AddLaborOrder(new LaborOrder_Gather(obj));
                     continue;
                 }
                 item = obj.GetComponent<Wheat>();
-                if(item != null && item.isGatherable)
+                if (item != null && item.isGatherable)
                 {
                     LaborOrderManager.AddLaborOrder(new LaborOrder_Gather(obj));
                     continue;
@@ -422,7 +427,7 @@ public class LaborOrderManager : MonoBehaviour
     public static void PopulateObjectLaborOrdersUpdated()
     {
         Item[] objects = FindObjectsOfType<Item>();
-        
+
         // Check if the objects array is null
         if (objects == null)
         {
@@ -617,5 +622,6 @@ public class LaborOrderManager : MonoBehaviour
     }
 
 }
+
 
 

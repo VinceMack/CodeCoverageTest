@@ -20,10 +20,10 @@ public class GameClock : MonoBehaviour
 
     private float resumeDelay = 0f;
     private float lastTick = 0f;
-    
+
     void Awake()
     {
-        
+
     }
 
     // Start is called before the first frame update
@@ -48,7 +48,7 @@ public class GameClock : MonoBehaviour
     // Resume the GameClock
     public void Resume()
     {
-        if(paused)
+        if (paused)
         {
             paused = false;
             InvokeRepeating("OnTick", resumeDelay, FREQUENCY);
@@ -58,7 +58,8 @@ public class GameClock : MonoBehaviour
     // Executes functions every tick
     public void OnTick()
     {
-        if(FREQUENCY == 0){
+        if (FREQUENCY == 0)
+        {
             return;
         }
 
@@ -69,6 +70,7 @@ public class GameClock : MonoBehaviour
         Wheat.IncrementAllResources(WHEAT_INCREMENT);
     }
 }
+
 
 
 

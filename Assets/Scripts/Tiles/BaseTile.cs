@@ -6,16 +6,16 @@ public enum TileType { GENERIC, GRASS, ROCK, WATER, SAND, STAIRS, STONE }
 
 public class BaseTile : Tile
 {
-    public TileType type        { get; private set; }       // type of the tile
-    public Item resource  { get; set; }               // resource on the tile
-    public int resourceCount    { get; private set; }       // number of resources on the tile
-    public Vector3 position     { get; set; }               // position of the tile in 3D space
-    public int level            { get; set; }               // level of the tile
+    public TileType type { get; private set; }       // type of the tile
+    public Item resource { get; set; }               // resource on the tile
+    public int resourceCount { get; private set; }       // number of resources on the tile
+    public Vector3 position { get; set; }               // position of the tile in 3D space
+    public int level { get; set; }               // level of the tile
 
-    public int distance         { get; set; }               // distance from starting tile
-    public bool visited         { get; set; }               // flag to indicate if the tile has been visited
-    public bool isCollision     { get; set; }               // flag to indicate if the tile can be collided with
-    public BaseTile parent   { get; set; }               // parent tile used in pathfinding
+    public int distance { get; set; }               // distance from starting tile
+    public bool visited { get; set; }               // flag to indicate if the tile has been visited
+    public bool isCollision { get; set; }               // flag to indicate if the tile can be collided with
+    public BaseTile parent { get; set; }               // parent tile used in pathfinding
 
     // method to return the x position of the tile
     public int GetXPosition()
@@ -106,5 +106,6 @@ public class BaseTile : Tile
     }
 
 }
+
 
 

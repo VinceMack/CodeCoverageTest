@@ -46,7 +46,7 @@ public class Quest
 
     public bool CheckCondition()
     {
-        return(myColony.ColonyHasItem(requirementName, requirementQuantity));
+        return (myColony.ColonyHasItem(requirementName, requirementQuantity));
     }
 
     public bool CompleteQuest()
@@ -60,6 +60,7 @@ public class Quest
         return true;
     }
 }
+
 
 
 

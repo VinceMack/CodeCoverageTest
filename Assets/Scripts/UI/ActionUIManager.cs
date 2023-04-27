@@ -8,12 +8,13 @@ public class ActionUIManager : MonoBehaviour
 
     public void DeSelectAll()
     {
-        foreach(UIButton button in buttons)
+        foreach (UIButton button in buttons)
         {
             button.OriginalColor();
         }
     }
 }
+
 
 
 

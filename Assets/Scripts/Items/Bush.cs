@@ -41,7 +41,8 @@ public class Bush : Item
     {
         foreach (Bush plant in plantResources)
         {
-            if(plant.isItemized){
+            if (plant.isItemized)
+            {
                 continue;
             }
 
@@ -101,6 +102,7 @@ public class Bush : Item
         return temp;
     }
 }
+
 
 
 

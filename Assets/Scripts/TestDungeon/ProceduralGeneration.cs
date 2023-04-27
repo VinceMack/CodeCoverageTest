@@ -12,7 +12,7 @@ public static class ProceduralGeneration
         path.Add(startPosition);
         var previousPosition = startPosition;
 
-        for(int i = 0; i < walkLength; i++)
+        for (int i = 0; i < walkLength; i++)
         {
             var newPosition = previousPosition + Direction2D.GetRandomCardinalDirection();
             path.Add(newPosition);
@@ -28,7 +28,7 @@ public static class ProceduralGeneration
         var currentPostion = startPosition;
         corridor.Add(currentPostion);
 
-        for(int i = 0; i < corridorLength; i++)
+        for (int i = 0; i < corridorLength; i++)
         {
             currentPostion += direction;
             corridor.Add(currentPostion);
@@ -41,37 +41,37 @@ public static class ProceduralGeneration
         Queue<BoundsInt> roomsQueue = new Queue<BoundsInt>();
         List<BoundsInt> roomsList = new List<BoundsInt>();
         roomsQueue.Enqueue(spaceToSplit);
-        while(roomsQueue.Count > 0)
+        while (roomsQueue.Count > 0)
         {
             var room = roomsQueue.Dequeue();
-            if(room.size.y >= minHeight && room.size.x >= minWidth)
+            if (room.size.y >= minHeight && room.size.x >= minWidth)
             {
-                if(Random.value < 0.5f)
+                if (Random.value < 0.5f)
                 {
-                    if(room.size.y >= minHeight*2)
+                    if (room.size.y >= minHeight * 2)
                     {
                         SplitHorizontally(minHeight, roomsQueue, room);
                     }
-                    else if(room.size.x >= minWidth*2)
+                    else if (room.size.x >= minWidth * 2)
                     {
                         SplitVertically(minWidth, roomsQueue, room);
                     }
-                    else if(room.size.x >= minWidth && room.size.y >= minHeight)
+                    else if (room.size.x >= minWidth && room.size.y >= minHeight)
                     {
                         roomsList.Add(room);
                     }
                 }
                 else
                 {
-                    if(room.size.x >= minWidth*2)
+                    if (room.size.x >= minWidth * 2)
                     {
                         SplitVertically(minWidth, roomsQueue, room);
                     }
-                    else if(room.size.y >= minHeight*2)
+                    else if (room.size.y >= minHeight * 2)
                     {
                         SplitHorizontally(minHeight, roomsQueue, room);
                     }
-                    else if(room.size.x >= minWidth && room.size.y >= minHeight)
+                    else if (room.size.x >= minWidth && room.size.y >= minHeight)
                     {
                         roomsList.Add(room);
                     }
@@ -137,6 +137,7 @@ public static class Direction2D
         return cardinalDirectionsList[Random.Range(0, cardinalDirectionsList.Count)];
     }
 }
+
 
 
 

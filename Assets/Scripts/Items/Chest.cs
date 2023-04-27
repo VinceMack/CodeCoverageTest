@@ -87,7 +87,7 @@ public class Chest : Item
     /// </summary>
     public int ItemCountInChest(string itemName)
     {
-        if(!contents.ContainsKey(itemName))
+        if (!contents.ContainsKey(itemName))
         {
             return 0;
         }
@@ -113,6 +113,7 @@ public class Chest : Item
     }
 
 }
+
 
 
 

@@ -28,7 +28,8 @@ public class LaborOrder_Forage : LaborOrder_Base
         {
             yield return new WaitForSeconds(timeToComplete);
 
-            if(type == ObjectType.Bush){
+            if (type == ObjectType.Bush)
+            {
                 targetBush.GetComponent<Bush>().Harvest();
 
                 // spawn seeds in an adjacent tile that is not collision and does not have a resource
@@ -47,7 +48,8 @@ public class LaborOrder_Forage : LaborOrder_Base
 
             }
 
-            if(type == ObjectType.Tree){
+            if (type == ObjectType.Tree)
+            {
                 targetBush.GetComponent<Tree>().Harvest();
 
                 // spawn seeds in an adjacent tile that is not collision and does not have a resource
@@ -69,6 +71,7 @@ public class LaborOrder_Forage : LaborOrder_Base
         yield break;
     }
 }
+
 
 
 

@@ -346,7 +346,8 @@ public class Pawn : MonoBehaviour
             currentPosition = Vector3Int.FloorToInt(transform.position);
         }
 
-        if(path.Count > 0){
+        if (path.Count > 0)
+        {
             currentExecution = StartCoroutine(currentLaborOrder.Execute(this));
             yield return currentExecution;
             Debug.Log($"{pawnName,-10} COMPLETED Labor Order #{currentLaborOrder.orderNumber,-5} TTC: {currentLaborOrder.timeToComplete,-10:F2} {"Order Type: " + currentLaborOrder.laborType,-25} {target.ToString(),-80}");
@@ -359,26 +360,26 @@ public class Pawn : MonoBehaviour
     }
 
 
-/*
-    // Decrement the hunger for all living pawns
-    public static void DecrementHunger(int decAmount)
-    {
-        for (int i = PawnList.Count - 1; i >= 0; i--)
+    /*
+        // Decrement the hunger for all living pawns
+        public static void DecrementHunger(int decAmount)
         {
-            PawnList[i].hunger -= decAmount;
-            if (PawnList[i].hunger <= 0)
+            for (int i = PawnList.Count - 1; i >= 0; i--)
             {
-                PawnList[i].hunger = 0;
-                PawnList[i].Die("has starved to death.");
+                PawnList[i].hunger -= decAmount;
+                if (PawnList[i].hunger <= 0)
+                {
+                    PawnList[i].hunger = 0;
+                    PawnList[i].Die("has starved to death.");
 
-            }
-            else if (PawnList[i].hunger < PawnHunger.HUNGER_RESPONSE_THRESHOLD)
-            {
-                PawnHunger.EatFromInventory(PawnList[i]);
+                }
+                else if (PawnList[i].hunger < PawnHunger.HUNGER_RESPONSE_THRESHOLD)
+                {
+                    PawnHunger.EatFromInventory(PawnList[i]);
+                }
             }
         }
-    }
-*/
+    */
 
     // cancels the current labor order
     public void CancelCurrentLaborOrder()
@@ -445,7 +446,7 @@ public class Pawn : MonoBehaviour
         {
             laborTypePriority[i] = new List<LaborType>();
         }
-        
+
 
         // Assign random priority levels to labor types
         foreach (LaborType laborType in System.Enum.GetValues(typeof(LaborType)))
@@ -490,6 +491,7 @@ public class Pawn : MonoBehaviour
     }
 
 }
+
 
 
 

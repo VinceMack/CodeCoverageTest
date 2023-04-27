@@ -38,12 +38,12 @@ public class ColonyInfoManager : MonoBehaviour
 
     public void BuildZoneList()
     {
-        foreach(Transform zoneChild in zoneContent.transform)
+        foreach (Transform zoneChild in zoneContent.transform)
         {
             Destroy(zoneChild.gameObject);
         }
 
-        foreach(Zone zone in myColony.GetZones())
+        foreach (Zone zone in myColony.GetZones())
         {
             GameObject zoneTile = Instantiate(zoneInfoTile, new Vector3(), new Quaternion());
             zoneTile.transform.SetParent(zoneContent.transform);
@@ -65,5 +65,6 @@ public class ColonyInfoManager : MonoBehaviour
         homeInfo.SetActive(true);
     }
 }
+
 
 

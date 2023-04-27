@@ -174,14 +174,14 @@ public class TestWindow : EditorWindow
             GridManager.PopulateWithChest();
         }
 
-        if (GUILayout.Button("Add ErrorObject to Random Chest"))
+        if (GUILayout.Button("Add Berries to Random Chest"))
         {
             Chest randomChest = GlobalStorage.GetRandomChest();
             if (randomChest != null)
             {
                 Item errorObject = Resources.Load<GameObject>("prefabs/items/Berries").GetComponent<Item>();
                 randomChest.AddItem(errorObject.itemName);
-                Debug.Log("ErrorObject added to a random chest.");
+                Debug.Log("Berries added to a random chest.");
             }
             else
             {
@@ -190,6 +190,7 @@ public class TestWindow : EditorWindow
         }
     }
 }
+
 
 
 

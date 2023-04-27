@@ -35,7 +35,7 @@ public class QuestUIManager : MonoBehaviour
 
     public void ToggleQuestPanel()
     {
-        if(questPanel.activeSelf)
+        if (questPanel.activeSelf)
         {
             questPanel.SetActive(false);
         }
@@ -47,16 +47,16 @@ public class QuestUIManager : MonoBehaviour
             ReloadPendingQuestPanel();
         }
     }
-    
+
     public void ReloadActiveQuestPanel()
     {
-        foreach(Transform child in activeQuestListContent.transform)
+        foreach (Transform child in activeQuestListContent.transform)
         {
             Destroy(child.gameObject);
         }
 
         List<Quest> questList = questManager.GetActiveQuestList();
-        foreach(Quest quest in questList)
+        foreach (Quest quest in questList)
         {
             GameObject newElement = Instantiate(activeQuestUIElement);
             newElement.GetComponent<ActiveQuestUIElement>().Initialize(quest, this);
@@ -66,13 +66,13 @@ public class QuestUIManager : MonoBehaviour
 
     public void ReloadPendingQuestPanel()
     {
-        foreach(Transform child in pendingQuestListContent.transform)
+        foreach (Transform child in pendingQuestListContent.transform)
         {
             Destroy(child.gameObject);
         }
 
         List<Quest> questList = questManager.GetPendingQuestList();
-        foreach(Quest quest in questList)
+        foreach (Quest quest in questList)
         {
             GameObject newElement = Instantiate(pendingQuestUIElement);
             newElement.GetComponent<AvailableQuestUIElement>().Initialize(quest, this);
@@ -82,10 +82,10 @@ public class QuestUIManager : MonoBehaviour
 
     public void UpdateActiveQuestProgression()
     {
-        foreach(Transform missionElement in activeQuestListContent.transform)
+        foreach (Transform missionElement in activeQuestListContent.transform)
         {
             ActiveQuestUIElement uiElement = missionElement.gameObject.GetComponent<ActiveQuestUIElement>();
-            if(uiElement != null)
+            if (uiElement != null)
             {
                 uiElement.UpdateStatus();
             }
@@ -110,6 +110,7 @@ public class QuestUIManager : MonoBehaviour
         ReloadActiveQuestPanel();
     }
 }
+
 
 
 

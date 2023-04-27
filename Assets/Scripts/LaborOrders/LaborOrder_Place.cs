@@ -31,7 +31,7 @@ public class LaborOrder_Place : LaborOrder_Base
             location = new Vector3Int(randomX, randomY, 0);
             tile = GridManager.GetTile(location);
         }
-        while(tile.resource != null);
+        while (tile.resource != null);
     }
 
     public LaborOrder_Place(Item item, Vector2 placeLocation) : base()
@@ -62,7 +62,7 @@ public class LaborOrder_Place : LaborOrder_Base
                 if (parentObjects != null)
                 {
                     Item resource = UnityEngine.Object.Instantiate(itemToPlace, GridManager.grid.GetCellCenterWorld(location), Quaternion.identity, parentObjects.transform);
-                    if(resource.GetComponent<Chest>() != null)
+                    if (resource.GetComponent<Chest>() != null)
                     {
                         resource.GetComponent<Chest>().ResetPosition();
                     }
@@ -85,5 +85,6 @@ public class LaborOrder_Place : LaborOrder_Base
     }
 
 }
+
 
 

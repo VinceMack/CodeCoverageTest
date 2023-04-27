@@ -35,7 +35,8 @@ public class PawnEditor : Editor
             EditorGUILayout.BeginVertical(GUI.skin.box);
             EditorGUILayout.LabelField("Priority Level " + (i + 1), EditorStyles.boldLabel);
 
-            if(laborTypePriority == null){
+            if (laborTypePriority == null)
+            {
                 EditorGUILayout.LabelField("No Labor Types at this level");
                 EditorGUILayout.EndVertical();
                 continue;
@@ -74,6 +75,7 @@ public class PawnEditor : Editor
         EditorGUILayout.EndHorizontal();
     }
 }
+
 
 
 

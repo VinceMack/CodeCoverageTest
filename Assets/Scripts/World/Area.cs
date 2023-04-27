@@ -25,12 +25,12 @@ public class Area
         height = topRight.y - bottomLeft.y;
         width = topRight.x - bottomLeft.x;
 
-        middle = new Vector2(bottomLeft.x + (width/2), bottomLeft.y + (height/2));
+        middle = new Vector2(bottomLeft.x + (width / 2), bottomLeft.y + (height / 2));
     }
 
     public List<Vector2> GetTwoCorners()
     {
-        return new List<Vector2>{topRight, bottomLeft};
+        return new List<Vector2> { topRight, bottomLeft };
     }
 
     public List<Vector2> GetCorners()
@@ -45,9 +45,9 @@ public class Area
 
     public void CreateChests()
     {
-        for(int i = (int)bottomLeft.x; i < (int)topRight.x; i++)
+        for (int i = (int)bottomLeft.x; i < (int)topRight.x; i++)
         {
-            for(int j = (int)bottomLeft.y; j < (int)topRight.y; j++)
+            for (int j = (int)bottomLeft.y; j < (int)topRight.y; j++)
             {
                 Item itemToPlace = Resources.Load<GameObject>("prefabs/items/Chest").GetComponent<Item>();
                 LaborOrderManager.AddPlaceLaborOrder(itemToPlace, new Vector2(i, j));
@@ -56,7 +56,7 @@ public class Area
                 // BaseTile tile = (BaseTile)GridManager.tileMap.GetTile(new Vector3Int(i, j, 0));
                 // if (tile != null && tile.type == TileType.GRASS && tile.resource == null)
                 // {
-                    
+
                 //     GameObject chestPrefab = Resources.Load<GameObject>("prefabs/items/Chest");
                 //     GameObject chestInstance = UnityEngine.Object.Instantiate(chestPrefab, tile.position, Quaternion.identity);
                 //     chestInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
@@ -67,7 +67,7 @@ public class Area
     }
 
     public void DestroyObjects(Item[] gameObjectsInScene)
-    {        
+    {
         // Check if the objects array is null
         if (gameObjectsInScene == null)
         {
@@ -83,9 +83,9 @@ public class Area
             {
                 Debug.Log(itemComponent.location.GetXPosition());
                 Debug.Log(itemComponent.location.GetYPosition());
-                if(itemComponent.location.GetXPosition() <= topRight.x && itemComponent.location.GetXPosition() > bottomLeft.x)
+                if (itemComponent.location.GetXPosition() <= topRight.x && itemComponent.location.GetXPosition() > bottomLeft.x)
                 {
-                    if(itemComponent.location.GetYPosition() <= topRight.y && itemComponent.location.GetYPosition() > bottomLeft.y)
+                    if (itemComponent.location.GetYPosition() <= topRight.y && itemComponent.location.GetYPosition() > bottomLeft.y)
                     {
                         LaborOrderManager.AddSpecificDeconstructLaborOrder(itemComponent);
                     }
@@ -94,6 +94,7 @@ public class Area
         }
     }
 }
+
 
 
 

@@ -40,7 +40,8 @@ public class Wheat : Item
     {
         foreach (Wheat plant in plantResources)
         {
-            if(plant.isItemized == true){
+            if (plant.isItemized == true)
+            {
                 continue;
             }
 
@@ -84,7 +85,8 @@ public class Wheat : Item
 
     public int Harvest()
     {
-        if(isItemized == true){
+        if (isItemized == true)
+        {
             return -1;
         }
 
@@ -104,6 +106,7 @@ public class Wheat : Item
         return temp;
     }
 }
+
 
 
 

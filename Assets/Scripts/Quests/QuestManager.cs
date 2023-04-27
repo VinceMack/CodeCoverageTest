@@ -22,8 +22,8 @@ public class QuestInfo
 public class QuestManager : MonoBehaviour
 {
     // First string, int is name and quantity of required item, second is for reward
-    private List<QuestInfo> possibleQuests = new List<QuestInfo> 
-    { 
+    private List<QuestInfo> possibleQuests = new List<QuestInfo>
+    {
         new QuestInfo("Wood", 64, "Bread", 16),
         new QuestInfo("Wood", 32, "Bread", 4),
         new QuestInfo("Wood", 16, "Bread", 1),
@@ -36,7 +36,7 @@ public class QuestManager : MonoBehaviour
 
     [SerializeField] private Colony myColony;
 
-    private void OnEnable() 
+    private void OnEnable()
     {
         CreateRandomQuest();
         CreateRandomQuest();
@@ -71,7 +71,7 @@ public class QuestManager : MonoBehaviour
 
     public void CheckQuestCompletion()
     {
-        foreach(Quest quest in activeQuests)
+        foreach (Quest quest in activeQuests)
         {
             quest.CheckCondition();
         }
@@ -86,6 +86,7 @@ public class QuestManager : MonoBehaviour
         pendingQuests.Add(new Quest(questInfo.rewardItemName, questInfo.rewardItemQuantity, questInfo.requiredItemName, questInfo.requiredItemQuantity, myColony));
     }
 }
+
 
 
 

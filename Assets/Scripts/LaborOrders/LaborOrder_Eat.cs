@@ -18,7 +18,7 @@ public class LaborOrder_Eat : LaborOrder_Base
     {
         //pawn.path.Clear();
 
-        Chest chestContainingFood = GlobalStorage.GetClosestChestWithItem(new Berries(), pawn.transform.position);
+        Chest chestContainingFood = GlobalStorage.GetClosestChestWithItem("Berries", pawn.transform.position);
         if (chestContainingFood == null)
         {
             Debug.LogWarning("No chest found containing Berries. Aborting.");
@@ -135,3 +135,4 @@ public class LaborOrder_Eat : LaborOrder_Base
         return false;
     }
 }
+

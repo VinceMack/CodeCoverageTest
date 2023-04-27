@@ -7,7 +7,7 @@ using UnityEngine.TestTools;
 
 namespace Test
 {
-	public class Chest_Test
+    public class Chest_Test
     {
         [Test]
         public void Chest_AddItem_NewItem_Pass()
@@ -202,4 +202,5 @@ namespace Test
         // }
     }
 }
+
 

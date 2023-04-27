@@ -179,7 +179,7 @@ public class GridManager : MonoBehaviour
             }
         }
     }
-    
+
     public static void PopulateWithRocks()
     {
         TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
@@ -403,6 +403,7 @@ public class GridManager : MonoBehaviour
 
 
 }
+
 
 
 
