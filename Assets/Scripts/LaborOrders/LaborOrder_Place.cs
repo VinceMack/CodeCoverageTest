@@ -34,6 +34,17 @@ public class LaborOrder_Place : LaborOrder_Base_VM
         while(tile.resource != null);
     }
 
+    public LaborOrder_Place(GameObject item, Vector2 placeLocation) : base()
+    {
+        laborType = LaborType.Place;
+        timeToComplete = 3f;
+        orderNumber = LaborOrderManager_VM.GetNumOfLaborOrders();
+        itemToPlace = item;
+
+        // get tile with no resource
+        location = new Vector3Int((int)placeLocation.x, (int)placeLocation.y, 0);
+    }
+
     public override IEnumerator Execute(Pawn_VM pawn)
     {
         pawn.path.Clear();
@@ -51,6 +62,10 @@ public class LaborOrder_Place : LaborOrder_Base_VM
                 if (parentObjects != null)
                 {
                     GameObject resource = UnityEngine.Object.Instantiate(itemToPlace, GridManager.grid.GetCellCenterWorld(location), Quaternion.identity, parentObjects.transform);
+                    if(resource.GetComponent<Chest_VM>() != null)
+                    {
+                        resource.GetComponent<Chest_VM>().ResetPosition();
+                    }
                 }
                 else
                 {

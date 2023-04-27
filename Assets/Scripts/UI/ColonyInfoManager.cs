@@ -1,5 +1,3 @@
-/*
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,33 +20,6 @@ public class ColonyInfoManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI pawnCount;
 
-    // Resource List Variables
-    [SerializeField] private GameObject resourceListContent;
-
-    [SerializeField] private GameObject resourceListElement;
-
-    /////////////////////////////////////
-    // Resource List Methods
-    /////////////////////////////////////
-
-    [ContextMenu("InitializeList")]
-    public void InitializeResourceList()
-    {
-        // Remove the whole list
-        foreach(Transform child in resourceListContent.transform)
-        {
-            Destroy(child.gameObject);
-        }
-
-        // Build the whole list
-        foreach(KeyValuePair<string, Resource> kvp in ResourceManager.resourceDictionary)
-        {
-            GameObject newElement = Instantiate(resourceListElement);
-            newElement.transform.SetParent(resourceListContent.transform);
-
-            newElement.GetComponent<ResourceListElement>().Initialize(myColony, kvp.Value);
-        }
-    }
 
     /////////////////////////////////////
     // Colony Panel Methods
@@ -94,6 +65,3 @@ public class ColonyInfoManager : MonoBehaviour
         homeInfo.SetActive(true);
     }
 }
-
-
-*/

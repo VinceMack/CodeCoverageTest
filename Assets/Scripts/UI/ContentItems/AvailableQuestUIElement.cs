@@ -5,7 +5,7 @@ using TMPro;
 
 public class AvailableQuestUIElement : MonoBehaviour
 {
-    /*private Quest myQuest;
+    private Quest myQuest;
     private QuestUIManager myManager;
 
     [SerializeField] private TextMeshProUGUI requiredItemName;
@@ -19,11 +19,11 @@ public class AvailableQuestUIElement : MonoBehaviour
         myQuest = quest;
         myManager = manager;
 
-        requiredItemName.text = quest.GetRequirementItem().DisplayName;
-        requiredItemQuantity.text = "*" + quest.GetRequirementItem().Quantity.ToString();
+        requiredItemName.text = quest.GetRequirementItemName();
+        requiredItemQuantity.text = "*" + quest.GetRequirementItemCount().ToString();
 
-        rewardItemName.text = quest.GetRewardItem().DisplayName;
-        rewardItemQuantity.text = "*" + quest.GetRewardItem().Quantity.ToString();
+        rewardItemName.text = quest.GetRewardItemName();
+        rewardItemQuantity.text = "*" + quest.GetRewardItemCount().ToString();
     }
 
     public void Accept()
@@ -36,5 +36,5 @@ public class AvailableQuestUIElement : MonoBehaviour
     {
         myManager.DeclineQuest(myQuest);
         myManager.ReloadPendingQuestPanel();
-    }*/
+    }
 }

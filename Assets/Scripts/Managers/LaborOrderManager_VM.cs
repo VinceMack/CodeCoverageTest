@@ -67,6 +67,14 @@ public class LaborOrderManager_VM : MonoBehaviour
         laborQueues[(int)LaborType.Place].Enqueue(placeOrder);
     }
 
+    public static void AddPlaceLaborOrder(GameObject itemToPlace, Vector2 location)
+    {
+        // create a new place labor order
+        LaborOrder_Place placeOrder = new LaborOrder_Place(itemToPlace, location);
+        // add the labor order to the queue
+        laborQueues[(int)LaborType.Place].Enqueue(placeOrder);
+    }
+
     // Method to add a destroy labor order to the queue
     public static void AddDeconstructLaborOrder()
     {
@@ -92,6 +100,14 @@ public class LaborOrderManager_VM : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public static void AddSpecificDeconstructLaborOrder(GameObject obj)
+    {
+        // create a new deconstruct labor order
+        LaborOrder_Deconstruct deconstructOrder = new LaborOrder_Deconstruct(obj);
+        // add the labor order to the queue
+        laborQueues[(int)LaborType.Deconstruct].Enqueue(deconstructOrder);
     }
 
     // Method to Get the total number of labor types
