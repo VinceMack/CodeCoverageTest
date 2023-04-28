@@ -68,11 +68,13 @@ public class LaborOrder_Craft : LaborOrder_Base
             }
         }
 
-        if(!hasEnoughResources)
+        if (!hasEnoughResources)
         {
             Debug.Log("Not enough resources to craft " + itemToPlace.itemName);
             yield break;
-        }else{
+        }
+        else
+        {
             Debug.Log("Crafting " + itemToPlace.itemName);
         }
 
