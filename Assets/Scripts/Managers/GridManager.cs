@@ -25,7 +25,7 @@ public class GridManager : MonoBehaviour
         {
             for (int y = level.getYMin(); y < level.getYMax(); y++)
             {
-                BaseTile_VM tile = (BaseTile_VM)GridManager.tileMap.GetTile(new Vector3Int(x, y, 0));
+                BaseTile tile = (BaseTile)GridManager.tileMap.GetTile(new Vector3Int(x, y, 0));
                 if (tile == null)
                 {
                     Debug.LogError("Tile is null @ GridManager.ResetGrid()");
@@ -41,9 +41,9 @@ public class GridManager : MonoBehaviour
     }
 
     // Method to Get the tile at a specific position in the grid
-    public static BaseTile_VM GetTile(Vector3Int position)
+    public static BaseTile GetTile(Vector3Int position)
     {
-        return (BaseTile_VM)tileMap.GetTile(position);
+        return (BaseTile)tileMap.GetTile(position);
     }
 
     // Method to create and add a level to the grid
@@ -86,31 +86,31 @@ public class GridManager : MonoBehaviour
                     // Water tiles on the outer perimeter
                     if (distanceFromCenter >= sandRadius + (sandRadius * 0.5f * noiseValue))
                     {
-                        WaterTile_VM newWaterTile_VM = ScriptableObject.CreateInstance<WaterTile_VM>();
-                        tileMap.SetTile(position, newWaterTile_VM);
-                        newWaterTile_VM.SetTileData(TileType.WATER, true, null, 0, tileMap.GetCellCenterWorld(position), 0, false, null, mapLevels.Count - 1);
+                        WaterTile newWaterTile = ScriptableObject.CreateInstance<WaterTile>();
+                        tileMap.SetTile(position, newWaterTile);
+                        newWaterTile.SetTileData(TileType.WATER, true, null, 0, tileMap.GetCellCenterWorld(position), 0, false, null, mapLevels.Count - 1);
                     }
                     // Sand tiles in jagged circular portion
                     else if (distanceFromCenter < sandRadius + (sandRadius * 0.5f * noiseValue) &&
                             distanceFromCenter >= grassRadius + (grassRadius * 0.5f * noiseValue))
                     {
-                        SandTile_VM newSandTile_VM = ScriptableObject.CreateInstance<SandTile_VM>();
-                        tileMap.SetTile(position, newSandTile_VM);
-                        newSandTile_VM.SetTileData(TileType.SAND, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
+                        SandTile newSandTile = ScriptableObject.CreateInstance<SandTile>();
+                        tileMap.SetTile(position, newSandTile);
+                        newSandTile.SetTileData(TileType.SAND, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
                     }
                     // Grass tiles in smaller jagged circular portion
                     else
                     {
-                        GrassTile_VM newGrassTile_VM = ScriptableObject.CreateInstance<GrassTile_VM>();
-                        tileMap.SetTile(position, newGrassTile_VM);
-                        newGrassTile_VM.SetTileData(TileType.GRASS, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
+                        GrassTile newGrassTile = ScriptableObject.CreateInstance<GrassTile>();
+                        tileMap.SetTile(position, newGrassTile);
+                        newGrassTile.SetTileData(TileType.GRASS, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
                     }
                 }
                 else // All layers below the top layer
                 {
-                    StoneTile_VM newStoneTile_VM = ScriptableObject.CreateInstance<StoneTile_VM>();
-                    tileMap.SetTile(position, newStoneTile_VM);
-                    newStoneTile_VM.SetTileData(TileType.STONE, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
+                    StoneTile newStoneTile = ScriptableObject.CreateInstance<StoneTile>();
+                    tileMap.SetTile(position, newStoneTile);
+                    newStoneTile.SetTileData(TileType.STONE, false, null, 0, tileMap.GetCellCenterWorld(position), -9, false, null, mapLevels.Count - 1);
                 }
             }
         }
@@ -120,17 +120,17 @@ public class GridManager : MonoBehaviour
         {
             // Set stairs at center tile in upper level
             Vector3Int upperLevelStairsPosition = new Vector3Int(xMin + (LEVEL_WIDTH / 2) - LEVEL_WIDTH * (mapLevels.Count - 1), yMin + (LEVEL_HEIGHT / 2), 0);
-            StairsTile_VM upperLevelStairs = ScriptableObject.CreateInstance<StairsTile_VM>();
+            StairsTile upperLevelStairs = ScriptableObject.CreateInstance<StairsTile>();
             tileMap.SetTile(upperLevelStairsPosition, upperLevelStairs);
             upperLevelStairs.SetTileData(TileType.STAIRS, false, null, 0, tileMap.GetCellCenterWorld(upperLevelStairsPosition), -9, false, null, mapLevels.Count - 1);
-            mapLevels[mapLevels.Count - 2].AddDescendingStairs_VM(upperLevelStairs);
+            mapLevels[mapLevels.Count - 2].AddDescendingStairs(upperLevelStairs);
 
             // Set stairs in lower level
             Vector3Int lowerLevelStairsPosition = new Vector3Int(xMin + (LEVEL_WIDTH / 2), yMin + (LEVEL_HEIGHT / 2), 0);
-            StairsTile_VM lowerLevelStairs = ScriptableObject.CreateInstance<StairsTile_VM>();
+            StairsTile lowerLevelStairs = ScriptableObject.CreateInstance<StairsTile>();
             tileMap.SetTile(lowerLevelStairsPosition, lowerLevelStairs);
             lowerLevelStairs.SetTileData(TileType.STAIRS, false, null, 0, tileMap.GetCellCenterWorld(lowerLevelStairsPosition), -9, false, null, mapLevels.Count - 1);
-            mapLevels[mapLevels.Count - 1].AddAscendingStairs_VM(lowerLevelStairs);
+            mapLevels[mapLevels.Count - 1].AddAscendingStairs(lowerLevelStairs);
 
             // Connect upper and lower level stairs
             upperLevelStairs.setLowerLevelStairs(lowerLevelStairs);
@@ -151,12 +151,12 @@ public class GridManager : MonoBehaviour
     public static void PopulateWithTrees()
     {
         TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
-        foreach (BaseTile_VM tile in allTiles)
+        foreach (BaseTile tile in allTiles)
         {
             if (tile != null && tile.type == TileType.GRASS && tile.resource == null && Random.Range(0, 10) == 0)
             {
-                GameObject treePrefab = Resources.Load<GameObject>("prefabs/items/Tree");
-                GameObject treeInstance = UnityEngine.Object.Instantiate(treePrefab, tile.position, Quaternion.identity);
+                Item treePrefab = Resources.Load<Item>("prefabs/items/Tree");
+                Item treeInstance = UnityEngine.Object.Instantiate(treePrefab, tile.position, Quaternion.identity);
                 treeInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, true, treeInstance, tile.resourceCount, tile.position);
             }
@@ -169,27 +169,27 @@ public class GridManager : MonoBehaviour
         int random = Random.Range(0, allTiles.Length);
         for (int i = 0; i < allTiles.Length; i++)
         {
-            BaseTile_VM tile = (BaseTile_VM)allTiles[(i + random) % allTiles.Length];
+            BaseTile tile = (BaseTile)allTiles[(i + random) % allTiles.Length];
             if (tile != null && tile.type == TileType.GRASS && tile.resource == null)
             {
-                GameObject treePrefab = Resources.Load<GameObject>("prefabs/items/Tree");
-                GameObject treeInstance = UnityEngine.Object.Instantiate(treePrefab, tile.position, Quaternion.identity);
+                Item treePrefab = Resources.Load<Item>("prefabs/items/Tree");
+                Item treeInstance = UnityEngine.Object.Instantiate(treePrefab, tile.position, Quaternion.identity);
                 treeInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, true, treeInstance, tile.resourceCount, tile.position);
                 break;
             }
         }
     }
-    
+
     public static void PopulateWithRocks()
     {
         TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
-        foreach (BaseTile_VM tile in allTiles)
+        foreach (BaseTile tile in allTiles)
         {
             if (tile != null && tile.type == TileType.STONE && tile.resource == null)
             {
-                GameObject rockPrefab = Resources.Load<GameObject>("prefabs/items/Rock");
-                GameObject rockInstance = UnityEngine.Object.Instantiate(rockPrefab, tile.position, Quaternion.identity);
+                Item rockPrefab = Resources.Load<Item>("prefabs/items/Rock");
+                Item rockInstance = UnityEngine.Object.Instantiate(rockPrefab, tile.position, Quaternion.identity);
                 rockInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, true, rockInstance, tile.resourceCount, tile.position);
             }
@@ -207,7 +207,7 @@ public class GridManager : MonoBehaviour
         float offsetY = UnityEngine.Random.Range(0f, 1000f);
 
         TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
-        foreach (BaseTile_VM tile in allTiles)
+        foreach (BaseTile tile in allTiles)
         {
             if (tile != null && tile.type == TileType.STONE && tile.resource == null)
             {
@@ -217,8 +217,8 @@ public class GridManager : MonoBehaviour
                 // Only place rock if the Perlin noise value is above the threshold
                 if (perlinValue > threshold)
                 {
-                    GameObject rockPrefab = Resources.Load<GameObject>("prefabs/items/Rock");
-                    GameObject rockInstance = UnityEngine.Object.Instantiate(rockPrefab, tile.position, Quaternion.identity);
+                    Item rockPrefab = Resources.Load<Item>("prefabs/items/Rock");
+                    Item rockInstance = UnityEngine.Object.Instantiate(rockPrefab, tile.position, Quaternion.identity);
                     rockInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                     tile.SetTileInformation(tile.type, true, rockInstance, tile.resourceCount, tile.position);
                 }
@@ -234,11 +234,11 @@ public class GridManager : MonoBehaviour
         int random = Random.Range(0, allTiles.Length);
         for (int i = 0; i < allTiles.Length; i++)
         {
-            BaseTile_VM tile = (BaseTile_VM)allTiles[(i + random) % allTiles.Length];
+            BaseTile tile = (BaseTile)allTiles[(i + random) % allTiles.Length];
             if (tile != null && tile.type == TileType.STONE && tile.resource == null)
             {
-                GameObject rockPrefab = Resources.Load<GameObject>("prefabs/items/Rock");
-                GameObject rockInstance = UnityEngine.Object.Instantiate(rockPrefab, tile.position, Quaternion.identity);
+                Item rockPrefab = Resources.Load<Item>("prefabs/items/Rock");
+                Item rockInstance = UnityEngine.Object.Instantiate(rockPrefab, tile.position, Quaternion.identity);
                 rockInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, true, rockInstance, tile.resourceCount, tile.position);
                 break;
@@ -248,9 +248,9 @@ public class GridManager : MonoBehaviour
 
     // GetAdjacentTiles
     // Returns a list of all tiles adjacent to the given tile
-    public static List<BaseTile_VM> GetAdjacentTiles(BaseTile_VM tile)
+    public static List<BaseTile> GetAdjacentTiles(BaseTile tile)
     {
-        List<BaseTile_VM> adjacentTiles = new List<BaseTile_VM>();
+        List<BaseTile> adjacentTiles = new List<BaseTile>();
         Vector3Int[] adjacentPositions = new Vector3Int[4];
         Vector3Int tilePosition = Vector3Int.FloorToInt(tile.position);
         adjacentPositions[0] = new Vector3Int(tilePosition.x + 1, tilePosition.y, tilePosition.z);
@@ -260,7 +260,7 @@ public class GridManager : MonoBehaviour
 
         foreach (Vector3Int position in adjacentPositions)
         {
-            BaseTile_VM adjacentTile = (BaseTile_VM)tileMap.GetTile(position);
+            BaseTile adjacentTile = (BaseTile)tileMap.GetTile(position);
             if (adjacentTile != null)
             {
                 adjacentTiles.Add(adjacentTile);
@@ -277,11 +277,11 @@ public class GridManager : MonoBehaviour
         int random = Random.Range(0, allTiles.Length);
         for (int i = 0; i < allTiles.Length; i++)
         {
-            BaseTile_VM tile = (BaseTile_VM)allTiles[(i + random) % allTiles.Length];
+            BaseTile tile = (BaseTile)allTiles[(i + random) % allTiles.Length];
             if (tile != null && tile.type == TileType.GRASS && tile.resource == null)
             {
-                GameObject chestPrefab = Resources.Load<GameObject>("prefabs/items/Chest");
-                GameObject chestInstance = UnityEngine.Object.Instantiate(chestPrefab, tile.position, Quaternion.identity);
+                Item chestPrefab = Resources.Load<Item>("prefabs/items/Chest");
+                Item chestInstance = UnityEngine.Object.Instantiate(chestPrefab, tile.position, Quaternion.identity);
                 chestInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, true, chestInstance, tile.resourceCount, tile.position);
                 break;
@@ -292,12 +292,12 @@ public class GridManager : MonoBehaviour
     public static void PopulateWithBushes()
     {
         TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
-        foreach (BaseTile_VM tile in allTiles)
+        foreach (BaseTile tile in allTiles)
         {
             if (tile != null && tile.type == TileType.GRASS && tile.resource == null && Random.Range(0, 10) == 0)
             {
-                GameObject bushPrefab = Resources.Load<GameObject>("prefabs/items/Bush");
-                GameObject bushInstance = UnityEngine.Object.Instantiate(bushPrefab, tile.position, Quaternion.identity);
+                Item bushPrefab = Resources.Load<Item>("prefabs/items/Bush");
+                Item bushInstance = UnityEngine.Object.Instantiate(bushPrefab, tile.position, Quaternion.identity);
                 bushInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, true, bushInstance, tile.resourceCount, tile.position);
             }
@@ -310,11 +310,11 @@ public class GridManager : MonoBehaviour
         int random = Random.Range(0, allTiles.Length);
         for (int i = 0; i < allTiles.Length; i++)
         {
-            BaseTile_VM tile = (BaseTile_VM)allTiles[(i + random) % allTiles.Length];
+            BaseTile tile = (BaseTile)allTiles[(i + random) % allTiles.Length];
             if (tile != null && tile.type == TileType.GRASS && tile.resource == null)
             {
-                GameObject bushPrefab = Resources.Load<GameObject>("prefabs/items/Bush");
-                GameObject bushInstance = UnityEngine.Object.Instantiate(bushPrefab, tile.position, Quaternion.identity);
+                Item bushPrefab = Resources.Load<Item>("prefabs/items/Bush");
+                Item bushInstance = UnityEngine.Object.Instantiate(bushPrefab, tile.position, Quaternion.identity);
                 bushInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, true, bushInstance, tile.resourceCount, tile.position);
                 break;
@@ -325,12 +325,12 @@ public class GridManager : MonoBehaviour
     public static void PopulateWithWheatPlants()
     {
         TileBase[] allTiles = tileMap.GetTilesBlock(tileMap.cellBounds);
-        foreach (BaseTile_VM tile in allTiles)
+        foreach (BaseTile tile in allTiles)
         {
             if (tile != null && tile.type == TileType.SAND && tile.resource == null && Random.Range(0, 10) == 0)
             {
-                GameObject wheatPrefab = Resources.Load<GameObject>("prefabs/items/Wheat");
-                GameObject wheatInstance = UnityEngine.Object.Instantiate(wheatPrefab, tile.position, Quaternion.identity);
+                Item wheatPrefab = Resources.Load<Item>("prefabs/items/Wheat");
+                Item wheatInstance = UnityEngine.Object.Instantiate(wheatPrefab, tile.position, Quaternion.identity);
                 wheatInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, false, wheatInstance, tile.resourceCount, tile.position);
             }
@@ -343,11 +343,11 @@ public class GridManager : MonoBehaviour
         int random = Random.Range(0, allTiles.Length);
         for (int i = 0; i < allTiles.Length; i++)
         {
-            BaseTile_VM tile = (BaseTile_VM)allTiles[(i + random) % allTiles.Length];
+            BaseTile tile = (BaseTile)allTiles[(i + random) % allTiles.Length];
             if (tile != null && tile.type == TileType.SAND && tile.resource == null)
             {
-                GameObject wheatPrefab = Resources.Load<GameObject>("prefabs/items/Wheat");
-                GameObject wheatInstance = UnityEngine.Object.Instantiate(wheatPrefab, tile.position, Quaternion.identity);
+                Item wheatPrefab = Resources.Load<Item>("prefabs/items/Wheat");
+                Item wheatInstance = UnityEngine.Object.Instantiate(wheatPrefab, tile.position, Quaternion.identity);
                 wheatInstance.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, false, wheatInstance, tile.resourceCount, tile.position);
                 break;
@@ -355,9 +355,9 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    public static List<BaseTile_VM> GetAdjacentAndDiagonalTiles(BaseTile_VM centerTile)
+    public static List<BaseTile> GetAdjacentAndDiagonalTiles(BaseTile centerTile)
     {
-        List<BaseTile_VM> tiles = new List<BaseTile_VM>();
+        List<BaseTile> tiles = new List<BaseTile>();
 
         for (int x = -1; x <= 1; x++)
         {
@@ -366,7 +366,7 @@ public class GridManager : MonoBehaviour
                 if (x == 0 && y == 0) continue; // Skip the center tile itself
 
                 Vector3Int newPosition = new Vector3Int((int)centerTile.position.x + x, (int)centerTile.position.y + y, (int)centerTile.position.z);
-                BaseTile_VM tile = GetTile(newPosition);
+                BaseTile tile = GetTile(newPosition);
                 if (tile != null)
                 {
                     tiles.Add(tile);
@@ -382,18 +382,18 @@ public class GridManager : MonoBehaviour
         foreach (Level level in mapLevels)
         {
             // Check for both ascending and descending stairs
-            List<StairsTile_VM> stairsTiles = new List<StairsTile_VM>();
-            stairsTiles.AddRange(level.getAllAscendingStairs_VM());
-            stairsTiles.AddRange(level.getAllDescendingStairs_VM());
+            List<StairsTile> stairsTiles = new List<StairsTile>();
+            stairsTiles.AddRange(level.getAllAscendingStairs());
+            stairsTiles.AddRange(level.getAllDescendingStairs());
 
-            foreach (StairsTile_VM stairsTile in stairsTiles)
+            foreach (StairsTile stairsTile in stairsTiles)
             {
-                List<BaseTile_VM> adjacentAndDiagonalTiles = GetAdjacentAndDiagonalTiles(stairsTile);
-                foreach (BaseTile_VM tile in adjacentAndDiagonalTiles)
+                List<BaseTile> adjacentAndDiagonalTiles = GetAdjacentAndDiagonalTiles(stairsTile);
+                foreach (BaseTile tile in adjacentAndDiagonalTiles)
                 {
                     if (tile != null && tile.resource != null)
                     {
-                        Destroy(tile.resource);
+                        Destroy(tile.resource.gameObject);
                         tile.SetTileInformation(tile.type, false, null, tile.resourceCount, tile.position);
                     }
                 }
@@ -404,3 +404,7 @@ public class GridManager : MonoBehaviour
 
 
 }
+
+
+
+

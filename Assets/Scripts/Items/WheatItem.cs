@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class WheatItem : Item
 {
-    void Awake()
+    public override void Awake()
     {
         isGatherable = true;
         itemName = "WheatResource";
     }
 }
+
+
+
+

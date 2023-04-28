@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Parallax : MonoBehaviour {
@@ -27,3 +27,7 @@ public class Parallax : MonoBehaviour {
         transform.position = new Vector3 (Mathf.Clamp(x * speed, limitx1, limitx2), transform.position.y);
     }
 }
+
+
+
+

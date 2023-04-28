@@ -17,3 +17,7 @@ public class StaticUIHelper : MonoBehaviour
         UIManager.SelectUIMode(newMode);
     }
 }
+
+
+
+

@@ -11,7 +11,7 @@ using TMPro;
 public class PawnButton : MonoBehaviour, IPointerClickHandler
 {
 
-    public Pawn_VM pawn;
+    public Pawn pawn;
     public LaborType labor;
     public GameObject textObj;
 
@@ -39,3 +39,7 @@ public class PawnButton : MonoBehaviour, IPointerClickHandler
     }
 
 }
+
+
+
+

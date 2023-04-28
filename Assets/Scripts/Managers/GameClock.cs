@@ -11,19 +11,20 @@ using UnityEngine;
 public class GameClock : MonoBehaviour
 {
     [SerializeField] private float FREQUENCY = 1f;
-    //[SerializeField] private int HUNGER_DECREMENT = 1;
     [SerializeField] private int BERRY_INCREMENT = 1;
     [SerializeField] private int TREE_INCREMENT = 1;
     [SerializeField] private int WHEAT_INCREMENT = 1;
+    [SerializeField] private int HUNGER_DECREMENT = 1;
+
     private bool paused = true;
     private Coroutine coroutine;
 
     private float resumeDelay = 0f;
     private float lastTick = 0f;
-    
+
     void Awake()
     {
-        
+
     }
 
     // Start is called before the first frame update
@@ -48,7 +49,7 @@ public class GameClock : MonoBehaviour
     // Resume the GameClock
     public void Resume()
     {
-        if(paused)
+        if (paused)
         {
             paused = false;
             InvokeRepeating("OnTick", resumeDelay, FREQUENCY);
@@ -58,14 +59,20 @@ public class GameClock : MonoBehaviour
     // Executes functions every tick
     public void OnTick()
     {
-        if(FREQUENCY == 0){
+        if (FREQUENCY == 0)
+        {
             return;
         }
 
         lastTick = Time.time;
-        //Pawn_VM.DecrementHunger(HUNGER_DECREMENT);
+        //Pawn.DecrementHunger(HUNGER_DECREMENT);
         Bush.IncrementAllResources(BERRY_INCREMENT);
         Tree.IncrementAllResources(TREE_INCREMENT);
         Wheat.IncrementAllResources(WHEAT_INCREMENT);
+        Pawn.DecrementAllHunger(HUNGER_DECREMENT);
     }
 }
+
+
+
+

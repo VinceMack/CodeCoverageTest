@@ -3,17 +3,17 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 
-[CustomEditor(typeof(Pawn_VM))]
+[CustomEditor(typeof(Pawn))]
 public class PawnEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
 
-        Pawn_VM pawn = (Pawn_VM)target;
+        Pawn pawn = (Pawn)target;
 
         // Display the current Labor Order's type and location
-        LaborOrder_Base_VM currentLaborOrder = pawn.GetCurrentLaborOrder();
+        LaborOrder_Base currentLaborOrder = pawn.GetCurrentLaborOrder();
         if (currentLaborOrder != null)
         {
             EditorGUILayout.LabelField("Current Labor Order Type:", EditorStyles.boldLabel);
@@ -35,7 +35,8 @@ public class PawnEditor : Editor
             EditorGUILayout.BeginVertical(GUI.skin.box);
             EditorGUILayout.LabelField("Priority Level " + (i + 1), EditorStyles.boldLabel);
 
-            if(laborTypePriority == null){
+            if (laborTypePriority == null)
+            {
                 EditorGUILayout.LabelField("No Labor Types at this level");
                 EditorGUILayout.EndVertical();
                 continue;
@@ -74,3 +75,7 @@ public class PawnEditor : Editor
         EditorGUILayout.EndHorizontal();
     }
 }
+
+
+
+

@@ -97,13 +97,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d517f54b0cc6494d835eb1924a59612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemName: Coin
   location: {fileID: 0}
   isGatherable: 0
   isPlaceable: 0
-  isDesconstructable: 0
+  isDeconstructable: 0
   isWoodcuttable: 0
   isMineable: 0
   isForageable: 0
   isCraftable: 0
   isPlantcuttable: 0
   isItemized: 0
+  requiredForCrafting: []

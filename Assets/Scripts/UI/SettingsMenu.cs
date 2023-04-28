@@ -17,7 +17,7 @@ public class SettingsMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     //not needed
@@ -26,10 +26,10 @@ public class SettingsMenu : MonoBehaviour
     //{    
     //}
 
-    
+
     public void SetVolume(float volume)
     {
-        audioSource.volume = volume/100f;
+        audioSource.volume = volume / 100f;
         currentVolume = volume;
     }
 
@@ -41,22 +41,26 @@ public class SettingsMenu : MonoBehaviour
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, 
+        Screen.SetResolution(resolution.width,
                 resolution.height, Screen.fullScreen);
     }
 
 
     public void SaveSettings()
     {
-        PlayerPrefs.SetInt("QualitySettingPreference", 
+        PlayerPrefs.SetInt("QualitySettingPreference",
                 qualityDropdown.value);
-        PlayerPrefs.SetInt("ResolutionPreference", 
+        PlayerPrefs.SetInt("ResolutionPreference",
                 resolutionDropdown.value);
-        PlayerPrefs.SetInt("AntiAliasingPreference", 
+        PlayerPrefs.SetInt("AntiAliasingPreference",
                 aaDropdown.value);
-        PlayerPrefs.SetInt("FullscreenPreference", 
+        PlayerPrefs.SetInt("FullscreenPreference",
                 Convert.ToInt32(Screen.fullScreen));
-        PlayerPrefs.SetFloat("VolumePreference", 
-                currentVolume); 
+        PlayerPrefs.SetFloat("VolumePreference",
+                currentVolume);
     }
 }
+
+
+
+

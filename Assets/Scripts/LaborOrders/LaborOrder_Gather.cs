@@ -4,45 +4,40 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class LaborOrder_Gather : LaborOrder_Base_VM
+public class LaborOrder_Gather : LaborOrder_Base
 {
     // constructor
-    public LaborOrder_Gather(GameObject target)
+    public LaborOrder_Gather(Item target)
     {
         laborType = LaborType.Gather;
         timeToComplete = 1f;
         location = Vector3Int.FloorToInt(target.transform.position);
     }
 
-    public override IEnumerator Execute(Pawn_VM pawn)
+    public override IEnumerator Execute(Pawn pawn)
     {
         pawn.path.Clear();
 
-        Chest_VM chest = GlobalStorage_VM.GetClosestChest(pawn.transform.position);
-        BaseTile_VM targetTile = GridManager.GetTile(location);
-        BaseTile_VM currentTile = (BaseTile_VM)pawn.GetPawnTileFromTilemap();
+        Chest chest = GlobalStorage.GetClosestChest(pawn.transform.position);
+        BaseTile targetTile = GridManager.GetTile(location);
+        BaseTile currentTile = (BaseTile)pawn.GetPawnTileFromTilemap();
 
-        GameObject resource = targetTile.resource;
+        Item resource = targetTile.resource;
 
-        if(resource == null){
+        if (resource == null)
+        {
             Debug.LogWarning("Resource is null. Aborting.");
             yield break;
         }
 
-        if(chest == null){
+        if (chest == null)
+        {
             Debug.LogWarning("Chest is null. Aborting.");
             yield break;
         }
 
-        chest.AddItem(resource);
-        UnityEngine.Object.Destroy(targetTile.resource);
-        targetTile.resource = null;
-
-        if (targetTile == null || currentTile == null)
-        {
-            Debug.LogWarning("Target or current tile is null. Aborting.");
-            yield break;
-        }
+        chest.AddItem(resource.itemName);
+        UnityEngine.Object.Destroy(targetTile.resource.gameObject);
 
         Vector3Int targetPosition = Vector3Int.FloorToInt(chest.transform.position);
         Vector3Int currentPosition = Vector3Int.FloorToInt(pawn.transform.position);
@@ -50,16 +45,18 @@ public class LaborOrder_Gather : LaborOrder_Base_VM
         int targetLevel = targetPosition.x / GridManager.LEVEL_WIDTH;
         int currentLevel = currentPosition.x / GridManager.LEVEL_WIDTH;
 
-        while (!IsAdjacent(currentPosition, targetPosition))
+        bool reachedTarget = IsAdjacent(currentPosition, targetPosition);
+
+        while (!reachedTarget)
         {
             if (currentLevel != targetLevel)
             {
-                StairsTile_VM stairs;
+                StairsTile stairs;
                 Vector3 levelChangeStairsPosition;
 
                 if (currentLevel < targetLevel)
                 {
-                    stairs = GridManager.mapLevels[currentLevel].getDescendingStairs_VM(currentPosition);
+                    stairs = GridManager.mapLevels[currentLevel].getDescendingStairs(currentPosition);
                     if (stairs == null)
                     {
                         Debug.LogWarning("Descending stairs tile is null. Aborting.");
@@ -69,7 +66,7 @@ public class LaborOrder_Gather : LaborOrder_Base_VM
                 }
                 else
                 {
-                    stairs = GridManager.mapLevels[currentLevel].getAscendingStairs_VM(currentPosition);
+                    stairs = GridManager.mapLevels[currentLevel].getAscendingStairs(currentPosition);
                     if (stairs == null)
                     {
                         Debug.LogWarning("Ascending stairs tile is null. Aborting.");
@@ -84,6 +81,7 @@ public class LaborOrder_Gather : LaborOrder_Base_VM
                 {
                     pawn.transform.position = levelChangeStairsPosition;
                     currentLevel = (int)levelChangeStairsPosition.x / GridManager.LEVEL_WIDTH;
+                    currentPosition = Vector3Int.FloorToInt(pawn.transform.position);
                     continue;
                 }
                 else
@@ -106,8 +104,12 @@ public class LaborOrder_Gather : LaborOrder_Base_VM
             yield return pawn.currentPathExecution;
             pawn.currentPathExecution = null;
             currentPosition = Vector3Int.FloorToInt(pawn.transform.position);
+
+            reachedTarget = IsAdjacent(currentPosition, targetPosition);
         }
+        targetTile.resource = null;
     }
+
 
     private bool IsAdjacent(Vector3Int currentPosition, Vector3Int targetPosition)
     {
@@ -135,3 +137,6 @@ public class LaborOrder_Gather : LaborOrder_Base_VM
         return false;
     }
 }
+
+
+

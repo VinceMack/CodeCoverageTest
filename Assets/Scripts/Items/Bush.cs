@@ -14,7 +14,7 @@ public class Bush : Item
     public int resourceCount;
     public SpriteRenderer spriteRenderer;
 
-    void Awake()
+    public override void Awake()
     {
         isPlaceable = true;
         isDeconstructable = true;
@@ -41,7 +41,8 @@ public class Bush : Item
     {
         foreach (Bush plant in plantResources)
         {
-            if(plant.isItemized){
+            if (plant.isItemized)
+            {
                 continue;
             }
 
@@ -101,3 +102,7 @@ public class Bush : Item
         return temp;
     }
 }
+
+
+
+
