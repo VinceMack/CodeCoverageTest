@@ -94,8 +94,9 @@ public class Chest : Item
         return contents[itemName];
     }
 
-    void Awake()
+    public override void Awake()
     {
+        itemName = "Chest";
         isGatherable = false;
         isPlaceable = true;
         isDeconstructable = true;

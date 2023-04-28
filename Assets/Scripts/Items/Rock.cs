@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Rock : Item
 {
-    void Awake()
+    public override void Awake()
     {
         isMineable = true;
         itemName = "Rock";

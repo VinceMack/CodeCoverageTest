@@ -5,7 +5,7 @@ using UnityEngine;
 public class ErrorObject : Item
 {
 
-    void Awake()
+    public override void Awake()
     {
         isGatherable = true;
         isPlaceable = true;

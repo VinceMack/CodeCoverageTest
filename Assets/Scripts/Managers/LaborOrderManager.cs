@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Linq;
 
 // Enum to represent different types of labor tasks
-public enum LaborType { Mine, Forage, Gather, Place, Deconstruct, Basic, Plantcut, Eat };
+public enum LaborType { Eat, Craft, Mine, Forage, Gather, Place, Deconstruct, Basic, Plantcut };
 
 // LaborOrderManager class to manage and assign labor tasks for pawns
 public class LaborOrderManager : MonoBehaviour
@@ -91,6 +91,24 @@ public class LaborOrderManager : MonoBehaviour
         // add the labor order to the queue
         laborQueues[(int)LaborType.Place].Enqueue(placeOrder);
     }
+
+    // Method to add a craft labor order to the queue
+    public static void AddCraftLaborOrder(Item itemToCraft)
+    {
+        // Create a new craft labor order
+        LaborOrder_Craft craftOrder = new LaborOrder_Craft(itemToCraft);
+        // Add the labor order to the queue
+        laborQueues[(int)LaborType.Craft].Enqueue(craftOrder);
+    }
+
+    public static void AddCraftLaborOrder(Item itemToCraft, Vector2 location)
+    {
+        // Create a new craft labor order
+        LaborOrder_Craft craftOrder = new LaborOrder_Craft(itemToCraft, location);
+        // Add the labor order to the queue
+        laborQueues[(int)LaborType.Craft].Enqueue(craftOrder);
+    }
+
 
     // Method to add a destroy labor order to the queue
     public static void AddDeconstructLaborOrder()

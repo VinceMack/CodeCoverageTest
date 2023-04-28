@@ -5,7 +5,7 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     // list reference to all items
-    public static List<GameObject> items = new List<GameObject>();
+    public static List<Item> items = new List<Item>();
 
     [SerializeField] public string itemName = "baseItem";
     [SerializeField] public BaseTile location;
@@ -17,8 +17,8 @@ public class Item : MonoBehaviour
     [SerializeField] public bool isForageable = false;
     [SerializeField] public bool isCraftable = false;
     [SerializeField] public bool isPlantcuttable = false;
-
-    public bool isItemized = false;
+    [SerializeField] public bool isItemized = false;
+    [SerializeField] public List<Item> requiredForCrafting;
 
     public void Itemize()
     {
@@ -42,11 +42,11 @@ public class Item : MonoBehaviour
         Itemize();
     }
 
-    void Awake()
+    public virtual void Awake()
     {
-        foreach (GameObject item in Resources.LoadAll("prefabs/items", typeof(GameObject)))
+        foreach (Item item in Resources.LoadAll("prefabs/items", typeof(Item)))
         {
-            items.Add(item.GetComponent<GameObject>());
+            items.Add(item.GetComponent<Item>());
         }
     }
 }

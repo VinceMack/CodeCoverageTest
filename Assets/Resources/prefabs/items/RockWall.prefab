@@ -97,3 +97,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 150991ab8da137f4f8bdfe07c58ae738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemName: RockWall
+  location: {fileID: 0}
+  isGatherable: 0
+  isPlaceable: 0
+  isDeconstructable: 0
+  isWoodcuttable: 0
+  isMineable: 0
+  isForageable: 0
+  isCraftable: 0
+  isPlantcuttable: 0
+  isItemized: 0
+  requiredForCrafting: []

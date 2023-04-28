@@ -14,7 +14,7 @@ public class Bush : Item
     public int resourceCount;
     public SpriteRenderer spriteRenderer;
 
-    void Awake()
+    public override void Awake()
     {
         isPlaceable = true;
         isDeconstructable = true;

@@ -96,6 +96,19 @@ public static class GlobalStorage
         return returnList;
     }
 
+    public static Chest GetChestWithItem(string itemName)
+    {
+        foreach (KeyValuePair<Chest, Vector3> kvp in chests)
+        {
+            if (kvp.Key.ItemCountInChest(itemName) > 0)
+            {
+                return kvp.Key;
+            }
+        }
+
+        return null;
+    }
+
     public static Chest GetClosestChestWithItem(string itemName, Vector3 location)
     {
         List<Chest> chests = GetChestsWithItem(itemName);

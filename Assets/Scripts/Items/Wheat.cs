@@ -14,7 +14,7 @@ public class Wheat : Item
     public int resourceCount;
     public SpriteRenderer spriteRenderer;
 
-    void Awake()
+    public override void Awake()
     {
         isPlantcuttable = false;
         isDeconstructable = true;

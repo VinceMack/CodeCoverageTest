@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class WoodWall : Item
 {
+
+    public override void Awake()
+    {
+        isPlaceable = true;
+        itemName = "WoodWall";
+    }
+
     // Start is called before the first frame update
     void Start()
     {

@@ -97,3 +97,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 764caca8f864d7646a7781d0e8605d04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemName: WoodWall
+  location: {fileID: 0}
+  isGatherable: 0
+  isPlaceable: 0
+  isDeconstructable: 0
+  isWoodcuttable: 0
+  isMineable: 0
+  isForageable: 0
+  isCraftable: 0
+  isPlantcuttable: 0
+  isItemized: 0
+  requiredForCrafting: []

@@ -7,7 +7,7 @@ public class Berries : Item
 
     public static readonly float foodValue = Pawn.MAX_HUNGER * 0.10f;
 
-    void Awake()
+    public override void Awake()
     {
         isGatherable = true;
         isPlaceable = true;

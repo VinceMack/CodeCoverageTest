@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RockWall : Item
 {
-    void Awake()
+    public override void Awake()
     {
         isGatherable = true;
         isPlaceable = true;

@@ -155,6 +155,20 @@ public class TestWindow : EditorWindow
             LaborOrderManager.AddPlaceLaborOrder(testObj);
         }
 
+        if (GUILayout.Button("Generate Craft Order (Chest)"))
+        {
+            Chest chestPrefab = Resources.Load<Chest>("prefabs/items/Chest");
+            if (chestPrefab != null)
+            {
+                LaborOrderManager.AddCraftLaborOrder(chestPrefab);
+            }
+            else
+            {
+                Debug.LogWarning("Chest prefab not found. Cannot create craft labor order.");
+            }
+        }
+
+
         if (GUILayout.Button("Clear Labor Orders"))
         {
             LaborOrderManager.ClearLaborOrders();
@@ -179,12 +193,16 @@ public class TestWindow : EditorWindow
             Chest randomChest = GlobalStorage.GetRandomChest();
             if (randomChest != null)
             {
-                GameObject berriesPrefab = Resources.Load<GameObject>("prefabs/items/Berries");
-                GameObject berriesInstance = Instantiate(berriesPrefab);
-                Item berriesItem = berriesInstance.GetComponent<Item>();
-                randomChest.AddItem(berriesItem.itemName);
-                Debug.Log("Berries added to a random chest.");
-                Destroy(berriesInstance);
+                Item berriesPrefab = Resources.Load<Item>("prefabs/items/Berries");
+                if (berriesPrefab != null)
+                {
+                    randomChest.AddItem(berriesPrefab.itemName);
+                    Debug.Log("Berries added to a random chest.");
+                }
+                else
+                {
+                    Debug.LogWarning("Berries prefab not found. Cannot add Berries to a random chest.");
+                }
             }
             else
             {
