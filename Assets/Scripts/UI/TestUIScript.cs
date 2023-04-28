@@ -18,7 +18,7 @@ public static class TestUIScript
         // int random = Random.Range(0, allTiles.Length);
         // for (int i = 0; i < allTiles.Length; i++)
         // {
-        //     BaseTile_VM tile = (BaseTile_VM)allTiles[(i + random) % allTiles.Length];
+        //     BaseTile tile = (BaseTile)allTiles[(i + random) % allTiles.Length];
         //     if (tile != null && tile.type == TileType.GRASS && tile.resource == null)
         //     {
         //         GameObject chestPrefab = Resources.Load<GameObject>("prefabs/items/Chest");
@@ -30,3 +30,7 @@ public static class TestUIScript
         // }
     }
 }
+
+
+
+

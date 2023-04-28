@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Rock : Item
 {
-    void Awake()
+    public override void Awake()
     {
         isMineable = true;
         itemName = "Rock";
@@ -13,12 +13,16 @@ public class Rock : Item
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
+
+
+
+

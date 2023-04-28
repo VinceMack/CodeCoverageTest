@@ -1,8 +1,8 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(Chest_VM))]
-public class Chest_VM_Editor : Editor
+[CustomEditor(typeof(Chest))]
+public class Chest_Editor : Editor
 {
     SerializedProperty contents;
     SerializedProperty location;
@@ -19,7 +19,7 @@ public class Chest_VM_Editor : Editor
 
         serializedObject.Update();
 
-        Chest_VM chest = (Chest_VM)target;
+        Chest chest = (Chest)target;
 
         EditorGUILayout.PropertyField(location, new GUIContent("Location"));
 
@@ -46,3 +46,7 @@ public class Chest_VM_Editor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 }
+
+
+
+

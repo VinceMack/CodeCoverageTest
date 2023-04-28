@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaborOrder_Forage : LaborOrder_Base_VM
+public class LaborOrder_Forage : LaborOrder_Base
 {
     public enum ObjectType { Bush, Tree };
     private static float BASE_TTC = 1.5f;
-    private GameObject targetBush;
+    private Item targetBush;
     private ObjectType type;
 
     // constructor
-    public LaborOrder_Forage(GameObject targetBush, ObjectType type)
+    public LaborOrder_Forage(Item targetBush, ObjectType type)
     {
         laborType = LaborType.Forage;
         timeToComplete = BASE_TTC;
@@ -20,7 +20,7 @@ public class LaborOrder_Forage : LaborOrder_Base_VM
     }
 
     // override of the execute method to perform the labor order
-    public override IEnumerator Execute(Pawn_VM pawn)
+    public override IEnumerator Execute(Pawn pawn)
     {
         pawn.path.Clear();
 
@@ -28,17 +28,18 @@ public class LaborOrder_Forage : LaborOrder_Base_VM
         {
             yield return new WaitForSeconds(timeToComplete);
 
-            if(type == ObjectType.Bush){
+            if (type == ObjectType.Bush)
+            {
                 targetBush.GetComponent<Bush>().Harvest();
 
                 // spawn seeds in an adjacent tile that is not collision and does not have a resource
-                List<BaseTile_VM> adjacentTiles = GridManager.GetAdjacentTiles(GridManager.GetTile(location));
-                foreach (BaseTile_VM adjacentTile in adjacentTiles)
+                List<BaseTile> adjacentTiles = GridManager.GetAdjacentTiles(GridManager.GetTile(location));
+                foreach (BaseTile adjacentTile in adjacentTiles)
                 {
                     if (!adjacentTile.isCollision && adjacentTile.resource == null)
                     {
-                        GameObject resource = Resources.Load<GameObject>("prefabs/items/berries");
-                        GameObject wheatItem = UnityEngine.Object.Instantiate(resource, adjacentTile.position, Quaternion.identity);
+                        Item resource = Resources.Load<Item>("prefabs/items/berries").GetComponent<Item>();
+                        Item wheatItem = UnityEngine.Object.Instantiate(resource, adjacentTile.position, Quaternion.identity).GetComponent<Item>();
                         wheatItem.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                         adjacentTile.SetTileInformation(adjacentTile.type, false, wheatItem, adjacentTile.resourceCount, adjacentTile.position);
                         break;
@@ -47,17 +48,18 @@ public class LaborOrder_Forage : LaborOrder_Base_VM
 
             }
 
-            if(type == ObjectType.Tree){
+            if (type == ObjectType.Tree)
+            {
                 targetBush.GetComponent<Tree>().Harvest();
 
                 // spawn seeds in an adjacent tile that is not collision and does not have a resource
-                List<BaseTile_VM> adjacentTiles = GridManager.GetAdjacentTiles(GridManager.GetTile(location));
-                foreach (BaseTile_VM adjacentTile in adjacentTiles)
+                List<BaseTile> adjacentTiles = GridManager.GetAdjacentTiles(GridManager.GetTile(location));
+                foreach (BaseTile adjacentTile in adjacentTiles)
                 {
                     if (!adjacentTile.isCollision && adjacentTile.resource == null)
                     {
-                        GameObject resource = Resources.Load<GameObject>("prefabs/items/Wood");
-                        GameObject wheatItem = UnityEngine.Object.Instantiate(resource, adjacentTile.position, Quaternion.identity);
+                        Item resource = Resources.Load<Item>("prefabs/items/Wood");
+                        Item wheatItem = UnityEngine.Object.Instantiate(resource, adjacentTile.position, Quaternion.identity);
                         wheatItem.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                         adjacentTile.SetTileInformation(adjacentTile.type, false, wheatItem, adjacentTile.resourceCount, adjacentTile.position);
                         break;
@@ -69,3 +71,7 @@ public class LaborOrder_Forage : LaborOrder_Base_VM
         yield break;
     }
 }
+
+
+
+

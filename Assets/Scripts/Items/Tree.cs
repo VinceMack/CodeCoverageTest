@@ -14,7 +14,7 @@ public class Tree : Item
     public int resourceCount;
     public SpriteRenderer spriteRenderer;
 
-    void Awake()
+    public override void Awake()
     {
         isForageable = false;
         isDeconstructable = true;
@@ -96,3 +96,7 @@ public class Tree : Item
         return temp;
     }
 }
+
+
+
+

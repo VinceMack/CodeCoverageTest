@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameUserInterfaceManager : MonoBehaviour
 {
-    
+
     [SerializeField]
     public GameObject panel;
 
@@ -17,16 +17,21 @@ public class GameUserInterfaceManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            if (Input.GetKeyDown("p"))
+        if (Input.GetKeyDown("p"))
+        {
+            Debug.Log("P was pressed.");
+            if (panel.activeSelf)
             {
-                Debug.Log("P was pressed.");
-                if (panel.activeSelf) {
-                    panel.SetActive(false);
-                }
-                else
-                {
-                    panel.SetActive(true);
-                }
+                panel.SetActive(false);
             }
+            else
+            {
+                panel.SetActive(true);
+            }
+        }
     }
 }
+
+
+
+

@@ -14,13 +14,13 @@ public static class WallGenerator
 
     private static void CreateBasicWall(TilemapVisualizer tilemapVisualizer, HashSet<Vector2Int> basicWallPositions, HashSet<Vector2Int> floorPositions)
     {
-        foreach(var position in basicWallPositions)
+        foreach (var position in basicWallPositions)
         {
             string neighborsBinaryType = "";
-            foreach(var direction in Direction2D.cardinalDirectionsList)
+            foreach (var direction in Direction2D.cardinalDirectionsList)
             {
                 var neighborPosition = position + direction;
-                if(floorPositions.Contains(neighborPosition))
+                if (floorPositions.Contains(neighborPosition))
                 {
                     neighborsBinaryType += "1";
                 }
@@ -35,13 +35,13 @@ public static class WallGenerator
 
     private static void CreateCornerWalls(TilemapVisualizer tilemapVisualizer, HashSet<Vector2Int> cornerWallPositions, HashSet<Vector2Int> floorPositions)
     {
-        foreach(var position in cornerWallPositions)
+        foreach (var position in cornerWallPositions)
         {
             string neighborsBinaryType = "";
-            foreach(var direction in Direction2D.eightDirectionsList)
+            foreach (var direction in Direction2D.eightDirectionsList)
             {
                 var neighborPosition = position + direction;
-                if(floorPositions.Contains(neighborPosition))
+                if (floorPositions.Contains(neighborPosition))
                 {
                     neighborsBinaryType += "1";
                 }
@@ -59,13 +59,17 @@ public static class WallGenerator
         HashSet<Vector2Int> wallPostions = new HashSet<Vector2Int>();
         foreach (var position in floorPositions)
         {
-            foreach(var direction in directionList)
+            foreach (var direction in directionList)
             {
                 var neighborPosition = position + direction;
-                if(floorPositions.Contains(neighborPosition) == false)
+                if (floorPositions.Contains(neighborPosition) == false)
                     wallPostions.Add(neighborPosition);
             }
         }
         return wallPostions;
     }
 }
+
+
+
+

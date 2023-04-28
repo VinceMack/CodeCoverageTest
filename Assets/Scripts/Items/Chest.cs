@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chest_VM : Item
+public class Chest : Item
 {
     // dictionary of item names and their quantities
     [SerializeField] public Dictionary<string, int> contents = new Dictionary<string, int>();
 
     // Method to add an item to the chest
-    public void AddItem(GameObject item)
+    public void AddItem(string itemName)
     {
-        string itemName = item.name;
-
         // if the item is already in the chest, increment its quantity
         if (contents.ContainsKey(itemName))
         {
@@ -25,10 +23,8 @@ public class Chest_VM : Item
     }
 
     // Method to remove an item from the chest
-    public void RemoveItem(GameObject item)
+    public void RemoveItem(string itemName)
     {
-        string itemName = item.name;
-
         // if the item is in the chest, decrement its quantity
         if (contents.ContainsKey(itemName))
         {
@@ -42,10 +38,8 @@ public class Chest_VM : Item
     }
 
     // Method to get the quantity of an item in the chest
-    public int GetItemQuantity(GameObject item)
+    public int GetItemQuantity(string itemName)
     {
-        string itemName = item.name;
-
         // if the item is in the chest, return its quantity
         if (contents.ContainsKey(itemName))
         {
@@ -59,10 +53,8 @@ public class Chest_VM : Item
     }
 
     // Method to check if the chest contains an item
-    public bool ContainsItem(GameObject item)
+    public bool ContainsItem(string itemName)
     {
-        string itemName = item.name;
-
         // if the item is in the chest, return true
         if (contents.ContainsKey(itemName))
         {
@@ -85,7 +77,7 @@ public class Chest_VM : Item
         }
 
         // remove the chest from the global storage
-        GlobalStorage_VM.RemoveChest(this);
+        GlobalStorage.RemoveChest(this);
         Itemize();
     }
 
@@ -95,15 +87,17 @@ public class Chest_VM : Item
     /// </summary>
     public int ItemCountInChest(string itemName)
     {
-        if(!contents.ContainsKey(itemName))
+        if (!contents.ContainsKey(itemName))
         {
             return 0;
         }
         return contents[itemName];
     }
 
-    void Awake()
+    public override void Awake()
     {
+        isCollision = true;
+        itemName = "Chest";
         isGatherable = false;
         isPlaceable = true;
         isDeconstructable = true;
@@ -112,7 +106,7 @@ public class Chest_VM : Item
         // initialize the location
         location = GridManager.GetTile(Vector3Int.RoundToInt(transform.position));
         // add the chest to the global storage
-        GlobalStorage_VM.AddChest(this, transform.position);
+        GlobalStorage.AddChest(this, transform.position);
     }
 
     public void ResetPosition()
@@ -121,3 +115,7 @@ public class Chest_VM : Item
     }
 
 }
+
+
+
+

@@ -21,11 +21,11 @@ public class SimpleRandomWalkDungeon : AbstractDungeonGenerator
     {
         var currentPosition = position;
         HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
-        for(int i = 0; i < parameters.iterations; i++)
+        for (int i = 0; i < parameters.iterations; i++)
         {
             var path = ProceduralGeneration.SimpleRandomWalk(currentPosition, parameters.walkLength);
             floorPositions.UnionWith(path);
-            if(parameters.startRandomlyEachIteration)
+            if (parameters.startRandomlyEachIteration)
             {
                 currentPosition = floorPositions.ElementAt(Random.Range(0, floorPositions.Count));
             }
@@ -33,3 +33,7 @@ public class SimpleRandomWalkDungeon : AbstractDungeonGenerator
         return floorPositions;
     }
 }
+
+
+
+

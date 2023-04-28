@@ -8,16 +8,16 @@ public class Level
     private int levelNumber;
     private int xMin, xMax, yMin, yMax;
 
-    private List<StairsTile_VM> ascendingStairs_VM;
-    private List<StairsTile_VM> descendingStairs_VM;
+    private List<StairsTile> ascendingStairs;
+    private List<StairsTile> descendingStairs;
 
     public Level()
     {
         levelNumber = -1;
         xMin = 0; xMax = 0; yMin = 0; yMax = 0;
 
-        ascendingStairs_VM = new List<StairsTile_VM>();
-        descendingStairs_VM = new List<StairsTile_VM>();
+        ascendingStairs = new List<StairsTile>();
+        descendingStairs = new List<StairsTile>();
     }
 
     public Level(int lNum, int xMin, int xMax, int yMin, int yMax)
@@ -29,8 +29,8 @@ public class Level
         this.yMax = yMax;
 
 
-        ascendingStairs_VM = new List<StairsTile_VM>();
-        descendingStairs_VM = new List<StairsTile_VM>();
+        ascendingStairs = new List<StairsTile>();
+        descendingStairs = new List<StairsTile>();
     }
 
     public void setLevel(int lNum, Vector2Int position, int xLength, int yLength)
@@ -42,14 +42,14 @@ public class Level
         yMax = yMin = yLength;
     }
 
-    public void AddAscendingStairs_VM(StairsTile_VM stairs)
+    public void AddAscendingStairs(StairsTile stairs)
     {
-        ascendingStairs_VM.Add(stairs);
+        ascendingStairs.Add(stairs);
     }
 
-    public void AddDescendingStairs_VM(StairsTile_VM stairs)
+    public void AddDescendingStairs(StairsTile stairs)
     {
-        descendingStairs_VM.Add(stairs);
+        descendingStairs.Add(stairs);
     }
 
     public int getXMin() { return xMin; }
@@ -58,31 +58,31 @@ public class Level
     public int getYMax() { return yMax; }
     public int getLevelNumber() { return levelNumber; }
 
-    public List<StairsTile_VM> getAllAscendingStairs_VM()
+    public List<StairsTile> getAllAscendingStairs()
     {
-        return ascendingStairs_VM;
+        return ascendingStairs;
     }
 
-    public List<StairsTile_VM> getAllDescendingStairs_VM()
+    public List<StairsTile> getAllDescendingStairs()
     {
-        return descendingStairs_VM;
+        return descendingStairs;
     }
 
-    public StairsTile_VM getAscendingStairs_VM(Vector3Int currentPosition)
+    public StairsTile getAscendingStairs(Vector3Int currentPosition)
     {
         // Get closest stairs
-        if (ascendingStairs_VM.Count > 0)
+        if (ascendingStairs.Count > 0)
         {
-            float xDistance = currentPosition.x - ascendingStairs_VM[0].position.x;
-            float yDistance = currentPosition.y - ascendingStairs_VM[0].position.y;
+            float xDistance = currentPosition.x - ascendingStairs[0].position.x;
+            float yDistance = currentPosition.y - ascendingStairs[0].position.y;
             float distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
 
             int closestStairsIndex = 0;
             float shortestDistance = distance;
-            for (int i = 1; i < ascendingStairs_VM.Count; i++)
+            for (int i = 1; i < ascendingStairs.Count; i++)
             {
-                xDistance = currentPosition.x - ascendingStairs_VM[i].position.x;
-                yDistance = currentPosition.y - ascendingStairs_VM[i].position.y;
+                xDistance = currentPosition.x - ascendingStairs[i].position.x;
+                yDistance = currentPosition.y - ascendingStairs[i].position.y;
                 distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
 
                 if (distance < shortestDistance)
@@ -91,26 +91,26 @@ public class Level
                     closestStairsIndex = i;
                 }
             }
-            return ascendingStairs_VM[closestStairsIndex];
+            return ascendingStairs[closestStairsIndex];
         }
         else return null;
     }
 
-    public StairsTile_VM getDescendingStairs_VM(Vector3Int currentPosition)
+    public StairsTile getDescendingStairs(Vector3Int currentPosition)
     {
         // Get closest stairs
-        if (descendingStairs_VM.Count > 0)
+        if (descendingStairs.Count > 0)
         {
-            float xDistance = currentPosition.x - descendingStairs_VM[0].position.x;
-            float yDistance = currentPosition.y - descendingStairs_VM[0].position.y;
+            float xDistance = currentPosition.x - descendingStairs[0].position.x;
+            float yDistance = currentPosition.y - descendingStairs[0].position.y;
             float distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
 
             int closestStairsIndex = 0;
             float shortestDistance = distance;
-            for (int i = 1; i < descendingStairs_VM.Count; i++)
+            for (int i = 1; i < descendingStairs.Count; i++)
             {
-                xDistance = currentPosition.x - descendingStairs_VM[i].position.x;
-                yDistance = currentPosition.y - descendingStairs_VM[i].position.y;
+                xDistance = currentPosition.x - descendingStairs[i].position.x;
+                yDistance = currentPosition.y - descendingStairs[i].position.y;
                 distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
 
                 if (distance < shortestDistance)
@@ -119,8 +119,12 @@ public class Level
                     closestStairsIndex = i;
                 }
             }
-            return descendingStairs_VM[closestStairsIndex];
+            return descendingStairs[closestStairsIndex];
         }
         else return null;
     }
 }
+
+
+
+

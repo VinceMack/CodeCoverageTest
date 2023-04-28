@@ -23,9 +23,9 @@ public class ControlledMovement : Movement
     {
         change = Vector3.zero;
         change.x = Input.GetAxisRaw("Horizontal");
-        change.y = Input.GetAxisRaw("Vertical");       
+        change.y = Input.GetAxisRaw("Vertical");
 
-        if(change != Vector3.zero)
+        if (change != Vector3.zero)
         {
             stateMachine.ChangeState(GenericState.walk);
             anim.ChangeAnim(change);
@@ -38,3 +38,7 @@ public class ControlledMovement : Movement
         base.Motion(change);
     }
 }
+
+
+
+

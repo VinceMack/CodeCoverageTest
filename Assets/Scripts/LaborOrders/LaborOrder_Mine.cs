@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class LaborOrder_Mine : LaborOrder_Base_VM
+public class LaborOrder_Mine : LaborOrder_Base
 {
-    public GameObject resource;
+    public Item resource;
     private static float BASE_TTC = 3f;
-    private GameObject targetPlant;
+    private Item targetPlant;
 
     // constructor
-    public LaborOrder_Mine(GameObject targetPlant)
+    public LaborOrder_Mine(Item targetPlant)
     {
         laborType = LaborType.Mine;
         timeToComplete = BASE_TTC;
@@ -19,16 +19,16 @@ public class LaborOrder_Mine : LaborOrder_Base_VM
         {
             int random = UnityEngine.Random.Range(0, 10);
             if (random == 1)
-                resource = Resources.Load<GameObject>("prefabs/items/Coin");
+                resource = Resources.Load<Item>("prefabs/items/Coin");
             else
-                resource = Resources.Load<GameObject>("prefabs/items/RockResource");
+                resource = Resources.Load<Item>("prefabs/items/RockResource");
         }
         this.targetPlant = targetPlant;
         location = Vector3Int.FloorToInt(targetPlant.transform.position);
     }
 
     // override of the execute method to preform the labor order
-    public override IEnumerator Execute(Pawn_VM pawn)
+    public override IEnumerator Execute(Pawn pawn)
     {
         pawn.path.Clear();
 
@@ -42,12 +42,12 @@ public class LaborOrder_Mine : LaborOrder_Base_VM
                 // delete tree
                 Vector3 treePosition = targetPlant.transform.position;
                 Transform treeParent = targetPlant.transform.parent;
-                UnityEngine.Object.Destroy(targetPlant);
+                UnityEngine.Object.Destroy(targetPlant.gameObject);
 
                 // create wheat in tree's place
-                BaseTile_VM tile = (BaseTile_VM)GridManager.tileMap.GetTile(Vector3Int.FloorToInt(treePosition));
-                
-                GameObject resourceObject = UnityEngine.Object.Instantiate(resource, treePosition, Quaternion.identity);
+                BaseTile tile = (BaseTile)GridManager.tileMap.GetTile(Vector3Int.FloorToInt(treePosition));
+
+                Item resourceObject = UnityEngine.Object.Instantiate(resource, treePosition, Quaternion.identity).GetComponent<Item>();
                 resourceObject.transform.SetParent(GameObject.Find("GameManager").transform.Find("Objects"));
                 tile.SetTileInformation(tile.type, false, resourceObject, tile.resourceCount, tile.position);
 
@@ -59,3 +59,7 @@ public class LaborOrder_Mine : LaborOrder_Base_VM
     }
 
 }
+
+
+
+

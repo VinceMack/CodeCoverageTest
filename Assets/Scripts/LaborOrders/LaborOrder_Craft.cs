@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class LaborOrder_Place : LaborOrder_Base
+public class LaborOrder_Craft : LaborOrder_Base
 {
     Item itemToPlace;
 
     // constructor
-    public LaborOrder_Place(Item item) : base()
+    public LaborOrder_Craft(Item item) : base()
     {
-        laborType = LaborType.Place;
+        laborType = LaborType.Craft;
         timeToComplete = 3f;
         orderNumber = LaborOrderManager.GetNumOfLaborOrders();
         itemToPlace = item;
@@ -34,9 +34,9 @@ public class LaborOrder_Place : LaborOrder_Base
         while (tile.resource != null);
     }
 
-    public LaborOrder_Place(Item item, Vector2 placeLocation) : base()
+    public LaborOrder_Craft(Item item, Vector2 placeLocation) : base()
     {
-        laborType = LaborType.Place;
+        laborType = LaborType.Craft;
         timeToComplete = 3f;
         orderNumber = LaborOrderManager.GetNumOfLaborOrders();
         itemToPlace = item;
@@ -48,6 +48,35 @@ public class LaborOrder_Place : LaborOrder_Base
     public override IEnumerator Execute(Pawn pawn)
     {
         pawn.path.Clear();
+
+        // Check the requiredForCrafting list of the item to place and check if the the global inventory has enough of the required items
+        bool hasEnoughResources = true;
+        List<Item> removedItems = new List<Item>();
+        foreach (Item requiredItem in itemToPlace.requiredForCrafting)
+        {
+            if (GlobalStorage.GetItemCount(requiredItem.itemName) < 1)
+            {
+                hasEnoughResources = false;
+                break;
+            }
+            else
+            {
+                // Remove the item from the global inventory
+                GlobalStorage.GetChestWithItem(requiredItem.itemName).RemoveItem(requiredItem.itemName);
+                // Add the removed item to the removedItems list
+                removedItems.Add(requiredItem);
+            }
+        }
+
+        if (!hasEnoughResources)
+        {
+            Debug.Log("Not enough resources to craft " + itemToPlace.itemName);
+            yield break;
+        }
+        else
+        {
+            Debug.Log("Crafting " + itemToPlace.itemName);
+        }
 
         yield return new WaitForSeconds(timeToComplete);
         BaseTile tile = GridManager.GetTile(location);
@@ -66,7 +95,6 @@ public class LaborOrder_Place : LaborOrder_Base
                     {
                         resource.GetComponent<Chest>().ResetPosition();
                     }
-                    // set tile information
                     tile.SetTileInformation(tile.type, resource.isCollision, resource, 1, tile.position);
                 }
                 else
