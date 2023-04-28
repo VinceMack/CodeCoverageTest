@@ -11,7 +11,7 @@ namespace Tests
 	{
 
         // This LoadScene will be universal for all playmode tests
-		[OneTimeSetUp]
+		[SetUp]
 		public void LoadScene()
 		{
             // Will load scene by this name,
