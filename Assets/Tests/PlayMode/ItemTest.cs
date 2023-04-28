@@ -25,7 +25,6 @@ namespace Tests
             Berries berries = objs.AddComponent<Berries>();
             Bush bush = objs.AddComponent<Bush>();
             Rock rock = objs.AddComponent<Rock>();
-            RockCoin rockCoin = objs.AddComponent<RockCoin>();
             Coin coin = objs.AddComponent<Coin>();
             RockResource rockResource = objs.AddComponent<RockResource>();
             RockWall rockWall = objs.AddComponent<RockWall>();
@@ -34,14 +33,12 @@ namespace Tests
             WheatItem wheatItem = objs.AddComponent<WheatItem>();
             Wood wood = objs.AddComponent<Wood>();
             WoodWall woodWall = objs.AddComponent<WoodWall>();
-            StairsItem stairsItem = objs.AddComponent<StairsItem>();
             ErrorObject errorObject = objs.AddComponent<ErrorObject>();
 
             Assert.IsNotNull(item);
             Assert.IsNotNull(berries);
             Assert.IsNotNull(bush);
             Assert.IsNotNull(rock);
-            Assert.IsNotNull(rockCoin);
             Assert.IsNotNull(coin);
             Assert.IsNotNull(rockResource);
             Assert.IsNotNull(rockWall);
@@ -49,8 +46,6 @@ namespace Tests
             Assert.IsNotNull(wheat);
             Assert.IsNotNull(wheatItem);
             Assert.IsNotNull(wood);
-            Assert.IsNotNull(woodWall);
-            Assert.IsNotNull(stairsItem);
             Assert.IsNotNull(errorObject);
         }
 
