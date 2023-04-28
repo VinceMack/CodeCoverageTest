@@ -223,5 +223,89 @@ namespace Tests
             int val2 = wheat2.Harvest();
             Assert.AreEqual(val2, 1);
         }
+        [UnityTest]
+        public IEnumerator Item_Tree_IncrementAllResources()
+        {
+            yield return new WaitForSeconds(0.5f);
+            
+            GameObject objs = GameObject.Find("Objects");
+            Tree itemizedTree = objs.AddComponent<Tree>();
+            Tree itemizedTree2 = objs.AddComponent<Tree>();
+            Tree itemizedTree3 = objs.AddComponent<Tree>();
+            Tree nullSpriteRendererTree = objs.AddComponent<Tree>();
+            Tree nonNullSpriteRendererTree = objs.AddComponent<Tree>();
+            Tree fullResourceTree = objs.AddComponent<Tree>();
+
+            itemizedTree.isItemized = true;
+            itemizedTree2.isItemized = false;
+            itemizedTree3.isItemized = false;
+            Tree.plantResources.Add(itemizedTree2);
+            Tree.plantResources.Add(itemizedTree);
+            Tree.plantResources.Add(itemizedTree3);
+            Tree.plantResources[1].isItemized = true;
+            Tree.plantResources[2].isItemized = false;
+            Tree.IncrementAllResources(1);
+            Tree.plantResources.Clear();
+
+            nullSpriteRendererTree.isItemized = false;
+            nullSpriteRendererTree.spriteRenderer = null;
+            Tree.plantResources.Add(nullSpriteRendererTree);
+            Tree.IncrementAllResources(1);
+            Tree.plantResources.Clear();
+
+            objs.AddComponent<SpriteRenderer>();
+            nonNullSpriteRendererTree.isItemized = false;
+            nonNullSpriteRendererTree.spriteRenderer = objs.GetComponent<SpriteRenderer>() as SpriteRenderer;
+            nonNullSpriteRendererTree.resourceCount = 1;
+            Tree.plantResources.Add(nonNullSpriteRendererTree);
+            Tree.IncrementAllResources(1);
+            Tree.plantResources.Clear();
+
+            fullResourceTree.isItemized = false;
+            fullResourceTree.spriteRenderer = objs.GetComponent<SpriteRenderer>() as SpriteRenderer;
+            fullResourceTree.resourceCount = 24;
+            Tree.plantResources.Add(fullResourceTree);
+            Tree.IncrementAllResources(50);
+            Tree.plantResources.Clear();
+
+            Assert.IsNotNull(itemizedTree);
+            Assert.IsNotNull(nullSpriteRendererTree);
+            Assert.IsNotNull(nonNullSpriteRendererTree);
+            Assert.IsNotNull(fullResourceTree);
+        }
+
+        [UnityTest]
+        public IEnumerator Item_Tree_Deconstruct()
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            GameObject objs = GameObject.Find("Objects");
+            Tree.plantResources.Clear();
+            Tree tree = objs.AddComponent<Tree>();
+
+            tree.Deconstruct();
+
+            Assert.AreEqual(Tree.plantResources.Count, 0);
+        }
+
+        [UnityTest]
+        public IEnumerator Item_Tree_Harvest()
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            GameObject objs = GameObject.Find("Objects");
+            objs.AddComponent<SpriteRenderer>();
+            Tree Tree = objs.AddComponent<Tree>();
+            Tree.resourceCount = 25;
+
+            int val = Tree.Harvest();
+            Assert.AreEqual(val, 25);
+
+            Tree tree2 = objs.AddComponent<Tree>();
+            tree2.resourceCount = 1;
+
+            int val2 = tree2.Harvest();
+            Assert.AreEqual(val2, 1);
+        }
     }
 }
