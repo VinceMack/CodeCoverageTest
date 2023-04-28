@@ -70,7 +70,6 @@
 
 **Pending Decision:**
  - PawnHunger.cs
- - Craftbench.cs
  - LaborOrder_Craft.cs
 
 **Not (seemingly) Necessary:**
