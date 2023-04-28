@@ -8,6 +8,7 @@ using System.Linq;
 public enum LaborType { Woodcut, Mine, Forage, Gather, Craft, Place, Deconstruct, Basic, Plantcut };
 
 // LaborOrderManager_VM class to manage and assign labor tasks for pawns
+[ExecuteInEditMode]
 public class LaborOrderManager_VM : MonoBehaviour
 {
     [SerializeField]

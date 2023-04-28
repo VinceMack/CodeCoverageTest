@@ -5,10 +5,11 @@ using UnityEngine.Tilemaps;
 using System.Linq;
 using System;
 
+[ExecuteInEditMode]
 public class Pawn_VM : MonoBehaviour
 {
     public List<LaborType>[] laborTypePriority { get; private set; }   // Priority list for different types of labor
-    private LaborOrder_Base_VM currentLaborOrder;                           // Reference to the current labor order
+    protected LaborOrder_Base_VM currentLaborOrder;                           // Reference to the current labor order
     private bool isAssigned;                                                // Indicates if the pawn is currently assigned to a labor order
     private static int pawnCount = 0;                                       // Counter for the total number of pawns
     private const int NUM_OF_PRIORITY_LEVELS = 4;                           // Number of priority levels for labor types
@@ -18,7 +19,7 @@ public class Pawn_VM : MonoBehaviour
     private string pawnName;                                                // Name of the pawn
     private Coroutine currentExecution;                                     // holds a reference to labor order execute() coroutine
     public Coroutine currentPathExecution { get; set; }                     // holds a reference to labor order execute() coroutine
-    private AnimatorController anim;
+    protected AnimatorController anim;
 
     public static List<Pawn_VM> PawnList = new List<Pawn_VM>();             // a list of all living pawns
     public bool refuseLaborOrders = false;                                  // prevents this pawn from being assigned labor orders, redundant for now but may be useful later
@@ -345,7 +346,7 @@ public class Pawn_VM : MonoBehaviour
             currentPathExecution = null;
             currentPosition = Vector3Int.FloorToInt(transform.position);
         }
-
+        
         if(path.Count > 0){
             currentExecution = StartCoroutine(currentLaborOrder.Execute(this));
             yield return currentExecution;
@@ -433,7 +434,7 @@ public class Pawn_VM : MonoBehaviour
             Debug.LogWarning("No more available colors. Assigning the default color.");
             _color = Color.white;
         }
-
+        
         name = ColorToName(_color);
 
         // animator
