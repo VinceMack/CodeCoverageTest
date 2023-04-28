@@ -18,6 +18,7 @@ public class Item : MonoBehaviour
     [SerializeField] public bool isCraftable = false;
     [SerializeField] public bool isPlantcuttable = false;
     [SerializeField] public bool isItemized = false;
+    [SerializeField] public bool isCollision = false;
     [SerializeField] public List<Item> requiredForCrafting;
 
     public void Itemize()

@@ -9,6 +9,7 @@ public class RockWall : Item
         isGatherable = true;
         isPlaceable = true;
         itemName = "RockWall";
+        isCollision = true;
     }
 
     // Start is called before the first frame update

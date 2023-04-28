@@ -96,6 +96,7 @@ public class Chest : Item
 
     public override void Awake()
     {
+        isCollision = true;
         itemName = "Chest";
         isGatherable = false;
         isPlaceable = true;

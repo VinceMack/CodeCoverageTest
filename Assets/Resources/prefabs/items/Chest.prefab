@@ -105,7 +105,7 @@ MonoBehaviour:
   isWoodcuttable: 0
   isMineable: 0
   isForageable: 0
-  isCraftable: 0
+  isCraftable: 1
   isPlantcuttable: 0
   isItemized: 0
   requiredForCrafting:

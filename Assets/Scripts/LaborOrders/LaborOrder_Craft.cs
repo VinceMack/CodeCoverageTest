@@ -93,6 +93,7 @@ public class LaborOrder_Craft : LaborOrder_Base
                     {
                         resource.GetComponent<Chest>().ResetPosition();
                     }
+                    tile.SetTileInformation(tile.type, resource.isCollision, resource, 1, tile.position);
                 }
                 else
                 {

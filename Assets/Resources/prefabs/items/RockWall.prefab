@@ -74,12 +74,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c20249e9de4c7cd4fb413880a5cd4ec7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 37ea15f3da8fb9b4cbe08118d487d615, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.64, y: 0.64}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -105,7 +105,11 @@ MonoBehaviour:
   isWoodcuttable: 0
   isMineable: 0
   isForageable: 0
-  isCraftable: 0
+  isCraftable: 1
   isPlantcuttable: 0
   isItemized: 0
-  requiredForCrafting: []
+  requiredForCrafting:
+  - {fileID: 2302492262446194586, guid: b7b11cc2780868e45b6ea01e31621377, type: 3}
+  - {fileID: 2302492262446194586, guid: b7b11cc2780868e45b6ea01e31621377, type: 3}
+  - {fileID: 2302492262446194586, guid: b7b11cc2780868e45b6ea01e31621377, type: 3}
+  - {fileID: 2302492262446194586, guid: b7b11cc2780868e45b6ea01e31621377, type: 3}

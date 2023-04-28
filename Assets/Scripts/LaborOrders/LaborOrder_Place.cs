@@ -66,6 +66,8 @@ public class LaborOrder_Place : LaborOrder_Base
                     {
                         resource.GetComponent<Chest>().ResetPosition();
                     }
+                    // set tile information
+                    tile.SetTileInformation(tile.type, resource.isCollision, resource, 1, tile.position);
                 }
                 else
                 {

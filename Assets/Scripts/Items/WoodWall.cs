@@ -9,6 +9,7 @@ public class WoodWall : Item
     {
         isPlaceable = true;
         itemName = "WoodWall";
+        isCollision = true;
     }
 
     // Start is called before the first frame update

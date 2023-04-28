@@ -168,6 +168,31 @@ public class TestWindow : EditorWindow
             }
         }
 
+        if (GUILayout.Button("Generate Craft Order (RockWall)"))
+        {
+            RockWall rockWallPrefab = Resources.Load<RockWall>("prefabs/items/RockWall");
+            if (rockWallPrefab != null)
+            {
+                LaborOrderManager.AddCraftLaborOrder(rockWallPrefab);
+            }
+            else
+            {
+                Debug.LogWarning("RockWall prefab not found. Cannot create craft labor order.");
+            }
+        }
+
+        if (GUILayout.Button("Generate Craft Order (WoodWall)"))
+        {
+            WoodWall woodWallPrefab = Resources.Load<WoodWall>("prefabs/items/WoodWall");
+            if (woodWallPrefab != null)
+            {
+                LaborOrderManager.AddCraftLaborOrder(woodWallPrefab);
+            }
+            else
+            {
+                Debug.LogWarning("WoodWall prefab not found. Cannot create craft labor order.");
+            }
+        }
 
         if (GUILayout.Button("Clear Labor Orders"))
         {
