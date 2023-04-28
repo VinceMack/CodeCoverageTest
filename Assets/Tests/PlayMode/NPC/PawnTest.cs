@@ -7,18 +7,18 @@ using UnityEngine.UI;
 
 namespace Tests
 {/* 
-    public class Pawn_Test : Pawn_VM
+    public class Pawn_Test : Pawn
     {
         [UnityTest]
         public void Pawn_Die_RemoveFromPawnList()
         {
-            (new GameObject()).AddComponent<LaborOrderManager_VM>();
-            if (Pawn_VM.PawnList != null) Pawn_VM.PawnList.Clear();
-            Pawn_VM pawn = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn_VM")).GetComponent<Pawn_VM>();
+            (new GameObject()).AddComponent<LaborOrderManager>();
+            if (Pawn.PawnList != null) Pawn.PawnList.Clear();
+            Pawn pawn = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn")).GetComponent<Pawn>();
 
             pawn.Die();
 
-            Assert.IsFalse(Pawn_VM.PawnList.Contains(pawn));
+            Assert.IsFalse(Pawn.PawnList.Contains(pawn));
         }
         
         [UnityTest]
@@ -26,9 +26,9 @@ namespace Tests
         {
             GridManager.InitializeGridManager();
             GridManager.CreateLevel();
-            Pawn_Test pawn = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn_VM")).AddComponent<Pawn_Test>();
+            Pawn_Test pawn = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn")).AddComponent<Pawn_Test>();
 
-            pawn.currentLaborOrder = new LaborOrder_Base_VM(true);
+            pawn.currentLaborOrder = new LaborOrder_Base(true);
             pawn.CompleteLaborOrder();
 
             pawn.CancelCurrentLaborOrder();
