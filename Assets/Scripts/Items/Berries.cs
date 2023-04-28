@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Berries : Item
 {
-    int foodValue = 10;
+
+    public static readonly float foodValue = Pawn.MAX_HUNGER * 0.10f;
 
     void Awake()
     {

@@ -14,102 +14,102 @@ public class LaborOrder_Gather : LaborOrder_Base
         location = Vector3Int.FloorToInt(target.transform.position);
     }
 
-    public override IEnumerator Execute(Pawn pawn)
+public override IEnumerator Execute(Pawn pawn)
+{
+    pawn.path.Clear();
+
+    Chest chest = GlobalStorage.GetClosestChest(pawn.transform.position);
+    BaseTile targetTile = GridManager.GetTile(location);
+    BaseTile currentTile = (BaseTile)pawn.GetPawnTileFromTilemap();
+
+    Item resource = targetTile.resource;
+
+    if (resource == null)
     {
-        pawn.path.Clear();
+        Debug.LogWarning("Resource is null. Aborting.");
+        yield break;
+    }
 
-        Chest chest = GlobalStorage.GetClosestChest(pawn.transform.position);
-        BaseTile targetTile = GridManager.GetTile(location);
-        BaseTile currentTile = (BaseTile)pawn.GetPawnTileFromTilemap();
+    if (chest == null)
+    {
+        Debug.LogWarning("Chest is null. Aborting.");
+        yield break;
+    }
 
-        Item resource = targetTile.resource;
+    chest.AddItem(resource.itemName);
+    UnityEngine.Object.Destroy(targetTile.resource.gameObject);
 
-        if (resource == null)
+    Vector3Int targetPosition = Vector3Int.FloorToInt(chest.transform.position);
+    Vector3Int currentPosition = Vector3Int.FloorToInt(pawn.transform.position);
+
+    int targetLevel = targetPosition.x / GridManager.LEVEL_WIDTH;
+    int currentLevel = currentPosition.x / GridManager.LEVEL_WIDTH;
+
+    bool reachedTarget = IsAdjacent(currentPosition, targetPosition);
+
+    while (!reachedTarget)
+    {
+        if (currentLevel != targetLevel)
         {
-            Debug.LogWarning("Resource is null. Aborting.");
-            yield break;
-        }
+            StairsTile stairs;
+            Vector3 levelChangeStairsPosition;
 
-        if (chest == null)
-        {
-            Debug.LogWarning("Chest is null. Aborting.");
-            yield break;
-        }
-
-        chest.AddItem(resource.itemName);
-        UnityEngine.Object.Destroy(targetTile.resource.gameObject);
-        targetTile.resource = null;
-
-        if (targetTile == null || currentTile == null)
-        {
-            Debug.LogWarning("Target or current tile is null. Aborting.");
-            yield break;
-        }
-
-        Vector3Int targetPosition = Vector3Int.FloorToInt(chest.transform.position);
-        Vector3Int currentPosition = Vector3Int.FloorToInt(pawn.transform.position);
-
-        int targetLevel = targetPosition.x / GridManager.LEVEL_WIDTH;
-        int currentLevel = currentPosition.x / GridManager.LEVEL_WIDTH;
-
-        while (!IsAdjacent(currentPosition, targetPosition))
-        {
-            if (currentLevel != targetLevel)
+            if (currentLevel < targetLevel)
             {
-                StairsTile stairs;
-                Vector3 levelChangeStairsPosition;
-
-                if (currentLevel < targetLevel)
+                stairs = GridManager.mapLevels[currentLevel].getDescendingStairs(currentPosition);
+                if (stairs == null)
                 {
-                    stairs = GridManager.mapLevels[currentLevel].getDescendingStairs(currentPosition);
-                    if (stairs == null)
-                    {
-                        Debug.LogWarning("Descending stairs tile is null. Aborting.");
-                        yield break;
-                    }
-                    levelChangeStairsPosition = stairs.getLowerLevelStairs().position;
+                    Debug.LogWarning("Descending stairs tile is null. Aborting.");
+                    yield break;
                 }
-                else
-                {
-                    stairs = GridManager.mapLevels[currentLevel].getAscendingStairs(currentPosition);
-                    if (stairs == null)
-                    {
-                        Debug.LogWarning("Ascending stairs tile is null. Aborting.");
-                        yield break;
-                    }
-                    levelChangeStairsPosition = stairs.getUpperLevelStairs().position;
-                }
-
-                Vector3Int stairsPosition = Vector3Int.FloorToInt(stairs.position);
-
-                if (currentPosition == stairsPosition)
-                {
-                    pawn.transform.position = levelChangeStairsPosition;
-                    currentLevel = (int)levelChangeStairsPosition.x / GridManager.LEVEL_WIDTH;
-                    continue;
-                }
-                else
-                {
-                    pawn.path = PathfindingManager.GetPath(currentPosition, stairsPosition, currentLevel, true);
-                }
+                levelChangeStairsPosition = stairs.getLowerLevelStairs().position;
             }
             else
             {
-                pawn.path = PathfindingManager.GetPath(currentPosition, targetPosition, currentLevel, false);
+                stairs = GridManager.mapLevels[currentLevel].getAscendingStairs(currentPosition);
+                if (stairs == null)
+                {
+                    Debug.LogWarning("Ascending stairs tile is null. Aborting.");
+                    yield break;
+                }
+                levelChangeStairsPosition = stairs.getUpperLevelStairs().position;
             }
 
-            if (pawn.path.Count == 0)
+            Vector3Int stairsPosition = Vector3Int.FloorToInt(stairs.position);
+
+            if (currentPosition == stairsPosition)
             {
-                Debug.Log("Path is empty. Aborting.");
-                yield break;
+                pawn.transform.position = levelChangeStairsPosition;
+                currentLevel = (int)levelChangeStairsPosition.x / GridManager.LEVEL_WIDTH;
+                currentPosition = Vector3Int.FloorToInt(pawn.transform.position);
+                continue;
             }
-
-            pawn.currentPathExecution = pawn.StartCoroutine(pawn.TakePath());
-            yield return pawn.currentPathExecution;
-            pawn.currentPathExecution = null;
-            currentPosition = Vector3Int.FloorToInt(pawn.transform.position);
+            else
+            {
+                pawn.path = PathfindingManager.GetPath(currentPosition, stairsPosition, currentLevel, true);
+            }
         }
+        else
+        {
+            pawn.path = PathfindingManager.GetPath(currentPosition, targetPosition, currentLevel, false);
+        }
+
+        if (pawn.path.Count == 0)
+        {
+            Debug.Log("Path is empty. Aborting.");
+            yield break;
+        }
+
+        pawn.currentPathExecution = pawn.StartCoroutine(pawn.TakePath());
+        yield return pawn.currentPathExecution;
+        pawn.currentPathExecution = null;
+        currentPosition = Vector3Int.FloorToInt(pawn.transform.position);
+
+        reachedTarget = IsAdjacent(currentPosition, targetPosition);
     }
+    targetTile.resource = null;
+}
+
 
     private bool IsAdjacent(Vector3Int currentPosition, Vector3Int targetPosition)
     {
@@ -137,7 +137,6 @@ public class LaborOrder_Gather : LaborOrder_Base
         return false;
     }
 }
-
 
 
 

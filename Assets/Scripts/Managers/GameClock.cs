@@ -11,10 +11,11 @@ using UnityEngine;
 public class GameClock : MonoBehaviour
 {
     [SerializeField] private float FREQUENCY = 1f;
-    //[SerializeField] private int HUNGER_DECREMENT = 1;
     [SerializeField] private int BERRY_INCREMENT = 1;
     [SerializeField] private int TREE_INCREMENT = 1;
     [SerializeField] private int WHEAT_INCREMENT = 1;
+    [SerializeField] private int HUNGER_DECREMENT = 1;
+
     private bool paused = true;
     private Coroutine coroutine;
 
@@ -68,6 +69,7 @@ public class GameClock : MonoBehaviour
         Bush.IncrementAllResources(BERRY_INCREMENT);
         Tree.IncrementAllResources(TREE_INCREMENT);
         Wheat.IncrementAllResources(WHEAT_INCREMENT);
+        Pawn.DecrementAllHunger(HUNGER_DECREMENT);
     }
 }
 

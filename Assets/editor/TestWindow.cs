@@ -179,15 +179,19 @@ public class TestWindow : EditorWindow
             Chest randomChest = GlobalStorage.GetRandomChest();
             if (randomChest != null)
             {
-                Item errorObject = Resources.Load<GameObject>("prefabs/items/Berries").GetComponent<Item>();
-                randomChest.AddItem(errorObject.itemName);
+                GameObject berriesPrefab = Resources.Load<GameObject>("prefabs/items/Berries");
+                GameObject berriesInstance = Instantiate(berriesPrefab);
+                Item berriesItem = berriesInstance.GetComponent<Item>();
+                randomChest.AddItem(berriesItem.itemName);
                 Debug.Log("Berries added to a random chest.");
+                Destroy(berriesInstance);
             }
             else
             {
                 Debug.Log("No chests available.");
             }
         }
+
     }
 }
 

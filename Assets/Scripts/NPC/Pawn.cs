@@ -7,29 +7,41 @@ using System;
 
 public class Pawn : MonoBehaviour
 {
-    public List<LaborType>[] laborTypePriority { get; private set; }   // Priority list for different types of labor
-    private LaborOrder_Base currentLaborOrder;                           // Reference to the current labor order
-    private bool isAssigned;                                                // Indicates if the pawn is currently assigned to a labor order
-    private static int pawnCount = 0;                                       // Counter for the total number of pawns
+    public List<LaborType>[] laborTypePriority { get; private set; }        // Priority list for different types of labor
+    private LaborOrder_Base currentLaborOrder;                              // Reference to the current labor order
+
+
     private const int NUM_OF_PRIORITY_LEVELS = 4;                           // Number of priority levels for labor types
-    public List<Vector3> path { get; set; }   // List of positions for the pawn to follow
-    private float pawnSpeed;                                                // Speed of the pawn movement
+    public List<Vector3> path { get; set; }                                 // List of positions for the pawn to follow
+
     private Vector3Int position;                                            // Current position of the pawn in the grid
-    private string pawnName;                                                // Name of the pawn
-    private Coroutine currentExecution;                                     // holds a reference to labor order execute() coroutine
+
+    public Coroutine currentExecution;                                     // holds a reference to labor order execute() coroutine
     public Coroutine currentPathExecution { get; set; }                     // holds a reference to labor order execute() coroutine
+
+    // Pawn Stats
+    private string pawnName;                                                // Name of the pawn
+    private bool isAssigned;                                                // Indicates if the pawn is currently assigned to a labor order
+    private float pawnSpeed;                                                // Speed of the pawn movement
+
+    // Static Pawn Refs
+    public static List<Pawn> PawnList = new List<Pawn>();                   // a list of all living pawns
+    private static int pawnCount = 0;                                       // Counter for the total number of pawns
+
+    // Hunger
+    public static readonly int MAX_HUNGER = 1000;                           // Max hunger level of the pawn
+    [SerializeField] public int hunger;                                     // Hunger level of the pawn. Starves at 0
+    public static readonly int HUNGER_RESPONSE_THRESHOLD = 20;              // Pawns will try to eat if below this value
+
+    // Operational
     private AnimatorController anim;
 
-    public static List<Pawn> PawnList = new List<Pawn>();             // a list of all living pawns
-    public bool refuseLaborOrders = false;                                  // prevents this pawn from being assigned labor orders, redundant for now but may be useful later
-    [SerializeField] public int hunger = 10000;                               // Hunger level of the pawn. Starves at 0
-    public Dictionary<string, Item> items;
-
-    private int pathIndex;
-
+    // Pathfinding Gizmo
     private Vector3 _offset;
     private Color _color;
     private static List<Color> availableColors;
+    private int pathIndex;
+
     private List<Color> predefinedColors = new List<Color>
     {
         Color.red,
@@ -140,7 +152,7 @@ public class Pawn : MonoBehaviour
 
     // Sets the current labor order for the pawn
     // True if successful, false if not
-    public bool SetCurrentLaborOrder(LaborOrder_Base LaborOrder_Base)
+    public bool SetCurrentLaborOrder(LaborOrder_Base laborOrder)
     {
         if (isAssigned)
         {
@@ -149,8 +161,16 @@ public class Pawn : MonoBehaviour
         }
         else
         {
-            currentLaborOrder = LaborOrder_Base;
+            path.Clear();
+            currentLaborOrder = laborOrder;
             isAssigned = true;
+
+            // remove the pawn from the available pawns queue if it is in it
+            if (LaborOrderManager.availablePawns.Contains(this))
+            {
+                LaborOrderManager.RemoveFromAvailablePawns(this);
+            }
+
             LaborOrderManager.AddAssignedPawn(this);
             //Debug.Log("Added " + GetPawnName() + " to assigned pawns"); //TMP
             return true;
@@ -243,13 +263,13 @@ public class Pawn : MonoBehaviour
     // Coroutine to complete the current labor order
     public IEnumerator CompleteLaborOrder()
     {
-        TileBase foundTile = GetLaborOrderTileFromTilemap();
+        TileBase targetTile = GetLaborOrderTileFromTilemap();
         TileBase currentTile = GetPawnTileFromTilemap();
 
 
-        if (foundTile == null)
+        if (targetTile == null)
         {
-            Debug.LogWarning("foundTile is null; adding pawn back to labor order manager; breaking out of coroutine");
+            Debug.LogWarning("targetTile is null; adding pawn back to labor order manager; breaking out of coroutine");
             LaborOrderManager.AddAvailablePawn(this);
             yield break;
         }
@@ -261,7 +281,7 @@ public class Pawn : MonoBehaviour
             yield break;
         }
 
-        BaseTile target = (BaseTile)foundTile;
+        BaseTile target = (BaseTile)targetTile;
         BaseTile current = (BaseTile)currentTile;
 
         Vector3Int targetPosition = Vector3Int.FloorToInt(target.position);
@@ -272,16 +292,25 @@ public class Pawn : MonoBehaviour
         // Get the level the pawn is on
         int currentLevel = currentPosition.x / GridManager.LEVEL_WIDTH;
 
+        bool reachedTarget = currentPosition == targetPosition ||
+                currentPosition == targetPosition + Vector3Int.up ||
+                currentPosition == targetPosition + Vector3Int.down ||
+                currentPosition == targetPosition + Vector3Int.left ||
+                currentPosition == targetPosition + Vector3Int.right ||
+                currentPosition == targetPosition + Vector3Int.up + Vector3Int.left ||
+                currentPosition == targetPosition + Vector3Int.up + Vector3Int.right ||
+                currentPosition == targetPosition + Vector3Int.down + Vector3Int.left ||
+                currentPosition == targetPosition + Vector3Int.down + Vector3Int.right;
+
+        if (reachedTarget)
+        {
+            currentExecution = StartCoroutine(currentLaborOrder.Execute(this));
+            yield return currentExecution;
+            Debug.Log($"{pawnName,-10} COMPLETED Labor Order #{currentLaborOrder.orderNumber,-5} TTC: {currentLaborOrder.timeToComplete,-10:F2} {"Order Type: " + currentLaborOrder.laborType,-25} {target.ToString(),-80}");
+        }
+
         // while the current position is not the target position or any adjacent tile to the target position
-        while (currentPosition != targetPosition &&
-                currentPosition != targetPosition + Vector3Int.up &&
-                currentPosition != targetPosition + Vector3Int.down &&
-                currentPosition != targetPosition + Vector3Int.left &&
-                currentPosition != targetPosition + Vector3Int.right &&
-                currentPosition != targetPosition + Vector3Int.up + Vector3Int.left &&
-                currentPosition != targetPosition + Vector3Int.up + Vector3Int.right &&
-                currentPosition != targetPosition + Vector3Int.down + Vector3Int.left &&
-                currentPosition != targetPosition + Vector3Int.down + Vector3Int.right)
+        while (!reachedTarget)
         {
             // If target location is on a different level, set path to stairs
             if (currentLevel != targetLevel)
@@ -336,7 +365,7 @@ public class Pawn : MonoBehaviour
 
             if (path.Count == 0)
             {
-                Debug.Log($"{pawnName,-10} FAILED Labor Order #{currentLaborOrder.orderNumber,-5} UNREACHABLE: {target.ToString(),-80}");
+                Debug.Log($"{pawnName,-10} FAILED Labor Order {"Type: " + currentLaborOrder.laborType,-25} #{currentLaborOrder.orderNumber,-5} UNREACHABLE: {target.ToString(),-80}");
                 break;
             }
 
@@ -344,6 +373,16 @@ public class Pawn : MonoBehaviour
             yield return currentPathExecution;
             currentPathExecution = null;
             currentPosition = Vector3Int.FloorToInt(transform.position);
+
+            reachedTarget = currentPosition == targetPosition ||
+                currentPosition == targetPosition + Vector3Int.up ||
+                currentPosition == targetPosition + Vector3Int.down ||
+                currentPosition == targetPosition + Vector3Int.left ||
+                currentPosition == targetPosition + Vector3Int.right ||
+                currentPosition == targetPosition + Vector3Int.up + Vector3Int.left ||
+                currentPosition == targetPosition + Vector3Int.up + Vector3Int.right ||
+                currentPosition == targetPosition + Vector3Int.down + Vector3Int.left ||
+                currentPosition == targetPosition + Vector3Int.down + Vector3Int.right;
         }
 
         if (path.Count > 0)
@@ -359,27 +398,33 @@ public class Pawn : MonoBehaviour
         LaborOrderManager.AddAvailablePawn(this);
     }
 
-
-    /*
-        // Decrement the hunger for all living pawns
-        public static void DecrementHunger(int decAmount)
+    // Decrement the hunger for all living pawns
+    public static void DecrementAllHunger(int decAmount)
+    {
+        for (int i = PawnList.Count - 1; i >= 0; i--)
         {
-            for (int i = PawnList.Count - 1; i >= 0; i--)
+            PawnList[i].hunger -= decAmount;
+            if (PawnList[i].hunger <= 0)
             {
-                PawnList[i].hunger -= decAmount;
-                if (PawnList[i].hunger <= 0)
-                {
-                    PawnList[i].hunger = 0;
-                    PawnList[i].Die("has starved to death.");
+                PawnList[i].hunger = 0;
+                PawnList[i].Die("has starved to death.");
 
-                }
-                else if (PawnList[i].hunger < PawnHunger.HUNGER_RESPONSE_THRESHOLD)
+            }
+            else if (PawnList[i].hunger < HUNGER_RESPONSE_THRESHOLD)
+            {
+                Chest chestContainingFood = GlobalStorage.GetClosestChestWithItem("Berries", PawnList[i].transform.position);
+                if (chestContainingFood == null)
                 {
-                    PawnHunger.EatFromInventory(PawnList[i]);
+                    Debug.LogWarning("No chest found containing Berries. Aborting.");
+                }
+                else
+                {
+                    Debug.Log("Found chest containing Berries" + " @ " + chestContainingFood.transform.position);
+                    PawnList[i].SetCurrentLaborOrder(new LaborOrder_Eat(chestContainingFood));
                 }
             }
         }
-    */
+    }
 
     // cancels the current labor order
     public void CancelCurrentLaborOrder()
@@ -400,7 +445,6 @@ public class Pawn : MonoBehaviour
         PawnList.Remove(this);
         LaborOrderManager.RemoveSpecificPawn(this);
         CancelCurrentLaborOrder();
-        refuseLaborOrders = true;
         Debug.Log(pawnName + " " + cause);
         //base.Die();
         //GlobalInstance.Instance.entityDictionary.DestroySaveableObject(this);
@@ -479,17 +523,13 @@ public class Pawn : MonoBehaviour
         isAssigned = false;
 
         // add this pawn to the pawn list
-        hunger = 100;
+        hunger = MAX_HUNGER;
         if (!PawnList.Contains(this)) PawnList.Add(this);
-
-        // Initialize item dictionary
-        items = new Dictionary<string, Item>();
 
         currentPathExecution = null;
         currentExecution = null;
 
     }
-
 }
 
 

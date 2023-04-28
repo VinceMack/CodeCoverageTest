@@ -11,7 +11,7 @@ public enum LaborType { Mine, Forage, Gather, Place, Deconstruct, Basic, Plantcu
 public class LaborOrderManager : MonoBehaviour
 {
     [SerializeField]
-    protected static Queue<Pawn> availablePawns;
+    public static Queue<Pawn> availablePawns;
     private static Queue<Pawn> assignedPawns;
     private static Queue<LaborOrder_Base>[] laborQueues;
     private static int laborOrderTotal = 0;
@@ -34,6 +34,23 @@ public class LaborOrderManager : MonoBehaviour
             laborQueues[i].Clear();
         }
     }
+
+    public static void RemoveFromAvailablePawns(Pawn pawnToRemove)
+    {
+        Queue<Pawn> newQueue = new Queue<Pawn>();
+
+        while (LaborOrderManager.availablePawns.Count > 0)
+        {
+            Pawn currentPawn = LaborOrderManager.availablePawns.Dequeue();
+            if (currentPawn != pawnToRemove)
+            {
+                newQueue.Enqueue(currentPawn);
+            }
+        }
+
+        LaborOrderManager.availablePawns = newQueue;
+    }
+
 
     // Method to getNumOfLaborOrders
     public static int GetNumOfLaborOrders()
