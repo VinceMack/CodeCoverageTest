@@ -122,14 +122,16 @@ namespace Test
             GameObject game = new GameObject();
             game.AddComponent<Chest>();
             Chest chest = game.GetComponent<Chest>();
-            Item item = new Item();
-            item.name = "testItem";
+            GameObject itemObj = new GameObject();
+            Item item = itemObj.AddComponent<Item>();
+            item.itemName = "testItem";
 
             chest.AddItem(item.itemName);
             GlobalStorage.chests.Add(chest, new Vector3(0, 0, 0));
 
             Assert.AreEqual(1, GlobalStorage.GetItemCount("testItem"));
         }
+
 
         [Test]
         public void GlobalStorage_GetChestsWithItem_Pass()
@@ -141,8 +143,9 @@ namespace Test
             Chest chest = game.GetComponent<Chest>();
             Item item = game.GetComponent<Item>();
             item.itemName = "testItem";
-            Item objItem = new Item();
-            objItem.name = "testItem";
+            GameObject objItemObj = new GameObject();
+            Item objItem = objItemObj.AddComponent<Item>();
+            objItem.itemName = "testItem";
 
             chest.AddItem(objItem.itemName);
             GlobalStorage.chests.Add(chest, new Vector3(0, 0, 0));
