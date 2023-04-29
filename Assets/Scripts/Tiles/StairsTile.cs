@@ -15,7 +15,15 @@ public class StairsTile : BaseTile
 
     public override void SetTileData(TileType tileType, bool collision, Item resource, int resourceCount, Vector3 position, int distance, bool visited, BaseTile parent, int level)
     {
-        base.SetTileData(tileType, collision, resource, resourceCount, position, distance, visited, parent, GridManager.mapLevels.Count - 1);
+        this.type = tileType;
+        this.isCollision = collision;
+        this.resource = resource;
+        this.resourceCount = resourceCount;
+        this.position = position;
+        this.distance = distance;
+        this.visited = visited;
+        this.parent = parent;
+        this.level = level;
 
         upperLevelStairs = null;
         lowerLevelStairs = null;
