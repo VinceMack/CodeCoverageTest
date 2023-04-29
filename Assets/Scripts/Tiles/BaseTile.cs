@@ -6,9 +6,9 @@ public enum TileType { GENERIC, GRASS, ROCK, WATER, SAND, STAIRS, STONE }
 
 public class BaseTile : Tile
 {
-    public TileType type { get; private set; }       // type of the tile
+    public TileType type { get; protected set; }       // type of the tile
     public Item resource { get; set; }               // resource on the tile
-    public int resourceCount { get; private set; }       // number of resources on the tile
+    public int resourceCount { get; protected set; }       // number of resources on the tile
     public Vector3 position { get; set; }               // position of the tile in 3D space
     public int level { get; set; }               // level of the tile
 

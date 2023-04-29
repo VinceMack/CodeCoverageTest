@@ -33,13 +33,13 @@ public class Level
         descendingStairs = new List<StairsTile>();
     }
 
-    public void setLevel(int lNum, Vector2Int position, int xLength, int yLength)
+    public void setLevel(int lNum, int xMin, int xMax, int yMin, int yMax)
     {
-        levelNumber = lNum;
-        xMin = position.x;
-        yMin = position.y;
-        xMax = xMin + xLength;
-        yMax = yMin = yLength;
+        this.levelNumber = lNum;
+        this.xMin = xMin;
+        this.xMax = xMax;
+        this.yMin = yMin;
+        this.yMax = yMax;
     }
 
     public void AddAscendingStairs(StairsTile stairs)
