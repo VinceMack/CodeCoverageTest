@@ -10,25 +10,26 @@ namespace Tests
 {
     public class Pawn_Test
     {
-        [SetUp]
-        public void Init()
+        [UnitySetUp]
+        public IEnumerator SetUp()
         {
-            GameObject[] allObjects = GameObject.FindObjectsOfType<GameObject>();
-            foreach (GameObject obj in allObjects)
-            {
-                UnityEngine.Object.Destroy(obj);
-            }
-            GameObject g = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/test/TestGrid"));
-            g.name = "Grid";
+            SceneManager.LoadScene("EmptyMap", LoadSceneMode.Single);
+            yield return null;
             GridManager.InitializeGridManager();
-            CameraManager.InitializeCamera();
-            for (int i=0; i<GridManager.mapLevels.Count; i++)
+            for (int i = 1; i <= 2; i++)
             {
-                GridManager.ResetGrid(i);
+                GridManager.CreateLevel();
             }
-            GridManager.CreateLevel();
+            GlobalStorage.chests.Clear();
             LaborOrderManager.InitializeLaborOrderManager();
             Pawn.PawnList.Clear();
+            yield return new EnterPlayMode();
+        }
+
+        [UnityTearDown]
+        public IEnumerator TearDown()
+        {
+            yield return new ExitPlayMode();
         }
 
         [UnityTest]
@@ -43,14 +44,12 @@ namespace Tests
             pawn.Die();
 
             Assert.IsFalse(Pawn.PawnList.Contains(pawn));
-            yield return null;
         }
 
         [UnityTest]
         public IEnumerator Pawn_CancelCurrentLaborOrder_ClearPath()
         {
             yield return new WaitForSeconds(0.5f);
-            GridManager.InitializeGridManager();
             GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), GridManager.tileMap.GetCellCenterWorld(Vector3Int.FloorToInt(new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0))), Quaternion.identity);
             Pawn pawn = pawnObject.GetComponent<Pawn>();
             pawn.SetCurrentLaborOrder(new LaborOrder_Base(true));
@@ -60,16 +59,12 @@ namespace Tests
             pawn.CancelCurrentLaborOrder();
 
             Assert.IsTrue(pawn.path.Count == 0);
-
-            pawn.Die();
-            UnityEngine.Object.Destroy(pawnObject);
         }
 
         [UnityTest]
         public IEnumerator Pawn_GetLaborOrderFromTilemap_CorrectTile()
         {
             yield return new WaitForSeconds(0.5f);
-            GridManager.InitializeGridManager();
             GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), GridManager.tileMap.GetCellCenterWorld(Vector3Int.FloorToInt(new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0))), Quaternion.identity);
             Pawn pawn = pawnObject.GetComponent<Pawn>();
             Vector3Int loc = new Vector3Int(10, 10, 0);
@@ -78,31 +73,23 @@ namespace Tests
             yield return null;
 
             Assert.IsTrue(pawn.GetLaborOrderTileFromTilemap() == GridManager.tileMap.GetTile(loc));
-
-            pawn.Die();
-            UnityEngine.Object.Destroy(pawnObject);
         }
 
         [UnityTest]
         public IEnumerator Pawn_GetPawnTileFromTilemap_CorrectTile()
         {
             yield return new WaitForSeconds(0.5f);
-            GridManager.InitializeGridManager();
             Vector3Int loc = Vector3Int.FloorToInt(GridManager.tileMap.GetCellCenterWorld(Vector3Int.FloorToInt(new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0))));
             GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), loc, Quaternion.identity);
             Pawn pawn = pawnObject.GetComponent<Pawn>();
 
             Assert.IsTrue(pawn.GetPawnTileFromTilemap() == GridManager.tileMap.GetTile(loc));
-
-            pawn.Die();
-            UnityEngine.Object.Destroy(pawnObject);
         }
 
         [UnityTest]
         public IEnumerator Pawn_MoveLaborTypeDownPriorityLevel()
         {
             yield return new WaitForSeconds(0.5f);
-            GridManager.InitializeGridManager();
             GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), GridManager.tileMap.GetCellCenterWorld(Vector3Int.FloorToInt(new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0))), Quaternion.identity);
             Pawn pawn = pawnObject.GetComponent<Pawn>();
             int levels = pawn.GetPriorityLevelsCount();
@@ -118,16 +105,12 @@ namespace Tests
             x = pawn.GetPriorityLevelOfLabor(LaborType.Basic);
             pawn.MoveLaborTypeDownPriorityLevel(LaborType.Basic);
             Assert.IsTrue(pawn.GetPriorityLevelOfLabor(LaborType.Basic) == x);
-
-            pawn.Die();
-            UnityEngine.Object.Destroy(pawnObject);
         }
 
         [UnityTest]
         public IEnumerator Pawn_MoveLaborTypeUpPriorityLevel()
         {
             yield return new WaitForSeconds(0.5f);
-            GridManager.InitializeGridManager();
             GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), GridManager.tileMap.GetCellCenterWorld(Vector3Int.FloorToInt(new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0))), Quaternion.identity);
             Pawn pawn = pawnObject.GetComponent<Pawn>();
 
@@ -142,16 +125,12 @@ namespace Tests
             x = pawn.GetPriorityLevelOfLabor(LaborType.Basic);
             pawn.MoveLaborTypeUpPriorityLevel(LaborType.Basic);
             Assert.IsTrue(pawn.GetPriorityLevelOfLabor(LaborType.Basic) == x);
-
-            pawn.Die();
-            UnityEngine.Object.Destroy(pawnObject);
         }
 
         [UnityTest]
         public IEnumerator Pawn_SetCurrentLaborOrder()
         {
             yield return new WaitForSeconds(0.5f);
-            GridManager.InitializeGridManager();
             GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), GridManager.tileMap.GetCellCenterWorld(Vector3Int.FloorToInt(new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0))), Quaternion.identity);
             Pawn pawn = pawnObject.GetComponent<Pawn>();
             LaborOrder_Base order = new LaborOrder_Base(LaborType.Basic, new Vector3Int(0,0,0), 1f);
@@ -159,16 +138,12 @@ namespace Tests
             pawn.SetCurrentLaborOrder(order);
             Assert.IsTrue(pawn.GetCurrentLaborOrder() == order);
             Assert.IsFalse(pawn.SetCurrentLaborOrder(order));
-
-            pawn.Die();
-            UnityEngine.Object.Destroy(pawnObject);
         }
 
         [UnityTest]
         public IEnumerator Pawn_SetCurrentLaborOrder_AlreadyInAvailablePawns()
         {
             yield return new WaitForSeconds(0.5f);
-            GridManager.InitializeGridManager();
             GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), GridManager.tileMap.GetCellCenterWorld(Vector3Int.FloorToInt(new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0))), Quaternion.identity);
             Pawn pawn = pawnObject.GetComponent<Pawn>();
             LaborOrder_Base order = new LaborOrder_Base(LaborType.Basic, new Vector3Int(0, 0, 0), 1f);
@@ -176,16 +151,12 @@ namespace Tests
             LaborOrderManager.AddAvailablePawn(pawn);
             pawn.SetCurrentLaborOrder(order);
             Assert.IsFalse(LaborOrderManager.availablePawns.Contains(pawn));
-
-            pawn.Die();
-            UnityEngine.Object.Destroy(pawnObject);
         }
 
         [UnityTest]
         public IEnumerator Pawn_DecrementAllHunger()
         {
             yield return new WaitForSeconds(0.5f);
-            GridManager.InitializeGridManager();
             GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), GridManager.tileMap.GetCellCenterWorld(Vector3Int.FloorToInt(new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0))), Quaternion.identity);
             Pawn pawn = pawnObject.GetComponent<Pawn>();
             pawn.hunger = 100;
@@ -201,10 +172,9 @@ namespace Tests
         }
 
         [UnityTest]
-        public IEnumerator Pawn_CompleteLaborOrder_TileNull()
+        public IEnumerator Pawn_CompleteLaborOrder_TargetTileNull()
         {
             yield return new WaitForSeconds(0.5f);
-            GridManager.InitializeGridManager();
             GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), GridManager.tileMap.GetCellCenterWorld(Vector3Int.FloorToInt(new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0))), Quaternion.identity);
             Pawn pawn = pawnObject.GetComponent<Pawn>();
             LaborOrder_Base order = new LaborOrder_Base(LaborType.Basic, new Vector3Int(-99999999, -9999999, 0), 1f);
@@ -214,9 +184,53 @@ namespace Tests
             yield return new WaitForSeconds(0.1f);
 
             Assert.IsTrue(LaborOrderManager.availablePawns.Contains(pawn));
+        }
 
-            pawn.Die();
-            UnityEngine.Object.Destroy(pawnObject);
+        [UnityTest]
+        public IEnumerator Pawn_CompleteLaborOrder_CurrentTileNull()
+        {
+            yield return new WaitForSeconds(0.5f);
+            GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), new Vector3(-99999999, -9999999, 0), Quaternion.identity);
+            Pawn pawn = pawnObject.GetComponent<Pawn>();
+            LaborOrder_Base order = new LaborOrder_Base(LaborType.Basic, new Vector3Int(55, 27, 0), 1f);
+            pawn.SetCurrentLaborOrder(order);
+
+            pawn.StartCoroutine(pawn.CompleteLaborOrder());
+            yield return new WaitForSeconds(0.1f);
+
+            Assert.IsTrue(LaborOrderManager.availablePawns.Contains(pawn));
+        }
+
+        [UnityTest]
+        public IEnumerator Pawn_CompleteLaborOrder_Upstairs()
+        {
+            yield return new WaitForSeconds(0.5f);
+            GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), new Vector3(130, 25, 0), Quaternion.identity);
+            Pawn pawn = pawnObject.GetComponent<Pawn>();
+            typeof(Pawn).GetField("pawnSpeed", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(pawn, 15f);
+            LaborOrder_Base order = new LaborOrder_Base(LaborType.Basic, new Vector3Int(55, 27, 0), 0.2f);
+            pawn.SetCurrentLaborOrder(order);
+            LaborOrderManager.RemoveSpecificPawn(pawn);
+
+            yield return pawn.StartCoroutine(pawn.CompleteLaborOrder());
+
+            Assert.IsTrue(LaborOrderManager.availablePawns.Contains(pawn));
+        }
+
+        [UnityTest]
+        public IEnumerator Pawn_CompleteLaborOrder_Downstairs()
+        {
+            yield return new WaitForSeconds(0.5f);
+            GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), new Vector3(55, 27, 0), Quaternion.identity);
+            Pawn pawn = pawnObject.GetComponent<Pawn>();
+            typeof(Pawn).GetField("pawnSpeed", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(pawn, 15f);
+            LaborOrder_Base order = new LaborOrder_Base(LaborType.Basic, new Vector3Int(130, 25, 0), 0.2f);
+            pawn.SetCurrentLaborOrder(order);
+            LaborOrderManager.RemoveSpecificPawn(pawn);
+
+            yield return pawn.StartCoroutine(pawn.CompleteLaborOrder());
+
+            Assert.IsTrue(LaborOrderManager.availablePawns.Contains(pawn));
         }
     }
 }
