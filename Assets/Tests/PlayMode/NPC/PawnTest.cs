@@ -172,6 +172,22 @@ namespace Tests
         }
 
         [UnityTest]
+        public IEnumerator Pawn_DecrementAllHunger_SeekBerryChest()
+        {
+            yield return new WaitForSeconds(0.5f);
+            GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), GridManager.tileMap.GetCellCenterWorld(Vector3Int.FloorToInt(new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0))), Quaternion.identity);
+            Pawn pawn = pawnObject.GetComponent<Pawn>();
+            GridManager.PopulateWithChest();
+            Chest chest = GlobalStorage.GetRandomChest();
+            chest.AddItem("Berries");
+            pawn.hunger = Pawn.HUNGER_RESPONSE_THRESHOLD;
+            
+            Pawn.DecrementAllHunger(1);
+
+            Assert.IsTrue(pawn.GetCurrentLaborOrder() is LaborOrder_Eat);
+        }
+
+        [UnityTest]
         public IEnumerator Pawn_CompleteLaborOrder_TargetTileNull()
         {
             yield return new WaitForSeconds(0.5f);
@@ -231,6 +247,43 @@ namespace Tests
             yield return pawn.StartCoroutine(pawn.CompleteLaborOrder());
 
             Assert.IsTrue(LaborOrderManager.availablePawns.Contains(pawn));
+        }
+
+        [UnityTest]
+        public IEnumerator Pawn_CompleteLaborOrder_ReachedTarget()
+        {
+            yield return new WaitForSeconds(0.5f);
+            GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), new Vector3(55, 27, 0), Quaternion.identity);
+            Pawn pawn = pawnObject.GetComponent<Pawn>();
+            typeof(Pawn).GetField("pawnSpeed", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(pawn, 15f);
+            LaborOrder_Base order = new LaborOrder_Base(LaborType.Basic, new Vector3Int(55, 27, 0), 0.2f);
+            pawn.SetCurrentLaborOrder(order);
+            LaborOrderManager.RemoveSpecificPawn(pawn);
+
+            yield return pawn.StartCoroutine(pawn.CompleteLaborOrder());
+
+            Assert.IsTrue(LaborOrderManager.availablePawns.Contains(pawn));
+        }
+
+        [UnityTest]
+        public IEnumerator Pawn_GetPawnName()
+        {
+            yield return new WaitForSeconds(0.5f);
+            GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), new Vector3(55, 27, 0), Quaternion.identity);
+            Pawn pawn = pawnObject.GetComponent<Pawn>();
+            typeof(Pawn).GetField("pawnName", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(pawn, "Waltuh");
+
+            Assert.IsTrue(pawn.GetPawnName() == "Waltuh");
+        }
+
+        [UnityTest]
+        public IEnumerator Pawn_GetLaborTypesCount()
+        {
+            yield return new WaitForSeconds(0.5f);
+            GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), new Vector3(55, 27, 0), Quaternion.identity);
+            Pawn pawn = pawnObject.GetComponent<Pawn>();
+
+            Assert.IsTrue(pawn.GetLaborTypesCount() == typeof(LaborType).GetFields().Length - 1);
         }
     }
 }
