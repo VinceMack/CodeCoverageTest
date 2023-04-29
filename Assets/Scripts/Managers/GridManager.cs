@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 // GridManager class to manage and generate grid of tiles in a scene
+[ExecuteInEditMode]
 public class GridManager : MonoBehaviour
 {
     // Static references to the Grid and Tilemap components

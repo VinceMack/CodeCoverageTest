@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 using System.Linq;
 using System;
 
+[ExecuteInEditMode]
 public class Pawn : MonoBehaviour
 {
     public List<LaborType>[] laborTypePriority { get; private set; }        // Priority list for different types of labor
