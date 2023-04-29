@@ -21,7 +21,8 @@ namespace Tests
             GameObject g = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/test/TestGrid"));
             g.name = "Grid";
             GridManager.InitializeGridManager();
-            for(int i=0; i<GridManager.mapLevels.Count; i++)
+            CameraManager.InitializeCamera();
+            for (int i=0; i<GridManager.mapLevels.Count; i++)
             {
                 GridManager.ResetGrid(i);
             }
@@ -49,7 +50,7 @@ namespace Tests
         public IEnumerator Pawn_CancelCurrentLaborOrder_ClearPath()
         {
             yield return new WaitForSeconds(0.5f);
-
+            GridManager.InitializeGridManager();
             GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), GridManager.tileMap.GetCellCenterWorld(Vector3Int.FloorToInt(new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0))), Quaternion.identity);
             Pawn pawn = pawnObject.GetComponent<Pawn>();
             pawn.SetCurrentLaborOrder(new LaborOrder_Base(true));
