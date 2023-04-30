@@ -43,6 +43,14 @@ public class QuestManager : MonoBehaviour
         CreateRandomQuest();
     }
 
+    public void CancelAllQuests()
+    {
+        foreach(Quest quest in activeQuests)
+        {
+            RemoveActiveQuest(quest);
+        }
+    }
+
     public List<Quest> GetActiveQuestList()
     {
         return activeQuests;

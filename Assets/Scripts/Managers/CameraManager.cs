@@ -20,6 +20,10 @@ public class CameraManager
         float levelYMax = GridManager.mapLevels[0].getYMax();
         float cameraX = levelXMax / 2;
         float cameraY = levelYMax / 2;
+        if(mainCamera == null)
+        {
+            return;
+        }
         mainCamera.transform.position = new Vector3(cameraX, cameraY, 0);
 
         // Set initial camera orthographic size

@@ -9,22 +9,29 @@ namespace Tests
 {
 	public class QuestUITests
 	{
+		[UnitySetUp]
+        public IEnumerator SetUp()
+        {
+            SceneManager.LoadScene("QuestTestScene", LoadSceneMode.Single);
+            yield return null;
+            yield return new EnterPlayMode();
+        }
 
-        // This LoadScene will be universal for all playmode tests
-		[SetUp]
-		public void Setup()
-		{
-            // Arrange
-			SceneManager.LoadScene("QuestTestScene");
-		}
+        [UnityTearDown]
+        public IEnumerator TearDown()
+        {
+            yield return new ExitPlayMode();
+        }
 
         // These are the actual tests
 		[UnityTest]
-		public IEnumerator ColonyInfoPanelOpeningTest()
+		public IEnumerator QuestAcceptTest()
 		{
             //Arrange
 			yield return new WaitForSeconds(0.5f);
 
+            GameObject.Find("Canvas/ActionList/Scroll View/Viewport/Content/CardBackground (5)").GetComponent<Button>().onClick.Invoke();
+            GameObject.Find("Canvas/ActionList/Scroll View/Viewport/Content/CardBackground (5)").GetComponent<Button>().onClick.Invoke();
             GameObject.Find("Canvas/ActionList/Scroll View/Viewport/Content/CardBackground (5)").GetComponent<Button>().onClick.Invoke();
             
             yield return new WaitForSeconds(0.5f);
@@ -40,11 +47,15 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
 
             GameObject.Find("Canvas/QuestInfo/QuestListContent/CurrentQuestButton").GetComponent<Button>().onClick.Invoke();
+            GameObject.Find("Canvas/QuestInfo/QuestListContent/AvailableQuestButton").GetComponent<Button>().onClick.Invoke();
+            GameObject.Find("Canvas/QuestInfo/QuestListContent/CurrentQuestButton").GetComponent<Button>().onClick.Invoke();
 
 			yield return new WaitForSeconds(1f);
 
             //Assert
 			Assert.AreEqual(GameObject.Find("Canvas/QuestInfo/QuestListContent/QuestContentOutline/AvailableQuestBackground/ActiveQuestContent/Scroll View/Viewport/Content").transform.childCount, 1);
+
+            GameObject.Find("GameManager").GetComponent<QuestManager>().CancelAllQuests();
 		}
 	}
 }
