@@ -47,4 +47,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Test Scenes/QuestTestScene.unity
     guid: aec368f41a2e2c34ea2dad9875becf81
+  - enabled: 1
+    path: Assets/Scenes/Test Scenes/TileTestScene.unity
+    guid: 7aaf5faa483564f7094ac9eee91f4dcc
   m_configObjects: {}
