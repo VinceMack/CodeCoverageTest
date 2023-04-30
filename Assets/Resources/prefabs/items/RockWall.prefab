@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -8704499653929890309}
   m_Layer: 0
   m_Name: RockWall
-  m_TagString: Untagged
+  m_TagString: item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,6 +108,7 @@ MonoBehaviour:
   isCraftable: 1
   isPlantcuttable: 0
   isItemized: 0
+  isCollision: 0
   requiredForCrafting:
   - {fileID: 2302492262446194586, guid: b7b11cc2780868e45b6ea01e31621377, type: 3}
   - {fileID: 2302492262446194586, guid: b7b11cc2780868e45b6ea01e31621377, type: 3}

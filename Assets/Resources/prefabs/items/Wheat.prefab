@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2649805001211359037}
   m_Layer: 0
   m_Name: Wheat
-  m_TagString: Untagged
+  m_TagString: item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,6 +108,7 @@ MonoBehaviour:
   isCraftable: 0
   isPlantcuttable: 0
   isItemized: 0
+  isCollision: 0
   requiredForCrafting: []
   resourceCountRef: 0
   resourceCount: 0

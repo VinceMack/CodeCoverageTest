@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 413916503424959374}
   m_Layer: 0
   m_Name: Chest
-  m_TagString: Untagged
+  m_TagString: item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,6 +108,7 @@ MonoBehaviour:
   isCraftable: 1
   isPlantcuttable: 0
   isItemized: 0
+  isCollision: 0
   requiredForCrafting:
   - {fileID: -4080891795158495881, guid: 03fefa47b2feaea4c96a3798308a5101, type: 3}
   - {fileID: -4080891795158495881, guid: 03fefa47b2feaea4c96a3798308a5101, type: 3}
