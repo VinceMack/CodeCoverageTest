@@ -29,7 +29,11 @@ public class Chest : Item
         if (contents.ContainsKey(itemName))
         {
             contents[itemName]--;
+        }else{
+            Debug.Log("Item not in chest");
+            return;
         }
+
         // if the item's quantity is 0, remove it from the chest
         if (contents[itemName] == 0)
         {

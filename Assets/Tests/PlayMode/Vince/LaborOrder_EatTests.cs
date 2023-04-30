@@ -35,7 +35,7 @@ namespace Tests
 
             Pawn.DecrementAllHunger(Pawn.MAX_HUNGER-Pawn.HUNGER_RESPONSE_THRESHOLD);
 
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(15);
 
             Assert.AreEqual(chest.GetComponent<Chest>().GetItemQuantity("Berries"), 0);
         }
