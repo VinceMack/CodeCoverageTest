@@ -31,14 +31,14 @@ public class GameManager : MonoBehaviour
         CameraManager.InitializeCamera();
 
         // initialize the labor order manager
-        LaborOrderManager_VM.InitializeLaborOrderManager();
+        LaborOrderManager.InitializeLaborOrderManager();
 
         // fill the labor order manager with random pawns and labor orders
-        Pawn_VM.PawnList.Clear();
-        LaborOrderManager_VM.FillWithRandomPawns(NUM_OF_PAWNS_TO_SPAWN);
+        Pawn.PawnList.Clear();
+        LaborOrderManager.FillWithRandomPawns(NUM_OF_PAWNS_TO_SPAWN);
 
         // fill the labor order manager with random labor orders
-        //LaborOrderManager_VM.FillWithRandomLaborOrders(NUM_OF_LABOR_ORDERS_TO_SPAWN);
+        //LaborOrderManager.FillWithRandomLaborOrders(NUM_OF_LABOR_ORDERS_TO_SPAWN);
 
         // initialize the labor order ui
         //laborOrderPanelManager.InitializeLaborOrderPanel();
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
         // create labor orders for objects if GlobalInstance2 (TMPCombined) exists
         if (GameObject.Find("GlobalReference") != null)
         {
-            //LaborOrderManager_VM.PopulateObjectLaborOrders();
+            //LaborOrderManager.PopulateObjectLaborOrders();
         }
     }
 
@@ -63,15 +63,15 @@ public class GameManager : MonoBehaviour
     {
         InputManager.CheckForInput();
         // if there are available pawns and labor orders, assign pawns to labor orders
-        if (LaborOrderManager_VM.GetAvailablePawnCount() > 0 && LaborOrderManager_VM.GetLaborOrderCount() > 0)
+        if (LaborOrderManager.GetAvailablePawnCount() > 0 && LaborOrderManager.GetLaborOrderCount() > 0)
         {
-            LaborOrderManager_VM.AssignPawnsToLaborOrders();
+            LaborOrderManager.AssignPawnsToLaborOrders();
         }
 
         // if there are working pawns, start working pawns
-        if (LaborOrderManager_VM.GetWorkingPawnCount() > 0)
+        if (LaborOrderManager.GetWorkingPawnCount() > 0)
         {
-            LaborOrderManager_VM.StartAssignedPawns();
+            LaborOrderManager.StartAssignedPawns();
         }
     }
 
@@ -80,3 +80,7 @@ public class GameManager : MonoBehaviour
 
     }
 }
+
+
+
+

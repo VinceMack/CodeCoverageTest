@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class ActivateParallax : MonoBehaviour {
@@ -22,3 +22,7 @@ public class ActivateParallax : MonoBehaviour {
         }
 	}
 }
+
+
+
+

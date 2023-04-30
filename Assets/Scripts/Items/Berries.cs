@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class Berries : Item
 {
-    void Awake()
+
+    public static readonly float foodValue = Pawn.MAX_HUNGER * 0.10f;
+
+    public override void Awake()
     {
         isGatherable = true;
         isPlaceable = true;
         itemName = "Berries";
     }
 }
+
+
+
+

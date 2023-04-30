@@ -97,7 +97,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7994319836976f94fa8cbd90bfb677c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemName: Bush
+  location: {fileID: 0}
   isGatherable: 0
-  berryCount: 0
-  bush_full: {fileID: 21300000, guid: 9a90c36a273a74240b948a48b8a1296f, type: 3}
-  bush_empty: {fileID: 21300000, guid: fa58ec3e07b10a84882f4b967a12fab1, type: 3}
+  isPlaceable: 0
+  isDeconstructable: 0
+  isWoodcuttable: 0
+  isMineable: 0
+  isForageable: 0
+  isCraftable: 0
+  isPlantcuttable: 0
+  isItemized: 0
+  requiredForCrafting: []
+  resourceCountRef: 0
+  resourceCount: 0
+  spriteRenderer: {fileID: 0}

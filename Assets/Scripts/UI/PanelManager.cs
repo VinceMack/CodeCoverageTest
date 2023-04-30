@@ -16,14 +16,14 @@ public class PanelManager : MonoBehaviour
 
     public void ToggleLaborOrderPanel()
     {
-        if(laborOrderPanel.activeSelf)
+        if (laborOrderPanel.activeSelf)
         {
             laborOrderPanel.SetActive(false);
         }
         else
         {
             laborOrderPanel.SetActive(true);
-            if(!initialized)
+            if (!initialized)
             {
                 initialized = true;
                 laborOrderPanel.GetComponentsInChildren<LaborOrderPanelManager>()[0].InitializeLaborOrderPanel();
@@ -33,7 +33,7 @@ public class PanelManager : MonoBehaviour
 
     public void CloseColonyUI()
     {
-       colonyInfo.SetActive(false);
+        colonyInfo.SetActive(false);
     }
 
     public void EnableColonyUI()
@@ -45,7 +45,7 @@ public class PanelManager : MonoBehaviour
 
     public void ToggleColonyUI()
     {
-        if(colonyInfo.activeSelf)
+        if (colonyInfo.activeSelf)
         {
             CloseColonyUI();
         }
@@ -60,3 +60,6 @@ public class PanelManager : MonoBehaviour
         CloseColonyUI();
     }
 }
+
+
+

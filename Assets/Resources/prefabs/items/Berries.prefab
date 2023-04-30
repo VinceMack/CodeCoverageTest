@@ -97,13 +97,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80f7fee2e82a1645acc722eaa595efb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemName: Berries
   location: {fileID: 0}
   isGatherable: 0
   isPlaceable: 0
-  isDesconstructable: 0
+  isDeconstructable: 0
   isWoodcuttable: 0
   isMineable: 0
   isForageable: 0
   isCraftable: 0
   isPlantcuttable: 0
   isItemized: 0
+  requiredForCrafting: []

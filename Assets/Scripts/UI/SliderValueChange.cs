@@ -19,3 +19,7 @@ public class SliderValueChange : MonoBehaviour
         mySlider.value = int.Parse(myInput.text);
     }
 }
+
+
+
+

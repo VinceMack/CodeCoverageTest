@@ -38,3 +38,7 @@ public class AvailableQuestUIElement : MonoBehaviour
         myManager.ReloadPendingQuestPanel();
     }
 }
+
+
+
+

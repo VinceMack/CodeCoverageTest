@@ -39,6 +39,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Test Scenes/ChestPlacementTesting.unity
     guid: 491ca03d05240ae419c9c414c9a096ec
   - enabled: 1
-    path: Assets/Scenes/Test Scenes/QuestTestScene.unity
-    guid: aec368f41a2e2c34ea2dad9875becf81
+    path: Assets/Scenes/Test Scenes/ItemTests.unity
+    guid: ffe2f3322dfa69147b004a282383b96d
+  - enabled: 1
+    path: Assets/Scenes/Test Scenes/EmptyMap.unity
+    guid: 5b80cbb0fe44afa4ab0ab4b89812b030
   m_configObjects: {}

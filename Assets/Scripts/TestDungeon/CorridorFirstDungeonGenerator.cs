@@ -39,9 +39,9 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeon
 
     private void CreateRoomsAtDeadEnd(List<Vector2Int> deadEnds, HashSet<Vector2Int> roomFloors)
     {
-        foreach(var position in deadEnds)
+        foreach (var position in deadEnds)
         {
-            if(roomFloors.Contains(position) == false)
+            if (roomFloors.Contains(position) == false)
             {
                 var room = RunRandomWalk(randomWalkParameters, position);
                 roomFloors.UnionWith(room);
@@ -57,10 +57,10 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeon
             int neighborsCount = 0;
             foreach (var direction in Direction2D.cardinalDirectionsList)
             {
-                if(floorPositions.Contains(position + direction))
+                if (floorPositions.Contains(position + direction))
                     neighborsCount++;
             }
-            if(neighborsCount == 1)
+            if (neighborsCount == 1)
                 deadEnds.Add(position);
         }
         return deadEnds;
@@ -86,7 +86,7 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeon
         var currentPosition = startPosition;
         potentialRoomPositions.Add(currentPosition);
 
-        for(int i = 0; i < corridorCount; i++)
+        for (int i = 0; i < corridorCount; i++)
         {
             var corridor = ProceduralGeneration.RandomWalkCorridor(currentPosition, corridorLength);
             currentPosition = corridor[corridor.Count - 1];
@@ -95,3 +95,7 @@ public class CorridorFirstDungeonGenerator : SimpleRandomWalkDungeon
         }
     }
 }
+
+
+
+

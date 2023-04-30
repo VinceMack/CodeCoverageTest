@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Coin : Item
 {
-    void Awake()
+    public override void Awake()
     {
         isGatherable = true;
         isPlaceable = true;
         itemName = "Coin";
     }
 }
+
+
+
+

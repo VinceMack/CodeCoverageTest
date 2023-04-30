@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class RockResource : Item
 {
-    void Awake()
+    public override void Awake()
     {
         isGatherable = true;
         itemName = "RockResource";
     }
 }
+
+
+
+

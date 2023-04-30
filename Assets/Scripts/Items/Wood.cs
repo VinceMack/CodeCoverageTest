@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Wood : Item
 {
-    void Awake()
+    public override void Awake()
     {
         isGatherable = true;
         itemName = "Wood";
@@ -13,12 +13,16 @@ public class Wood : Item
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
+
+
+
+

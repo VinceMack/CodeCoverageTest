@@ -1,7 +1,8 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class AnimatorController : MonoBehaviour
 {
     private Animator anim;
@@ -69,3 +70,6 @@ public class AnimatorController : MonoBehaviour
         }
     }
 }
+
+
+
