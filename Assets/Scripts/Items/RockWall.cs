@@ -6,7 +6,6 @@ public class RockWall : Item
 {
     public override void Awake()
     {
-        isGatherable = true;
         isPlaceable = true;
         itemName = "RockWall";
         isCollision = true;
