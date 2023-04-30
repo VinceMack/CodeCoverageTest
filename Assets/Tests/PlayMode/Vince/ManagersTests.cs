@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Tests
 {
-    public class ManagerTesting
+    public class ManagersTests
     {
         // This LoadScene will be universal for all playmode tests
         [UnitySetUp]
