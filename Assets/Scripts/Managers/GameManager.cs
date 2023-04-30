@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private int NUM_OF_PAWNS_TO_SPAWN = 10;
+    public static readonly int NUM_OF_PAWNS_TO_SPAWN = 10;
     //private int NUM_OF_LABOR_ORDERS_TO_SPAWN = 10;
     private const int NUM_OF_LEVELS = 2;
 
@@ -36,22 +36,11 @@ public class GameManager : MonoBehaviour
         // fill the labor order manager with random pawns and labor orders
         Pawn.PawnList.Clear();
         LaborOrderManager.FillWithRandomPawns(NUM_OF_PAWNS_TO_SPAWN);
-
-        // fill the labor order manager with random labor orders
-        //LaborOrderManager.FillWithRandomLaborOrders(NUM_OF_LABOR_ORDERS_TO_SPAWN);
-
-        // initialize the labor order ui
-        //laborOrderPanelManager.InitializeLaborOrderPanel();
-
     }
 
     void Start()
     {
-        // create labor orders for objects if GlobalInstance2 (TMPCombined) exists
-        if (GameObject.Find("GlobalReference") != null)
-        {
-            //LaborOrderManager.PopulateObjectLaborOrders();
-        }
+
     }
 
     void FixedUpdate()

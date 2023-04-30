@@ -14,7 +14,7 @@ public class LaborOrderManager : MonoBehaviour
     [SerializeField]
     public static Queue<Pawn> availablePawns;
     private static Queue<Pawn> assignedPawns;
-    private static Queue<LaborOrder_Base>[] laborQueues;
+    public static Queue<LaborOrder_Base>[] laborQueues;
     private static int laborOrderTotal = 0;
 
     private const int NUM_OF_PAWNS_TO_SPAWN = 1000;
@@ -116,13 +116,6 @@ public class LaborOrderManager : MonoBehaviour
     {
         // iterate through all objects and find the first tile with an item that is deconstructable
         Item[] objects = FindObjectsOfType<Item>();
-
-        // Check if the objects array is null
-        if (objects == null)
-        {
-            Debug.LogWarning("No GameObjects found in the scene.");
-            return;
-        }
 
         foreach (Item obj in objects)
         {
@@ -366,13 +359,6 @@ public class LaborOrderManager : MonoBehaviour
     {
         Item[] objects = FindObjectsOfType<Item>();
 
-        // Check if the objects array is null
-        if (objects == null)
-        {
-            Debug.LogWarning("No GameObjects found in the scene.");
-            return;
-        }
-
         foreach (Item obj in objects)
         {
             if (obj.name == "Tree(Clone)")
@@ -464,13 +450,6 @@ public class LaborOrderManager : MonoBehaviour
     {
         Item[] objects = FindObjectsOfType<Item>();
 
-        // Check if the objects array is null
-        if (objects == null)
-        {
-            Debug.LogWarning("No GameObjects found in the scene.");
-            return;
-        }
-
         foreach (Item obj in objects)
         {
             Item item = obj.GetComponent<Item>();
@@ -558,13 +537,6 @@ public class LaborOrderManager : MonoBehaviour
     private static void PopulateObjectLaborOrdersOfType(Func<Item, bool> itemCondition, Func<Item, LaborOrder_Base> createLaborOrder)
     {
         Item[] objects = FindObjectsOfType<Item>();
-
-        // Check if the objects array is null
-        if (objects == null)
-        {
-            Debug.LogWarning("No GameObjects found in the scene.");
-            return;
-        }
 
         foreach (Item obj in objects)
         {

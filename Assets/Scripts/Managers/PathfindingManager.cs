@@ -24,7 +24,7 @@ public class PathfindingManager : MonoBehaviour
     public static List<Vector3> GetPath(Vector3Int start, Vector3Int target, int level, bool isDirectPathing)
     {
         GridManager.ResetGrid(level);
-        PriorityQueue<BaseTile> unvisited = new PriorityQueue<BaseTile>();
+        PriorityQueue unvisited = new PriorityQueue();
         BaseTile startTile = GridManager.GetTile(start);
 
         List<BaseTile> targetTiles;
@@ -142,48 +142,3 @@ public class PathfindingManager : MonoBehaviour
         return path;
     }
 }
-
-public class PriorityQueue<T>
-{
-    private List<KeyValuePair<T, int>> elements = new List<KeyValuePair<T, int>>();
-
-    public int Count
-    {
-        get { return elements.Count; }
-    }
-
-    public void Enqueue(T item, int priority)
-    {
-        elements.Add(new KeyValuePair<T, int>(item, priority));
-    }
-
-    public T Dequeue()
-    {
-        int bestIndex = 0;
-
-        for (int i = 1; i < elements.Count; i++)
-        {
-            if (elements[i].Value < elements[bestIndex].Value)
-            {
-                bestIndex = i;
-            }
-        }
-
-        T bestItem = elements[bestIndex].Key;
-        elements.RemoveAt(bestIndex);
-        return bestItem;
-    }
-
-    public bool Contains(T item)
-    {
-        return elements.Exists(element => element.Key.Equals(item));
-    }
-
-    public void Clear()
-    {
-        elements.Clear();
-    }
-}
-
-
-

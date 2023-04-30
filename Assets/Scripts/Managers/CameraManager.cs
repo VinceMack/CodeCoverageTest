@@ -16,6 +16,11 @@ public class CameraManager
 
     public static void InitializeCamera()
     {
+        if(mainCamera == null){
+            Debug.Log("mainCamera is null");
+            return;
+        }
+
         float levelXMax = GridManager.mapLevels[0].getXMax();
         float levelYMax = GridManager.mapLevels[0].getYMax();
         float cameraX = levelXMax / 2;
