@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Tests
 {
-    public class GameManagerTests
+    public class ManagerTesting
     {
         // This LoadScene will be universal for all playmode tests
         [UnitySetUp]
@@ -359,28 +359,6 @@ namespace Tests
             TreeObjTile.resource = TreeObjComp;
             LaborOrderManager.PopulateObjectLaborOrderTile(TreeObjTile);
             Assert.AreEqual(LaborOrderManager.GetLaborOrderCount(), 5);
-            yield return null;
-        }
-
-        // Function 15: Extra Junk
-        [UnityTest]
-        public IEnumerator TestExtraJunk()
-        {
-            //GridManager.GetAdjacentAndDiagonalTiles(TreeObjTile);
-            //GridManager.ClearStairs();
-            //LaborOrderManager.laborQueues = null;
-            //LaborOrderManager.availablePawns = null;
-            //LaborOrderManager.ClearLaborOrders();
-            //LaborOrderManager.GetLaborOrderCount();
-            //LaborOrderManager.GetAvailablePawnCount();
-            // create a pawn
-            //Pawn pawnObj = new Pawn();
-            // create a game object, attach an item, and get the item component
-            //GameObject itemObj = new GameObject();
-            //itemObj.AddComponent<Item>();
-            //itemComp = itemObj.GetComponent<Item>();
-            // create a craft labor order
-            //LaborOrder_Craft craftOrder = new LaborOrder_Craft(itemComp);
             yield return null;
         }
 
