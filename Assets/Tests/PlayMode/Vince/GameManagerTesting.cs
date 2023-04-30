@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Tests
 {
-    public class GameManagerTests
+    public class GameManagerTests : MonoBehaviour
     {
         [SetUp]
         public void LoadScene()
@@ -262,6 +262,19 @@ namespace Tests
             LaborOrderManager.GetLaborOrderCount();
             LaborOrderManager.GetAvailablePawnCount();
 
+            // create a pawn
+            Pawn pawnObj = new Pawn();
+
+            // create a game object, attach an item, and get the item component
+            GameObject itemObj = new GameObject();
+            itemObj.AddComponent<Item>();
+            itemComp = itemObj.GetComponent<Item>();
+
+            // create a craft labor order
+            LaborOrder_Craft craftOrder = new LaborOrder_Craft(itemComp);
+
+            // create a mono behavior obj
+            yield return StartCoroutine(craftOrder.Execute(pawnObj));
 
         }
     }

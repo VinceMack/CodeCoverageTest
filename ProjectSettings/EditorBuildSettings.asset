@@ -45,6 +45,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Test Scenes/EmptyMap.unity
     guid: 5b80cbb0fe44afa4ab0ab4b89812b030
   - enabled: 1
+    path: Assets/Scenes/Test Scenes/CombinedManagersTesting.unity
+    guid: 103e0675ac7361944acf78f3d3ab767e
+  - enabled: 1
     path: Assets/Scenes/Test Scenes/QuestTestScene.unity
-    guid: aec368f41a2e2c34ea2dad9875becf81
+    guid: 3029e161c9abe4143b87188a04c83986
   m_configObjects: {}
