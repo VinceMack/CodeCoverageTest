@@ -116,7 +116,7 @@ namespace Tests
 
             int start = pawn.GetPriorityLevelOfLabor(LaborType.Basic);
             int x;
-            for (int i = 0; i < start-1; i++)
+            for (int i = 0; i < start - 1; i++)
             {
                 x = pawn.GetPriorityLevelOfLabor(LaborType.Basic);
                 pawn.MoveLaborTypeUpPriorityLevel(LaborType.Basic);
@@ -133,7 +133,7 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
             GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), GridManager.tileMap.GetCellCenterWorld(Vector3Int.FloorToInt(new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0))), Quaternion.identity);
             Pawn pawn = pawnObject.GetComponent<Pawn>();
-            LaborOrder_Base order = new LaborOrder_Base(LaborType.Basic, new Vector3Int(0,0,0), 1f);
+            LaborOrder_Base order = new LaborOrder_Base(LaborType.Basic, new Vector3Int(0, 0, 0), 1f);
 
             pawn.SetCurrentLaborOrder(order);
             Assert.IsTrue(pawn.GetCurrentLaborOrder() == order);
@@ -162,7 +162,7 @@ namespace Tests
             pawn.hunger = 100;
             int dec = 1;
 
-            while(pawn.hunger > 0)
+            while (pawn.hunger > 0)
             {
                 int old = pawn.hunger;
                 Pawn.DecrementAllHunger(dec);
@@ -181,7 +181,7 @@ namespace Tests
             Chest chest = GlobalStorage.GetRandomChest();
             chest.AddItem("Berries");
             pawn.hunger = Pawn.HUNGER_RESPONSE_THRESHOLD;
-            
+
             Pawn.DecrementAllHunger(1);
 
             Assert.IsTrue(pawn.GetCurrentLaborOrder() is LaborOrder_Eat);

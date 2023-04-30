@@ -31,7 +31,7 @@ namespace Tests
             GameObject chest = GameObject.Find("Chest(Clone)");
             chest.GetComponent<Chest>().AddItem("Berries");
 
-            Pawn.DecrementAllHunger(Pawn.MAX_HUNGER-Pawn.HUNGER_RESPONSE_THRESHOLD);
+            Pawn.DecrementAllHunger(Pawn.MAX_HUNGER - Pawn.HUNGER_RESPONSE_THRESHOLD);
 
             yield return new WaitForSeconds(15);
 

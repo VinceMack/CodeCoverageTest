@@ -55,7 +55,7 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
             GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), GridManager.tileMap.GetCellCenterWorld(Vector3Int.FloorToInt(new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0))), Quaternion.identity);
             Pawn pawn = pawnObject.GetComponent<Pawn>();
-            
+
             GridManager.PopulateWithRock();
             Item obj = GameObject.Find("Rock(Clone)").GetComponent<Rock>();
 
@@ -198,7 +198,7 @@ namespace Tests
 
             Item obj = Resources.Load<Item>("prefabs/items/ErrorObject");
             GameObject objectParent = new GameObject("Objects");
-            LaborOrder_Place order = new LaborOrder_Place(obj, new Vector2(55,27));
+            LaborOrder_Place order = new LaborOrder_Place(obj, new Vector2(55, 27));
 
             yield return pawn.StartCoroutine(order.Execute(pawn));
             yield return null;
@@ -223,7 +223,7 @@ namespace Tests
             tile.SetTileInformation(tile.type, false, resourceObject, tile.resourceCount, tile.position);
             tile.resource = resourceObject;
 
-            
+
             LaborOrder_Deconstruct order = new LaborOrder_Deconstruct(resourceObject);
 
             yield return pawn.StartCoroutine(order.Execute(pawn));
@@ -251,7 +251,7 @@ namespace Tests
             GameObject pawnObject = UnityEngine.Object.Instantiate(Resources.Load<GameObject>("prefabs/npc/Pawn"), GridManager.tileMap.GetCellCenterWorld(Vector3Int.FloorToInt(new Vector3(GridManager.LEVEL_WIDTH / 2, GridManager.LEVEL_HEIGHT / 2, 0))), Quaternion.identity);
             Pawn pawn = pawnObject.GetComponent<Pawn>();
 
-            LaborOrder_Base order = new LaborOrder_Base(LaborType.Basic, new Vector3Int(55,27,0), 0.1f);
+            LaborOrder_Base order = new LaborOrder_Base(LaborType.Basic, new Vector3Int(55, 27, 0), 0.1f);
 
             yield return pawn.StartCoroutine(order.Execute(pawn));
         }

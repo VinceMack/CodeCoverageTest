@@ -41,7 +41,7 @@ namespace Tests
             do
             {
                 LaborOrderManager.AddCraftLaborOrder(Resources.Load<Chest>("prefabs/items/Chest"), new Vector2(52, 25));
-            }while(LogHandler.UnreachableDetected);
+            } while (LogHandler.UnreachableDetected);
 
             LaborOrderManager.AssignPawnsToLaborOrders();
             Assert.AreEqual(LaborOrderManager.GetWorkingPawnCount(), 1);

@@ -53,7 +53,7 @@ namespace Tests
         public IEnumerator Item_Bush_IncrementAllResources()
         {
             yield return new WaitForSeconds(0.5f);
-            
+
             GameObject objs = GameObject.Find("Objects");
             Bush itemizedBush = objs.AddComponent<Bush>();
             Bush itemizedBush2 = objs.AddComponent<Bush>();
@@ -138,7 +138,7 @@ namespace Tests
         public IEnumerator Item_Wheat_IncrementAllResources()
         {
             yield return new WaitForSeconds(0.5f);
-            
+
             GameObject objs = GameObject.Find("Objects");
             Wheat itemizedWheat = objs.AddComponent<Wheat>();
             Wheat itemizedWheat2 = objs.AddComponent<Wheat>();
@@ -222,7 +222,7 @@ namespace Tests
         public IEnumerator Item_Tree_IncrementAllResources()
         {
             yield return new WaitForSeconds(0.5f);
-            
+
             GameObject objs = GameObject.Find("Objects");
             Tree itemizedTree = objs.AddComponent<Tree>();
             Tree itemizedTree2 = objs.AddComponent<Tree>();

@@ -80,13 +80,13 @@ namespace Tests
                 ref tileData);
 
             Assert.AreEqual(tileData.sprite, sprite);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator StairsTile_SetTileData_type_Pass()
         {
             yield return new WaitForSeconds(0.5f);
-            
+
             Assert.AreEqual(stairs.type, tileType);
         }
 
@@ -112,7 +112,7 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
 
             Assert.AreEqual(stairs.resourceCount, resourceCount);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator StairsTile_SetTileData_position_Pass()
@@ -120,7 +120,7 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
 
             Assert.AreEqual(stairs.position, position);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator StairsTile_SetTileData_distance_Pass()
@@ -128,7 +128,7 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
 
             Assert.AreEqual(stairs.distance, distance);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator StairsTile_SetTileData_visited_Pass()
@@ -136,7 +136,7 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
 
             Assert.AreEqual(stairs.visited, visited);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator StairsTile_SetTileData_parent_Pass()
@@ -144,7 +144,7 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
 
             Assert.AreEqual(stairs.parent, parent);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator StairsTile_SetTileData_level_Pass()
@@ -152,7 +152,7 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
 
             Assert.AreEqual(stairs.level, level);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator StairsTile_SetTileData_upperLevelStairs_Pass()
@@ -162,7 +162,7 @@ namespace Tests
             StairsTile upperLevelStairs = stairs.getUpperLevelStairs();
 
             Assert.IsNull(upperLevelStairs);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator StairsTile_SetTileData_lowerLevelStairs_Pass()
@@ -172,7 +172,7 @@ namespace Tests
             StairsTile lowerLevelStairs = stairs.getLowerLevelStairs();
 
             Assert.IsNull(lowerLevelStairs);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator StairsTile_setUpperLevelStairs_AddedStairs_Pass()
@@ -194,7 +194,7 @@ namespace Tests
             stairs.setUpperLevelStairs(upperLevelStairs);
 
             Assert.AreEqual(stairs.getUpperLevelStairs(), upperLevelStairs);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator StairsTile_setLowerLevelStairs_AddedStairs_Pass()
@@ -216,6 +216,6 @@ namespace Tests
             stairs.setLowerLevelStairs(lowerLevelStairs);
 
             Assert.AreEqual(stairs.getLowerLevelStairs(), lowerLevelStairs);
-	    }
+        }
     }
 }

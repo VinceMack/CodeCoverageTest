@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
-namespace Tests 
+namespace Tests
 {
-	public class SettingsMenuTests
-	{
-		[UnitySetUp]
+    public class SettingsMenuTests
+    {
+        [UnitySetUp]
         public IEnumerator SetUp()
         {
             SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
@@ -25,11 +25,11 @@ namespace Tests
         }
 
         // These are the actual tests
-		[UnityTest]
-		public IEnumerator ChangeVolumeTest()
-		{
+        [UnityTest]
+        public IEnumerator ChangeVolumeTest()
+        {
             //Arrange
-			yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.5f);
 
             //Act
             GameObject.Find("Main Menu Test/Home Screen/Buttons/Settings Button").GetComponent<Button>().onClick.Invoke();
@@ -41,11 +41,11 @@ namespace Tests
         }
 
         // These are the actual tests
-		[UnityTest]
-		public IEnumerator ChangeFullscreenTest()
-		{
+        [UnityTest]
+        public IEnumerator ChangeFullscreenTest()
+        {
             //Arrange
-			yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.5f);
 
             //Act
             GameObject.Find("Main Menu Test/Home Screen/Buttons/Settings Button").GetComponent<Button>().onClick.Invoke();

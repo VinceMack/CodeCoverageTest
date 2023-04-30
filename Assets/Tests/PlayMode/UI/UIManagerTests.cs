@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
-namespace Tests 
+namespace Tests
 {
-	public class UIManagerTests
-	{
-		[UnitySetUp]
+    public class UIManagerTests
+    {
+        [UnitySetUp]
         public IEnumerator SetUp()
         {
             SceneManager.LoadScene("QuestTestScene", LoadSceneMode.Single);
@@ -25,12 +25,12 @@ namespace Tests
         }
 
         // These are the actual tests
-		[UnityTest]
-		public IEnumerator TestModeChanging()
-		{
+        [UnityTest]
+        public IEnumerator TestModeChanging()
+        {
             //Arrange
             yield return new WaitForSeconds(0.5f);
-            
+
             //Act
             UIManager.ToggleMode(1);
             UIManager.ToggleMode(2);

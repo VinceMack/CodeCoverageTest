@@ -45,7 +45,7 @@ public class QuestManager : MonoBehaviour
 
     public void CancelAllQuests()
     {
-        foreach(Quest quest in activeQuests)
+        foreach (Quest quest in activeQuests)
         {
             RemoveActiveQuest(quest);
         }

@@ -47,7 +47,7 @@ namespace Tests
 
             testAnimatorController.SetAnimParameter("dead", true);
             bool isDead = testAnimatorController.GetAnimBool("dead");
-            
+
             // ASSERT
             Assert.AreEqual(1f, xMovementPositive);
             Assert.AreEqual(-1f, xMovementNegative);

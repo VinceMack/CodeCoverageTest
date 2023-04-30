@@ -34,7 +34,7 @@ namespace Tests
             GameObject grid = GameObject.Find("Grid");
             GameObject pawns = GameObject.Find("Pawns");
             GameObject clock = GameObject.Find("GameClock");
-            
+
             Assert.IsNotNull(gm);
             Assert.IsNotNull(grid);
             Assert.IsNotNull(pawns);
@@ -49,7 +49,7 @@ namespace Tests
             Assert.IsNotNull(gridComp);
 
             Assert.AreEqual(LaborOrderManager.GetPawnCount(), GameManager.NUM_OF_PAWNS_TO_SPAWN);
-            
+
             Assert.AreEqual(LaborOrderManager.GetNumOfLaborOrders(), 0);
         }
 
@@ -63,7 +63,7 @@ namespace Tests
             Assert.AreEqual(LaborOrderManager.GetLaborTypesCount(), 9);
             yield return null;
         }
-    
+
         // Function 3: Clear Labor Orders
         [UnityTest]
         public IEnumerator TestClearLaborOrders()
@@ -94,7 +94,7 @@ namespace Tests
             GameObject item = new GameObject();
             item.AddComponent<Item>();
             Item itemComp = item.GetComponent<Item>();
-            LaborOrderManager.AddPlaceLaborOrder(itemComp, new Vector2(0,0));
+            LaborOrderManager.AddPlaceLaborOrder(itemComp, new Vector2(0, 0));
             LaborOrder_Base vecPlace = LaborOrderManager.laborQueues[(int)LaborType.Place].Dequeue();
             Assert.AreEqual(vecPlace.laborType, LaborType.Place);
             yield return null;
@@ -129,7 +129,7 @@ namespace Tests
             GameObject item = new GameObject();
             item.AddComponent<Item>();
             Item itemComp = item.GetComponent<Item>();
-            LaborOrderManager.AddCraftLaborOrder(itemComp, new Vector2(0,0));
+            LaborOrderManager.AddCraftLaborOrder(itemComp, new Vector2(0, 0));
             LaborOrder_Base vecCraft = LaborOrderManager.laborQueues[(int)LaborType.Craft].Dequeue();
             Assert.AreEqual(vecCraft.laborType, LaborType.Craft);
             LaborOrderManager.ClearLaborOrders();
@@ -300,7 +300,7 @@ namespace Tests
         [UnityTest]
         public IEnumerator TestPopulateObjectLaborOrderTileAllTypes()
         {
-           LaborOrderManager.ClearLaborOrders();
+            LaborOrderManager.ClearLaborOrders();
             LaborOrderManager.PopulateObjectLaborOrderTile(null);
             LaborOrderManager.PopulateObjectLaborOrderTile(new BaseTile());
             Assert.AreEqual(LaborOrderManager.GetLaborOrderCount(), 0);

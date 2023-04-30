@@ -86,7 +86,7 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
 
             Assert.AreEqual(baseTile.GetXPosition(), (int)position.x);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator BaseTile_GetYPosition_Pass()
@@ -94,7 +94,7 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
 
             Assert.AreEqual(baseTile.GetYPosition(), (int)position.y);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator BaseTile_isAdjacent_True_Pass()
@@ -114,7 +114,7 @@ namespace Tests
                 0);
 
             Assert.IsTrue(baseTile.isAdjacent(adjacentTile));
-	    }
+        }
 
         [UnityTest]
         public IEnumerator BaseTile_isAdjacent_False_Pass()
@@ -134,7 +134,7 @@ namespace Tests
                 0);
 
             Assert.IsFalse(baseTile.isAdjacent(nonAdjacentTile));
-	    }
+        }
 
         [UnityTest]
         public IEnumerator BaseTile_SetTileData_type_Pass()
@@ -142,7 +142,7 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
 
             Assert.AreEqual(baseTile.type, tileType);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator BaseTile_SetTileData_isCollision_Pass()
@@ -150,7 +150,7 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
 
             Assert.AreEqual(baseTile.isCollision, collision);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator BaseTile_SetTileData_resource_Pass()
@@ -171,7 +171,7 @@ namespace Tests
                 level);
 
             Assert.AreEqual(baseTile.resource, item);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator BaseTile_SetTileData_resourceCount_Pass()
@@ -179,7 +179,7 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
 
             Assert.AreEqual(baseTile.resourceCount, resourceCount);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator BaseTile_SetTileData_position_Pass()
@@ -187,7 +187,7 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
 
             Assert.AreEqual(baseTile.position, position);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator BaseTile_SetTileData_distance_Pass()
@@ -195,7 +195,7 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
 
             Assert.AreEqual(baseTile.distance, distance);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator BaseTile_SetTileData_visited_Pass()
@@ -203,7 +203,7 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
 
             Assert.AreEqual(baseTile.visited, visited);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator BaseTile_SetTileData_parent_Pass()
@@ -211,7 +211,7 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
 
             Assert.AreEqual(baseTile.parent, parent);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator BaseTile_SetTileData_level_Pass()
@@ -219,7 +219,7 @@ namespace Tests
             yield return new WaitForSeconds(0.5f);
 
             Assert.AreEqual(baseTile.level, level);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator BaseTile_SetTileInformation_type_Pass()
@@ -235,7 +235,7 @@ namespace Tests
                 position);
 
             Assert.AreEqual(baseTile.type, newTileType);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator BaseTile_SetTileInformation_isCollision_Pass()
@@ -251,7 +251,7 @@ namespace Tests
                 position);
 
             Assert.AreEqual(baseTile.isCollision, newCollision);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator BaseTile_SetTileInformation_resource_Pass()
@@ -269,7 +269,7 @@ namespace Tests
                 position);
 
             Assert.AreEqual(baseTile.resource, newItem);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator BaseTile_SetTileInformation_resourceCount_Pass()
@@ -285,7 +285,7 @@ namespace Tests
                 position);
 
             Assert.AreEqual(baseTile.resourceCount, newResourceCount);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator BaseTile_SetTileInformation_position_Pass()
@@ -301,7 +301,7 @@ namespace Tests
                 newPosition);
 
             Assert.AreEqual(baseTile.position, newPosition);
-	    }
+        }
 
         [UnityTest]
         public IEnumerator BaseTile_ToString_ResourceIsNull_Pass()
