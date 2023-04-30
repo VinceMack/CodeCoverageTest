@@ -10,7 +10,6 @@ namespace Tests
 {
     public class LaborOrder_EatTests : MonoBehaviour
     {
-        // This LoadScene will be universal for all playmode tests
         [UnitySetUp]
         public IEnumerator SetUp()
         {
@@ -25,7 +24,6 @@ namespace Tests
             yield return new ExitPlayMode();
         }
 
-        // Function 1: Test if scene for GameManager is setup correctly
         [UnityTest]
         public IEnumerator ExecuteTest()
         {
