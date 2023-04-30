@@ -11,12 +11,20 @@ namespace Tests
     {
 
         // This LoadScene will be universal for all playmode tests
-        [SetUp]
-        public void LoadScene()
+        [UnitySetUp]
+        public IEnumerator SetUp()
         {
             // Will load scene by this name,
             // NOTE: Scene needs to be added to the Build Settings
-            SceneManager.LoadScene("ChestPlacementTesting");
+            SceneManager.LoadScene("ChestPlacementTesting", LoadSceneMode.Single);
+            yield return null;
+            yield return new EnterPlayMode();
+        }
+
+        [UnityTearDown]
+        public IEnumerator TearDown()
+        {
+            yield return new ExitPlayMode();
         }
 
         // These are the actual tests
